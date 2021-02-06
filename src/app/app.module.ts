@@ -5,6 +5,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { environment } from '@environments/environment';
 
@@ -28,6 +29,7 @@ registerLocaleData(localeEs, 'es');
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
     SharedModule,
+    FlexLayoutModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },

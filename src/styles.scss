@@ -1,4 +1,77 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import '~bootstrap/dist/css/bootstrap.css';
+@import 'base/sections';
+@import 'base/tables';
+@import 'base/forms';
+@import 'base/dashboard';
+html,
+body {
+    height: 100%;
+    //background-color: black;
+    //color: white;
+    margin: 10px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    a {
+        color: hotpink;
+        border-bottom: 1px dotted hotpink;
+        text-decoration: none;
+    }
+    a:hover {
+        color: white;
+        border-bottom: 0px;
+        text-decoration: none;
+    }
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+
+/*
+Cards
+*/
+
+mat-card-content.item-view {
+    div {
+        margin-bottom: 30px;
+        img {
+            width: 64px;
+            height: 64px;
+            float: left;
+            margin-right: 10px;
+        }
+    }
+}
+
+
+/*
+Event item detail
+*/
+
+div.event-item-detail {
+    width: 100%;
+    img {
+        width: 140px;
+        float: left;
+        margin-right: 20px;
+    }
+}
+
+div.mat-chip-list-wrapper {
+    margin-top: 20px;
+}
+
+.mat-slide-toggle {
+    margin: 20px;
+    font-size: large;
+}
+
+.preview {
+    border: 1px solid darkgray;
+    background-color: lightgray;
+    padding: 20px;
+    margin: 20px;
+}
