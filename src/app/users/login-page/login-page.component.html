@@ -1,0 +1,22 @@
+<app-section-header [title]="'Acceder'"></app-section-header>
+
+<div *ngIf="!(afAuth.authState | async)" class="section-wrapper">
+
+    <button mat-raised-button appGoogleSignin>
+      <img src="/assets/google-logo.svg" /> Acceso con Google
+    </button>
+
+    <h5>O</h5>
+
+    <app-email-login></app-email-login>
+
+</div>
+
+
+<div *ngIf="afAuth.authState | async as user" class="logout">
+    <p>
+        Has accedido como <strong>{{ user.email }}</strong>
+    </p>
+
+    <button mat-stroked-button (click)="afAuth.signOut()">Salir</button>
+</div>

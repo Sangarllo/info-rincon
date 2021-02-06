@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  baseUrl: 'https://info-rincon.web.app/',
   firebase: {
     apiKey: "AIzaSyChFHMB9Kj4sEBdPKLRWu-JFVMg7gketuM",
     authDomain: "info-rincon.firebaseapp.com",

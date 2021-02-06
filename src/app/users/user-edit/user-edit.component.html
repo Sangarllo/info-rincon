@@ -1,0 +1,93 @@
+<app-section-header [title]="pageTitle"></app-section-header>
+
+<div class="section-wrapper">
+
+    <mat-card class="item-edit" *ngIf="user; else noUserTemplate">
+
+        <form [formGroup]="userForm" (ngSubmit)="onSaveForm()">
+
+            <div class="row">
+
+                <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+
+                    <img [src]="userForm.get('photoURL').value" class="img-thumbnail" (click)="inputImageProfile.click()">
+
+                    <input hidden type="file" #inputImageProfile (change)="uploadImage($event)">
+
+                    <hr>
+
+                    <span (click)="inputImageProfile.click()" class="small">Clica en la imagen para cambiar la foto</span>
+
+                    <mat-form-field class="data-detail">
+                        <mat-label>Avatar</mat-label>
+                        <mat-select formControlName="photoURL" [value]="userForm.get('photoURL').value">
+                            <mat-option *ngFor="let avatar of AVATARES" [value]="avatar.path">
+                                {{avatar.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="col-lg-9 col-md-8 col-12">
+
+                    <mat-card-content>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Uid</mat-label>
+                            <input matInput type="text" formControlName="uid" placeholder="identificador">
+                        </mat-form-field>
+
+                        <mat-slide-toggle class="mb-3 ml-2" formControlName="active">Usuario activo </mat-slide-toggle>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nombre del usuario</mat-label>
+                            <input matInput type="text" formControlName="displayName" placeholder="Nombre">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email del usuario</mat-label>
+                            <input matInput type="text" formControlName="email" placeholder="Email">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rol del usuario</mat-label>
+
+                            <mat-select formControlName="role" [value]="userForm.get('role').value">
+                                <mat-option *ngFor="let rol of ROLES" [value]="rol">
+                                    {{rol}}
+                                </mat-option>
+                            </mat-select>
+
+                            <mat-hint>Roles posibles LECTOR...</mat-hint>
+
+                        </mat-form-field>
+
+                    </mat-card-content>
+
+                    <mat-card-actions>
+
+                        <button mat-raised-button [title]="userForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!userForm.valid" type="submit" color="warn">Guardar</button>
+
+                        <button mat-raised-button type="button" (click)="gotoList()" color="warn">Volver al listado</button>
+
+                        <button mat-raised-button type="button" (click)="gotoAdminEntities()" color="warn">Administrar Entidades</button>
+
+                    </mat-card-actions>
+
+                </div>
+            </div>
+
+        </form>
+
+    </mat-card>
+
+    <div *ngIf="errorMessage" class="alert-danger">
+        {{ errorMessage }}
+    </div>
+
+</div>
+
+<ng-template #noUserTemplate>
+    No existe tal usuario
+</ng-template>
