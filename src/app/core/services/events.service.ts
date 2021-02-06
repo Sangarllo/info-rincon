@@ -3,9 +3,9 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 
 import { Observable, combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CalendarEvent } from 'angular-calendar';
-import { formatDistance } from 'date-fns';
-import { es } from 'date-fns/locale';
+// import { CalendarEvent } from 'angular-calendar';
+// import { formatDistance } from 'date-fns';
+// import { es } from 'date-fns/locale';
 
 import { colors } from '@shared/utils/colors';
 import { BaseType, IBase } from '@models/base';
@@ -63,42 +63,42 @@ export class EventService {
     return this.eventCollection.valueChanges();
   }
 
-  getAllEventsWithAppointments(): Observable<IEvent[]> {
-    const events$ = this.getAllEvents(false, false, null);
-    const appointments$ = this.appointmentSrv.getAllAppointments();
+  // getAllEventsWithAppointments(): Observable<IEvent[]> {
+  //   const events$ = this.getAllEvents(false, false, null);
+  //   const appointments$ = this.appointmentSrv.getAllAppointments();
 
-    return combineLatest([
-      events$,
-      appointments$
-    ])
-      .pipe(
-        map(([events, appointments]) => events.map(event => ({
-          ...event,
-          timestamp: formatDistance(new Date(event.timestamp), new Date(), {locale: es}),
-          dateIni: appointments.find( a => a.id === event.id )?.dateIni,
-        }) as IEvent)),
-    );
-  }
+  //   return combineLatest([
+  //     events$,
+  //     appointments$
+  //   ])
+  //     .pipe(
+  //       map(([events, appointments]) => events.map(event => ({
+  //         ...event,
+  //         timestamp: formatDistance(new Date(event.timestamp), new Date(), {locale: es}),
+  //         dateIni: appointments.find( a => a.id === event.id )?.dateIni,
+  //       }) as IEvent)),
+  //   );
+  // }
 
-  getAllCalendarEventsAppointments(): Observable<CalendarEvent[]> {
-    const events$ = this.getAllEvents(false, false, null);
-    const appointments$ = this.appointmentSrv.getAllAppointments();
+  // getAllCalendarEventsAppointments(): Observable<CalendarEvent[]> {
+  //   const events$ = this.getAllEvents(false, false, null);
+  //   const appointments$ = this.appointmentSrv.getAllAppointments();
 
-    return combineLatest([
-      events$,
-      appointments$
-    ])
-      .pipe(
-        map(([events, appointments]) => events.map(event => ({
-          id: event.id,
-          title: event.name,
-          color: colors.indigo,
-          allDay: appointments.find(a => a.id === event.id)?.allDay,
-          start: new Date(appointments.find(a => a.id === event.id)?.dateIni)
-        }) as CalendarEvent)),
-        // tap(data => console.log('event:  ', JSON.stringify(data))),
-    );
-  }
+  //   return combineLatest([
+  //     events$,
+  //     appointments$
+  //   ])
+  //     .pipe(
+  //       map(([events, appointments]) => events.map(event => ({
+  //         id: event.id,
+  //         title: event.name,
+  //         color: colors.indigo,
+  //         allDay: appointments.find(a => a.id === event.id)?.allDay,
+  //         start: new Date(appointments.find(a => a.id === event.id)?.dateIni)
+  //       }) as CalendarEvent)),
+  //       // tap(data => console.log('event:  ', JSON.stringify(data))),
+  //   );
+  // }
 
   getAllEventsBase(): Observable<IBase[]> {
     this.eventCollection = this.afs.collection<IEvent>(
@@ -228,25 +228,25 @@ export class EventService {
     this.eventDoc.update(event);
   }
 
-  public getEventCalendar(): Observable<CalendarEvent[]> {
+//   public getEventCalendar(): Observable<CalendarEvent[]> {
 
-    const EVENTS: CalendarEvent[] = [
-      {
-        title: 'Título 1',
-        start: new Date(),
-        color: colors.indigo,
-        allDay: false,
-        meta: ''
-      },
-      {
-        title: 'Título 2',
-        start: new Date(),
-        color: colors.yellow,
-        allDay: false,
-        meta: ''
-      },
-    ];
+//     const EVENTS: CalendarEvent[] = [
+//       {
+//         title: 'Título 1',
+//         start: new Date(),
+//         color: colors.indigo,
+//         allDay: false,
+//         meta: ''
+//       },
+//       {
+//         title: 'Título 2',
+//         start: new Date(),
+//         color: colors.yellow,
+//         allDay: false,
+//         meta: ''
+//       },
+//     ];
 
-    return of(EVENTS);
-  }
+//     return of(EVENTS);
+//   }
 }

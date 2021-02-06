@@ -1,0 +1,32 @@
+<div class="options-wrapper">
+
+    <mat-card class="option-item" (click)="gotoProfile()" routerLink="profile">
+        <mat-card-title>Tu cuenta personal</mat-card-title>
+        <div class="option-image">
+            <img alt="'Tu cuenta personal'" [src]="'https://picsum.photos/200?random=1'" class="img-thumbnail" />
+        </div>
+    </mat-card>
+
+    <mat-card class="option-item" *ngIf="role >= 'ADMIN'" (click)="gotoNewEventFromScratch()">
+        <mat-card-title>Evento desde cero</mat-card-title>
+        <div class="option-image">
+            <img alt="'Crear evento'" [src]="'https://picsum.photos/200?random=2'" class="img-thumbnail" />
+        </div>
+    </mat-card>
+
+    <mat-card class="option-item" *ngIf="role >= 'ADMIN'" (click)="openEntityDialog()">
+        <mat-card-title>Evento de entidad</mat-card-title>
+        <div class="option-image">
+            <img alt="'Crear evento'" [src]="'https://picsum.photos/200?random=3'" class="img-thumbnail" />
+        </div>
+    </mat-card>
+
+
+    <mat-card class="option-item" *ngIf="role >= 'ADMIN'" (click)="onNotImplementedClick()">
+        <mat-card-title>Tus accesos</mat-card-title>
+        <div class="option-image">
+            <img alt="'Tu cuenta personal'" [src]="'https://picsum.photos/200?random=4'" class="img-thumbnail" />
+        </div>
+    </mat-card>
+
+</div>

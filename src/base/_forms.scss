@@ -1,0 +1,75 @@
+/*
+Formularios
+*/
+
+mat-card.item-view {
+    .mat-standard-chip {
+        margin: 10px;
+    }
+}
+
+mat-card.item-edit {
+    mat-form-field {
+        width: 100%;
+    }
+    mat-slide-toggle {
+        height: 25px;
+        font-size: large;
+        color: rgba(0, 0, 0, .87);
+    }
+    .mat-standard-chip {
+        margin: 10px;
+    }
+    form {
+        background-color: white;
+        color: black;
+        fieldset {
+            padding: 20px;
+            margin-bottom: 30px;
+            color: black;
+            &.form-info-fields {
+                border: 1px solid #0C0033;
+                background-color: floralwhite;
+            }
+            &.form-status-fields {
+                &.EDITING {
+                    border: 1px solid #856404;
+                    background-color: #fff3cd;
+                }
+                &.VISIBLE {
+                    border: 1px solid darkgreen;
+                    background-color: lightgreen;
+                }
+                &.DELETED,
+                &.BLOCKED {
+                    border: 1px solid darkred;
+                    background-color: lightcoral;
+                }
+            }
+            legend {
+                float: left;
+                font-size: smaller;
+                text-align: right;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.mat-dialog-title {
+    text-align: center;
+}
+
+mat-dialog-container {
+    mat-form-field {
+        width: 100%;
+    }
+    img {
+        width: 200px;
+        margin-left: 120px;
+        margin-bottom: 20px;
+        border: 1px dotted lightgray;
+        padding: 4px;
+    }
+}
