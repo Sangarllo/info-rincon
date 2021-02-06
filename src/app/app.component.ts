@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +6,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Info Rincón App';
-  items: Observable<any[]>;
-  constructor(firestore: AngularFirestore) {
-    this.items = firestore.collection('items').valueChanges();
+  constructor() {
   }
 }
