@@ -27,10 +27,11 @@
     "@angular/router": "~11.1.2",
     "@nguniversal/express-engine": "^11.1.2",
     "express": "^4.15.2",
+    "firebase": "^7.0 || ^8.0",
+    "globalthis": "^1.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.3",
-    "firebase": "^7.0 || ^8.0"
+    "zone.js": "~0.11.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1101.4",
