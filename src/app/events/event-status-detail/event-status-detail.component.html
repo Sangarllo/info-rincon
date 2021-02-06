@@ -1,0 +1,24 @@
+<div style="font-size: large;" class="event-item-detail" *ngIf="event.status">
+
+    <div [ngSwitch]="event.status">
+        <span *ngSwitchCase="'EDITING'">Este evento está <b>en modo edición</b>, y no puede ser visto por nadie hasta cambiar a modo visible. Tú lo estás viendo por tener un rol en la aplicación que te permite su visualización.</span>
+
+        <span *ngSwitchCase="'BLOCKED'">Este evento está <b>en modo bloqueo</b>, y no puede ser visto por nadie hasta cambiar a modo visible. Tú lo estás viendo por tener un rol en la aplicación que te permite su visualización.</span>
+
+        <span *ngSwitchCase="'DELETED'">Este evento está <b>en modo borrado</b>, y no puede ser visto por nadie hasta cambiar a modo visible. Tú lo estás viendo por tener un rol en la aplicación que te permite su visualización.</span>
+
+        <span *ngSwitchCase="'VISIBLE'">Este evento está <b>en modo visible</b>, por lo que puede ser visto por cualquiera.</span>
+    </div>
+
+    <div>El evento <b *ngIf="event.active; else ngTemplateNoActive">está activo</b>, y <b *ngIf="event.focused; else ngTemplateNoFocused">sería mostrado</b> en portada.</div>
+
+</div>
+
+
+<ng-template #ngTemplateNoActive>
+    <b>no está activo</b>
+</ng-template>
+
+<ng-template #ngTemplateNoFocused>
+    <b>no sería mostrado</b>
+</ng-template>

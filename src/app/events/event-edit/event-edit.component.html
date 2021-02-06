@@ -1,0 +1,103 @@
+<app-section-header [title]="pageTitle"></app-section-header>
+
+<div class="section-wrapper">
+    <mat-card class="item-edit" *ngIf="event; else noEventTemplate">
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+                <img [src]="eventForm.get('image').value" class="img-thumbnail" (click)="inputImageProfile.click()">
+                <input hidden type="file" #inputImageProfile (change)="uploadImage($event)">
+                <hr>
+                <span (click)="inputImageProfile.click()" class="small">Clica en la imagen para cambiar la foto</span>
+            </div>
+
+            <div class="col-lg-9 col-md-8 col-12">
+
+                <form [formGroup]="eventForm" (ngSubmit)="onSaveForm()">
+
+                    <mat-card-content>
+
+                        <fieldset class="form-status-fields" [ngClass]="eventForm.controls.status.value">
+                            <legend>Estado del Evento</legend>
+
+                            <!--
+                            <mat-form-field appearance="outline">
+                                <mat-label>Id</mat-label>
+                                <input matInput type="text" formControlName="id" placeholder="Id">
+                            </mat-form-field>
+                            -->
+
+                            <div class="row">
+
+                                <mat-form-field class="col-4" appearance="outline">
+                                    <mat-label>Estado</mat-label>
+
+                                    <mat-select formControlName="status" [value]="eventForm.get('status')">
+                                        <mat-option *ngFor="let status of STATUS" [value]="status">
+                                            {{status}}
+                                        </mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+
+                                <mat-slide-toggle class="col-3 mb-3 ml-2" formControlName="active">Evento activo</mat-slide-toggle>
+
+                                <mat-slide-toggle class="col-3 mb-3 ml-2" formControlName="focused">Evento de portada</mat-slide-toggle>
+                            </div>
+
+                        </fieldset>
+
+
+                        <fieldset class="form-info-fields">
+                            <legend>Información del evento</legend>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nombre del evento</mat-label>
+                                <input matInput type="text" formControlName="name" placeholder="Nombre">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Categorías</mat-label>
+                                <mat-select formControlName="categories" multiple>
+                                    <mat-option *ngFor="let category of CATEGORIES" [value]="category">{{category}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Descripción</mat-label>
+                                <textarea matInput formControlName="description" placeholder="Descripción"></textarea>
+                            </mat-form-field>
+
+                            <div *ngIf="eventForm.controls.description.value">
+                                <span class="title">Así se visualizaría la Descripción:</span>
+                                <div class="preview" [innerHTML]="eventForm.controls.description.value"></div>
+                            </div>
+
+                        </fieldset>
+
+                    </mat-card-content>
+
+                    <mat-card-actions>
+
+                        <button mat-raised-button [title]="eventForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!eventForm.valid" type="submit" color="warn">Guardar</button>
+
+                        <button mat-raised-button type="button" (click)="gotoList()" color="warn">Volver al listado</button>
+
+                    </mat-card-actions>
+
+                </form>
+
+            </div>
+        </div>
+
+    </mat-card>
+</div>
+
+<div *ngIf="errorMessage" class="alert-danger">
+    {{ errorMessage }}
+</div>
+
+<ng-template #noEventTemplate>
+    No existe tal evento
+</ng-template>

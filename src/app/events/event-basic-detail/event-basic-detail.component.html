@@ -1,0 +1,9 @@
+<div class="title">{{ event.name }}</div>
+
+<div class="description" [innerHTML]="event.description" *ngIf="event.description"></div>
+
+<div *ngIf="event.categories?.length > 0">
+    <mat-chip-list aria-label="Categories">
+        <mat-chip *ngFor="let category of event.categories">{{ category }}</mat-chip>
+    </mat-chip-list>
+</div>

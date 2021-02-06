@@ -38,6 +38,14 @@ const routes: Routes = [
     path: 'noticias',
     loadChildren: () => import('./news/news.module').then(m => m.NewsModule)
   },
+  {
+    path: 'eventos',
+    loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
+  },
+  {
+    path: 'calendario',
+    loadChildren: () => import('./calendar/calendar.module').then(m => m.CalendarEventsModule)
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, {

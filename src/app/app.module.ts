@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -10,6 +11,10 @@ import { environment } from '@environments/environment';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { SharedModule } from '@app/shared/shared.module';
+
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [
@@ -24,7 +29,9 @@ import { SharedModule } from '@app/shared/shared.module';
     BrowserAnimationsModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es' },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,28 @@
+div.main-image {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 10px;
+    img.main-image {
+        width: 400px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+}
+
+div.images-container {
+    border: 1px dotted lightgray;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    img {
+        margin: 10px;
+        border: 1px solid darkgray;
+        width: 100px;
+        height: 100px; // TODO center, no resize
+    }
+}
+
+img.selected-image {
+    border: 3px solid crimson !important;
+}

@@ -1,0 +1,29 @@
+<app-section-header *ngIf="showHeader" [title]="'La Agenda Rinconera'"></app-section-header>
+
+<div [ngClass]="{'section-wrapper' : showHeader}">
+
+    <app-calendar-header *ngIf="showHeader; else ngSimpleHeaderTemplate" [(view)]="view" [(viewDate)]="viewDate" (viewDateChange)="fetchEvents()" (viewChange)="fetchEvents()" [locale]="locale">
+    </app-calendar-header>
+
+    <ng-template #ngSimpleHeaderTemplate>
+        <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
+    </ng-template>
+
+    <div *ngIf="events$ | async; else loading; let events">
+        <div [ngSwitch]="view">
+            <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" (eventClicked)="eventClicked($event.event)">
+            </mwl-calendar-month-view>
+            <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" (eventClicked)="eventClicked($event.event)">
+            </mwl-calendar-week-view>
+            <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" (eventClicked)="eventClicked($event.event)">
+            </mwl-calendar-day-view>
+        </div>
+    </div>
+
+</div>
+
+<ng-template #loading>
+    <div>
+        Loading events...
+    </div>
+</ng-template>

@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<!-- <pre *ngIf="data">
+  {{ data.image | json }}
+  {{ data.images | json }}
+</pre> -->
+
+<mat-dialog-content class="mat-typography" [formGroup]="imageForm">
+
+    <div class="main-image" *ngIf="imageSelected; else noImageTemplate">
+        <img class="main-image" [src]="imageSelected">
+        <div class="add-image">
+            <button mat-fab type="button" color="accent" (click)="inputMainImage.click()">
+            <mat-icon>add_photo_alternate</mat-icon>
+          </button> &nbsp;&nbsp;
+            <button mat-fab type="button" color="accent" (click)="deleteImage()" [disabled]="imageSelected === IMAGE_BLANK">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+        </div>
+        <input hidden type="file" #inputMainImage (change)="uploadImage($event)">
+    </div>
+
+    <ng-template #noImageTemplate>
+        <div>
+            <img class="main-image" alt="Sin imagen definida" [src]="IMAGE_BLANK">
+        </div>
+    </ng-template>
+
+
+    <div class="images-container">
+        <img alt="Sin imagen" (click)="onSelectedImage(IMAGE_BLANK)" [src]="IMAGE_BLANK" [ngClass]="{'selected-image' : (imageSelected == IMAGE_BLANK)}" />
+        <div *ngFor="let image of data.images">
+            <img [alt]="image" [src]="image" (click)="onSelectedImage(image)" [ngClass]="{'selected-image' : (imageSelected == image)}" />
+        </div>
+    </div>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="save()" cdkFocusInitial>
+      <mat-icon>check_circle_outline</mat-icon> Guardar
+    </button>
+    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+</div>

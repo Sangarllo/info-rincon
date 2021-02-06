@@ -1,0 +1,85 @@
+<div class="section-wrapper">
+
+    <mat-card class="item-view" *ngIf="event; else noEventTemplate">
+
+        <div *ngIf="event.status === 'VISIBLE'; else noVisibleTemplate" class="row">
+            <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+                <app-event-image-detail [event]="event"></app-event-image-detail>
+            </div>
+
+            <div class="col-lg-9 col-md-8 col-12">
+
+                <mat-card-content class="item-view">
+
+                    <fieldset>
+
+                        <legend>¿Qué?</legend>
+
+                        <app-event-basic-detail [event]="event"></app-event-basic-detail>
+
+                    </fieldset>
+
+                    <fieldset>
+
+                        <legend>¿Cuándo?</legend>
+
+                        <app-event-appointment-detail *ngIf="appointment$ | async as appointment" [showImage]="true" [appointment]="appointment"></app-event-appointment-detail>
+
+                    </fieldset>
+
+                    <fieldset *ngIf="event.scheduleItems?.length > 0">
+
+                        <legend>¿Cómo?</legend>
+
+                        <sh-base-items-list [baseItems]="event.scheduleItems"></sh-base-items-list>
+
+                    </fieldset>
+
+                    <fieldset *ngIf="event.placeItems?.length > 0">
+
+                        <legend>¿Dónde?</legend>
+
+                        <sh-base-items-list [baseItems]="event.placeItems"></sh-base-items-list>
+
+                    </fieldset>
+
+                    <fieldset *ngIf="event.entityItems?.length > 0">
+
+                        <legend>¿Quiénes?</legend>
+
+                        <sh-base-items-list [baseItems]="event.entityItems"></sh-base-items-list>
+
+                    </fieldset>
+
+                </mat-card-content>
+
+                <mat-card-actions>
+
+                    <div>
+
+                        <button *ngIf="adminAllowed" mat-fab type="button" (click)="adminItem()" color="accent">
+                        <mat-icon>build_circle</mat-icon>
+                      </button>
+
+                    </div>
+
+                </mat-card-actions>
+
+            </div>
+        </div>
+
+    </mat-card>
+
+</div>
+
+
+<ng-template #noVisibleTemplate>
+    <fieldset *ngIf="adminAllowed" [ngClass]="event.status">
+        <app-event-status-detail [event]="event"></app-event-status-detail>
+    </fieldset>
+</ng-template>
+
+
+<ng-template #noEventTemplate>
+    <app-loading></app-loading>
+</ng-template>

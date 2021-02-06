@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+
+<mat-dialog-content class="mat-typography" [formGroup]="eventForm">
+
+    <mat-form-field appearance="outline">
+        <mat-label>Nombre del evento</mat-label>
+        <input matInput type="text" formControlName="name" placeholder="Nombre">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Categorías</mat-label>
+        <mat-select formControlName="categories" multiple>
+            <mat-option *ngFor="let category of CATEGORIES" [value]="category">{{category}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="description" placeholder="Descripción"></textarea>
+    </mat-form-field>
+
+    <div *ngIf="eventForm.controls.description.value">
+        <span class="title">Así se visualizaría la Descripción:</span>
+        <div class="preview" [innerHTML]="eventForm.controls.description.value"></div>
+    </div>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="save()" cdkFocusInitial>
+      <mat-icon>check_circle_outline</mat-icon> Guardar
+    </button>
+    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+</div>

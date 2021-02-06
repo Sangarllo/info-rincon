@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+
+<mat-dialog-content class="mat-typography" [formGroup]="statusForm">
+
+    <mat-form-field appearance="outline">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="status" [value]="statusForm.get('status')">
+            <mat-option *ngFor="let status of STATUS" [value]="status">
+                {{status}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div>
+        <mat-slide-toggle formControlName="active">Evento activo</mat-slide-toggle>
+    </div>
+
+    <div>
+        <mat-slide-toggle appearance="outline" formControlName="focused">Evento en portada</mat-slide-toggle>
+    </div>
+
+
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="save()" cdkFocusInitial>
+      <mat-icon>check_circle_outline</mat-icon> Guardar
+    </button>
+    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+</div>

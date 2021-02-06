@@ -13,7 +13,7 @@ import { IBase, BaseType } from '@models/base';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 import { EntityService } from '@services/entities.service';
 
-// import { EventNewBaseDialogComponent } from '@app/events/event-new-base-dialog/event-new-base-dialog.component';
+import { EventNewBaseDialogComponent } from '@app/events/event-new-base-dialog/event-new-base-dialog.component';
 import { IEntity } from '@models/entity';
 
 @Component({
@@ -58,23 +58,23 @@ export class RoleOptionsComponent {
     this.router.navigate([`eventos/0/editar`]);
   }
 
-  // openEntityDialog(): void {
-  //   this.dialogConfig.data = BaseType.ENTITY;
-  //   this.dialogConfig.width = '500px';
-  //   this.dialogConfig.height = '600px';
-  //   const dialogRef = this.dialog.open(EventNewBaseDialogComponent, this.dialogConfig);
+  openEntityDialog(): void {
+    this.dialogConfig.data = BaseType.ENTITY;
+    this.dialogConfig.width = '500px';
+    this.dialogConfig.height = '600px';
+    const dialogRef = this.dialog.open(EventNewBaseDialogComponent, this.dialogConfig);
 
-  //   dialogRef.afterClosed().subscribe((newBase: IBase) => {
-  //     if ( newBase ) {
-  //       this.entitiesSrv.getOneEntity(newBase.id)
-  //       .subscribe((entity: IEntity) => {
-  //         const newEvent = Event.InitDefault();
-  //         const eventId = this.eventSrv.addEventFromEntity(newEvent, this.currentUser, entity, newBase.desc);
-  //         this.router.navigate([`eventos/${eventId}/admin`]);
-  //       })
-  //     } else {
-  //       this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
-  //     }
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe((newBase: IBase) => {
+      if ( newBase ) {
+        this.entitiesSrv.getOneEntity(newBase.id)
+        .subscribe((entity: IEntity) => {
+          const newEvent = Event.InitDefault();
+          const eventId = this.eventSrv.addEventFromEntity(newEvent, this.currentUser, entity, newBase.desc);
+          this.router.navigate([`eventos/${eventId}/admin`]);
+        })
+      } else {
+        this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
+      }
+    });
+  }
 }

@@ -1,0 +1,86 @@
+<app-section-header [title]="'Panel de Configuración de Eventos'"></app-section-header>
+
+<div *ngIf="!loading; else loadingTemplate" class="section-wrapper">
+
+    <mat-form-field>
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Id.</th>
+                <td mat-cell *matCellDef="let event">{{ event.id }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Estado</th>
+                <td [class]="event.status" mat-cell *matCellDef="let event">
+                    <div class="inside">{{ event.status }}</div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="timestamp">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Actualización</th>
+                <td mat-cell *matCellDef="let event">hace {{ event.timestamp }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="image">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element">
+                    <img (click)="gotoItem(element)" [src]="element.image" class="img-thumbnail" alt="element.name">
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre del evento</th>
+                <td mat-cell *matCellDef="let event">{{ event.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="categories">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Categorías</th>
+                <td mat-cell *matCellDef="let event">{{ event.description }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="dateIni">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Inicio</th>
+                <td mat-cell *matCellDef="let event">{{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions3">
+                <th mat-header-cell *matHeaderCellDef>Acciones </th>
+                <td mat-cell *matCellDef="let event">
+
+                    <button [disabled]="event.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" color="accent" (click)="gotoItem(event)">
+                      <mat-icon aria-label="View">remove_red_eye</mat-icon>
+                    </button>
+
+                    <button mat-icon-button matTooltip="Click to Admin" class="iconbutton" color="accent" (click)="gotoItemAdmin(event)">
+                      <mat-icon aria-label="View">build_circle</mat-icon>
+                    </button>
+
+                    <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="accent" (click)="deleteItem(event)">
+                  <mat-icon aria-label="Delete">delete</mat-icon>
+                </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+
+    </div>
+
+    <br/>
+    <button mat-raised-button type="button" (click)="addItem()" color="warn">Crear nuevo</button>
+
+</div>
+
+<ng-template #loadingTemplate>
+    <app-loading></app-loading>
+</ng-template>

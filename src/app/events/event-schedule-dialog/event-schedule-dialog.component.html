@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+
+<mat-dialog-content [formGroup]="scheduleItemForm">
+
+    <div class="images-container">
+        <div *ngFor="let image of event.images">
+            <img [alt]="image" [src]="image" (click)="onSelectedImage(image)" [ngClass]="{'selected-image' : (imageSelected == image)}" />
+        </div>
+    </div>
+
+    <div class="base-container">
+
+        <!--
+        <button (click)="addScheduleItem()" mat-fab aria-label="Añadir nuevo acto">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+        -->
+
+        <mat-form-field class="name-field" appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Nombre del acto" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field class="date-field" appearance="outline">
+            <mat-label>Fecha Inicio</mat-label>
+            <input matInput [matDatepicker]="picker1" placeholder="Fecha de Inicio" formControlName="dateIni" (dateChange)="onDateIniChange('change', $event)">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="time-field" appearance="outline">
+            <mat-label>Hora Inicio</mat-label>
+            <input matInput type="time" formControlName="timeIni" placeholder="Hora de Inicio">
+        </mat-form-field>
+
+    </div>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="save()" cdkFocusInitial>
+      <mat-icon>check_circle_outline</mat-icon> Guardar
+    </button>
+    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+</div>
