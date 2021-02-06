@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "info-rincon": {
+      "hosting": {
+        "info-rincon": [
+          "info-rincon"
+        ]
+      }
+    }
+  }
+}
