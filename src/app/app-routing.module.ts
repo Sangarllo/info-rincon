@@ -21,6 +21,23 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'entidades',
+    loadChildren: () => import('./entities/entities.module').then(m => m.EntitiesModule)
+  },
+  {
+    path: 'lugares',
+    loadChildren: () => import('./places/places.module').then(m => m.PlacesModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'avisos',
+    loadChildren: () => import('./notices/notices.module').then(m => m.NoticesModule)
+  },
+  {
+    path: 'noticias',
+    loadChildren: () => import('./news/news.module').then(m => m.NewsModule)
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, {

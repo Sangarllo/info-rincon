@@ -4,8 +4,8 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable, combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 // import { CalendarEvent } from 'angular-calendar';
-// import { formatDistance } from 'date-fns';
-// import { es } from 'date-fns/locale';
+import { formatDistance } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 import { colors } from '@shared/utils/colors';
 import { BaseType, IBase } from '@models/base';

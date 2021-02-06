@@ -1,0 +1,55 @@
+<div class="section-wrapper">
+
+    <mat-card class="item-view" *ngIf="place$ | async as place; else noPlaceTemplate">
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+                <img [src]="place.image" class="img-thumbnail">
+            </div>
+
+            <div class="col-lg-9 col-md-8 col-12">
+
+                <mat-card-content class="item-view">
+
+                    <div>
+                        <mat-chip-list aria-label="Place mode">
+                            <mat-chip color="primary" selected>{{ place.active ? 'activo' : 'no activo '}}</mat-chip>
+                        </mat-chip-list>
+                    </div>
+
+                    <div>
+                        <span>Nombre:</span>
+                        <h2>{{ place.name }}</h2>
+                    </div>
+
+                    <div>
+                        <span>Tipo:</span>
+                        <mat-chip-list aria-label="Tipo">
+                            <mat-chip *ngFor="let type of place.type">{{ type }}</mat-chip>
+                        </mat-chip-list>
+                    </div>
+
+                    <div>
+                        <span>Localidad</span>
+                        <h2>{{ place.locality }}</h2>
+                    </div>
+
+                </mat-card-content>
+
+                <mat-card-actions>
+
+                    <button mat-raised-button type="button" (click)="gotoList()" color="warn">Volver al listado</button> &nbsp;
+                    <button mat-raised-button type="button" (click)="editItem()" color="warn">Editar</button>
+
+                </mat-card-actions>
+
+            </div>
+        </div>
+
+    </mat-card>
+
+</div>
+
+<ng-template #noPlaceTemplate>
+    No existe tal lugar
+</ng-template>

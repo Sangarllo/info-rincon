@@ -1,0 +1,87 @@
+<app-section-header [title]="'Panel de Configuración de Entidades'"></app-section-header>
+
+<div *ngIf="!loading; else loadingTemplate" class="section-wrapper">
+
+    <mat-form-field>
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="roleDefault">
+                <th mat-header-cell *matHeaderCellDef>Rol</th>
+                <td mat-cell *matCellDef="let entity">
+                    <div class="inside">{{ entity.roleDefault }}</div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Id.</th>
+                <td mat-cell *matCellDef="let entity">{{ entity.id }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="image">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element">
+                    <img (click)="gotoEntity(element)" [src]="element.image" class="img-thumbnail" alt="element.name">
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre de la entidad</th>
+                <td mat-cell *matCellDef="let entity">{{ entity.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="categories">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Categorías</th>
+                <td mat-cell *matCellDef="let entity">{{ entity.description }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="placeImage">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <img *ngIf="element?.place?.image" [src]="element?.place?.image" class="img-thumbnail" alt="element?.place?.image">
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="placeName">
+                <th mat-header-cell *matHeaderCellDef>Lugar por defecto</th>
+                <td mat-cell *matCellDef="let entity">{{ entity?.place?.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions3">
+                <th mat-header-cell *matHeaderCellDef>Acciones </th>
+                <td mat-cell *matCellDef="let entity">
+                    <button mat-icon-button matTooltip="Click to View" class="iconbutton" color="accent" (click)="gotoEntity(entity)">
+                  <mat-icon aria-label="View">remove_red_eye</mat-icon>
+                </button>
+
+                    <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="accent" (click)="editEntity(entity)">
+                  <mat-icon aria-label="Edit">build_circle</mat-icon>
+                </button>
+
+                    <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="accent" (click)="deleteEntity(entity)">
+                  <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+
+    </div>
+
+    <br/>
+    <button mat-raised-button type="button" (click)="addItem()" color="warn">Crear nueva</button>
+
+</div>
+
+<ng-template #loadingTemplate>
+    <app-loading></app-loading>
+</ng-template>

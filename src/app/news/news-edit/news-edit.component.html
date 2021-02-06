@@ -1,0 +1,116 @@
+<app-section-header [title]="pageTitle"></app-section-header>
+
+<div class="section-wrapper">
+
+    <mat-card class="item-edit" *ngIf="newsItem; else noNewsTemplate">
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+                <img *ngIf="sourceSelected" [src]="sourceSelected.image" class="img-thumbnail" />
+            </div>
+
+            <div class="col-lg-9 col-md-8 col-12">
+
+                <form [formGroup]="newsItemForm" (ngSubmit)="onSaveForm()">
+
+                    <mat-card-content>
+
+                        <fieldset class="form-status-fields" [ngClass]="newsItemForm.controls.status.value">
+                            <legend>Estado de la noticia</legend>
+
+                            <!--
+                            <mat-form-field appearance="outline">
+                                <mat-label>Id</mat-label>
+                                <input matInput type="text" formControlName="id" placeholder="Id">
+                            </mat-form-field>
+                            -->
+
+                            <div class="row">
+
+                                <mat-form-field class="col-12 col-md-12 col-lg-4" appearance="outline">
+                                    <mat-label>Estado</mat-label>
+
+                                    <mat-select formControlName="status" [value]="newsItemForm.get('status')">
+                                        <mat-option *ngFor="let status of STATUS" [value]="status">
+                                            {{status}}
+                                        </mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+
+                                <mat-slide-toggle class="col-12 col-md-6 col-lg-3 mb-3 ml-2" formControlName="active">Aviso activo</mat-slide-toggle>
+
+                                <mat-slide-toggle class="col-12 col-md-6 col-lg-3 mb-3 ml-2" formControlName="focused">Mostrar en portada</mat-slide-toggle>
+                            </div>
+
+                        </fieldset>
+
+
+                        <fieldset class="form-info-fields">
+                            <legend>Información de la noticia</legend>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>URL original</mat-label>
+                                <input matInput type="text" formControlName="sourceUrl" placeholder="URL de la Noticia">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Títular de la noticia</mat-label>
+                                <input matInput type="text" formControlName="name" placeholder="Título">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Descripción</mat-label>
+                                <textarea matInput formControlName="description" placeholder="Descripción"></textarea>
+                            </mat-form-field>
+
+                            <div *ngIf="newsItemForm.controls.description.value">
+                                <span class="title">Así se visualizaría la Descripción:</span>
+                                <div class="preview" [innerHTML]="newsItemForm.controls.description.value"></div>
+                            </div>
+
+                            <mat-form-field class="col-12 col-lg-6" appearance="outline">
+                                <mat-label>Fuente</mat-label>
+                                <mat-select placeholder="Fuente" formControlName="source" [compareWith]="compareFunction" (selectionChange)="onSelectionChanged($event)">
+                                    <mat-option *ngFor="let sourceItem of SOURCES" [value]="sourceItem">
+                                        {{sourceItem.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field class="col-12 col-lg-6" appearance="outline">
+                                <mat-label>Categorías</mat-label>
+                                <mat-select formControlName="categories" multiple>
+                                    <mat-option *ngFor="let category of CATEGORIES" [value]="category">{{category}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                        </fieldset>
+
+                    </mat-card-content>
+
+                    <mat-card-actions>
+
+                        <button mat-raised-button [title]="newsItemForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!newsItemForm.valid" type="submit" color="warn">Guardar</button>
+
+                        <button mat-raised-button type="button" (click)="gotoList()" color="warn">Volver al listado</button>
+
+                    </mat-card-actions>
+
+                </form>
+
+            </div>
+        </div>
+
+    </mat-card>
+
+    <div *ngIf="errorMessage" class="alert-danger">
+        {{ errorMessage }}
+    </div>
+
+</div>
+
+<ng-template #noNewsTemplate>
+    No existe tal noticia
+</ng-template>
