@@ -15,6 +15,7 @@ import { SharedModule } from '@app/shared/shared.module';
 
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { HomeModule } from './home/home.module';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -30,6 +31,7 @@ registerLocaleData(localeEs, 'es');
     BrowserAnimationsModule,
     SharedModule,
     FlexLayoutModule,
+    HomeModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },

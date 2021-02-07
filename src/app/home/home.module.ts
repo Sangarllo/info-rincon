@@ -17,6 +17,9 @@ import { NewsModule } from '@app/news/news.module';
     CalendarEventsModule,
     NoticesModule,
     NewsModule,
+  ],
+  exports: [
+    HomeComponent
   ]
 })
 export class HomeModule { }

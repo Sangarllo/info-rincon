@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { AuthGuard } from '@app/users/auth.guard';
+import { HomeComponent } from '@app/home/home.component';
 
 const routes: Routes = [
   {
@@ -10,7 +12,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    component: HomeComponent,
+    // loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
     path: 'usuarios',
