@@ -28,7 +28,7 @@ const routes: Routes = [
   {
     path: 'lugares',
     loadChildren: () => import('./places/places.module').then(m => m.PlacesModule),
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'avisos',
