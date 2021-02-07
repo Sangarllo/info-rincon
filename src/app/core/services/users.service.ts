@@ -57,7 +57,7 @@ export class UserService {
     this.userDoc.update(user);
   }
 
-  updateUserData(user: IUser): Promise<void> {
+  updateUserData(user: any): Promise<void> {
     const userRef: AngularFirestoreDocument<IUser> = this.afs.doc(
       `${USERS_COLLECTION}/${user.uid}`
     );
@@ -70,7 +70,7 @@ export class UserService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       active: user.active ?? true,
-      role: user.role,
+      role: user.role ?? UserRole.Lector,
       entitiesAdmin: user.entitiesAdmin ?? []
     };
 
