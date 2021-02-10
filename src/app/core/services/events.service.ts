@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 import { Observable, combineLatest, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,6 +32,7 @@ export class EventService {
   private eventDoc!: AngularFirestoreDocument<IEvent>;
 
   constructor(
+    private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private appointmentSrv: AppointmentsService
   ) {
@@ -127,34 +133,34 @@ export class EventService {
     return this.eventCollection.doc(idEvent).valueChanges({ idField: 'id' });
   }
 
-  addEvent(event: IEvent, currentUser: IUser): string {
+  async addEvent(event: IEvent): Promise<any> {
 
+    const currentUser = await this.afAuth.currentUser;
+
+    const eventId: string = this.afs.createId();
     const timestamp = this.appointmentSrv.getTimestamp();
-    event.timestamp = timestamp;
-
     const auditItem = AuditItem.InitDefault(AuditType.CREATED, currentUser, timestamp);
-    event.auditItems.push({...auditItem});
+    this.appointmentSrv.addAppointment(eventId);
 
-    const id: string = this.afs.createId();
-    event.id = id;
-    event.appointmentId = id;
-    this.appointmentSrv.addAppointment(id);
-    this.eventCollection.doc(event.id).set(event, { merge: true });
-    return id;
+    return this.eventCollection.doc(eventId).set({
+      ...event,
+      id: eventId,
+      appointmentId: eventId,
+      timestamp: timestamp,
+      auditItems: [{...auditItem}],
+      userId: currentUser.uid,
+    });
   }
 
-  addEventFromEntity(event: IEvent, currentUser: IUser, entity: IEntity, role: string): string {
+  async addEventFromEntity(event: IEvent, entity: IEntity, role: string): Promise<string> {
+
+    const currentUser = await this.afAuth.currentUser;
 
     const timestamp = this.appointmentSrv.getTimestamp();
-    event.timestamp = timestamp;
-
     const auditItem = AuditItem.InitDefault(AuditType.CREATED, currentUser, timestamp);
     event.auditItems.push({...auditItem});
 
-    const id: string = this.afs.createId();
-    event.id = id;
-
-    event.name = `Nuevo evento de ${entity.name}`;
+    const eventId: string = this.afs.createId();
     const newEntityItem: IBase = {
       id: entity.id,
       active: true,
@@ -163,7 +169,6 @@ export class EventService {
       baseType: BaseType.ENTITY,
       desc: role,
     };
-    event.entityItems = [ newEntityItem ];
 
     event.images = [];
     const newImage = entity.image;
@@ -171,37 +176,45 @@ export class EventService {
       event.image = newImage;
       event.images.push(newImage);
     }
-    event.appointmentId = id;
-    this.appointmentSrv.addAppointment(id);
+
+    this.appointmentSrv.addAppointment(eventId);
 
     const place = entity.place;
-    if (place) {
-      const newPlaceItem: IBase = {
+    const newPlaceItem: IBase = place ? {
         id: place.id,
         active: true,
         name: place.name,
         image: place.image,
         baseType: BaseType.PLACE,
         desc: place.roleDefault ?? '',
-      };
-      event.placeItems = [ newPlaceItem ];
+      } : null;
+
+    if ( place ) {
       event.images.push(place.image);
     }
 
     const categories = entity.categories;
     const scheduleType = entity.scheduleTypeDefault ?? ScheduleType.Acto;
 
-    const newEvent = { ...event,
-      categories,
-      scheduleType,
-      entityItems: event.entityItems,
-      placeItems: event.placeItems };
-    this.eventCollection.doc(event.id).set(newEvent, { merge: true });
+    this.eventCollection.doc(eventId).set({
+        ...event,
+        id: eventId,
+        appointmentId: eventId,
+        timestamp: timestamp,
+        name: `Nuevo evento de ${entity.name}`,
+        categories,
+        scheduleType,
+        placeItems: [ newPlaceItem ],
+        entityItems: [ newEntityItem ]
+      }
+    );
 
-    return id;
+    return Promise.resolve(eventId);
   }
 
-  updateEvent(event: IEvent, auditType: AuditType, currentUser: IUser, descExtra?: string): void {
+  async updateEvent(event: IEvent, auditType: AuditType, descExtra?: string): Promise<void> {
+
+    const currentUser = await this.afAuth.currentUser;
 
     const timeStamp = this.appointmentSrv.getTimestamp();
     event.timestamp = timeStamp;
@@ -211,7 +224,8 @@ export class EventService {
 
     const idEvent = event.id;
     this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
-    this.eventDoc.set(event, { merge: true });
+
+    return this.eventDoc.set(event, { merge: true });
   }
 
   deleteEvent(event: IEvent, currentUser: IUser): void {

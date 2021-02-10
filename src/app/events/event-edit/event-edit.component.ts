@@ -124,9 +124,9 @@ export class EventEditComponent implements OnInit {
         const eventItem = { ...this.event, ...this.eventForm.value };
 
         if (eventItem.id === '0') {
-          this.EventSrv.addEvent(eventItem, this.currentUser);
+          this.EventSrv.addEvent(eventItem);
         } else {
-          this.EventSrv.updateEvent(eventItem, AuditType.UPDATED_INFO, this.currentUser);
+          this.EventSrv.updateEvent(eventItem, AuditType.UPDATED_INFO);
         }
 
         this.router.navigate([ Event.PATH_URL]);

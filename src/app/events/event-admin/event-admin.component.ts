@@ -87,7 +87,7 @@ export class EventAdminComponent implements OnInit {
         this.event.name = eventDialog.name;
         this.event.description = eventDialog.description;
         this.event.categories = eventDialog.categories;
-        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, this.currentUser);
+        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO);
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
       }
@@ -102,7 +102,7 @@ export class EventAdminComponent implements OnInit {
       if ( eventDialog ) {
         this.event.image = eventDialog.image;
         this.event.images = eventDialog.images;
-        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, this.currentUser, 'Modificada imagen');
+        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Modificada imagen');
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
       }
@@ -118,7 +118,7 @@ export class EventAdminComponent implements OnInit {
         this.event.status = eventDialog.status;
         this.event.active = eventDialog.active;
         this.event.focused = eventDialog.focused;
-        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_STATUS, this.currentUser);
+        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_STATUS );
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
       }
@@ -132,7 +132,7 @@ export class EventAdminComponent implements OnInit {
     dialogRef.afterClosed().subscribe((newBase: IBase) => {
       if ( newBase ) {
         this.event.placeItems.push(newBase);
-        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, this.currentUser, 'Añadida ubicacíon');
+        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Añadida ubicacíon');
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
       }
@@ -146,7 +146,7 @@ export class EventAdminComponent implements OnInit {
     dialogRef.afterClosed().subscribe((newBase: IBase) => {
       if ( newBase ) {
         this.event.entityItems.push(newBase);
-        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, this.currentUser, 'Añadida entidad');
+        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Añadida entidad');
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
       }
@@ -160,7 +160,7 @@ export class EventAdminComponent implements OnInit {
     dialogRef.afterClosed().subscribe((newAppointment: IAppointment) => {
       if ( newAppointment ) {
         this.appointmentSrv.updateAppointment(newAppointment);
-        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, this.currentUser, 'Actualizado horario');
+        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
       }
@@ -193,7 +193,7 @@ export class EventAdminComponent implements OnInit {
           this.event.scheduleItems[index] = scheduleItem;
         }
 
-        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, this.currentUser, 'Actualizado horario');
+        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
 
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
@@ -230,19 +230,19 @@ export class EventAdminComponent implements OnInit {
 
     // this.event.scheduleItems = this.event.scheduleItems.sort(this.comparar);
 
-    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, this.currentUser, 'Actualizado horario');
+    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
   }
 
   addScheduleItem(base: IBase): void {
     console.log(`addScheduleItem: ${JSON.stringify(base)}`);
     this.event.scheduleItems.find(item => item.id === base.id).active = true;
-    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, this.currentUser, 'Actualizado horario');
+    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
   }
 
   deleteScheduleItem(base: IBase): void {
     console.log(`deleteScheduleItem: ${JSON.stringify(base)}`);
     this.event.scheduleItems.find(item => item.id === base.id).active = false;
-    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, this.currentUser, 'Actualizado horario');
+    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
   }
 
   editScheduleItem(base: IBase): void {

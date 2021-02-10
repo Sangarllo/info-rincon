@@ -21,6 +21,7 @@ export interface IEvent {
   placeItems?: IBase[];
   entityItems?: IBase[];
   auditItems?: IBase[];
+  userId?: string;
 }
 
 export class Event implements IEvent, IBase { // IAudit
@@ -51,6 +52,7 @@ export class Event implements IEvent, IBase { // IAudit
     public placeItems?: IBase[],
     public entityItems?: IBase[],
     public auditItems?: IBase[],
+    public userId?: string,
      ) {
   }
 
@@ -67,7 +69,8 @@ export class Event implements IEvent, IBase { // IAudit
       [], // Event
       [], // Place
       [], // Entity
-      []  // Audit
+      [],  // Audit
+      null, // UserId
     );
   }
 }
