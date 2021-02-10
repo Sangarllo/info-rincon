@@ -60,7 +60,8 @@ export class UserAdminEntitiesComponent implements OnInit {
         .subscribe( (user: IUser) => {
           this.user = user;
           this.pageTitle = `Administración de entidades de ${this.user.displayName}`;
-          // this.user.entitiesAdmin = this.user.entitiesAdmin ?? [];
+          console.log(`title: ${this.pageTitle}`);
+          this.user.entitiesAdmin = this.user.entitiesAdmin ?? [];
       });
   }
 
@@ -88,7 +89,9 @@ export class UserAdminEntitiesComponent implements OnInit {
 
   public addUserEntity(): void {
 
-    const filter = this.user.entitiesAdmin.filter( entity => entity.id === this.selectedEntity.id );
+
+
+    const filter = this.user.entitiesAdmin?.filter( entity => entity.id === this.selectedEntity.id );
 
     if ( filter.length === 0 ) {
       this.user.entitiesAdmin.push(this.selectedEntity);

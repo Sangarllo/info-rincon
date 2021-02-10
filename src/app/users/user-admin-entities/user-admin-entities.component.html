@@ -25,7 +25,7 @@
 
                 <mat-card-content class="item-view">
 
-                    <table mat-table class="mat-elevation-z8" matSort *ngIf="user.entitiesAdmin.length > 0; else noEntitiesTemplate" [dataSource]="user.entitiesAdmin">
+                    <table mat-table class="mat-elevation-z8" matSort *ngIf="user.entitiesAdmin?.length > 0; else noEntitiesTemplate" [dataSource]="user.entitiesAdmin">
 
                         <ng-container matColumnDef="image">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
