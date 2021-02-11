@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
+import { SeoService } from '@services/seo.service';
 import { AuthService } from '@auth/auth.service';
 import { Base } from '@models/base';
 import { IEvent, Event } from '@models/event';
@@ -31,6 +32,7 @@ export class EventViewComponent implements OnInit {
     public authSvc: AuthService,
     private route: ActivatedRoute,
     private router: Router,
+    private seo: SeoService,
     private userSrv: UserService,
     private appointmentSrv: AppointmentsService,
     private eventSrv: EventService,
@@ -56,6 +58,11 @@ export class EventViewComponent implements OnInit {
     this.eventSrv.getOneEvent(idEvent)
     .subscribe((event: IEvent) => {
       this.event = event;
+      this.seo.generateTags({
+        title: `${event.name} | Rincón de Soto`,
+        description: event.description,
+        image: event.image,
+      })
     });
   }
 
