@@ -13,12 +13,14 @@ import { BaseItemDetailComponent } from '@shared/components/base-item-detail/bas
 import { BaseItemsListComponent } from '@shared/components/base-items-list/base-items-list.component';
 import { BaseItemsTableComponent } from '@shared/components/base-items-table/base-items-table.component';
 import { BaseItemsAdminComponent } from '@shared/components/base-items-admin/base-items-admin.component';
+import { Error404Component } from '@shared/components/error404/error404.component';
 
 const components = [
   ShellComponent,
   FooterComponent,
   SectionHeaderComponent,
   LoadingComponent,
+  Error404Component,
   BaseItemDetailComponent,
   BaseItemsListComponent,
   BaseItemsTableComponent,
@@ -36,6 +38,7 @@ const modules = [
 @NgModule({
   declarations: [
     ...components,
+    Error404Component,
   ],
   imports: [
     ...modules

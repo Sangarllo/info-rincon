@@ -1,0 +1,13 @@
+.div-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    h1 {
+        font-size: xx-large;
+    }
+    div {
+        width: 80%;
+        text-align: center;
+    }
+}

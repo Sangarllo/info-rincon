@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '@app/users/auth.guard';
 import { HomeComponent } from '@app/home/home.component';
+import { Error404Component } from '@shared/components/error404/error404.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
     path: 'calendario',
     loadChildren: () => import('./calendar/calendar.module').then(m => m.CalendarEventsModule)
   },
+  {
+    path        : '**',
+    pathMatch   : 'full',
+    component   : Error404Component
+  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
