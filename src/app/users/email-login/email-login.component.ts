@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AuditType } from '@models/audit';
+import { AuditService } from '@services/audit.service';
 
 @Component({
   selector: 'app-email-login',
@@ -19,7 +21,9 @@ export class EmailLoginComponent implements OnInit {
   constructor(
     private afAuth: AngularFireAuth,
     private fb: FormBuilder,
-    private router: Router) {
+    private router: Router,
+    private auditSrv: AuditService
+  ) {
   }
 
   ngOnInit(): void {
@@ -83,6 +87,9 @@ export class EmailLoginComponent implements OnInit {
       if (this.isLogin) {
         await this.afAuth.signInWithEmailAndPassword(email, password);
         if ( this.afAuth.user ) {
+          const currentUser = await this.afAuth.currentUser;
+          const desc = `${currentUser.displayName} (${currentUser.email})`;
+          this.auditSrv.addAuditItem(AuditType.LOGIN_EMAIL, currentUser, desc);
           this.router.navigate([`admin`]);
         }
       }

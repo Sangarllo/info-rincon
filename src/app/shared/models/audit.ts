@@ -6,6 +6,9 @@ export enum AuditType {
   UPDATED_INFO = 'UPDATED_INFO',
   UPDATED_STATUS = 'UPDATED_STATUS',
   DELETED = 'DELETED',
+  LOGIN_EMAIL = 'LOGIN_EMAIL',
+  LOGIN_PROVIDER = 'LOGIN_PROVIDER',
+  LOGOUT = 'LOGOUT',
 }
 
 export interface IAuditItem {
@@ -16,6 +19,8 @@ export interface IAuditItem {
   baseType: BaseType;
   auditType: AuditType;
   desc: string;
+  userId?: string;
+  timestamp?: string;
 }
 
 export class AuditItem implements IAuditItem, IBase {
@@ -25,6 +30,8 @@ export class AuditItem implements IAuditItem, IBase {
   public static IMAGE_UPDATED_INFO = 'assets/images/audit/updated-info.png';
   public static IMAGE_UPDATED_STATUS = 'assets/images/audit/updated-status.png';
   public static IMAGE_DELETED = 'assets/images/audit/deleted.png';
+  public static IMAGE_LOGIN = 'assets/images/audit/login.png';
+  public static IMAGE_LOGOUT = 'assets/images/audit/logout.png';
 
   constructor(
     public id: string,
@@ -34,33 +41,53 @@ export class AuditItem implements IAuditItem, IBase {
     public baseType: BaseType,
     public auditType: AuditType,
     public desc: string,
+    public userId?: string,
+    public timestamp?: string,
      ) {
   }
 
-  static InitDefault(auditType: AuditType, user: IUser, timeStamp: string, descEstra?: string): IAuditItem {
+  static InitDefault(auditType: AuditType, user: any, timestamp: string, descExtra?: string): IAuditItem {
 
     let name = '';
     let image = AuditItem.IMAGE_DEFAULT;
     switch (auditType) {
 
       case AuditType.CREATED:
-        name = `Creado en ${timeStamp}`;
+        name = `Creado en ${timestamp}`;
         image = AuditItem.IMAGE_CREATED;
         break;
 
       case AuditType.UPDATED_STATUS:
-        name = `Modificada la visualización en ${timeStamp}`;
+        name = `Modificada la visualización en ${timestamp}`;
         image = AuditItem.IMAGE_UPDATED_STATUS;
         break;
 
       case AuditType.UPDATED_INFO:
-        name = `Modificada la información en ${timeStamp}`;
+        name = `Modificada la información en ${timestamp}`;
         image = AuditItem.IMAGE_UPDATED_INFO;
         break;
 
       case AuditType.DELETED:
-        name = `Borrado en ${timeStamp}`;
+        name = `Borrado en ${timestamp}`;
         image = AuditItem.IMAGE_DELETED;
+        break;
+
+      case AuditType.LOGIN_PROVIDER:
+        // console.log(`user data: ${JSON.stringify(user)}`)
+        const provider: string = ( user?.providerData ) ?
+          user.providerData[0]?.providerId : '';
+        name = `Acceso con ${provider ?? ''} en ${timestamp}`;
+        image = AuditItem.IMAGE_LOGIN;
+        break;
+
+      case AuditType.LOGIN_EMAIL:
+        name = `Acceso con email en ${timestamp}`;
+        image = AuditItem.IMAGE_LOGIN;
+        break;
+
+      case AuditType.LOGOUT:
+        name = `Cerró sesión en ${timestamp}`;
+        image = AuditItem.IMAGE_LOGOUT;
         break;
 
       default:
@@ -74,7 +101,9 @@ export class AuditItem implements IAuditItem, IBase {
       image,
       BaseType.AUDIT,
       auditType,
-      ( descEstra ) ? `${user.displayName} (${descEstra})` : `${user.displayName}`
+      descExtra ?? null,
+      user.uid,
+      timestamp,
     );
   }
 }

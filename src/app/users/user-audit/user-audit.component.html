@@ -1,0 +1,57 @@
+<app-section-header [title]="'Registro de accesos'"></app-section-header>
+
+<div *ngIf="!loading; else loadingTemplate" class="section-wrapper">
+
+    <mat-form-field>
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+        <mat-icon matSuffix>buscar</mat-icon>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="auditType">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td [class]="element.auditType" mat-cell *matCellDef="let element">
+                    <div class="inside">{{ element.auditType }}</div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="timestamp">
+                <th mat-header-cell *matHeaderCellDef>timestamp</th>
+                <td mat-cell *matCellDef="let element">{{ element.timestamp }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="image">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element">
+                    <img [src]="element.image" class="img-thumbnail" alt="element.image">
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="desc">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Desc</th>
+                <td mat-cell *matCellDef="let user">{{ user.desc }}</td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+
+
+    </div>
+
+</div>
+
+<ng-template #loadingTemplate>
+    <app-loading></app-loading>
+</ng-template>

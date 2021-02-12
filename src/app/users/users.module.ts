@@ -11,6 +11,7 @@ import { UserViewComponent } from '@app/users/user-view/user-view.component';
 import { UserEditComponent } from '@app/users/user-edit/user-edit.component';
 import { UserEntitiesComponent } from '@app/users/user-entities/user-entities.component';
 import { UserAdminEntitiesComponent } from '@app/users/user-admin-entities/user-admin-entities.component';
+import { UserAuditComponent } from './user-audit/user-audit.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { UserAdminEntitiesComponent } from '@app/users/user-admin-entities/user-
     UserEditComponent,
     UserEntitiesComponent,
     UserAdminEntitiesComponent,
+    UserAuditComponent,
   ],
   imports: [
     SharedModule,

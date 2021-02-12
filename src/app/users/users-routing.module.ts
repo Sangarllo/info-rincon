@@ -7,6 +7,7 @@ import { UsersComponent } from '@app/users/users.component';
 import { UserViewComponent } from '@app/users/user-view/user-view.component';
 import { UserEditComponent } from '@app/users/user-edit/user-edit.component';
 import { UserAdminEntitiesComponent } from '@app/users/user-admin-entities/user-admin-entities.component';
+import { UserAuditComponent } from '@app/users/user-audit/user-audit.component';
 
 const routes: Routes = [
   {
@@ -29,7 +30,11 @@ const routes: Routes = [
   {
     path: ':uid/entidades',
     component: UserAdminEntitiesComponent
-  }
+  },
+  {
+    path: ':uid/audit',
+    component: UserAuditComponent
+  },
 ];
 
 @NgModule({

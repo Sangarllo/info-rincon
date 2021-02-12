@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
+import { AuditService } from '@services/audit.service';
+import { AuditType } from '@models/audit';
+
 @Component({
   selector: 'app-shell',
   templateUrl: './shell.component.html',
@@ -61,11 +64,14 @@ export class ShellComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
+    private auditSrv: AuditService,
     public afAuth: AngularFireAuth) {
   }
 
   async onLogout(): Promise<void> {
     try {
+      const currentUser = await this.afAuth.currentUser;
+      this.auditSrv.addAuditItem(AuditType.LOGOUT, currentUser);
       await this.afAuth.signOut();
       this.router.navigate(['/usuarios/login']);
     } catch (error) {

@@ -41,17 +41,21 @@ export class RoleOptionsComponent {
     });
   }
 
-  onNotImplementedClick(): void {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Funcionalidad aún no disponible',
-      text: `Esta posibilidad aún no está disponbile, ${this.role}`,
-      // footer: '<a href>Why do I have this issue?</a>'
-    });
-  }
+  // onNotImplementedClick(): void {
+  //   Swal.fire({
+  //     icon: 'warning',
+  //     title: 'Funcionalidad aún no disponible',
+  //     text: `Esta posibilidad aún no está disponbile, ${this.role}`,
+  //     // footer: '<a href>Why do I have this issue?</a>'
+  //   });
+  // }
 
   gotoProfile(): void {
     this.router.navigate([`admin/perfil`]);
+  }
+
+  gotoAudit(): void {
+    this.router.navigate([`usuarios/${this.currentUser.uid}/audit`]);
   }
 
   gotoNewEventFromScratch(): void {

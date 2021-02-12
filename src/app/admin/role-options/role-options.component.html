@@ -22,7 +22,7 @@
     </mat-card>
 
 
-    <mat-card class="option-item" *ngIf="role >= 'ADMIN'" (click)="onNotImplementedClick()">
+    <mat-card class="option-item" *ngIf="role >= 'ADMIN'" (click)="gotoAudit()">
         <mat-card-title>Tus accesos</mat-card-title>
         <div class="option-image">
             <img alt="'Tu cuenta personal'" [src]="'https://picsum.photos/200?random=4'" class="img-thumbnail" />

@@ -4,7 +4,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 
 import { UserService } from '@services/users.service';
-import { IUser } from '@models/user';
+import { AuditService } from '@services/audit.service';
+import { AuditType } from '@models/audit';
 
 @Directive({
   selector: '[appGoogleSignin]'
@@ -13,6 +14,7 @@ export class GoogleSigninDirective {
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router,
+    private auditSrv: AuditService,
     private usersSrv: UserService ) {
   }
 
@@ -21,12 +23,11 @@ export class GoogleSigninDirective {
   async onclick() {
     await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     if ( this.afAuth.user ) {
-      this.afAuth.user
-        .subscribe( (user: firebase.User) => {
-          // console.log(`logged as ${JSON.stringify(user)}`);
-          this.usersSrv.updateUserData(user);
-          this.router.navigate([`admin`]);
-        })
+      const currentUser = await this.afAuth.currentUser;
+      const desc = `${currentUser.displayName} (${currentUser.email})`;
+      this.auditSrv.addAuditItem(AuditType.LOGIN_PROVIDER, currentUser, desc);
+      this.usersSrv.updateUserData(currentUser);
+      this.router.navigate([`admin`]);
     }
   }
 }

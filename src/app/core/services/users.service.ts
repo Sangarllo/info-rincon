@@ -57,10 +57,12 @@ export class UserService {
     this.userDoc.update(user);
   }
 
-  updateUserData(user: any): Promise<void> {
+  updateUserData(user: any): Promise<any> {
     const userRef: AngularFirestoreDocument<IUser> = this.afs.doc(
       `${USERS_COLLECTION}/${user.uid}`
     );
+
+    console.log(`updateUserData 1: ${JSON.stringify(user)}`);
 
     // TODO: if role exists (or entities), don't update!
     const data: IUser = {
@@ -69,10 +71,10 @@ export class UserService {
       emailVerified: user.emailVerified,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      active: user.active ?? true,
-      role: user.role ?? UserRole.Lector,
-      entitiesAdmin: user.entitiesAdmin ?? []
+      active: user.active ?? true
     };
+
+    console.log(`updateUserData 2: ${JSON.stringify(data)}`);
 
     return userRef.set(data, { merge: true });
   }

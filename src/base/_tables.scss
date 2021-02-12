@@ -8,26 +8,26 @@ table {
 }
 
 .mat-column-id,
-.mat-column-uid {
+.mat-column-uid,
+.mat-column-timestamp {
     color: gray;
-    text-overflow: ellipsis;
-    overflow: hidden;
     width: 100px;
-    white-space: nowrap;
-    padding-left: 30px !important;
-    padding-right: 30px !important;
     font-size: small;
     font-family: monospace;
     text-transform: uppercase;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
 }
 
-td.mat-column-timestamp {
-    color: deeppink;
-    width: 100px;
-    font-size: x-small;
+.mat-column-id,
+.mat-column-uid {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.mat-column-timestamp {
     line-height: 0.8rem;
-    padding-left: 5px !important;
-    padding-right: 5px !important;
 }
 
 .mat-column-photoURL,
@@ -44,7 +44,8 @@ td.mat-column-timestamp {
 }
 
 td.mat-column-displayName,
-td.mat-column-name {
+td.mat-column-name,
+td.mat-column-desc {
     width: 300px;
     padding-left: 10px !important;
     padding-right: 5px !important;
@@ -139,6 +140,7 @@ td.mat-column-categories {
 }
 
 td.mat-column-roleDefault,
+td.mat-column-auditType,
 td.mat-column-role,
 td.mat-column-status {
     width: 100px;
@@ -161,6 +163,7 @@ td.mat-column-status {
             background-color: lightsteelblue;
         }
     }
+    &.LOGOUT,
     &.ADMIN,
     &.BLOCKED {
         div.inside {
@@ -181,6 +184,8 @@ td.mat-column-status {
             background-color: #fff3cd;
         }
     }
+    &.LOGIN_EMAIL,
+    &.LOGIN_PROVIDER,
     &.VISIBLE {
         div.inside {
             border: 1px solid darkgreen;
