@@ -118,7 +118,7 @@ export class EntityEditComponent implements OnInit {
       scheduleTypeDefault: this.entity.scheduleTypeDefault,
     });
 
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     this.entityForm.controls['id'].setValue(this.entity.id);
   }
 

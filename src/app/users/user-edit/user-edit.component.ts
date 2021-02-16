@@ -109,7 +109,7 @@ export class UserEditComponent implements OnInit {
       entitiesAdmin: this.user.entitiesAdmin,
     });
 
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     this.userForm.controls['uid'].setValue(this.user.uid);
   }
 

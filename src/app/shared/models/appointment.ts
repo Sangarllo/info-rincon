@@ -68,7 +68,7 @@ export class Appointment implements IAppointment {
               return `el día ${appointment.dateIni}, de las ${appointment.timeIni} a las ${appointment.timeEnd}`;
             }
           } else {
-            // tslint:disable-next-line: max-line-length
+            // eslint-disable-next-line max-len
             return `desde el día ${appointment.dateIni} a las ${appointment.timeIni}, al día ${appointment.dateEnd} a las ${appointment.timeEnd}`;
           }
         } else {

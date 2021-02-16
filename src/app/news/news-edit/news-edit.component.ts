@@ -117,7 +117,7 @@ export class NewsEditComponent implements OnInit {
       sourceUrl: this.newsItem.sourceUrl ?? '',
     });
 
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     this.newsItemForm.controls['id'].setValue(this.newsItem.id);
     this.newsItemForm.controls.source.setValue(this.sourceSelected);
   }

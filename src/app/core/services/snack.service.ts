@@ -13,7 +13,7 @@ export class SnackService {
     private router: Router) {
   }
 
-  // tslint:disable-next-line: typedef
+  // eslint-disable-next-line
   authError() {
     this.snackBar.open('¡Debes acceder como usuario registrado!', 'OK', {
       duration: 5000

@@ -107,7 +107,7 @@ export class NoticeEditComponent implements OnInit {
       timestamp: this.notice.timestamp ?? '',
     });
 
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     this.noticeForm.controls['id'].setValue(this.notice.id);
   }
 

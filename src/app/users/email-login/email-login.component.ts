@@ -53,17 +53,17 @@ export class EmailLoginComponent implements OnInit {
     return this.type === 'reset';
   }
 
-  // tslint:disable-next-line: typedef
+  // eslint-disable-next-line 
   get email() {
     return this.form.get('email');
   }
 
-  // tslint:disable-next-line: typedef
+  // eslint-disable-next-line 
   get password() {
     return this.form.get('password');
   }
 
-  // tslint:disable-next-line: typedef
+  // eslint-disable-next-line 
   get passwordConfirm() {
     return this.form.get('passwordConfirm');
   }
@@ -76,7 +76,7 @@ export class EmailLoginComponent implements OnInit {
     }
   }
 
-  // tslint:disable-next-line: typedef
+  // eslint-disable-next-line
   async onSubmit() {
     this.loading = true;
 

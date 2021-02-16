@@ -110,7 +110,7 @@ export class EventEditComponent implements OnInit {
     });
 
 
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     this.eventForm.controls['id'].setValue(this.event.id);
   }
 

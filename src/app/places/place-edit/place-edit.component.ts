@@ -99,7 +99,7 @@ export class PlaceEditComponent implements OnInit {
       locality: this.place.locality
     });
 
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     this.placeForm.controls['id'].setValue(this.place.id);
   }
 

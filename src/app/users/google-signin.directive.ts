@@ -19,7 +19,7 @@ export class GoogleSigninDirective {
   }
 
   @HostListener('click')
-  // tslint:disable-next-line: typedef
+  // eslint-disable-next-line
   async onclick() {
     await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     if ( this.afAuth.user ) {
