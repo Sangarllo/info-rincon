@@ -33,8 +33,6 @@ export class EventNewBaseDialogComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(`ngOnInit(${this.data}) `);
-
     switch (this.data) {
       case BaseType.PLACE:
         this.title = 'Selecciona una ubicación asociada a este evento';

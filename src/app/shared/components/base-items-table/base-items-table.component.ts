@@ -25,7 +25,6 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.baseItems);
     this.baseItemsLength = this.baseItems.length.toString();
-    console.log(`length: ${this.baseItemsLength}`);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

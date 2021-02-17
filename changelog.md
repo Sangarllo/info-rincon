@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.7] - 2021-02-17
+
+### Added
+
+- Create [Log Service](https://www.codemag.com/Article/1711021/Logging-in-Angular-Applications). Todo: publish in other place than console.
+
 ## [0.0.6] - 2021-02-16
 
 ### Added

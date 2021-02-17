@@ -62,7 +62,7 @@ export class UserService {
       `${USERS_COLLECTION}/${user.uid}`
     );
 
-    console.log(`updateUserData 1: ${JSON.stringify(user)}`);
+    // console.log(`updateUserData 1: ${JSON.stringify(user)}`);
 
     // TODO: if role exists (or entities), don't update!
     const data: IUser = {
@@ -74,7 +74,7 @@ export class UserService {
       active: user.active ?? true
     };
 
-    console.log(`updateUserData 2: ${JSON.stringify(data)}`);
+    // console.log(`updateUserData 2: ${JSON.stringify(data)}`);
 
     return userRef.set(data, { merge: true });
   }

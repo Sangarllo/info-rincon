@@ -14,6 +14,7 @@ import { EVENT_CATEGORIES, Category } from '@models/category.enum';
 import { IUser } from '@models/user';
 import { AuditType } from '@models/audit';
 import { EventService } from '@services/events.service';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-event-edit',
@@ -29,8 +30,8 @@ export class EventEditComponent implements OnInit {
   uploadPercent: Observable<number>;
 
   public event!: IEvent | undefined;
-  public STATUS: Status[] = Event.STATUS;
-  public CATEGORIES: Category[] = EVENT_CATEGORIES;
+  public status: Status[] = Event.STATUS;
+  public categories: Category[] = EVENT_CATEGORIES;
 
   constructor(
     private authSrv: AuthService,
@@ -38,7 +39,8 @@ export class EventEditComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private EventSrv: EventService) { }
+    private logSrv: LogService,
+    private eventSrv: EventService) { }
 
   ngOnInit(): void {
 
@@ -71,7 +73,7 @@ export class EventEditComponent implements OnInit {
       this.pageTitle = 'Creación de un nuevo evento';
       this.event = Event.InitDefault();
     } else {
-      this.EventSrv.getOneEvent(idEvent)
+      this.eventSrv.getOneEvent(idEvent)
       .subscribe({
         next: (event: IEvent | undefined) => {
           this.event = event;
@@ -85,7 +87,7 @@ export class EventEditComponent implements OnInit {
   }
 
 
-  displayEvent(): void {
+  private displayEvent(): void {
 
     if (this.eventForm) {
       this.eventForm.reset();
@@ -114,19 +116,21 @@ export class EventEditComponent implements OnInit {
     this.eventForm.controls['id'].setValue(this.event.id);
   }
 
-  onResetForm(): void {
+  private onResetForm(): void {
      this.eventForm.reset();
   }
 
-  onSaveForm(): void {
+  private onSaveForm(): void {
     if (this.eventForm.valid) {
 
         const eventItem = { ...this.event, ...this.eventForm.value };
 
         if (eventItem.id === '0') {
-          this.EventSrv.addEvent(eventItem);
+          this.eventSrv.addEvent(eventItem);
+          this.logSrv.info(`Evento creado: ${eventItem.name}`);
         } else {
-          this.EventSrv.updateEvent(eventItem, AuditType.UPDATED_INFO);
+          this.eventSrv.updateEvent(eventItem, AuditType.UPDATED_INFO);
+          this.logSrv.info(`Evento modificado: ${eventItem.name}`);
         }
 
         this.router.navigate([ Event.PATH_URL]);
@@ -136,7 +140,7 @@ export class EventEditComponent implements OnInit {
     }
   }
 
-  onSaveComplete(): void {
+  private onSaveComplete(): void {
     // Reset the form to clear the flags
     this.eventForm.reset();
     Swal.fire({
@@ -148,12 +152,12 @@ export class EventEditComponent implements OnInit {
     this.router.navigate([`/${Event.PATH_URL}`]);
   }
 
-  gotoList(): void {
+  private gotoList(): void {
     this.eventForm.reset();
     this.router.navigate([`/${Event.PATH_URL}`]);
   }
 
-  uploadImage(event): void {
+  private uploadImage(event): void {
     const file = event.target.files[0];
     const filePath = file.name;
     const fileRef = this.afStorage.ref(filePath);
