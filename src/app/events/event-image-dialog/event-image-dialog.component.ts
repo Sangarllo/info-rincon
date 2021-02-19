@@ -7,9 +7,10 @@ import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { EntityService } from '@services/entities.service';
 import { Base } from '@models/base';
 import { IEvent } from '@models/event';
+import { EntityService } from '@services/entities.service';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-event-image-dialog',
@@ -18,25 +19,28 @@ import { IEvent } from '@models/event';
 })
 export class EventImageDialogComponent implements OnInit {
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  readonly IMAGE_BLANK: string = Base.IMAGE_DEFAULT;
+
   title = 'Selecciona la imagen del evento';
   imageForm: FormGroup;
   imageSelected: string; // TODO: image must be IImage
-  readonly IMAGE_BLANK: string = Base.IMAGE_DEFAULT;
   uploadPercent: Observable<number>;
 
   // entities$: Observable<Base[]>;
 
   constructor(
+    public dialogRef: MatDialogRef<EventImageDialogComponent>,
     private afStorage: AngularFireStorage,
     private fb: FormBuilder,
+    private logSrv: LogService,
     private entitySrv: EntityService,
-    public dialogRef: MatDialogRef<EventImageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IEvent) {
   }
 
   uploadImage(event): void {
 
-    console.log(`adding other image`);
+    this.logSrv.info(`adding other image`);
     const file = event.target.files[0];
     const filePath = file.name;
     const fileRef = this.afStorage.ref(filePath);

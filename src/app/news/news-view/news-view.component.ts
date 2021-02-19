@@ -26,13 +26,13 @@ export class NewsViewComponent implements OnInit {
   ngOnInit(): void {
     this.idNewsItem = this.route.snapshot.paramMap.get('id');
     if ( this.idNewsItem ) {
-      // console.log(`id asked ${this.idNewsItem}`);
+      // this.logSrv.info(`id asked ${this.idNewsItem}`);
       this.getDetails(this.idNewsItem);
     }
   }
 
   getDetails(idNewsItem: string): void {
-    // console.log(`id asked ${idNewsItem}`);
+    // this.logSrv.info(`id asked ${idNewsItem}`);
     this.newsItem$ = this.newsSrv.getOneNewsItem(idNewsItem);
 
     this.newsItem$

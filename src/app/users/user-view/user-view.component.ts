@@ -3,8 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
+import { IUser, User } from '@models/user';
 import { UserService } from '@services/users.service';
-import { IUser, User } from '@shared/models/user';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-user-view',
@@ -19,19 +20,20 @@ export class UserViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private logSrv: LogService,
     private userSrv: UserService,
   ) { }
 
   ngOnInit(): void {
     this.uidUser = this.route.snapshot.paramMap.get('uid');
     if ( this.uidUser ) {
-      console.log(`uid asked ${this.uidUser}`);
+      this.logSrv.info(`uid asked ${this.uidUser}`);
       this.getDetails(this.uidUser);
     }
   }
 
   getDetails(uidUser: string): void {
-    console.log(`uid asked ${uidUser}`);
+    this.logSrv.info(`uid asked ${uidUser}`);
     this.user$ = this.userSrv.getOneUser(uidUser);
   }
 

@@ -13,6 +13,7 @@ import { ISource, DEFAULT_SOURCE, NEWS_SOURCES } from '@models/source';
 import { Category, NEWS_CATEGORIES } from '@models/category.enum';
 import { AppointmentsService } from '@services/appointments.service';
 import { NewsService } from '@services/news.services';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-news-edit',
@@ -28,16 +29,17 @@ export class NewsEditComponent implements OnInit {
   uploadPercent: Observable<number>;
 
   public newsItem!: INewsItem | undefined;
-  public STATUS: Status[] = NewsItem.STATUS;
-  public CATEGORIES: Category[] = NEWS_CATEGORIES;
-  public SOURCES: ISource[] = NEWS_SOURCES;
-  public URL_REGEX = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+  public status: Status[] = NewsItem.STATUS;
+  public categories: Category[] = NEWS_CATEGORIES;
+  public sources: ISource[] = NEWS_SOURCES;
+  public urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
   constructor(
     private afStorage: AngularFireStorage,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private logSrv: LogService,
     private appointmentSrv: AppointmentsService,
     private newsSrv: NewsService) { }
 
@@ -45,7 +47,7 @@ export class NewsEditComponent implements OnInit {
 
     const idNewsItem = this.route.snapshot.paramMap.get('id');
     if ( idNewsItem ) {
-      console.log(`id asked ${idNewsItem}`);
+      this.logSrv.info(`id asked ${idNewsItem}`);
       this.getDetails(idNewsItem);
     }
 
@@ -63,12 +65,12 @@ export class NewsEditComponent implements OnInit {
       description: '',
       timestamp: null,
       source: this.sourceSelected,
-      sourceUrl: ['', [Validators.required, Validators.pattern(this.URL_REGEX)]]
+      sourceUrl: ['', [Validators.required, Validators.pattern(this.urlRegex)]]
     });
   }
 
   private getDetails(idNewsItem: string): void {
-    console.log(`id asked ${idNewsItem}`);
+    this.logSrv.info(`id asked ${idNewsItem}`);
 
     if ( idNewsItem === '0' ) {
       this.pageTitle = 'Creación de una nueva noticia';
@@ -79,7 +81,7 @@ export class NewsEditComponent implements OnInit {
         next: (newsItem: INewsItem | undefined) => {
           this.newsItem = newsItem;
           this.displayNewsItem();
-          console.log(JSON.stringify(this.newsItem));
+          this.logSrv.info(JSON.stringify(this.newsItem));
         },
         error: err => {
           this.errorMessage = `Error: ${err}`;
@@ -142,7 +144,7 @@ export class NewsEditComponent implements OnInit {
       this.newsItem.image = this.sourceSelected.image;
       const newsItem = { ...this.newsItem, ...this.newsItemForm.value };
 
-      console.log(`newsItem: ${JSON.stringify(this.newsItem)}`);
+      this.logSrv.info(`newsItem: ${JSON.stringify(this.newsItem)}`);
 
       if (newsItem.id === '0') {
           this.newsSrv.addNewsItem(newsItem);

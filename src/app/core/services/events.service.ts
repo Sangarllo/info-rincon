@@ -102,7 +102,7 @@ export class EventService {
           allDay: appointments.find(a => a.id === event.id)?.allDay,
           start: new Date(appointments.find(a => a.id === event.id)?.dateIni)
         }) as CalendarEvent)),
-        // tap(data => console.log('event:  ', JSON.stringify(data))),
+        // tap(data => this.logSrv.info('event:  ', JSON.stringify(data))),
     );
   }
 

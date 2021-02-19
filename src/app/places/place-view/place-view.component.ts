@@ -3,8 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
+import { IPlace, Place } from '@models/place';
 import { PlaceService } from '@services/places.service';
-import { IPlace, Place } from '@shared/models/place';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-place-view',
@@ -19,19 +20,20 @@ export class PlaceViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private logSrv: LogService,
     private placeSrv: PlaceService,
   ) { }
 
   ngOnInit(): void {
     this.idPlace = this.route.snapshot.paramMap.get('id');
     if ( this.idPlace ) {
-      console.log(`id asked ${this.idPlace}`);
+      this.logSrv.info(`id asked ${this.idPlace}`);
       this.getDetails(this.idPlace);
     }
   }
 
   getDetails(idPlace: string): void {
-    console.log(`id asked ${idPlace}`);
+    this.logSrv.info(`id asked ${idPlace}`);
     this.place$ = this.placeSrv.getOnePlace(idPlace);
   }
 

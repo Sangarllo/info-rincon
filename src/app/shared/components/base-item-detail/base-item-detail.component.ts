@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Entity } from '@models/entity';
 import { IBase, BaseType } from '@models/base';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-base-item-detail',
@@ -15,6 +16,7 @@ export class BaseItemDetailComponent {
 
   constructor(
     private router: Router,
+    private logSrv: LogService,
   ) { }
 
   gotoBaseItem(baseItem: IBase): void {
@@ -25,7 +27,7 @@ export class BaseItemDetailComponent {
         break;
 
       default:
-        console.log(`No implementado! (${JSON.stringify(baseItem)})`);
+        this.logSrv.error(`No implementado! (${JSON.stringify(baseItem)})`);
         break;
     }
   }

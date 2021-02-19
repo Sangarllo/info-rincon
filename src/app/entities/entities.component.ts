@@ -7,8 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { EntityService } from '@services/entities.service';
 import { IEntity } from '@models/entity';
+import { EntityService } from '@services/entities.service';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-entities',
@@ -28,6 +29,7 @@ export class EntitiesComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private logSrv: LogService,
     private entitySrv: EntityService,
   ) {
     this.loading = true;
@@ -69,7 +71,7 @@ export class EntitiesComponent implements OnInit {
   }
 
   public deleteEntity(entity: IEntity): void {
-    console.log(`Borrando ${entity.id}`);
+    this.logSrv.info(`Borrando ${entity.id}`);
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás deshacer esta acción de borrado!',

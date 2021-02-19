@@ -6,10 +6,11 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { UserService } from '@services/users.service';
-import { EntityService } from '@services/entities.service';
 import { IUser } from '@models/user';
 import { IEntity } from '@models/entity';
+import { UserService } from '@services/users.service';
+import { EntityService } from '@services/entities.service';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-user-admin-entities',
@@ -32,6 +33,7 @@ export class UserAdminEntitiesComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private logSrv: LogService,
     private userSrv: UserService,
     private entitySrv: EntityService,
   ) {
@@ -41,7 +43,7 @@ export class UserAdminEntitiesComponent implements OnInit {
         this.filteredEntities = this.entityCtrl.valueChanges
         .pipe(
           startWith(''),
-          map(entity => entity ? this._filterEntities(entity) : this.entities.slice())
+          map(entity => entity ? this.filterEntities(entity) : this.entities.slice())
         );
       }
     );
@@ -50,7 +52,7 @@ export class UserAdminEntitiesComponent implements OnInit {
   ngOnInit(): void {
     const uidUser = this.route.snapshot.paramMap.get('uid');
     if ( uidUser ) {
-      console.log(`uid asked ${uidUser}`);
+      this.logSrv.info(`uid asked ${uidUser}`);
       this.getDetails(uidUser);
     }
   }
@@ -60,14 +62,14 @@ export class UserAdminEntitiesComponent implements OnInit {
         .subscribe( (user: IUser) => {
           this.user = user;
           this.pageTitle = `Administración de entidades de ${this.user.displayName}`;
-          console.log(`title: ${this.pageTitle}`);
+          this.logSrv.info(`title: ${this.pageTitle}`);
           this.user.entitiesAdmin = this.user.entitiesAdmin ?? [];
       });
   }
 
   public onSelectedOption(entity: IEntity): void {
     this.selectedEntity = entity;
-    console.log(`onSelectedOption: ${JSON.stringify(entity)}`);
+    this.logSrv.info(`onSelectedOption: ${JSON.stringify(entity)}`);
   }
 
   public gotoEntity(entity: IEntity): void {
@@ -117,7 +119,7 @@ export class UserAdminEntitiesComponent implements OnInit {
     this.selectedEntity = undefined;
   }
 
-  private _filterEntities(value: string): IEntity[] {
+  private filterEntities(value: string): IEntity[] {
     const filterValue = value.toLowerCase();
 
     return this.entities.filter(entity => entity.name.toLowerCase().indexOf(filterValue) === 0);

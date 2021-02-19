@@ -7,10 +7,11 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { UserService } from '@services/users.service';
-import { IUser, User } from '@shared/models/user';
+import { IUser, User } from '@models/user';
 import { UserRole } from '@models/user-role.enum';
-import { Avatar, IFile } from '@app/shared/models/image';
+import { Avatar, IFile } from '@models/image';
+import { LogService } from '@services/log.service';
+import { UserService } from '@services/users.service';
 
 
 @Component({
@@ -26,21 +27,22 @@ export class UserEditComponent implements OnInit {
   uploadPercent: Observable<number>;
 
   public user!: IUser | undefined;
-  public ROLES: UserRole[] = User.ROLES;
-  public AVATARES: Avatar[] = Avatar.getAvatares();
+  public roles: UserRole[] = User.ROLES;
+  public avatares: Avatar[] = Avatar.getAvatares();
 
   constructor(
     private afStorage: AngularFireStorage,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private logSrv: LogService,
     private usersSrv: UserService) { }
 
   ngOnInit(): void {
 
     const uidUser = this.route.snapshot.paramMap.get('uid');
     if ( uidUser ) {
-      console.log(`uid asked ${uidUser}`);
+      this.logSrv.info(`uid asked ${uidUser}`);
       this.getDetails(uidUser);
     }
 
@@ -62,8 +64,79 @@ export class UserEditComponent implements OnInit {
 
   }
 
+  public onResetForm(): void {
+    this.userForm.reset();
+ }
+
+ public onSaveForm(): void {
+
+   if (this.userForm.valid) {
+
+       const userItem = { ...this.user, ...this.userForm.value };
+
+       if (userItem.uid === '0') {
+         this.usersSrv.addUser(userItem);
+       } else {
+         this.usersSrv.updateUser(userItem);
+       }
+
+       this.router.navigate([ User.PATH_URL]);
+
+   } else {
+     this.errorMessage = 'Por favor, corrige los mensajes de validación.';
+   }
+ }
+
+ public onSaveComplete(): void {
+   // Reset the form to clear the flags
+   this.userForm.reset();
+   Swal.fire({
+     icon: 'success',
+     title: 'Datos guardados con éxito',
+     text: `Los datos de ${this.user.displayName} se han guardado correctamente`,
+     // footer: '<a href>Why do I have this issue?</a>'
+   });
+   this.router.navigate([`/${User.PATH_URL}`]);
+ }
+
+ public gotoList(): void {
+   this.userForm.reset();
+   this.router.navigate([`/${User.PATH_URL}`]);
+ }
+
+ public gotoAdminEntities(): void {
+   this.userForm.reset();
+   this.router.navigate([`/${User.PATH_URL}/${this.user.uid}/entidades`]);
+ }
+
+ public uploadImage(event): void {
+   const file = event.target.files[0];
+   const filePath = file.name;
+   const fileRef = this.afStorage.ref(filePath);
+   const task = this.afStorage.upload(filePath, file);
+
+   // observe percentage changes
+   this.uploadPercent = task.percentageChanges();
+   // get notified when the download URL is available
+   task.snapshotChanges().pipe(
+       finalize(() => {
+         fileRef.getDownloadURL().subscribe(
+           ( photoURL: string ) => {
+
+             this.user.photoURL = photoURL;
+
+             // Update the data on the form
+             this.userForm.patchValue({
+               photoURL: this.user.photoURL
+             });
+         });
+       })
+    )
+   .subscribe();
+  }
+
   private getDetails(uidUser: string): void {
-    console.log(`uid asked ${uidUser}`);
+    this.logSrv.info(`uid asked ${uidUser}`);
 
     if ( uidUser === '0' ) {
       this.pageTitle = 'Creación de un nuevo usuario';
@@ -74,7 +147,7 @@ export class UserEditComponent implements OnInit {
         next: (user: IUser | undefined) => {
           this.user = user;
           this.displayUser();
-          console.log(JSON.stringify(this.user));
+          this.logSrv.info(JSON.stringify(this.user));
         },
         error: err => {
           this.errorMessage = `Error: ${err}`;
@@ -84,7 +157,7 @@ export class UserEditComponent implements OnInit {
   }
 
 
-  displayUser(): void {
+  private displayUser(): void {
 
     if (this.userForm) {
       this.userForm.reset();
@@ -112,75 +185,4 @@ export class UserEditComponent implements OnInit {
     // eslint-disable-next-line @typescript-eslint/dot-notation
     this.userForm.controls['uid'].setValue(this.user.uid);
   }
-
-  onResetForm(): void {
-     this.userForm.reset();
-  }
-
-  onSaveForm(): void {
-    if (this.userForm.valid) {
-
-        const userItem = { ...this.user, ...this.userForm.value };
-
-        if (userItem.uid === '0') {
-          this.usersSrv.addUser(userItem);
-        } else {
-          this.usersSrv.updateUser(userItem);
-        }
-
-        this.router.navigate([ User.PATH_URL]);
-
-    } else {
-      this.errorMessage = 'Por favor, corrige los mensajes de validación.';
-    }
-  }
-
-  onSaveComplete(): void {
-    // Reset the form to clear the flags
-    this.userForm.reset();
-    Swal.fire({
-      icon: 'success',
-      title: 'Datos guardados con éxito',
-      text: `Los datos de ${this.user.displayName} se han guardado correctamente`,
-      // footer: '<a href>Why do I have this issue?</a>'
-    });
-    this.router.navigate([`/${User.PATH_URL}`]);
-  }
-
-  gotoList(): void {
-    this.userForm.reset();
-    this.router.navigate([`/${User.PATH_URL}`]);
-  }
-
-  gotoAdminEntities(): void {
-    this.userForm.reset();
-    this.router.navigate([`/${User.PATH_URL}/${this.user.uid}/entidades`]);
-  }
-
-  uploadImage(event): void {
-    const file = event.target.files[0];
-    const filePath = file.name;
-    const fileRef = this.afStorage.ref(filePath);
-    const task = this.afStorage.upload(filePath, file);
-
-    // observe percentage changes
-    this.uploadPercent = task.percentageChanges();
-    // get notified when the download URL is available
-    task.snapshotChanges().pipe(
-        finalize(() => {
-          fileRef.getDownloadURL().subscribe(
-            ( photoURL: string ) => {
-
-              this.user.photoURL = photoURL;
-
-              // Update the data on the form
-              this.userForm.patchValue({
-                photoURL: this.user.photoURL
-              });
-          });
-        })
-     )
-    .subscribe();
-  }
-
 }

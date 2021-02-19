@@ -6,8 +6,9 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import Swal from 'sweetalert2';
 
-import { UserService } from '@services/users.service';
 import { IUser } from '@models/user';
+import { UserService } from '@services/users.service';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-users',
@@ -26,6 +27,7 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private logSrv: LogService,
     private userSrv: UserService,
   ) {
     this.loading = true;
@@ -59,7 +61,7 @@ export class UsersComponent implements OnInit {
   }
 
   public deleteUser(user: IUser): void {
-    console.log(`deleting ${user.uid}`);
+    this.logSrv.info(`deleting ${user.uid}`);
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás deshacer esta acción de borrado!',

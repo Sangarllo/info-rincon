@@ -12,6 +12,7 @@ import { Status } from '@models/status.enum';
 import { NOTICE_CATEGORIES, Category } from '@models/category.enum';
 import { AppointmentsService } from '@services/appointments.service';
 import { NoticeService } from '@services/notices.service';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-notice-edit',
@@ -26,14 +27,15 @@ export class NoticeEditComponent implements OnInit {
   uploadPercent: Observable<number>;
 
   public notice!: INotice | undefined;
-  public STATUS: Status[] = Notice.STATUS;
-  public CATEGORIES: Category[] = NOTICE_CATEGORIES;
+  public status: Status[] = Notice.STATUS;
+  public categories: Category[] = NOTICE_CATEGORIES;
 
   constructor(
     private afStorage: AngularFireStorage,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private logSrv: LogService,
     private appointmentSrv: AppointmentsService,
     private NoticeSrv: NoticeService) { }
 
@@ -41,7 +43,7 @@ export class NoticeEditComponent implements OnInit {
 
     const idNotice = this.route.snapshot.paramMap.get('id');
     if ( idNotice ) {
-      console.log(`id asked ${idNotice}`);
+      this.logSrv.info(`id asked ${idNotice}`);
       this.getDetails(idNotice);
     }
 
@@ -61,7 +63,7 @@ export class NoticeEditComponent implements OnInit {
   }
 
   private getDetails(idNotice: string): void {
-    console.log(`id asked ${idNotice}`);
+    this.logSrv.info(`id asked ${idNotice}`);
 
     if ( idNotice === '0' ) {
       this.pageTitle = 'Creación de un nuevo aviso';
@@ -72,7 +74,7 @@ export class NoticeEditComponent implements OnInit {
         next: (notice: INotice | undefined) => {
           this.notice = notice;
           this.displayNotice();
-          console.log(JSON.stringify(this.notice));
+          this.logSrv.info(JSON.stringify(this.notice));
         },
         error: err => {
           this.errorMessage = `Error: ${err}`;

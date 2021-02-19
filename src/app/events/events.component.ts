@@ -5,12 +5,13 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import Swal from 'sweetalert2';
+import { map } from 'rxjs/operators';
 
-import { EventService } from '@services/events.service';
 import { AuthService } from '@auth/auth.service';
 import { IEvent } from '@models/event';
 import { IUser } from '@models/user';
-import { map } from 'rxjs/operators';
+import { LogService } from '@services/log.service';
+import { EventService } from '@services/events.service';
 
 @Component({
   selector: 'app-events',
@@ -22,15 +23,16 @@ export class EventsComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  private currentUser: IUser;
   public loading = true;
   public events: IEvent[];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'image', 'name', 'categories', 'dateIni', 'actions3'];
+  private currentUser: IUser;
 
   constructor(
     private router: Router,
     private authSrv: AuthService,
+    private logSrv: LogService,
     private eventSrv: EventService,
   ) {
     this.loading = true;
@@ -78,7 +80,7 @@ export class EventsComponent implements OnInit {
   }
 
   public deleteItem(event: IEvent): void {
-    console.log(`deleting ${event.id}`);
+    this.logSrv.info(`deleting ${event.id}`);
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás deshacer esta acción de borrado!',

@@ -73,7 +73,7 @@ export class AuditItem implements IAuditItem, IBase {
         break;
 
       case AuditType.LOGIN_PROVIDER:
-        // console.log(`user data: ${JSON.stringify(user)}`)
+        // this.logSrv.info(`user data: ${JSON.stringify(user)}`)
         const provider: string = ( user?.providerData ) ?
           user.providerData[0]?.providerId : '';
         name = `Acceso con ${provider ?? ''} en ${timestamp}`;

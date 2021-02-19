@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,14 +8,14 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { EntityService } from '@services/entities.service';
 import { Entity, IEntity } from '@models/entity';
 import { EVENT_CATEGORIES, Category } from '@models/category.enum';
-import { PlaceService } from '@services/places.service';
 import { Base } from '@models/base';
 import { EntityRole } from '@models/entity-role.enum';
 import { ScheduleType, SCHEDULE_TYPES } from '@models/shedule-type.enum';
-
+import { EntityService } from '@services/entities.service';
+import { PlaceService } from '@services/places.service';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-entity-edit',
@@ -28,7 +29,6 @@ export class EntityEditComponent implements OnInit {
   errorMessage = '';
   uploadPercent: Observable<number>;
 
-  // public entity$: Observable<IEntity | undefined> | null = null;
   public entity!: IEntity | undefined;
   public CATEGORIES: Category[] = EVENT_CATEGORIES;
   public ROLES: EntityRole[] = Entity.ROLES;
@@ -43,6 +43,7 @@ export class EntityEditComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private logSrv: LogService,
     private entitiesSrv: EntityService,
     private placeSrv: PlaceService) { }
 
@@ -69,7 +70,7 @@ export class EntityEditComponent implements OnInit {
     }
   }
 
-  private getDetails(idEntity: string): void {
+  getDetails(idEntity: string): void {
 
     if ( idEntity === '0' ) {
       this.pageTitle = 'Creación de una nueva entidad';
@@ -80,7 +81,7 @@ export class EntityEditComponent implements OnInit {
         next: (entity: IEntity | undefined) => {
           this.entity = entity;
           this.displayEntity();
-          console.log(JSON.stringify(this.entity));
+          this.logSrv.info(JSON.stringify(this.entity));
         },
         error: err => {
           this.errorMessage = `Error: ${err}`;
@@ -139,7 +140,7 @@ export class EntityEditComponent implements OnInit {
 
         const entityItem = { ...this.entity, ...this.entityForm.value };
         if ( this.compareFunction( entityItem.place, this.SECTION_BLANK ) ) {
-          console.log(`No hay lugar`);
+          this.logSrv.info(`No hay lugar`);
           entityItem.place = null;
         }
 

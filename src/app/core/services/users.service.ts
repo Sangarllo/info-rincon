@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { IUser } from '@models/user';
 import { UserRole } from '@models/user-role.enum';
+import { LogService } from '@services/log.service';
 
 const USERS_COLLECTION = 'usuarios';
 
@@ -17,7 +18,10 @@ export class UserService {
   private userCollection!: AngularFirestoreCollection<IUser>;
   private userDoc!: AngularFirestoreDocument<IUser>;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(
+    private afs: AngularFirestore,
+    private logSrv: LogService,
+  ) {
     this.userCollection = afs.collection(USERS_COLLECTION);
   }
 
@@ -39,8 +43,8 @@ export class UserService {
   addUser(user: IUser): void {
     const uidUser = this.afs.createId();
     user.uid = uidUser;
-    console.log(`addUser: ${user.uid}`);
-    console.log(`addUser: ${JSON.stringify(user, null, 2)}`);
+    this.logSrv.info(`addUser: ${user.uid}`);
+    this.logSrv.info(`addUser: ${JSON.stringify(user, null, 2)}`);
     this.userCollection.doc(user.uid).set(user);
   }
 
@@ -62,7 +66,7 @@ export class UserService {
       `${USERS_COLLECTION}/${user.uid}`
     );
 
-    // console.log(`updateUserData 1: ${JSON.stringify(user)}`);
+    // this.logSrv.info(`updateUserData 1: ${JSON.stringify(user)}`);
 
     // TODO: if role exists (or entities), don't update!
     const data: IUser = {
@@ -74,7 +78,7 @@ export class UserService {
       active: user.active ?? true
     };
 
-    // console.log(`updateUserData 2: ${JSON.stringify(data)}`);
+    // this.logSrv.info(`updateUserData 2: ${JSON.stringify(data)}`);
 
     return userRef.set(data, { merge: true });
   }

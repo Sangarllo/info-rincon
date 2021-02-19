@@ -8,6 +8,7 @@ import { map, shareReplay } from 'rxjs/operators';
 
 import { AuditService } from '@services/audit.service';
 import { AuditType } from '@models/audit';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-shell',
@@ -65,6 +66,7 @@ export class ShellComponent {
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private auditSrv: AuditService,
+    private logSrv: LogService,
     public afAuth: AngularFireAuth) {
   }
 
@@ -75,7 +77,7 @@ export class ShellComponent {
       await this.afAuth.signOut();
       this.router.navigate(['/usuarios/login']);
     } catch (error) {
-      console.log(error);
+      this.logSrv.info(error);
     }
   }
 }

@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import firebase from 'firebase/app';
 
 import { RoleValidator } from '@auth/helpers/roleValidator';
 import { IUser } from '@models/user';
 import { UserService } from '@services/users.service';
-
-import firebase from 'firebase/app';
+import { LogService } from '@services/log.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends RoleValidator {
@@ -20,6 +20,7 @@ export class AuthService extends RoleValidator {
   constructor(
     public afAuth: AngularFireAuth,
     private afs: AngularFirestore,
+    private logSrv: LogService,
     private userSrv: UserService,
   ) {
     super();
@@ -45,7 +46,7 @@ export class AuthService extends RoleValidator {
       this.userSrv.updateUserData(user);
       return user;
     } catch (error) {
-      console.log(error);
+      this.logSrv.info(error);
     }
   }
 
@@ -53,7 +54,7 @@ export class AuthService extends RoleValidator {
     try {
       await this.afAuth.signOut();
     } catch (error) {
-      console.log(error);
+      this.logSrv.info(error);
     }
   }
 }

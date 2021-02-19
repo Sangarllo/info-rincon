@@ -9,10 +9,12 @@ import { Base, IBase, BaseType } from '@models/base';
 import { IAppointment } from '@models/appointment';
 import { IEvent, Event } from '@models/event';
 import { IUser } from '@models/user';
+import { AuditType } from '@models/audit';
 import { EventService } from '@services/events.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { SwalMessage, UtilsService } from '@services/utils.service';
-import { AuditType } from '@models/audit';
+import { LogService } from '@services/log.service';
+
 
 import { EventBasicDialogComponent } from '@app/events/event-basic-dialog/event-basic-dialog.component';
 import { EventStatusDialogComponent } from '@app/events/event-status-dialog/event-status-dialog.component';
@@ -28,18 +30,20 @@ import { EventScheduleDialogComponent } from '@app/events/event-schedule-dialog/
 })
 export class EventAdminComponent implements OnInit {
 
-  private currentUser: IUser;
   public event: IEvent;
   public idEvent: string;
   public appointment$: Observable<IAppointment>;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly SECTION_BLANK: Base = Base.InitDefault();
   public dialogConfig = new MatDialogConfig();
+  private currentUser: IUser;
 
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
     private authSrv: AuthService,
+    private logSrv: LogService,
     private utilsSrv: UtilsService,
     private eventSrv: EventService,
     private appointmentSrv: AppointmentsService
@@ -184,9 +188,9 @@ export class EventAdminComponent implements OnInit {
       this.event.description = backupDesc;
       if ( scheduleItem ) {
 
-        console.log(`afterClosed -> ${JSON.stringify(scheduleItem)}`);
+        this.logSrv.info(`afterClosed -> ${JSON.stringify(scheduleItem)}`);
         const index = this.event.scheduleItems.findIndex(item => item.id === scheduleItem.id);
-        console.log(`afterClosed 2 -> ${index}`);
+        this.logSrv.info(`afterClosed 2 -> ${index}`);
         if ( index < 0 ) { // Adding new ScheduleItem
           this.event.scheduleItems.push(scheduleItem);
         } else {
@@ -202,7 +206,7 @@ export class EventAdminComponent implements OnInit {
   }
 
   changeOrderScheduleItem(base: IBase): void {
-    console.log(`changeOrderScheduleItem ${base.id}`);
+    this.logSrv.info(`changeOrderScheduleItem ${base.id}`);
     const baseId =  base.id;
     const input = baseId.split('|');
     const id1 = input[0];
@@ -211,10 +215,10 @@ export class EventAdminComponent implements OnInit {
     this.event.scheduleItems.find(item => item.id === baseId).id = id1;
 
     if ( change === '+1' ) {
-      console.log(`bajando`);
+      this.logSrv.info(`bajando`);
       id2 = (+id1 + 1).toString();
     } else {
-      console.log(`subiendo`);
+      this.logSrv.info(`subiendo`);
       id2 = (+id1 - 1).toString();
     }
 
@@ -234,19 +238,19 @@ export class EventAdminComponent implements OnInit {
   }
 
   addScheduleItem(base: IBase): void {
-    console.log(`addScheduleItem: ${JSON.stringify(base)}`);
+    this.logSrv.info(`addScheduleItem: ${JSON.stringify(base)}`);
     this.event.scheduleItems.find(item => item.id === base.id).active = true;
     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
   }
 
   deleteScheduleItem(base: IBase): void {
-    console.log(`deleteScheduleItem: ${JSON.stringify(base)}`);
+    this.logSrv.info(`deleteScheduleItem: ${JSON.stringify(base)}`);
     this.event.scheduleItems.find(item => item.id === base.id).active = false;
     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
   }
 
   editScheduleItem(base: IBase): void {
-    console.log(`editScheduleItem: ${JSON.stringify(base)}`);
+    this.logSrv.info(`editScheduleItem: ${JSON.stringify(base)}`);
     this.openScheduleDialog(base.id);
   }
 }

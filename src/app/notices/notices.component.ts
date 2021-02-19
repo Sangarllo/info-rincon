@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { INotice } from '@models/notice';
 import { NoticeService } from '@services/notices.service';
 import { UtilsService } from '@services/utils.service';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-notices',
@@ -28,6 +29,7 @@ export class NoticesComponent implements OnInit {
   constructor(
     private router: Router,
     private utilSrv: UtilsService,
+    private logSrv: LogService,
     private noticeSrv: NoticeService,
   ) {
     this.loading = true;
@@ -74,7 +76,7 @@ export class NoticesComponent implements OnInit {
   }
 
   public deleteItem(notice: INotice): void {
-    console.log(`Borrando ${notice.id}`);
+    this.logSrv.info(`Borrando ${notice.id}`);
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás deshacer esta acción de borrado!',

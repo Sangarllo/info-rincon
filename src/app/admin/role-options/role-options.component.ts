@@ -8,13 +8,14 @@ import { AuthService } from '@auth/auth.service';
 import { UserRole } from '@models/user-role.enum';
 import { IEvent, Event } from '@models/event';
 import { IUser } from '@models/user';
-import { EventService } from '@services/events.service';
 import { IBase, BaseType } from '@models/base';
+import { IEntity } from '@models/entity';
+import { EventService } from '@services/events.service';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 import { EntityService } from '@services/entities.service';
+import { LogService } from '@services/log.service';
 
 import { EventNewBaseDialogComponent } from '@app/events/event-new-base-dialog/event-new-base-dialog.component';
-import { IEntity } from '@models/entity';
 
 @Component({
   selector: 'app-role-options',
@@ -25,14 +26,15 @@ export class RoleOptionsComponent {
 
   @Input() role: UserRole;
 
-  private currentUser: IUser;
   public dialogConfig = new MatDialogConfig();
+  private currentUser: IUser;
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private utilsSrv: UtilsService,
     private authSrv: AuthService,
+    private logSrv: LogService,
     private entitiesSrv: EntityService,
     private eventSrv: EventService
   ) {
@@ -74,10 +76,10 @@ export class RoleOptionsComponent {
         .subscribe((entity: IEntity) => {
           const newEvent = Event.InitDefault();
           this.eventSrv.addEventFromEntity(newEvent, entity, newBase.desc).then((eventId: string) => {
-            console.log(`EventId: ${eventId}`);
+            this.logSrv.info(`EventId: ${eventId}`);
             this.router.navigate([`eventos/${eventId}/admin`]);
-          })
-        })
+          });
+        });
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
       }

@@ -7,10 +7,10 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { PlaceService } from '@services/places.service';
-import { Place, IPlace } from '@shared/models/place';
+import { Place, IPlace } from '@models/place';
 import { PlaceType, PLACE_TYPES } from '@models/place-type.enum';
-
+import { PlaceService } from '@services/places.service';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-place-edit',
@@ -25,20 +25,21 @@ export class PlaceEditComponent implements OnInit {
   uploadPercent: Observable<number>;
 
   public place!: IPlace | undefined;
-  public TYPES: PlaceType[] = PLACE_TYPES;
+  public types: PlaceType[] = PLACE_TYPES;
 
   constructor(
     private afStorage: AngularFireStorage,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private PlaceSrv: PlaceService) { }
+    private logSrv: LogService,
+    private placeSrv: PlaceService) { }
 
   ngOnInit(): void {
 
     const idPlace = this.route.snapshot.paramMap.get('id');
     if ( idPlace ) {
-      console.log(`id asked ${idPlace}`);
+      this.logSrv.info(`id asked ${idPlace}`);
       this.getDetails(idPlace);
     }
 
@@ -55,19 +56,19 @@ export class PlaceEditComponent implements OnInit {
 
   }
 
-  private getDetails(idPlace: string): void {
-    console.log(`id asked ${idPlace}`);
+  getDetails(idPlace: string): void {
+    this.logSrv.info(`id asked ${idPlace}`);
 
     if ( idPlace === '0' ) {
       this.pageTitle = 'Creación de un nuevo lugar';
       this.place = Place.InitDefault();
     } else {
-      this.PlaceSrv.getOnePlace(idPlace)
+      this.placeSrv.getOnePlace(idPlace)
       .subscribe({
         next: (place: IPlace | undefined) => {
           this.place = place;
           this.displayPlace();
-          console.log(JSON.stringify(this.place));
+          this.logSrv.info(JSON.stringify(this.place));
         },
         error: err => {
           this.errorMessage = `Error: ${err}`;
@@ -113,9 +114,9 @@ export class PlaceEditComponent implements OnInit {
         const placeItem = { ...this.place, ...this.placeForm.value };
 
         if (placeItem.id === '0') {
-          this.PlaceSrv.addPlace(placeItem);
+          this.placeSrv.addPlace(placeItem);
         } else {
-          this.PlaceSrv.updatePlace(placeItem);
+          this.placeSrv.updatePlace(placeItem);
         }
 
         this.router.navigate([ Place.PATH_URL]);

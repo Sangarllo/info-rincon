@@ -3,6 +3,8 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
 
+import { LogService } from '@services/log.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,11 +12,16 @@ export class SeoService {
 
   private baseUrl = environment.baseUrl;
 
-  constructor(private title: Title, private meta: Meta, private router: Router) { }
+  constructor(
+    private title: Title,
+    private meta: Meta,
+    private router: Router,
+    private logSrv: LogService,
+  ) { }
 
   generateTags({ title = '', description = '', image = '' }): void {
 
-    console.log(`generating tags: ${title}`);
+    this.logSrv.info(`generating tags: ${title}`);
     this.title.setTitle(title);
     this.meta.addTags([
       // Open Graph

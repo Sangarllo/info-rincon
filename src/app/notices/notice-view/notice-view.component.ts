@@ -3,8 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
+import { INotice, Notice } from '@models/notice';
 import { NoticeService } from '@services/notices.service';
-import { INotice, Notice } from '@shared/models/notice';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-notice-view',
@@ -19,19 +20,20 @@ export class NoticeViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private logSrv: LogService,
     private noticeSrv: NoticeService,
   ) { }
 
   ngOnInit(): void {
     this.idNotice = this.route.snapshot.paramMap.get('id');
     if ( this.idNotice ) {
-      console.log(`id asked ${this.idNotice}`);
+      this.logSrv.info(`id asked ${this.idNotice}`);
       this.getDetails(this.idNotice);
     }
   }
 
   getDetails(idNotice: string): void {
-    console.log(`id asked ${idNotice}`);
+    this.logSrv.info(`id asked ${idNotice}`);
     this.notice$ = this.noticeSrv.getOneNotice(idNotice);
   }
 

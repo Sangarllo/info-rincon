@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
           baseType: BaseType.NEWS_ITEM,
           url: `../${NewsItem.PATH_URL}/${newsItem.id}`
         });
-        // console.log(`news item story! ${JSON.stringify(newsItem)}`);
+        // this.logSrv.info(`news item story! ${JSON.stringify(newsItem)}`);
       });
 
       notices.forEach(notice => {
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
           baseType: BaseType.NOTICE,
           url: `../${Notice.PATH_URL}/${notice.id}`
         });
-        // console.log(`notice story! ${JSON.stringify(notice)}`);
+        // this.logSrv.info(`notice story! ${JSON.stringify(notice)}`);
       });
 
       events.forEach(event => {
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
           baseType: BaseType.EVENT,
           url: `../${Event.PATH_URL}/${event.id}`
         });
-        // console.log(`event story! ${JSON.stringify(event)}`);
+        // this.logSrv.info(`event story! ${JSON.stringify(event)}`);
       });
 
       this.REAL_STORIES = this.REAL_STORIES.sort((item1: IBase, item2: IBase) => {

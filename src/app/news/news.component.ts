@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { INewsItem, NewsItem } from '@models/news';
 import { NewsService } from '@services/news.services';
 import { UtilsService } from '@services/utils.service';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-news',
@@ -29,6 +30,7 @@ export class NewsComponent implements OnInit {
   constructor(
     private router: Router,
     private utilSrv: UtilsService,
+    private logSrv: LogService,
     private newsSrv: NewsService,
   ) { }
 
@@ -91,7 +93,7 @@ export class NewsComponent implements OnInit {
   }
 
   public deleteItem(newsItem: INewsItem): void {
-    console.log(`Borrando ${newsItem.id}`);
+    this.logSrv.info(`Borrando ${newsItem.id}`);
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás deshacer esta acción de borrado!',
