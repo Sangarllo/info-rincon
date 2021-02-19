@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Create [Log Service](https://www.codemag.com/Article/1711021/Logging-in-Angular-Applications). Todo: publish in other place than console.
 
+### Changed
+
+- Change icons and add icon for IOS.
+
 ## [0.0.6] - 2021-02-16
 
 ### Added
