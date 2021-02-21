@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.8] - 2021-02-21 Evolve Cloud Functions
+
+### Added
+
+- Add function-folder (dist/info-rincon) to git repository.
+
+### Changed
+
+- Deploy ssr-function to `europe-west1` region
+
 ## [0.0.7] - 2021-02-17
 
 ### Added
