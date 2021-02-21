@@ -1,3 +1,6 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import 'globalthis/auto';
 import 'zone.js/dist/zone-node';
 
@@ -44,7 +47,7 @@ function run(): void {
   // Start up the Node server
   const server = app();
   server.listen(port, () => {
-    this.logSrv.info(`Node Express server listening on http://localhost:${port}`);
+    console.log(`Node Express server listening on http://localhost:${port}`);
   });
 }
 
