@@ -33,7 +33,6 @@ export class EventAdminComponent implements OnInit {
   public event: IEvent;
   public idEvent: string;
   public appointment$: Observable<IAppointment>;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly SECTION_BLANK: Base = Base.InitDefault();
   public dialogConfig = new MatDialogConfig();
   private currentUser: IUser;

@@ -19,7 +19,6 @@ import { LogService } from '@services/log.service';
 })
 export class EventImageDialogComponent implements OnInit {
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   readonly IMAGE_BLANK: string = Base.IMAGE_DEFAULT;
 
   title = 'Selecciona la imagen del evento';

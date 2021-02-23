@@ -31,7 +31,7 @@ export class EventEditComponent implements OnInit {
 
   public event!: IEvent | undefined;
   public status: Status[] = Event.STATUS;
-  public categories: Category[] = EVENT_CATEGORIES;
+  public CATEGORIES: Category[] = EVENT_CATEGORIES;
 
   constructor(
     private authSrv: AuthService,
