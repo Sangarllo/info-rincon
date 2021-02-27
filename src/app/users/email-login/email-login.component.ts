@@ -13,7 +13,7 @@ import { AuditService } from '@services/audit.service';
 export class EmailLoginComponent implements OnInit {
   form: FormGroup;
 
-  type: 'login' | 'signup' | 'reset' = 'signup';
+  type: 'login' | 'signup' | 'reset' = 'login';
   loading = false;
 
   serverMessage: string;
@@ -53,17 +53,17 @@ export class EmailLoginComponent implements OnInit {
     return this.type === 'reset';
   }
 
-  // eslint-disable-next-line 
+  // eslint-disable-next-line
   get email() {
     return this.form.get('email');
   }
 
-  // eslint-disable-next-line 
+  // eslint-disable-next-line
   get password() {
     return this.form.get('password');
   }
 
-  // eslint-disable-next-line 
+  // eslint-disable-next-line
   get passwordConfirm() {
     return this.form.get('passwordConfirm');
   }
