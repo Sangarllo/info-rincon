@@ -2,7 +2,7 @@
 
 <div class="section-wrapper">
 
-    <mat-card class="item-view" *ngIf="user$ | async as user; else noUserTemplate">
+    <mat-card class="item-view-user" *ngIf="user$ | async as user; else noUserTemplate">
 
         <div class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
@@ -11,17 +11,22 @@
 
             <div class="col-lg-9 col-md-8 col-12">
 
-                <mat-card-content class="item-view">
+                <mat-card-content class="item-view-user">
 
-                    <div>
-                        <span>Nombre:</span>
-                        <h2>{{ user.displayName }}</h2>
-                    </div>
+                    <mat-form-field class="data-detail">
+                        <input matInput type="text" disabled="true" [value]="user.displayName" placeholder="Nombre Completo" />
+                        <mat-icon matSuffix>assignment_ind</mat-icon>
+                    </mat-form-field>
 
-                    <div>
-                        <span>Email:</span>
-                        <h2>{{ user.email }}</h2>
-                    </div>
+                    <mat-form-field class="data-detail">
+                        <input matInput type="text" disabled="true" [value]="user.email" placeholder="Email" />
+                        <mat-icon matSuffix>email</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field class="data-detail">
+                        <input matInput type="text" disabled="true" [value]="(user.emailVerified) ? 'SI' : 'NO'" placeholder="Email verificado " />
+                        <mat-icon matSuffix>check_circle_outline</mat-icon>
+                    </mat-form-field>
 
                 </mat-card-content>
 

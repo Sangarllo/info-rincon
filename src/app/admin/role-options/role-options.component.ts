@@ -52,14 +52,6 @@ export class RoleOptionsComponent {
   //   });
   // }
 
-  gotoProfile(): void {
-    this.router.navigate([`admin/perfil`]);
-  }
-
-  gotoAudit(): void {
-    this.router.navigate([`usuarios/${this.currentUser.uid}/audit`]);
-  }
-
   gotoNewEventFromScratch(): void {
     this.router.navigate([`eventos/0/editar`]);
   }
