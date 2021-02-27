@@ -32,11 +32,25 @@ export class UserService {
                 .orderBy('displayName')
     );
 
-    return this.userCollection.valueChanges();
+    return this.userCollection.valueChanges()
+      .pipe(
+        map((users) => users.map(
+          user => {
+            user.role = user.role || UserRole.Lector;
+            return { ...user };
+          }))
+      );
   }
 
   getOneUser(uidUser: string): Observable<IUser | undefined> {
-    return this.userCollection.doc(uidUser).valueChanges({ uidField: 'uid' });
+    return this.userCollection.doc(uidUser)
+      .valueChanges({ uidField: 'uid' })
+      .pipe(
+        map(user => {
+          user.role = user.role || UserRole.Lector;
+          return { ...user };
+        })
+      );
   }
 
   // TODO When creating, perhaps existing as authenticated (check email)

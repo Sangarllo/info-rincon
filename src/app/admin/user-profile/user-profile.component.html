@@ -2,7 +2,7 @@
 
 <div class="section-wrapper">
 
-    <mat-card class="item-view-user" *ngIf="user$ | async as user; else noUserTemplate">
+    <mat-card class="item-view-user" *ngIf="userData$ | async as user; else noUserTemplate">
 
         <div class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
@@ -26,6 +26,11 @@
                     <mat-form-field class="data-detail">
                         <input matInput type="text" disabled="true" [value]="(user.emailVerified) ? 'SI' : 'NO'" placeholder="Email verificado " />
                         <mat-icon matSuffix>check_circle_outline</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field class="data-detail">
+                        <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
+                        <mat-icon matSuffix>supervised_user_circle</mat-icon>
                     </mat-form-field>
 
                 </mat-card-content>

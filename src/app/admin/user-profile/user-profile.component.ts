@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 
-import { AuthService } from '@app/shared/auth/auth.service';
-import { IUser } from '@models/user';
 import { Observable } from 'rxjs';
 
+import { UserService } from '@services/users.service';
+import { IUser } from '@models/user';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,14 +13,17 @@ import { Observable } from 'rxjs';
 })
 export class UserProfileComponent implements OnInit {
 
-  public user$: Observable<IUser> = this.authSvc.afAuth.user;
+  public userData$: Observable<IUser>;
 
   constructor(
-    public authSvc: AuthService,
-    private router: Router
+    public auth: AngularFireAuth,
+    private userSrv: UserService
   ) { }
 
   ngOnInit(): void {
+    this.auth.user.subscribe((usr) => {
+      const uidUser = usr.uid;
+      this.userData$ = this.userSrv.getOneUser(uidUser);
+    });
   }
-
 }

@@ -21,6 +21,10 @@
             </div>
             <div class="col-lg-9 col-md-8 col-12">
 
+                <h2 *ngIf="(user.role === 'SUPER') || (user.role === 'ADMIN')" class="alert alert-success" role="alert">
+                    Actualmente, al tener <strong>ROL {{ user.role }}</strong> puede administrar cualquier entidad
+                </h2>
+
                 <h2>{{ user.displayName }} tiene rol {{ user.role }} y las siguientes entidades asociadas:</h2>
 
                 <mat-card-content class="item-view">
