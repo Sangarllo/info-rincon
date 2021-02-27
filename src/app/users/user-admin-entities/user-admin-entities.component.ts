@@ -28,7 +28,7 @@ export class UserAdminEntitiesComponent implements OnInit {
   entityForm!: FormGroup;
   selectedEntity: IEntity;
 
-  displayedColumns: string[] = [ 'image', 'id', 'name', 'actions3' ];
+  displayedColumns: string[] = [ 'image', 'name', 'actions2' ];
 
   constructor(
     private router: Router,

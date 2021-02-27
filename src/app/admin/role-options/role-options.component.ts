@@ -43,17 +43,32 @@ export class RoleOptionsComponent {
     });
   }
 
-  // onNotImplementedClick(): void {
-  //   Swal.fire({
-  //     icon: 'warning',
-  //     title: 'Funcionalidad aún no disponible',
-  //     text: `Esta posibilidad aún no está disponbile, ${this.role}`,
-  //     // footer: '<a href>Why do I have this issue?</a>'
-  //   });
-  // }
-
   gotoNewEventFromScratch(): void {
     this.router.navigate([`eventos/0/editar`]);
+  }
+
+  gotoUsersDashboard(): void {
+    this.router.navigate([`usuarios`]);
+  }
+
+  gotoEntitiesDashboard(): void {
+    this.router.navigate([`entidades`]);
+  }
+
+  gotoPlacesDashboard(): void {
+    this.router.navigate([`lugares`]);
+  }
+
+  gotoEventsDashboard(): void {
+    this.router.navigate([`eventos`]);
+  }
+
+  gotoNoticesDashboard(): void {
+    this.router.navigate([`avisos`]);
+  }
+
+  gotoNewsDashboard(): void {
+    this.router.navigate([`noticias`]);
   }
 
   openEntityDialog(): void {
