@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.9] - 2021-02-27 Improving CI
+
+### Add
+
+- Add [Travis CI](https://medium.com/angular-chile/integraci%C3%B3n-continua-angular-github-firebase-travis-ci-a1a8946d471a).
+
 ## [0.0.8] - 2021-02-21 Evolve Cloud Functions
 
 ### Fixed
