@@ -73,7 +73,7 @@ export class RoleOptionsComponent {
 
   openEntityDialog(): void {
     this.dialogConfig.data = BaseType.ENTITY;
-    this.dialogConfig.width = '500px';
+    this.dialogConfig.width = '600px';
     this.dialogConfig.height = '600px';
     const dialogRef = this.dialog.open(EventNewBaseDialogComponent, this.dialogConfig);
 

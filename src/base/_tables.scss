@@ -37,7 +37,7 @@ table {
     border: 2px solid white;
     .img-thumbnail {
         min-width: 64px;
-        width: 64px;
+        width: 64px !important;
         min-height: 64px;
         height: 64px;
     }

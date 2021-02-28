@@ -14,7 +14,7 @@
 
     <mat-form-field appearance="outline">
         <mat-label>{{ baseItemName }}</mat-label>
-        <mat-select placeholder="Lugar" formControlName="baseItem" [compareWith]="compareFunction" (selectionChange)="onSelectionChanged($event)">
+        <mat-select [placeholder]="baseItemName" formControlName="baseItem" [compareWith]="compareFunction" (selectionChange)="onSelectionChanged($event)">
             <mat-option [value]="SECTION_BLANK">
                 SIN ESPECIFICAR
             </mat-option>
@@ -25,14 +25,14 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-        <mat-label>Descripción</mat-label>
+        <mat-label>{{ baseItemDesc }}</mat-label>
         <input matInput placeholder="Descripción" formControlName="baseItemDesc">
     </mat-form-field>
 
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-    <button mat-raised-button color="warn" (click)="save()" cdkFocusInitial>
+    <button mat-raised-button color="warn" [disabled]="baseItemSelected.id === '0'" (click)="save()" cdkFocusInitial>
       <mat-icon>check_circle_outline</mat-icon> Guardar
     </button>
     <button mat-raised-button (click)="onNoClick()">Cancelar</button>

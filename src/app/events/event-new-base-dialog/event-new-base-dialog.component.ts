@@ -18,6 +18,7 @@ export class EventNewBaseDialogComponent implements OnInit {
   readonly SECTION_BLANK: Base = Base.InitDefault();
   title: string;
   baseItemName: string;
+  baseItemDesc: string;
   baseItemForm: FormGroup;
   baseItemCtrl = new FormControl();
   baseItemSelected: IBase;
@@ -38,12 +39,14 @@ export class EventNewBaseDialogComponent implements OnInit {
         this.title = 'Selecciona una ubicación asociada a este evento';
         this.baseItems$ = this.baseSrv.getAllItemsBase(BaseType.PLACE);
         this.baseItemName = 'ubicación';
+        this.baseItemDesc = 'descripción';
         break;
 
       case BaseType.ENTITY:
         this.title = 'Selecciona una entidad asociada a este evento';
         this.baseItems$ = this.baseSrv.getAllItemsBase(BaseType.ENTITY);
         this.baseItemName = 'entidad';
+        this.baseItemDesc = 'rol';
         break;
 
       default:
