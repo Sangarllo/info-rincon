@@ -43,7 +43,18 @@ table {
     }
 }
 
+td.mat-column-baseBigImage {
+    width: 80px;
+    .img-thumbnail {
+        min-width: 64px;
+        width: 64px !important;
+        min-height: 64px;
+        height: 64px;
+    }
+}
+
 td.mat-column-displayName,
+td.mat-column-baseBigName,
 td.mat-column-name,
 td.mat-column-desc {
     width: 300px;
@@ -78,7 +89,7 @@ td.mat-column-desc {
     }
 }
 
-.mat-column-baseImage,
+.mat-column-baseSmallImage,
 .mat-column-sourceImage,
 .mat-column-placeImage {
     text-align: right;
@@ -91,7 +102,7 @@ td.mat-column-desc {
     }
 }
 
-td.mat-column-baseName,
+td.mat-column-baseSmallName,
 td.mat-column-sourceName,
 td.mat-column-placeName {
     width: 100px;

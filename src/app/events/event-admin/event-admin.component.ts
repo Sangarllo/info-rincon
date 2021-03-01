@@ -35,6 +35,7 @@ export class EventAdminComponent implements OnInit {
   public appointment$: Observable<IAppointment>;
   readonly SECTION_BLANK: Base = Base.InitDefault();
   public dialogConfig = new MatDialogConfig();
+  public baseType = BaseType.EVENT;
   private currentUser: IUser;
 
   constructor(

@@ -64,7 +64,7 @@
                           <mat-icon>alarm_add</mat-icon>
                         </button>
 
-                        <sh-base-items-table [baseItems]="event.scheduleItems" (changeOrderBase)="changeOrderScheduleItem($event)" (addBase)="addScheduleItem($event)" (deleteBase)="deleteScheduleItem($event)" (editBase)="editScheduleItem($event)"></sh-base-items-table>
+                        <sh-base-items-table [baseItems]="event.scheduleItems" [baseType]="baseType" (changeOrderBase)="changeOrderScheduleItem($event)" (addBase)="addScheduleItem($event)" (deleteBase)="deleteScheduleItem($event)" (editBase)="editScheduleItem($event)"></sh-base-items-table>
 
                     </fieldset>
 

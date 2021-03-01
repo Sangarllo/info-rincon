@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges, Output, EventEmitte
 import { MatTableDataSource } from '@angular/material/table';
 
 import { LogService } from '@services/log.service';
-import { IBase } from '@models/base';
+import { BaseType, IBase } from '@models/base';
 
 @Component({
   selector: 'sh-base-items-table',
@@ -16,9 +16,10 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
   @Output() deleteBase = new EventEmitter<IBase>();
   @Output() editBase = new EventEmitter<IBase>();
   @Input() baseItems: IBase[];
+  @Input() baseType: BaseType;
   public baseItemsLength: string;
 
-  displayedColumns: string[] = ['baseId', 'baseImage', 'baseName', 'baseDesc', 'active', 'baseActions4' ];
+  displayedColumns: string[]; // = [ 'baseImage', 'baseName', 'baseActions4' ];
   public dataSource: MatTableDataSource<IBase> = new MatTableDataSource();
 
   constructor(
@@ -29,6 +30,15 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.baseItems);
     this.baseItemsLength = this.baseItems.length.toString();
+    switch(this.baseType) {
+      case BaseType.EVENT:
+        this.displayedColumns = ['baseId', 'baseSmallImage', 'baseSmallName', 'baseDesc', 'active', 'baseActions4' ];
+        break;
+
+      case BaseType.ENTITY:
+        this.displayedColumns = [ 'baseBigImage', 'baseBigName' ];
+        break;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

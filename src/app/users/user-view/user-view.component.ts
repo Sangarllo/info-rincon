@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
-import { IUser, User } from '@models/user';
 import { UserService } from '@services/users.service';
 import { LogService } from '@services/log.service';
+import { IUser, User } from '@models/user';
+import { BaseType } from '@models/base';
 
 @Component({
   selector: 'app-user-view',
@@ -16,6 +17,7 @@ export class UserViewComponent implements OnInit {
 
   public user$: Observable<IUser | undefined> | null = null;
   public uidUser: string;
+  public baseType: BaseType = BaseType.ENTITY;
 
   constructor(
     private route: ActivatedRoute,
