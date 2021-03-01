@@ -13,25 +13,71 @@
 
                 <mat-card-content class="item-view-user">
 
-                    <mat-form-field class="data-detail">
-                        <input matInput type="text" disabled="true" [value]="user.displayName" placeholder="Nombre Completo" />
-                        <mat-icon matSuffix>assignment_ind</mat-icon>
-                    </mat-form-field>
+                    <mat-tab-group>
 
-                    <mat-form-field class="data-detail">
-                        <input matInput type="text" disabled="true" [value]="user.email" placeholder="Email" />
-                        <mat-icon matSuffix>email</mat-icon>
-                    </mat-form-field>
+                        <!-- A. Datos Personales -->
+                        <mat-tab class="tab-data-detail" label="Datos Personales">
 
-                    <mat-form-field class="data-detail">
-                        <input matInput type="text" disabled="true" [value]="(user.emailVerified) ? 'SI' : 'NO'" placeholder="Email verificado " />
-                        <mat-icon matSuffix>check_circle_outline</mat-icon>
-                    </mat-form-field>
 
-                    <mat-form-field class="data-detail">
-                        <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
-                        <mat-icon matSuffix>supervised_user_circle</mat-icon>
-                    </mat-form-field>
+                            <mat-form-field class="data-detail">
+                                <input matInput type="text" disabled="true" [value]="user.displayName" placeholder="Nombre Completo" />
+                                <mat-icon matSuffix>assignment_ind</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail">
+                                <input matInput type="text" disabled="true" [value]="user.email" placeholder="Email" />
+                                <mat-icon matSuffix>email</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail">
+                                <input matInput type="text" disabled="true" [value]="(user.emailVerified) ? 'SI' : 'NO'" placeholder="Email verificado " />
+                                <mat-icon matSuffix>check_circle_outline</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail">
+                                <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
+                                <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                            </mat-form-field>
+
+                        </mat-tab>
+
+
+                        <!-- B. Datos de Entidades -->
+                        <mat-tab label="Entidades Asociadas">
+
+                            <mat-form-field class="data-detail">
+                                <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
+                                <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                            </mat-form-field>
+
+                            <br/>
+
+                            <div *ngIf="(user.role === 'SUPER') || (user.role === 'ADMIN') || (user.role === 'CENSOR')" class="alert alert-success" role="alert">
+                                Actualmente, al tener <strong>ROL {{ user.role }}</strong> puede administrar cualquier entidad
+                            </div>
+
+                            <div *ngIf="(user.role === 'LECTOR')" class="alert alert-danger" role="alert">
+                                Actualmente, al tener <strong>ROL {{ user.role }}</strong> no puede administrar ninguna entidad
+                            </div>
+
+                            <div *ngIf="user.entitiesAdmin">
+
+                                <h3 *ngIf="(user.role !== 'AUTOR' )">De tener ROL AUTOR, podría administrar:</h3>
+
+                                <sh-base-items-table [baseItems]="user.entitiesAdmin" [baseType]="baseTypeEntity"></sh-base-items-table>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <!-- C. Datos de Auditoría -->
+                        <mat-tab label="Auditoría de accesos" *ngIf="auditItems.length > 0">
+
+                            <sh-base-items-table [baseItems]="auditItems" [baseType]="baseTypeAudit"></sh-base-items-table>
+
+                        </mat-tab>
+
+                    </mat-tab-group>
 
                 </mat-card-content>
 

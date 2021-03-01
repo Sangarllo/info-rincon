@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 
 import { UserService } from '@services/users.service';
 import { LogService } from '@services/log.service';
-import { IUser, User } from '@models/user';
-import { BaseType } from '@models/base';
 import { AuditService } from '@services/audit.service';
+import { IUser, User } from '@models/user';
 import { IAuditItem } from '@models/audit';
+import { BaseType } from '@models/base';
 
 @Component({
   selector: 'app-user-view',
