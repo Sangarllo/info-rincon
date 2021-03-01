@@ -31,8 +31,13 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
     this.dataSource = new MatTableDataSource(this.baseItems);
     this.baseItemsLength = this.baseItems.length.toString();
     switch(this.baseType) {
+
       case BaseType.EVENT:
-        this.displayedColumns = ['baseId', 'baseSmallImage', 'baseSmallName', 'baseDesc', 'active', 'baseActions4' ];
+        this.displayedColumns = ['baseId', 'baseSmallImage', 'baseSmallName', 'baseDescHorario', 'active', 'baseActions4' ];
+        break;
+
+      case BaseType.AUDIT:
+        this.displayedColumns = ['baseSmallImage', 'baseTimestamp', 'baseDesc' ];
         break;
 
       case BaseType.ENTITY:

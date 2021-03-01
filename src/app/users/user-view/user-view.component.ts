@@ -7,6 +7,8 @@ import { UserService } from '@services/users.service';
 import { LogService } from '@services/log.service';
 import { IUser, User } from '@models/user';
 import { BaseType } from '@models/base';
+import { AuditService } from '@services/audit.service';
+import { IAuditItem } from '@models/audit';
 
 @Component({
   selector: 'app-user-view',
@@ -17,12 +19,15 @@ export class UserViewComponent implements OnInit {
 
   public user$: Observable<IUser | undefined> | null = null;
   public uidUser: string;
-  public baseType: BaseType = BaseType.ENTITY;
+  public auditItems: IAuditItem[] = [];
+  public baseTypeEntity: BaseType = BaseType.ENTITY;
+  public baseTypeAudit: BaseType = BaseType.AUDIT;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private logSrv: LogService,
+    private auditSrv: AuditService,
     private userSrv: UserService,
   ) { }
 
@@ -31,12 +36,20 @@ export class UserViewComponent implements OnInit {
     if ( this.uidUser ) {
       this.logSrv.info(`uid asked ${this.uidUser}`);
       this.getDetails(this.uidUser);
+      this.getAudit(this.uidUser);
     }
   }
 
   getDetails(uidUser: string): void {
     this.logSrv.info(`uid asked ${uidUser}`);
     this.user$ = this.userSrv.getOneUser(uidUser);
+  }
+
+  getAudit(uidUser: string): void {
+    this.auditSrv.getAllAuditItemsByUser(uidUser)
+    .subscribe( (auditItems: IAuditItem[]) => {
+      this.auditItems = auditItems;
+    });
   }
 
   public gotoList(): void {

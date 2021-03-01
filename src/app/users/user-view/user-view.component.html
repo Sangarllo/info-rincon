@@ -4,7 +4,6 @@
 
     <mat-card class="item-view-user" *ngIf="user$ | async as user; else noUserTemplate">
 
-
         <div class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
                 <img [src]="user.photoURL" class="img-thumbnail">
@@ -46,6 +45,11 @@
                         <!-- B. Datos de Entidades -->
                         <mat-tab label="Entidades Asociadas">
 
+                            <mat-form-field class="data-detail">
+                                <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
+                                <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                            </mat-form-field>
+
                             <br/>
 
                             <div *ngIf="(user.role === 'SUPER') || (user.role === 'ADMIN') || (user.role === 'CENSOR')" class="alert alert-success" role="alert">
@@ -56,11 +60,20 @@
                                 Actualmente, al tener <strong>ROL {{ user.role }}</strong> no puede administrar ninguna entidad
                             </div>
 
-                            <h3 *ngIf="user.entitiesAdmin.length > 0">
-                                De tener ROL AUTOR, podría administrar:
-                            </h3>
+                            <div *ngIf="user.entitiesAdmin">
 
-                            <sh-base-items-table [baseItems]="user.entitiesAdmin" [baseType]="baseType"></sh-base-items-table>
+                                <h3 *ngIf="(user.role !== 'AUTOR' )">De tener ROL AUTOR, podría administrar:</h3>
+
+                                <sh-base-items-table [baseItems]="user.entitiesAdmin" [baseType]="baseTypeEntity"></sh-base-items-table>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <!-- C. Datos de Auditoría -->
+                        <mat-tab label="Auditoría de accesos" *ngIf="auditItems.length > 0">
+
+                            <sh-base-items-table [baseItems]="auditItems" [baseType]="baseTypeAudit"></sh-base-items-table>
 
                         </mat-tab>
 
