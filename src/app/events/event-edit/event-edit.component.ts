@@ -30,7 +30,7 @@ export class EventEditComponent implements OnInit {
   uploadPercent: Observable<number>;
 
   public event!: IEvent | undefined;
-  public status: Status[] = Event.STATUS;
+  public STATUS: Status[] = Event.STATUS;
   public CATEGORIES: Category[] = EVENT_CATEGORIES;
 
   constructor(
