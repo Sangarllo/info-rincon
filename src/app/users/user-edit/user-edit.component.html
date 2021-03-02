@@ -18,7 +18,7 @@
 
                     <span (click)="inputImageProfile.click()" class="small">Clica en la imagen para cambiar la foto</span>
 
-                    <mat-form-field class="data-detail">
+                    <mat-form-field class="card-detail">
                         <mat-label>Avatar</mat-label>
                         <mat-select formControlName="photoURL" [value]="userForm.get('photoURL').value">
                             <mat-option *ngFor="let avatar of AVATARES" [value]="avatar.path">

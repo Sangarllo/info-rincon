@@ -2,7 +2,7 @@
 
 <div class="section-wrapper">
 
-    <mat-card class="item-view-user" *ngIf="userData$ | async as user; else noUserTemplate">
+    <mat-card *ngIf="userData$ | async as user; else noUserTemplate">
 
         <div class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
@@ -11,30 +11,30 @@
 
             <div class="col-lg-9 col-md-8 col-12">
 
-                <mat-card-content class="item-view-user">
+                <mat-card-content>
 
                     <mat-tab-group>
 
                         <!-- A. Datos Personales -->
-                        <mat-tab class="tab-data-detail" label="Datos Personales">
+                        <mat-tab class="tab-card-detail" label="Datos Personales">
 
 
-                            <mat-form-field class="data-detail">
+                            <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="user.displayName" placeholder="Nombre Completo" />
                                 <mat-icon matSuffix>assignment_ind</mat-icon>
                             </mat-form-field>
 
-                            <mat-form-field class="data-detail">
+                            <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="user.email" placeholder="Email" />
                                 <mat-icon matSuffix>email</mat-icon>
                             </mat-form-field>
 
-                            <mat-form-field class="data-detail">
+                            <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="(user.emailVerified) ? 'SI' : 'NO'" placeholder="Email verificado " />
                                 <mat-icon matSuffix>check_circle_outline</mat-icon>
                             </mat-form-field>
 
-                            <mat-form-field class="data-detail">
+                            <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
                                 <mat-icon matSuffix>supervised_user_circle</mat-icon>
                             </mat-form-field>
@@ -45,7 +45,7 @@
                         <!-- B. Datos de Entidades -->
                         <mat-tab label="Entidades Asociadas">
 
-                            <mat-form-field class="data-detail">
+                            <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
                                 <mat-icon matSuffix>supervised_user_circle</mat-icon>
                             </mat-form-field>
