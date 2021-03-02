@@ -62,7 +62,7 @@ export class EventViewComponent implements OnInit {
         title: `${event.name} | Rincón de Soto`,
         description: event.description,
         image: event.image,
-      })
+      });
     });
   }
 
