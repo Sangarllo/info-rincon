@@ -1,3 +1,5 @@
+<app-section-header *ngIf="entity$ | async as entity" [title]="'Rincón de Soto | Entidad ' + entity.name"></app-section-header>
+
 <div class="section-wrapper">
 
     <mat-card class="item-view" *ngIf="entity$ | async as entity; else noEntityTemplate">
@@ -9,36 +11,62 @@
 
             <div class="col-lg-9 col-md-8 col-12">
 
-                <mat-card-content class="item-view">
+                <mat-card-content>
 
-                    <div>
-                        <mat-chip-list aria-label="Entity mode">
-                            <mat-chip color="primary" selected>{{ entity.active ? 'activo' : 'no activo '}}</mat-chip>
-                        </mat-chip-list>
-                    </div>
+                    <mat-tab-group>
 
-                    <div>
-                        <span>Nombre:</span>
-                        <h2>{{ entity.name }}</h2>
-                    </div>
+                        <mat-tab class="tab-card-detail" label="Datos de entidad">
 
-                    <div>
-                        <span>Categorías:</span>
-                        <mat-chip-list aria-label="Categories">
-                            <mat-chip *ngFor="let category of entity.categories">{{ category }}</mat-chip>
-                        </mat-chip-list>
-                    </div>
+                            <mat-form-field class="card-detail">
+                                <input matInput type="text" disabled="true" [value]="entity.active" placeholder="Activo" />
+                                <mat-icon matSuffix>check_circle_outline</mat-icon>
+                            </mat-form-field>
 
-                    <div *ngIf="entity.place">
-                        <img [src]="entity.place.image" class="img-thumbnail" [alt]="entity.place.name" />
-                        <span>Lugar por defecto:</span>
-                        <h2>{{ entity.place?.name }}</h2>
-                    </div>
+                            <mat-form-field class="card-detail">
+                                <input matInput type="text" disabled="true" [value]="entity.name" placeholder="Nombre" />
+                                <mat-icon matSuffix>assignment_ind</mat-icon>
+                            </mat-form-field>
 
-                    <div *ngIf="entity.roleDefault">
-                        <span>Rol por defecto:</span>
-                        <h2>{{ entity.roleDefault }}</h2>
-                    </div>
+
+                            <mat-form-field class="card-detail">
+                                <input matInput type="text" disabled="true" [value]="entity.description" placeholder="Descripción" />
+                                <mat-icon matSuffix>info</mat-icon>
+                            </mat-form-field>
+
+                            <div class="card-detail" class="card-chip-list">
+                                <span>Categorías:</span>
+                                <mat-chip-list aria-label="Categories">
+                                    <mat-chip *ngFor="let category of entity.categories">{{ category }}</mat-chip>
+                                </mat-chip-list>
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab class="tab-card-detail" label="Más info">
+
+                            <mat-form-field class="card-detail">
+                                <input matInput type="text" disabled="true" [value]="entity.roleDefault" placeholder="Rol por defecto" />
+                                <mat-icon matSuffix>manage_accounts</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="card-detail">
+                                <input matInput type="text" disabled="true" [value]="entity.scheduleTypeDefault" placeholder="Tipo de acto" />
+                                <mat-icon matSuffix>label</mat-icon>
+                            </mat-form-field>
+
+                            <div *ngIf="entity.place" class="card-detail-block">
+                                <img [src]="entity.place.image" class="img-thumbnail" [alt]="entity.place.name" />
+                                <div>
+                                    <span class="desc">Lugar por defecto</span>
+                                    <br/>
+                                    <span class="name">{{ entity.place?.name }}</span>
+                                </div>
+
+                            </div>
+
+                        </mat-tab>
+
+                    </mat-tab-group>
 
                 </mat-card-content>
 

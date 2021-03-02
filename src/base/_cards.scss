@@ -9,3 +9,37 @@
         color: black !important;
     }
 }
+
+.card-detail-block {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: block;
+    img.img-thumbnail {
+        width: 48px;
+        height: 48px;
+        float: left;
+        margin-right: 10px;
+    }
+    span.desc {
+        color: #333333;
+        font-size: smaller;
+        text-transform: uppercase;
+    }
+    span.name {
+        color: black;
+        font-size: larger;
+        font-weight: bolder;
+    }
+}
+
+.card-chip-list mat-chip-list div {
+    margin-top: 0px;
+    span {
+        font-size: smaller;
+    }
+}
+
+.mat-tab-body-content {
+    overflow: hidden !important;
+}
