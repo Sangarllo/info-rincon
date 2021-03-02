@@ -37,7 +37,7 @@ export class EntityViewComponent implements OnInit {
       .pipe(
         tap(entity =>
           this.seo.generateTags({
-            title: `${entity.name} | Rincón de Soto`,
+            title: `${entity.name} | Entidad de Rincón de Soto`,
             description: entity.description,
             image: entity.image,
           })

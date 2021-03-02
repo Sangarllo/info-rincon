@@ -1,3 +1,5 @@
+<app-section-header *ngIf="place$ | async as place" [title]="place.name + ' | Lugar de Rincón de Soto'"></app-section-header>
+
 <div class="section-wrapper">
 
     <mat-card class="item-view" *ngIf="place$ | async as place; else noPlaceTemplate">
@@ -9,30 +11,51 @@
 
             <div class="col-lg-9 col-md-8 col-12">
 
-                <mat-card-content class="item-view">
+                <mat-card-content>
 
-                    <div>
-                        <mat-chip-list aria-label="Place mode">
-                            <mat-chip color="primary" selected>{{ place.active ? 'activo' : 'no activo '}}</mat-chip>
-                        </mat-chip-list>
-                    </div>
+                    <mat-tab-group>
 
-                    <div>
-                        <span>Nombre:</span>
-                        <h2>{{ place.name }}</h2>
-                    </div>
+                        <mat-tab class="tab-card-detail" label="Datos de lugar">
 
-                    <div>
-                        <span>Tipo:</span>
-                        <mat-chip-list aria-label="Tipo">
-                            <mat-chip *ngFor="let type of place.type">{{ type }}</mat-chip>
-                        </mat-chip-list>
-                    </div>
+                            <mat-form-field class="card-detail">
+                                <input matInput type="text" disabled="true" [value]="place.active" placeholder="Activo" />
+                                <mat-icon matSuffix>check_circle_outline</mat-icon>
+                            </mat-form-field>
 
-                    <div>
-                        <span>Localidad</span>
-                        <h2>{{ place.locality }}</h2>
-                    </div>
+                            <mat-form-field class="card-detail">
+                                <input matInput type="text" disabled="true" [value]="place.name" placeholder="Nombre" />
+                                <mat-icon matSuffix>assignment_ind</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="card-detail">
+                                <input matInput type="text" disabled="true" [value]="place.description" placeholder="Descripción" />
+                                <mat-icon matSuffix>info</mat-icon>
+                            </mat-form-field>
+
+                            <div class="card-detail" class="card-chip-list">
+                                <span>Tipo de lugar:</span>
+                                <mat-chip-list aria-label="Tipos">
+                                    <mat-chip *ngFor="let type of place.types">{{ type }}</mat-chip>
+                                </mat-chip-list>
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab class="tab-card-detail" label="Más info">
+
+                            <mat-form-field class="card-detail">
+                                <input matInput type="text" disabled="true" [value]="place.locality" placeholder="Localidad" />
+                                <mat-icon matSuffix>place</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="card-detail">
+                                <input matInput type="text" disabled="true" [value]="place.roleDefault" placeholder="Rol por defecto" />
+                                <mat-icon matSuffix>manage_accounts</mat-icon>
+                            </mat-form-field>
+
+                        </mat-tab>
+
+                    </mat-tab-group>
 
                 </mat-card-content>
 

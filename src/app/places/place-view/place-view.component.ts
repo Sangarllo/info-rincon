@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-import { IPlace, Place } from '@models/place';
+import { SeoService } from '@services/seo.service';
 import { PlaceService } from '@services/places.service';
 import { LogService } from '@services/log.service';
+import { IPlace, Place } from '@models/place';
 
 @Component({
   selector: 'app-place-view',
@@ -20,6 +22,7 @@ export class PlaceViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private seo: SeoService,
     private logSrv: LogService,
     private placeSrv: PlaceService,
   ) { }
@@ -34,7 +37,16 @@ export class PlaceViewComponent implements OnInit {
 
   getDetails(idPlace: string): void {
     this.logSrv.info(`id asked ${idPlace}`);
-    this.place$ = this.placeSrv.getOnePlace(idPlace);
+    this.place$ = this.placeSrv.getOnePlace(idPlace)
+      .pipe(
+        tap(place =>
+          this.seo.generateTags({
+            title: `${place.name} | Lugar de Rincón de Soto`,
+            description: place.description,
+            image: place.image,
+          })
+        )
+      );
   }
 
   public gotoList(): void {

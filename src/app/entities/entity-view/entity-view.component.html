@@ -1,4 +1,4 @@
-<app-section-header *ngIf="entity$ | async as entity" [title]="'Rincón de Soto | Entidad ' + entity.name"></app-section-header>
+<app-section-header *ngIf="entity$ | async as entity" [title]="entity.name + ' | Entidad de Rincón de Soto'"></app-section-header>
 
 <div class="section-wrapper">
 
@@ -26,7 +26,6 @@
                                 <input matInput type="text" disabled="true" [value]="entity.name" placeholder="Nombre" />
                                 <mat-icon matSuffix>assignment_ind</mat-icon>
                             </mat-form-field>
-
 
                             <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="entity.description" placeholder="Descripción" />
