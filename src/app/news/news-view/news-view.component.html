@@ -1,6 +1,6 @@
 <div class="section-wrapper">
 
-    <mat-card class="item-view" *ngIf="newsItem$ | async as newsItem; else noNewsTemplate">
+    <mat-card class="item-view" *ngIf="newsItem; else noNewsTemplate">
 
         <div class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
@@ -11,23 +11,15 @@
 
                 <mat-card-content class="item-view">
 
-                    <div>
-                        <mat-chip-list aria-label="mode">
-                            <mat-chip color="primary" selected>{{ newsItem.active ? 'activo' : 'no activo '}}</mat-chip>
-                        </mat-chip-list>
-                    </div>
+                    <div class="title">{{ newsItem.name }}</div>
 
-                    <div>
-                        <span>Título:</span>
-                        <h2>{{ newsItem.name }}</h2>
-                    </div>
-
-                    <div>
-                        <span>Categorías:</span>
+                    <div *ngIf="newsItem.categories?.length > 0">
                         <mat-chip-list aria-label="Categories">
                             <mat-chip *ngFor="let category of newsItem.categories">{{ category }}</mat-chip>
                         </mat-chip-list>
                     </div>
+
+                    <div class="description" [innerHTML]="newsItem.description" *ngIf="notice.description"></div>
 
                     <div *ngIf="newsItem.source">
                         <span>Fuente:</span>

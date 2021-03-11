@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
-
 import { INewsItem, NewsItem } from '@shared/models/news';
 import { NewsService } from '@services/news.services';
+import { LogService } from '@services/log.service';
+import { SeoService } from '@services/seo.service';
 
 @Component({
   selector: 'app-news-view',
@@ -13,13 +13,15 @@ import { NewsService } from '@services/news.services';
 })
 export class NewsViewComponent implements OnInit {
 
-  public newsItem$: Observable<INewsItem | undefined> | null = null;
   public idNewsItem: string;
+  public newsItem: INewsItem;
   public urlNewsItem: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private seo: SeoService,
+    private logSrv: LogService,
     private newsSrv: NewsService,
   ) { }
 
@@ -32,12 +34,15 @@ export class NewsViewComponent implements OnInit {
   }
 
   getDetails(idNewsItem: string): void {
-    // this.logSrv.info(`id asked ${idNewsItem}`);
-    this.newsItem$ = this.newsSrv.getOneNewsItem(idNewsItem);
-
-    this.newsItem$
+    this.newsSrv.getOneNewsItem(idNewsItem)
       .subscribe( ( newsItem: INewsItem ) => {
         this.urlNewsItem = newsItem.sourceUrl;
+        this.newsItem = newsItem;
+        this.seo.generateTags({
+          title: `${newsItem.name} | ${newsItem.source}`,
+          description: newsItem.description,
+          image: newsItem.image,
+        });
       });
   }
 

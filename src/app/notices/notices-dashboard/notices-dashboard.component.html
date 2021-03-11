@@ -8,13 +8,13 @@
             <span class="data">{{ notice.timestamp }}</span>
         </div>
         <div class="notice-image">
-            <img alt="'Tu cuenta personal'" [src]="'https://picsum.photos/260?random=' + i" class="img-thumbnail" />
+            <img alt="'Tu cuenta personal'" [src]="notice.image" class="img-thumbnail" style="width:200px;height:200px;" />
         </div>
         <mat-card-title>
             <p>{{ notice.name }}</p>
         </mat-card-title>
         <mat-card-content>
-            <p [innerHTML]="notice.description"></p>
+            <span>...</span>
         </mat-card-content>
         <mat-card-actions>
             <button mat-raised-button color="primary">VER</button>

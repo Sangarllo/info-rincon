@@ -87,7 +87,7 @@ export class EventService {
   }
 
   getAllCalendarEventsAppointments(): Observable<CalendarEvent[]> {
-    const events$ = this.getAllEvents(false, false, null);
+    const events$ = this.getAllEvents(true, false, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
 
     return combineLatest([
@@ -146,7 +146,7 @@ export class EventService {
       ...event,
       id: eventId,
       appointmentId: eventId,
-      timestamp: timestamp,
+      timestamp,
       auditItems: [{...auditItem}],
       userId: currentUser.uid,
     });
@@ -200,7 +200,7 @@ export class EventService {
         ...event,
         id: eventId,
         appointmentId: eventId,
-        timestamp: timestamp,
+        timestamp,
         name: `Nuevo evento de ${entity.name}`,
         categories,
         scheduleType,

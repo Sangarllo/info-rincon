@@ -6,7 +6,7 @@
     </app-calendar-header>
 
     <ng-template #ngSimpleHeaderTemplate>
-        <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
+        <h3 class="calendar-title">{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
     </ng-template>
 
     <div *ngIf="events$ | async; else loading; let events">

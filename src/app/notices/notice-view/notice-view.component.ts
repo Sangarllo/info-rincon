@@ -15,7 +15,6 @@ import { SeoService } from '@services/seo.service';
 })
 export class NoticeViewComponent implements OnInit {
 
-  public notice$: Observable<INotice | undefined> | null = null;
   public idNotice: string;
   public notice: INotice;
 
