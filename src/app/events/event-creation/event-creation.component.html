@@ -1,0 +1,17 @@
+<div class="options-wrapper" *ngIf="role">
+
+    <mat-card class="option-item" *ngIf="(role != 'LECTOR') && (role != 'AUTOR')" (click)="gotoNewEventFromScratch()">
+        <mat-card-title>Evento desde cero</mat-card-title>
+        <div class="option-image">
+            <img alt="'Crear evento'" [src]="'assets/images/goto/add-from-scratch.png'" style="width:200px" class="img-thumbnail" />
+        </div>
+    </mat-card>
+
+    <mat-card class="option-item" *ngIf="(role != 'LECTOR')" (click)="openEntityDialog()">
+        <mat-card-title>Evento de entidad</mat-card-title>
+        <div class="option-image">
+            <img alt="'Crear evento'" [src]="'assets/images/goto/add-from-entities.png'" style="width:200px" class="img-thumbnail" />
+        </div>
+    </mat-card>
+
+</div>

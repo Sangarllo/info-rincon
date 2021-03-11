@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.10] - 2021-03-11 Styling
+
+### Add
+
+- Add +Event at toolbar.
+
+### Change
+
+- Change icons in admin dashboard.
+
+### Fix
+
+- Fix problems with notices and news.
+
 ## [0.0.9] - 2021-02-27 Improving CI
 
 ### Add

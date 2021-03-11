@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { INotice, Notice } from '@models/notice';
 import { NoticeService } from '@services/notices.service';
 import { LogService } from '@services/log.service';
+import { SeoService } from '@services/seo.service';
 
 @Component({
   selector: 'app-notice-view',
@@ -16,10 +17,12 @@ export class NoticeViewComponent implements OnInit {
 
   public notice$: Observable<INotice | undefined> | null = null;
   public idNotice: string;
+  public notice: INotice;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private seo: SeoService,
     private logSrv: LogService,
     private noticeSrv: NoticeService,
   ) { }
@@ -34,9 +37,16 @@ export class NoticeViewComponent implements OnInit {
 
   getDetails(idNotice: string): void {
     this.logSrv.info(`id asked ${idNotice}`);
-    this.notice$ = this.noticeSrv.getOneNotice(idNotice);
+    this.noticeSrv.getOneNotice(idNotice)
+    .subscribe((notice: INotice) => {
+      this.notice = notice;
+      this.seo.generateTags({
+        title: `${notice.name} | Rincón de Soto`,
+        description: notice.description,
+        image: notice.image,
+      });
+    });
   }
-
   public gotoList(): void {
     this.router.navigate([`/${Notice.PATH_URL}`]);
   }

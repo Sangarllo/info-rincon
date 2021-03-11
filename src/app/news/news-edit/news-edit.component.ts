@@ -29,9 +29,9 @@ export class NewsEditComponent implements OnInit {
   uploadPercent: Observable<number>;
 
   public newsItem!: INewsItem | undefined;
-  public status: Status[] = NewsItem.STATUS;
-  public categories: Category[] = NEWS_CATEGORIES;
-  public sources: ISource[] = NEWS_SOURCES;
+  public STATUS: Status[] = NewsItem.STATUS;
+  public CATEGORIES: Category[] = NEWS_CATEGORIES;
+  public SOURCES: ISource[] = NEWS_SOURCES;
   public urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
   constructor(

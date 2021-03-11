@@ -18,14 +18,14 @@
             <mat-card class="option-item" *ngIf="user.role >= 'AUTOR'" [routerLink]="'../usuarios/' + user.uid + '/entidades'">
                 <mat-card-title>Tus entidades</mat-card-title>
                 <div class="option-image">
-                    <img alt="'Tus entidades'" [src]="'https://picsum.photos/200?random=1'" class="img-thumbnail" />
+                    <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" style="width:200px" class="img-thumbnail" />
                 </div>
             </mat-card>
 
             <mat-card class="option-item" *ngIf="user.role >= 'AUTOR'" [routerLink]="'../usuarios/' + user.uid + '/audit'">
                 <mat-card-title>Tus accesos</mat-card-title>
                 <div class="option-image">
-                    <img alt="'Tus accesos'" [src]="'https://picsum.photos/200?random=2'" class="img-thumbnail" />
+                    <img alt="'Tus accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />
                 </div>
             </mat-card>
 

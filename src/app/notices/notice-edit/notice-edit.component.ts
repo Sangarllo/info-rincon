@@ -27,8 +27,8 @@ export class NoticeEditComponent implements OnInit {
   uploadPercent: Observable<number>;
 
   public notice!: INotice | undefined;
-  public status: Status[] = Notice.STATUS;
-  public categories: Category[] = NOTICE_CATEGORIES;
+  public STATUS: Status[] = Notice.STATUS;
+  public CATEGORIES: Category[] = NOTICE_CATEGORIES;
 
   constructor(
     private afStorage: AngularFireStorage,

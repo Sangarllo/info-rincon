@@ -25,7 +25,8 @@
             <span class="fill-space"></span>
 
             <div *ngIf="!(isHandset$ | async)">
-                <a mat-button routerLink="/admin">🍱 Admin</a>
+                <a mat-button routerLink="/eventos/new">➕ Evento</a>
+                <a mat-button routerLink="/admin">⚙️ Admin</a>
                 <a mat-button routerLink="/usuarios/login" *ngIf="!(afAuth.authState | async)">🔑 Login</a>
 
                 <a mat-button routerLink="/admin/perfil" *ngIf="afAuth.authState | async as user">

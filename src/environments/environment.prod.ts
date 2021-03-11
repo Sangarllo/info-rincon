@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  appVersion: '0.0.9',
+  appVersion: '0.0.10',
   baseUrl: 'https://info-rincon.web.app/',
   firebase: {
     apiKey: 'AIzaSyChFHMB9Kj4sEBdPKLRWu-JFVMg7gketuM',
