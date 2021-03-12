@@ -27,8 +27,8 @@ export class UserEditComponent implements OnInit {
   uploadPercent: Observable<number>;
 
   public user!: IUser | undefined;
-  public roles: UserRole[] = User.ROLES;
-  public avatares: Avatar[] = Avatar.getAvatares();
+  public ROLES: UserRole[] = User.ROLES;
+  public AVATARES: Avatar[] = Avatar.getAvatares();
 
   constructor(
     private afStorage: AngularFireStorage,

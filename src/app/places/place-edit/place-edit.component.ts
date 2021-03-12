@@ -25,7 +25,7 @@ export class PlaceEditComponent implements OnInit {
   uploadPercent: Observable<number>;
 
   public place!: IPlace | undefined;
-  public types: PlaceType[] = PLACE_TYPES;
+  public TYPES: PlaceType[] = PLACE_TYPES;
 
   constructor(
     private afStorage: AngularFireStorage,
