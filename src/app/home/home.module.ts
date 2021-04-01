@@ -6,10 +6,12 @@ import { HomeComponent } from '@app/home/home.component';
 import { CalendarEventsModule } from '@app/calendar/calendar.module';
 import { NoticesModule } from '@app/notices/notices.module';
 import { NewsModule } from '@app/news/news.module';
+import { NoticeAlertedDialogComponent } from '@app/home/notice-alerted-dialog/notice-alerted-dialog.component';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    NoticeAlertedDialogComponent,
   ],
   imports: [
     HomeRoutingModule,

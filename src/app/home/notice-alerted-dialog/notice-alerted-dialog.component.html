@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>🔔 Aviso Importante 🔔</h2>
+
+<mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{ notice.name }}</mat-card-title>
+    <mat-card-subtitle>{{ notice.timestamp | date:'EEEE, d \'de\' MMMM'}}</mat-card-subtitle>
+</mat-card-header>
+<img mat-card-image [src]="notice.image" [alt]="notice.name">
+
+<mat-dialog-content class="mat-typography">
+    <p [innerHTML]="notice.description"></p>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+    <button mat-raised-button (click)="onNoClick()">Cerrar</button>
+</div>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { Observable, combineLatest } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -12,13 +13,15 @@ import { INotice, Notice } from '@models/notice';
 import { Event, IEvent } from '@models/event';
 import { IBase, BaseType } from '@models/base';
 import { SeoService } from '@services/seo.service';
+import { NoticeAlertedDialogComponent } from '@app/home/notice-alerted-dialog/notice-alerted-dialog.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
+  public alertedNotice: INotice;
   public news$: Observable<INewsItem[]>;
   public notices$: Observable<INotice[]>;
   public events$: Observable<IEvent[]>;
@@ -26,13 +29,21 @@ export class HomeComponent implements OnInit {
   public realStories$: Observable<IBase[]>;
   public REAL_STORIES: IBase[];
 
+  public dialogConfig = new MatDialogConfig();
+
   constructor(
+    public dialog: MatDialog,
     private utilSrv: UtilsService,
     private noticesSrv: NoticeService,
     private newsSrv: NewsService,
     private eventsSrv: EventService,
     private seo: SeoService
-  ) { }
+    ) {
+      this.dialogConfig.disableClose = true;
+      this.dialogConfig.autoFocus = true;
+      this.dialogConfig.width = '600px';
+      this.dialogConfig.backdropClass = 'backdropDialog';
+    }
 
 
   ngOnInit(): void {
@@ -84,6 +95,41 @@ export class HomeComponent implements OnInit {
         return 0;
       });
 
+    });
+  }
+
+  ngAfterViewInit(): void {
+
+    let done = false;
+    console.log(`ngAfterViewInit`);
+
+    this.noticesSrv.getAlertedNotice()
+      .subscribe( (notices) => {
+
+        if ( done ) {
+          return;
+        }
+
+        const alertedNotices = notices.filter( notice => notice.alerted === true );
+        if ( alertedNotices.length === 1 ) {
+          this.alertedNotice = alertedNotices[0];
+          console.log(`Alerted Notice: ${this.alertedNotice.name}`);
+          this.openAlertedNotice(this.alertedNotice);
+          done = true;
+        }
+      }
+    );
+  }
+
+  openAlertedNotice(notice: INotice): void {
+    this.dialogConfig.data = notice;
+    const dialogRef = this.dialog.open(
+      NoticeAlertedDialogComponent,
+      this.dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe((eventDialog: IEvent) => {
+      console.log('Cerrado dialog');
     });
   }
 }
