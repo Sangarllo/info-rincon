@@ -24,7 +24,7 @@ export class NoticesComponent implements OnInit {
   public loading = true;
   public notices: INotice[];
   public dataSource: MatTableDataSource<INotice> = new MatTableDataSource();
-  displayedColumns: string[] =  [ 'status', 'id', 'timestamp', 'image', 'name', 'categories', 'actions3'];
+  displayedColumns: string[] =  [ 'status', 'id', 'timestamp', 'image', 'name', 'categories', 'actions4'];
 
   constructor(
     private router: Router,
@@ -95,6 +95,102 @@ export class NoticesComponent implements OnInit {
         );
       }
     });
+  }
+
+  public alertItem(notice): void {
+
+    let done = false;
+
+    if ( !notice.alerted ) { // Is new alerted
+      let oldAlertedNotice: INotice;
+      this.noticeSrv.getAlertedNotice()
+        .subscribe((alertedNotices) => {
+
+          if ( done ) {
+            return;
+          }
+
+          console.log(`AlertedNotices: ${alertedNotices.length}`);
+          switch(alertedNotices.length) {
+
+            case 0: {
+              notice.alerted = true;
+              Swal.fire(
+                'Cambiado!',
+                `${notice.name} se mostrará ahora como alerta`,
+                'success'
+              );
+              done = true;
+              this.noticeSrv.updateNotice(notice);
+              break;
+            }
+
+            case  1: {
+              oldAlertedNotice = alertedNotices[0];
+              Swal.fire({
+                title: '¿Estás seguro?',
+                text: `El aviso ${oldAlertedNotice.name} dejará de mostrarse como alerta`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, cambiar!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  oldAlertedNotice.alerted = false;
+                  this.noticeSrv.updateNotice(oldAlertedNotice);
+                  notice.alerted = true;
+                  Swal.fire(
+                    'Cambiado!',
+                    `${notice.name} se mostrará ahora como alerta`,
+                    'success'
+                  );
+                  done = true;
+                  this.noticeSrv.updateNotice(notice);
+                }
+              });
+              break;
+            }
+
+            default: {
+              Swal.fire(
+                'Ups, el cambio no fue realizado!',
+                `Avisa al administrador ya que hay más de un aviso mostrados como alerta`,
+                'error'
+              );
+              done = true;
+            }
+
+          };
+        });
+      } else { // Desactivado como alertado
+
+        Swal.fire({
+          title: '¿Estás seguro?',
+          text: `El aviso ${notice.name} dejará de mostrarse como alerta`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '¡Sí, cambiar!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            notice.alerted = false;
+            Swal.fire(
+              'Cambiado!',
+              `${notice.name} ya no es mostrado como alerta`,
+              'success'
+            );
+            done = true;
+            this.noticeSrv.updateNotice(notice);
+          }
+        });
+
+      }
+
+      console.log(`HECHO!`);
+      return;
+    // notice.alerted = !notice.alerted;
   }
 
   public addItem(): void {

@@ -102,4 +102,12 @@ export class NoticeService {
     this.noticeDoc = this.afs.doc<INotice>(`${NOTICES_COLLECTION}/${idNotice}`);
     this.noticeDoc.update(notice);
   }
+
+  getAlertedNotice(): Observable<INotice[]> {
+    this.noticeCollection = this.afs.collection<INotice>(
+      NOTICES_COLLECTION,
+      ref => ref.where('alerted', '==', true)
+    );
+    return this.noticeCollection.valueChanges();
+  }
 }

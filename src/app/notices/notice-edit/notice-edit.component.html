@@ -19,6 +19,10 @@
 
                     <mat-card-content>
 
+                        <fieldset *ngIf="noticeForm.controls.alerted.value" class="alerted-notice text-center">
+                            <h1>Este aviso actualmente se muestra como alerta</h1>
+                        </fieldset>
+
                         <fieldset class="form-status-fields" [ngClass]="noticeForm.controls.status.value">
                             <legend>Estado del Aviso</legend>
 
@@ -31,7 +35,7 @@
 
                             <div class="row">
 
-                                <mat-form-field class="col-4" appearance="outline">
+                                <mat-form-field class="col-3" appearance="outline">
                                     <mat-label>Estado</mat-label>
 
                                     <mat-select formControlName="status" [value]="noticeForm.get('status')">
@@ -42,9 +46,10 @@
 
                                 </mat-form-field>
 
-                                <mat-slide-toggle class="col-3 mb-3 ml-2" formControlName="active">Aviso activo</mat-slide-toggle>
+                                <mat-slide-toggle class="col-2 mb-3 ml-2" formControlName="active">Aviso activo</mat-slide-toggle>
 
-                                <mat-slide-toggle class="col-3 mb-3 ml-2" formControlName="focused">Aviso en portada</mat-slide-toggle>
+                                <mat-slide-toggle class="col-2 mb-3 ml-2" formControlName="focused">Aviso en portada</mat-slide-toggle>
+
                             </div>
 
                         </fieldset>

@@ -10,6 +10,7 @@ export interface INotice {
   baseType: BaseType;
   status: Status;
   focused: boolean;
+  alerted: boolean;
   categories?: Category[];
   description?: string;
   timestamp?: string;
@@ -29,6 +30,7 @@ export class Notice implements INotice, IBase {
     public baseType: BaseType,
     public status: Status,
     public focused: boolean,
+    public alerted: boolean,
     public categories?: Category[],
     public description?: string,
     public timestamp?: string,
@@ -40,6 +42,7 @@ export class Notice implements INotice, IBase {
       '0', true, '', Notice.IMAGE_DEFAULT, BaseType.NOTICE, // Base
       Status.Visible,
       true,
+      false,
       [Category.Aviso],
       '',
       null, // Timestamp

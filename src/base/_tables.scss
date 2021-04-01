@@ -32,9 +32,9 @@ table {
 
 .mat-column-photoURL,
 .mat-column-image {
-    text-align: right;
+    text-align: center;
     width: 80px;
-    border: 2px solid white;
+    border: 2px solid transparent;
     .img-thumbnail {
         min-width: 64px;
         width: 64px !important;
@@ -160,7 +160,7 @@ td.mat-column-status {
     text-transform: uppercase;
     text-align: center;
     color: black;
-    background-color: white;
+    background-color: transparent;
     &.CENSOR,
     &.DELETED {
         div.inside {
@@ -208,4 +208,9 @@ td.mat-column-status {
         border: 1px solid black;
         background-color: lightgray;
     }
+}
+
+// TODO: Remove from this file
+.alerted-notice {
+    background-color: gold
 }

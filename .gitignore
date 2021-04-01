@@ -2,6 +2,7 @@
 
 # compiled output
 /dist/info-rincon/dist
+/dist/info-rincon/browser
 /dist/info-rincon/node_modules
 /tmp
 /out-tsc
