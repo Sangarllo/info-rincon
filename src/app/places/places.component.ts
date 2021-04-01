@@ -23,7 +23,7 @@ export class PlacesComponent implements OnInit {
   public loading = true;
   public places: IPlace[];
   public dataSource: MatTableDataSource<IPlace> = new MatTableDataSource();
-  displayedColumns: string[] = [ 'id', 'image', 'name', 'types', 'locality',  'actions3'];
+  displayedColumns: string[] = [ 'id', 'image', 'name', 'types', 'locality',  'actions3', 'collapsed-info'];
 
   constructor(
     private router: Router,

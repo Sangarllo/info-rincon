@@ -26,7 +26,7 @@ export class EventsComponent implements OnInit {
   public loading = true;
   public events: IEvent[];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
-  displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'image', 'name', 'categories', 'dateIni', 'actions3'];
+  displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'image', 'name', 'categories', 'dateIni', 'actions3', 'collapsed-info'];
   private currentUser: IUser;
 
   constructor(

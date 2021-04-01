@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+  // eslint-disable-next-line max-len
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
@@ -25,7 +27,7 @@ export class NewsComponent implements OnInit {
   public loading = true;
   public newsItems: INewsItem[];
   public dataSource: MatTableDataSource<INewsItem> = new MatTableDataSource();
-  displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'sourceImage', 'sourceName', 'name', 'categories', 'actions4'];
+  displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'sourceImage', 'sourceName', 'name', 'categories', 'actions4', 'collapsed-info'];
 
   constructor(
     private router: Router,

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
@@ -25,7 +26,7 @@ export class EntitiesComponent implements OnInit {
   public loading = true;
   public entities: IEntity[];
   public dataSource: MatTableDataSource<IEntity> = new MatTableDataSource();
-  displayedColumns: string[] = [ 'roleDefault', 'id', 'image', 'name', 'categories', 'placeImage', 'placeName', 'actions3'];
+  displayedColumns: string[] = [ 'roleDefault', 'id', 'image', 'name', 'categories', 'placeImage', 'placeName', 'actions3', 'collapsed-info'];
 
   constructor(
     private router: Router,

@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
   public loading = true;
   public users: IUser[];
   public dataSource: MatTableDataSource<IUser> = new MatTableDataSource();
-  displayedColumns: string[] = [ 'role', 'uid', 'photoURL', 'displayName', 'email', 'entities',  'actions3'];
+  displayedColumns: string[] = [ 'role', 'uid', 'photoURL', 'displayName', 'email', 'entities',  'actions3', 'collapsed-info'];
 
   constructor(
     private router: Router,

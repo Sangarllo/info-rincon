@@ -12,20 +12,20 @@
         <table mat-table [dataSource]="dataSource" matSort>
 
             <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>Id.</th>
-                <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+                <th mat-header-cell class="td-extra" *matHeaderCellDef>Id.</th>
+                <td mat-cell class="td-extra" *matCellDef="let element">{{ element.id }}</td>
             </ng-container>
 
             <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef>Estado</th>
-                <td [class]="element.status" mat-cell *matCellDef="let element">
+                <th mat-header-cell class="td-extra" *matHeaderCellDef>Estado</th>
+                <td [class]="element.status" mat-cell class="td-extra" *matCellDef="let element">
                     <div class="inside">{{ element.status }}</div>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="timestamp">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Actualización</th>
-                <td mat-cell *matCellDef="let element">hace {{ element.timestamp }}</td>
+                <th mat-header-cell class="td-extra" *matHeaderCellDef mat-sort-header>Fecha Actualización</th>
+                <td mat-cell class="td-extra" *matCellDef="let element">hace {{ element.timestamp }}</td>
             </ng-container>
 
             <ng-container matColumnDef="image">
@@ -36,18 +36,18 @@
             </ng-container>
 
             <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-                <td mat-cell *matCellDef="let notice">{{ notice.name }}</td>
+                <th mat-header-cell class="td-extra" *matHeaderCellDef mat-sort-header>Nombre</th>
+                <td mat-cell class="td-extra" *matCellDef="let notice">{{ notice.name }}</td>
             </ng-container>
 
             <ng-container matColumnDef="categories">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Categorías</th>
-                <td mat-cell *matCellDef="let notice">{{ notice.description }}</td>
+                <th mat-header-cell class="td-extra" *matHeaderCellDef mat-sort-header>Categorías</th>
+                <td mat-cell class="td-extra" *matCellDef="let notice">{{ notice.description }}</td>
             </ng-container>
 
             <ng-container matColumnDef="actions4">
-                <th mat-header-cell *matHeaderCellDef>Acciones</th>
-                <td mat-cell *matCellDef="let notice">
+                <th mat-header-cell class="td-extra" *matHeaderCellDef>Acciones</th>
+                <td mat-cell class="td-extra" *matCellDef="let notice">
 
                     <button [disabled]="notice.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" color="accent" (click)="gotoItem(notice)">
                       <mat-icon aria-label="View">remove_red_eye</mat-icon>
@@ -62,9 +62,28 @@
                     </button>
 
                     <button mat-icon-button matTooltip="Click to Alerted" class="iconbutton" [color]="(notice.alerted) ? 'accent' : 'gray'" (click)="alertItem(notice)">
-                      <mat-icon aria-label="Delete">lightbulb</mat-icon>
+                      <mat-icon aria-label="Activar como alerta">lightbulb</mat-icon>
                     </button>
 
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="collapsed-info">
+                <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Aviso</th>
+                <td mat-cell class="td-collapsed-info" [class]="item.status" *matCellDef="let item">
+
+                    <button mat-mini-fab class="button-collapsed" color="primary" aria-label="Establecer como alerta" (click)="alertItem(item)">
+                    <mat-icon>lightbulb</mat-icon>
+                  </button>
+
+                    <div (click)="gotoItem(item)" class="inside"></div>
+
+                    <div (click)="gotoItem(item)" style="font-size: smaller;color:gray">
+                        actualizado hace {{ item.timestamp }}
+                    </div>
+                    <div (click)="gotoItem(item)">
+                        {{ item.name }}
+                    </div>
                 </td>
             </ng-container>
 

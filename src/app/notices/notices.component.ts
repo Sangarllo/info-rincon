@@ -24,7 +24,7 @@ export class NoticesComponent implements OnInit {
   public loading = true;
   public notices: INotice[];
   public dataSource: MatTableDataSource<INotice> = new MatTableDataSource();
-  displayedColumns: string[] =  [ 'status', 'id', 'timestamp', 'image', 'name', 'categories', 'actions4'];
+  displayedColumns: string[] =  [ 'status', 'id', 'timestamp', 'image', 'name', 'categories', 'actions4', 'collapsed-info'];
 
   constructor(
     private router: Router,
