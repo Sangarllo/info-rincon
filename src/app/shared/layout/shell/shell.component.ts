@@ -7,8 +7,10 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { AuditService } from '@services/audit.service';
-import { AuditType } from '@models/audit';
 import { LogService } from '@services/log.service';
+import { NoticeService } from '@services/notices.service';
+import { AuditType } from '@models/audit';
+import { INotice } from '@models/notice';
 
 @Component({
   selector: 'app-shell',
@@ -17,6 +19,7 @@ import { LogService } from '@services/log.service';
 })
 export class ShellComponent {
 
+  public alertedNotices: INotice[];
   public isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset])
     .pipe(
       map(result => result.matches),
@@ -67,7 +70,13 @@ export class ShellComponent {
     private router: Router,
     private auditSrv: AuditService,
     private logSrv: LogService,
-    public afAuth: AngularFireAuth) {
+    private noticeSrv: NoticeService,
+    public afAuth: AngularFireAuth,
+    ) {
+      this.noticeSrv.getAlertedNotice()
+        .subscribe((notices) => {
+          this.alertedNotices = notices;
+        });
   }
 
   async onLogout(): Promise<void> {
@@ -79,5 +88,9 @@ export class ShellComponent {
     } catch (error) {
       this.logSrv.info(error);
     }
+  }
+
+  public showAlert(notice: INotice): void {
+    this.router.navigate([`/avisos/${notice.id}`]);
   }
 }
