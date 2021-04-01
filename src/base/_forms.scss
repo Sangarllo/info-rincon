@@ -2,6 +2,16 @@
 Formularios
 */
 
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-slide-toggle {
+    margin: 20px;
+    font-size: large;
+}
+
 mat-card.item-view {
     .mat-standard-chip {
         margin: 10px;
@@ -54,22 +64,5 @@ mat-card.item-edit {
                 text-transform: uppercase;
             }
         }
-    }
-}
-
-.mat-dialog-title {
-    text-align: center;
-}
-
-mat-dialog-container {
-    mat-form-field {
-        width: 100%;
-    }
-    img {
-        width: 200px;
-        margin-left: 170px;
-        margin-bottom: 20px;
-        border: 1px dotted lightgray;
-        padding: 4px;
     }
 }

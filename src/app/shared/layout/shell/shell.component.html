@@ -25,7 +25,7 @@
             <span class="fill-space"></span>
 
             <div *ngIf="!(isHandset$ | async)">
-                <a mat-button *ngIf="alertedNotices.length === 1" (click)="showAlert(alertedNotices[0])">🔔 Alerta</a>
+                <a mat-button *ngIf="alertedNotices?.length === 1" (click)="showAlert(alertedNotices[0])">🔔 Alerta</a>
                 <a mat-button routerLink="/eventos/new">➕ Evento</a>
                 <a mat-button routerLink="/admin">⚙️ Admin</a>
                 <a mat-button routerLink="/usuarios/login" *ngIf="!(afAuth.authState | async)">🔑 Login</a>

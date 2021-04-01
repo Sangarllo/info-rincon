@@ -6,6 +6,8 @@
 @import 'base/tables';
 @import 'base/forms';
 @import 'base/dashboard';
+@import 'base/dialogs';
+@import 'base/events';
 html,
 body {
     height: 100%;
@@ -25,51 +27,6 @@ body {
     }
 }
 
-.mat-form-field {
-    font-size: 14px;
-    width: 100%;
-}
-
-
-/*
-Cards
-*/
-
-mat-card-content.item-view {
-    div {
-        margin-bottom: 30px;
-        img {
-            width: 64px;
-            height: 64px;
-            float: left;
-            margin-right: 10px;
-        }
-    }
-}
-
-
-/*
-Event item detail
-*/
-
-div.event-item-detail {
-    width: 100%;
-    img {
-        width: 140px;
-        float: left;
-        margin-right: 20px;
-    }
-}
-
-div.mat-chip-list-wrapper {
-    margin-top: 20px;
-}
-
-.mat-slide-toggle {
-    margin: 20px;
-    font-size: large;
-}
-
 .preview {
     border: 1px solid darkgray;
     background-color: lightgray;
@@ -77,8 +34,9 @@ div.mat-chip-list-wrapper {
     margin: 20px;
 }
 
-// Dialog
-.backdropDialog {
-    background-color: rgba(0, 0, 0, 0.8);
-    // background-color: rgba(0, 0, 255, 0.5);
+
+/*
+div.mat-chip-list-wrapper {
+  margin-top: 20px;
 }
+*/

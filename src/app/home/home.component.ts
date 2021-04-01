@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.dialogConfig.disableClose = true;
       this.dialogConfig.autoFocus = true;
       this.dialogConfig.width = '600px';
-      this.dialogConfig.backdropClass = 'backdropDialog';
+      this.dialogConfig.backdropClass = 'backdrop-dialog';
     }
 
 

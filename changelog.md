@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Alerted notice will appeared as a modal at home component.
 
+### Change
+
+- Refactor stylesheets and add one for dialogs.
+
 ## [0.0.10] - 2021-03-11 Styling - Presentación al Ayuntamiento
 
 ### Add

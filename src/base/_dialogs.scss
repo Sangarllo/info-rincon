@@ -1,0 +1,20 @@
+.backdrop-dialog {
+    background-color: rgba(0, 0, 0, 0.8); // rgba(0, 0, 255, 0.5);
+}
+
+.mat-dialog-title {
+    text-align: center;
+}
+
+mat-dialog-container {
+    mat-form-field {
+        width: 100%;
+    }
+    img {
+        width: 200px;
+        margin-left: 170px;
+        margin-bottom: 20px;
+        border: 1px dotted lightgray;
+        padding: 4px;
+    }
+}

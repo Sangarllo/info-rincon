@@ -43,3 +43,15 @@
 .mat-tab-body-content {
     overflow: hidden !important;
 }
+
+mat-card-content.item-view {
+    div {
+        margin-bottom: 30px;
+        img {
+            width: 64px;
+            height: 64px;
+            float: left;
+            margin-right: 10px;
+        }
+    }
+}
