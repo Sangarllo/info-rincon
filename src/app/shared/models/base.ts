@@ -3,6 +3,7 @@ export enum BaseType {
   ENTITY = 'ENTITY',
   EVENT = 'EVENT',
   PLACE = 'PLACE',
+  LINK = 'LINK',
   NEWS_ITEM = 'NEWS_ITEM',
   NOTICE = 'NOTICE',
   USER = 'USER',

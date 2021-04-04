@@ -1,0 +1,51 @@
+<div class="section-wrapper">
+
+    <mat-card class="item-view" *ngIf="link; else noLinkTemplate">
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+                <img [src]="link.source.image" class="img-thumbnail">
+            </div>
+
+            <div class="col-lg-9 col-md-8 col-12">
+
+                <mat-card-content class="item-view">
+
+                    <div class="title">{{ link.name }}</div>
+
+                    <div *ngIf="link.categories?.length > 0">
+                        <mat-chip-list aria-label="Categories">
+                            <mat-chip *ngFor="let category of link.categories">{{ category }}</mat-chip>
+                        </mat-chip-list>
+                    </div>
+
+                    <div class="description" [innerHTML]="link.description" *ngIf="link.description"></div>
+
+                    <div *ngIf="link.source">
+                        <span>Fuente:</span>
+                        <h2>
+                            <button mat-raised-button type="button" (click)="gotoUrl()" color="warn">
+                            <mat-icon>open_in_new</mat-icon>
+                          </button> &nbsp; {{ link.source.name }}
+                        </h2>
+                    </div>
+
+                </mat-card-content>
+
+                <mat-card-actions>
+
+                    <button mat-raised-button type="button" (click)="gotoList()" color="warn">Volver al listado</button> &nbsp;
+                    <button mat-raised-button type="button" (click)="editItem()" color="warn">Editar</button>
+
+                </mat-card-actions>
+
+            </div>
+        </div>
+
+    </mat-card>
+
+</div>
+
+<ng-template #noLinkTemplate>
+    No existe tal enlace
+</ng-template>

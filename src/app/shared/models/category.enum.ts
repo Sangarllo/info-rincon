@@ -59,6 +59,14 @@ export enum Category {
   Virus = '🦠 VIRUS',
 }
 
+const LINK_CATEGORIES: Category[] = [
+  Category.Entrevista,
+  Category.GaleriaFotos,
+  Category.NoticiaGenerica,
+  Category.Reportaje,
+];
+
+
 const NEWS_CATEGORIES: Category[] = [
   Category.Agricultura,
   Category.Cultura,
@@ -138,4 +146,9 @@ const EVENT_CATEGORIES: Category[] = [
   Category.Viaje,
 ];
 
-export { EVENT_CATEGORIES, NOTICE_CATEGORIES, NEWS_CATEGORIES };
+export {
+  EVENT_CATEGORIES,
+  NOTICE_CATEGORIES,
+  NEWS_CATEGORIES,
+  LINK_CATEGORIES
+};

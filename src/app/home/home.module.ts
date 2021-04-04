@@ -5,7 +5,7 @@ import { HomeRoutingModule } from '@app/home/home-routing.module';
 import { HomeComponent } from '@app/home/home.component';
 import { CalendarEventsModule } from '@app/calendar/calendar.module';
 import { NoticesModule } from '@app/notices/notices.module';
-import { NewsModule } from '@app/news/news.module';
+import { LinksModule } from '@app/links/links.module';
 import { NoticeAlertedDialogComponent } from '@app/home/notice-alerted-dialog/notice-alerted-dialog.component';
 
 @NgModule({
@@ -18,7 +18,7 @@ import { NoticeAlertedDialogComponent } from '@app/home/notice-alerted-dialog/no
     SharedModule,
     CalendarEventsModule,
     NoticesModule,
-    NewsModule,
+    LinksModule,
   ],
   exports: [
     HomeComponent

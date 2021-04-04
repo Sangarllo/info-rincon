@@ -5,10 +5,10 @@ import { Observable, combineLatest } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { EventService } from '@services/events.service';
-import { NewsService } from '@services/news.services';
+import { LinksService } from '@services/links.services';
 import { NoticeService } from '@services/notices.service';
 import { UtilsService } from '@services/utils.service';
-import { INewsItem, NewsItem } from '@models/news';
+import { ILink, Link } from '@models/link';
 import { INotice, Notice } from '@models/notice';
 import { Event, IEvent } from '@models/event';
 import { IBase, BaseType } from '@models/base';
@@ -22,7 +22,7 @@ import { NoticeAlertedDialogComponent } from '@app/home/notice-alerted-dialog/no
 export class HomeComponent implements OnInit, AfterViewInit {
 
   public alertedNotice: INotice;
-  public news$: Observable<INewsItem[]>;
+  public links$: Observable<ILink[]>;
   public notices$: Observable<INotice[]>;
   public events$: Observable<IEvent[]>;
 
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private utilSrv: UtilsService,
     private noticesSrv: NoticeService,
-    private newsSrv: NewsService,
+    private linksSrv: LinksService,
     private eventsSrv: EventService,
     private seo: SeoService
     ) {
@@ -48,25 +48,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.news$ = this.newsSrv.getAllNews(true, true, 2);
+    this.links$ = this.linksSrv.getAllLinks(true, true, 2);
     this.notices$ = this.noticesSrv.getAllNotices(true, true, 2);
     this.events$ = this.eventsSrv.getAllEvents(true, true, 2);
 
     combineLatest([
-      this.news$,
+      this.links$,
       this.notices$,
       this.events$,
     ])
-    .subscribe(([news, notices, events]) => {
+    .subscribe(([links, notices, events]) => {
 
       this.REAL_STORIES = [];
 
-      news.forEach(newsItem => {
+      links.forEach(link => {
         this.REAL_STORIES.push({
-          ...newsItem,
-          image: newsItem.source.image,
-          baseType: BaseType.NEWS_ITEM,
-          url: `../${NewsItem.PATH_URL}/${newsItem.id}`
+          ...link,
+          image: link.source.image,
+          baseType: BaseType.LINK,
+          url: `../${Link.PATH_URL}/${link.id}`
         });
         // this.logSrv.info(`news item story! ${JSON.stringify(newsItem)}`);
       });
