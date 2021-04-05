@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { IUser } from '@models/user';
 import { UserService } from '@services/users.service';
 import { LogService } from '@services/log.service';
+import { SpinnerService } from '@services/spinner.service';
 
 @Component({
   selector: 'app-users',
@@ -28,9 +29,10 @@ export class UsersComponent implements OnInit {
   constructor(
     private router: Router,
     private logSrv: LogService,
+    private spinnerSvc: SpinnerService,
     private userSrv: UserService,
   ) {
-    this.loading = true;
+    this.spinnerSvc.show();
   }
 
   ngOnInit(): void {
@@ -38,7 +40,7 @@ export class UsersComponent implements OnInit {
     .subscribe( (users: IUser[]) => {
       this.users = users;
       this.dataSource = new MatTableDataSource(this.users);
-      this.loading = false;
+      this.spinnerSvc.hide();
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

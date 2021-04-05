@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { SpinnerService } from '@services/spinner.service';
 import { AuditService } from '@services/audit.service';
 import { IAuditItem } from '@models/audit';
 
@@ -25,8 +26,9 @@ export class UserAuditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private auditSrv: AuditService,
+    private spinnerSvc: SpinnerService,
   ) {
-    this.loading = true;
+    this.spinnerSvc.show();
   }
 
   ngOnInit(): void {
@@ -37,7 +39,7 @@ export class UserAuditComponent implements OnInit {
       .subscribe( (auditItems: IAuditItem[]) => {
         this.auditItems = auditItems;
         this.dataSource = new MatTableDataSource(this.auditItems);
-        this.loading = false;
+        this.spinnerSvc.hide();
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });

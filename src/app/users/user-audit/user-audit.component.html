@@ -1,6 +1,6 @@
 <app-section-header [title]="'Registro de accesos'"></app-section-header>
 
-<div *ngIf="!loading; else loadingTemplate" class="section-wrapper">
+<div class="section-wrapper">
 
     <mat-form-field>
         <mat-label>Filtro</mat-label>
@@ -51,7 +51,3 @@
     </div>
 
 </div>
-
-<ng-template #loadingTemplate>
-    <app-loading></app-loading>
-</ng-template>

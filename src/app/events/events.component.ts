@@ -12,6 +12,7 @@ import { IEvent } from '@models/event';
 import { IUser } from '@models/user';
 import { LogService } from '@services/log.service';
 import { EventService } from '@services/events.service';
+import { SpinnerService } from '@services/spinner.service';
 
 @Component({
   selector: 'app-events',
@@ -23,7 +24,6 @@ export class EventsComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  public loading = true;
   public events: IEvent[];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'image', 'name', 'categories', 'dateIni', 'actions3', 'collapsed-info'];
@@ -33,9 +33,10 @@ export class EventsComponent implements OnInit {
     private router: Router,
     private authSrv: AuthService,
     private logSrv: LogService,
+    private spinnerSvc: SpinnerService,
     private eventSrv: EventService,
   ) {
-    this.loading = true;
+    this.spinnerSvc.show();
   }
 
   ngOnInit(): void {
@@ -56,7 +57,7 @@ export class EventsComponent implements OnInit {
         .subscribe( (events: IEvent[]) => {
         this.events = events;
         this.dataSource = new MatTableDataSource(this.events);
-        this.loading = false;
+        this.spinnerSvc.hide();
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

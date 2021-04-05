@@ -1,6 +1,6 @@
 <app-section-header [title]="'Panel de Configuración de Usuarios'"></app-section-header>
 
-<div *ngIf="!loading; else loadingTemplate" class="section-wrapper">
+<div class="section-wrapper">
 
     <mat-form-field>
         <mat-label>Filtro</mat-label>
@@ -97,7 +97,3 @@
     <button mat-raised-button type="button" (click)="addItem()" color="warn">Crear nuevo</button>
 
 </div>
-
-<ng-template #loadingTemplate>
-    <app-loading></app-loading>
-</ng-template>

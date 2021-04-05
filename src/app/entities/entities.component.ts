@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { IEntity } from '@models/entity';
 import { EntityService } from '@services/entities.service';
 import { LogService } from '@services/log.service';
+import { SpinnerService } from '@services/spinner.service';
 
 @Component({
   selector: 'app-entities',
@@ -18,7 +19,6 @@ import { LogService } from '@services/log.service';
   styleUrls: ['./entities.component.css']
 })
 export class EntitiesComponent implements OnInit {
-
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -32,8 +32,9 @@ export class EntitiesComponent implements OnInit {
     private router: Router,
     private logSrv: LogService,
     private entitySrv: EntityService,
+    private spinnerSvc: SpinnerService
   ) {
-    this.loading = true;
+    this.spinnerSvc.show();
   }
 
   ngOnInit(): void {
@@ -49,7 +50,7 @@ export class EntitiesComponent implements OnInit {
     .subscribe( (entities: IEntity[]) => {
       this.entities = entities;
       this.dataSource = new MatTableDataSource(this.entities);
-      this.loading = false;
+      this.spinnerSvc.hide();
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

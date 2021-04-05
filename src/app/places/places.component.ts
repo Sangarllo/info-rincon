@@ -7,8 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { IPlace } from '@models/place';
 import { PlaceService } from '@services/places.service';
+import { SpinnerService } from '@services/spinner.service';
+import { IPlace } from '@models/place';
 
 @Component({
   selector: 'app-places',
@@ -27,9 +28,10 @@ export class PlacesComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private spinnerSvc: SpinnerService,
     private placeSrv: PlaceService,
   ) {
-    this.loading = true;
+    this.spinnerSvc.show();
   }
 
   ngOnInit(): void {
@@ -45,7 +47,7 @@ export class PlacesComponent implements OnInit {
     .subscribe( (places: IPlace[]) => {
       this.places = places;
       this.dataSource = new MatTableDataSource(this.places);
-      this.loading = false;
+      this.spinnerSvc.hide();
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

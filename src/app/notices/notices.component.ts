@@ -11,6 +11,7 @@ import { INotice } from '@models/notice';
 import { NoticeService } from '@services/notices.service';
 import { UtilsService } from '@services/utils.service';
 import { LogService } from '@services/log.service';
+import { SpinnerService } from '@services/spinner.service';
 
 @Component({
   selector: 'app-notices',
@@ -30,9 +31,10 @@ export class NoticesComponent implements OnInit {
     private router: Router,
     private utilSrv: UtilsService,
     private logSrv: LogService,
+    private spinnerSvc: SpinnerService,
     private noticeSrv: NoticeService,
   ) {
-    this.loading = true;
+    this.spinnerSvc.show();
   }
 
   ngOnInit(): void {
@@ -52,8 +54,7 @@ export class NoticesComponent implements OnInit {
       .subscribe( (notices: INotice[]) => {
         this.notices = notices;
         this.dataSource = new MatTableDataSource(this.notices);
-        this.loading = false;
-
+        this.spinnerSvc.hide();
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });

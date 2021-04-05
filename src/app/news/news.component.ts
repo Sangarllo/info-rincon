@@ -13,6 +13,7 @@ import { INewsItem, NewsItem } from '@models/news';
 import { NewsService } from '@services/news.services';
 import { UtilsService } from '@services/utils.service';
 import { LogService } from '@services/log.service';
+import { SpinnerService } from '@services/spinner.service';
 
 @Component({
   selector: 'app-news',
@@ -24,7 +25,6 @@ export class NewsComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  public loading = true;
   public newsItems: INewsItem[];
   public dataSource: MatTableDataSource<INewsItem> = new MatTableDataSource();
   displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'sourceImage', 'sourceName', 'name', 'categories', 'actions4', 'collapsed-info'];
@@ -33,8 +33,11 @@ export class NewsComponent implements OnInit {
     private router: Router,
     private utilSrv: UtilsService,
     private logSrv: LogService,
+    private spinnerSvc: SpinnerService,
     private newsSrv: NewsService,
-  ) { }
+  ) {
+    this.spinnerSvc.show();
+  }
 
   ngOnInit(): void {
     this.newsSrv.getAllNews(false, false) // TODO param based on userrole
@@ -52,7 +55,7 @@ export class NewsComponent implements OnInit {
       .subscribe( (newsItems: INewsItem[]) => {
         this.newsItems = newsItems;
         this.dataSource = new MatTableDataSource(this.newsItems);
-        this.loading = false;
+        this.spinnerSvc.hide();
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
