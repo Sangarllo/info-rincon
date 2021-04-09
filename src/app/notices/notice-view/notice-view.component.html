@@ -23,10 +23,15 @@
 
                 </mat-card-content>
 
-                <mat-card-actions>
+                <mat-card-actions class="text-center">
 
-                    <button mat-raised-button type="button" (click)="gotoList()" color="warn">Volver al listado</button> &nbsp;
-                    <button mat-raised-button type="button" (click)="editItem()" color="warn">Editar</button>
+                    <button mat-fab class="m-1" type="button" (click)="gotoList()" color="primary">
+                    <mat-icon>list</mat-icon>
+                  </button>
+
+                    <button mat-fab class="m-1" type="button" (click)="editItem()" color="primary">
+                      <mat-icon>edit</mat-icon>
+                    </button>
 
                 </mat-card-actions>
 

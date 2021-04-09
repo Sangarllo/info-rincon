@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactor stylesheets and add one for dialogs.
 - Add loading component with interceptor.
 - Diary view shown as default at home page.
+- Change buttons (mat-raised for mat-fab).
 
 ## [0.0.10] - 2021-03-11 Styling - Presentación al Ayuntamiento
 

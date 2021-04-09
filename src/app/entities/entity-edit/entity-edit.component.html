@@ -19,10 +19,12 @@
 
                     <mat-card-content>
 
+                        <!--
                         <mat-form-field appearance="outline">
                             <mat-label>Id</mat-label>
                             <input matInput type="text" formControlName="id" placeholder="Id">
                         </mat-form-field>
+                        -->
 
                         <mat-slide-toggle class="mb-3 ml-2" formControlName="active">Entidad activa</mat-slide-toggle>
 
@@ -77,14 +79,17 @@
 
                         </mat-form-field>
 
-
                     </mat-card-content>
 
-                    <mat-card-actions>
+                    <mat-card-actions class="text-center">
 
-                        <button mat-raised-button [title]="entityForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!entityForm.valid" type="submit" color="warn">Guardar</button>
+                        <button mat-fab [title]="entityForm.valid ? 'Guardar con los datos introducidos' : 'Deshabilitado hasta que los datos sean válidos'" [disabled]="!entityForm.valid" type="submit" color="primary">
+                          <mat-icon>check</mat-icon>
+                        </button>
 
-                        <button mat-raised-button type="button" (click)="gotoList()" color="warn">Volver al listado</button>
+                        <button mat-fab class="m-1" type="button" (click)="gotoList()" color="primary">
+                          <mat-icon>list</mat-icon>
+                        </button>
 
                     </mat-card-actions>
 
