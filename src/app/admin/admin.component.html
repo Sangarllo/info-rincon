@@ -31,13 +31,13 @@
 
         </div>
 
-        <br/>
+        <mat-divider></mat-divider>
 
-        <h1>Con tu rol de <span style="text-transform: lowercase;font-weight: bolder;">{{ user.role }}</span> en la aplicación puedes hacer lo siguiente:</h1>
+        <div class="w-100 m-3">
+            <h1>Con tu rol de <span style="text-transform: lowercase;font-weight: bolder;">{{ user.role }}</span> en la aplicación puedes hacer lo siguiente:</h1>
+        </div>
 
     </div>
-
-    <mat-divider></mat-divider>
 
     <div *ngIf="userData$ | async as user" class="mt-3 text-center">
 
