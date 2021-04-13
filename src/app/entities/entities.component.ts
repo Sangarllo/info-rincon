@@ -26,7 +26,7 @@ export class EntitiesComponent implements OnInit {
   public loading = true;
   public entities: IEntity[];
   public dataSource: MatTableDataSource<IEntity> = new MatTableDataSource();
-  displayedColumns: string[] = [ 'roleDefault', 'id', 'image', 'name', 'categories', 'placeImage', 'placeName', 'actions3', 'collapsed-info'];
+  displayedColumns: string[] = [ 'roleDefault', 'id', 'image', 'collapsed-info', 'name', 'categories', 'placeImage', 'placeName', 'actions3'];
 
   constructor(
     private router: Router,

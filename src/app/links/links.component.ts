@@ -27,7 +27,7 @@ export class LinksComponent implements OnInit {
 
   public newsItems: ILink[];
   public dataSource: MatTableDataSource<ILink> = new MatTableDataSource();
-  displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'sourceImage', 'sourceName', 'name', 'categories', 'actions4', 'collapsed-info'];
+  displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'sourceImage', 'sourceName', 'collapsed-info', 'name', 'categories', 'actions4'];
 
   constructor(
     private router: Router,
