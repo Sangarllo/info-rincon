@@ -13,6 +13,7 @@ import { BaseItemsListComponent } from '@shared/components/base-items-list/base-
 import { BaseItemsTableComponent } from '@shared/components/base-items-table/base-items-table.component';
 import { BaseItemsAdminComponent } from '@shared/components/base-items-admin/base-items-admin.component';
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component';
+import { RoleOptionsComponent } from '@shared/components/role-options/role-options.component';
 
 const components = [
   ShellComponent,
@@ -22,7 +23,8 @@ const components = [
   BaseItemsListComponent,
   BaseItemsTableComponent,
   BaseItemsAdminComponent,
-  SpinnerComponent
+  SpinnerComponent,
+  RoleOptionsComponent,
 ];
 
 const modules = [

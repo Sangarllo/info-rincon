@@ -9,12 +9,13 @@ import { IUser } from '@models/user';
 import { IAuditItem } from '@models/audit';
 import { BaseType } from '@models/base';
 
+
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit {
 
   public userData$: Observable<IUser>;
   public auditItems: IAuditItem[] = [];

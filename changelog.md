@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Alerted notice will appeared as a modal at home component.
 - Add links module, for using instead of news module.
+- Add Calendar page for weeky and diary view.
 
 ### Fixed
 

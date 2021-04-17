@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { SharedModule } from '@shared/shared.module';
 
-import { Error404RoutingModule } from './error404-routing.module';
-import { Error404Component } from './error404.component';
+import { Error404RoutingModule } from '@pages/error404/error404-routing.module';
+import { Error404Component } from '@pages/error404/error404.component';
 
 
 @NgModule({
   declarations: [Error404Component],
   imports: [
-    CommonModule,
-    Error404RoutingModule
+    SharedModule,
+    Error404RoutingModule,
   ]
 })
 export class Error404Module { }

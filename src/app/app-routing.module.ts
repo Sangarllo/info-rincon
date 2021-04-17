@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '@app/users/auth.guard';
 import { HomeComponent } from '@app/home/home.component';
-import { Error404Component } from '@pages/error404/error404.component';
 
 const routes: Routes = [
   {
@@ -21,13 +20,22 @@ const routes: Routes = [
     loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule)
   },
   {
-    path: 'usuarios',
-    loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AuthGuard]
   },
   {
-    path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    path: 'perfil',
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'calendario',
+    loadChildren: () => import('./pages/calendar/calendar.module').then(m => m.CalendarEventsModule)
+  },
+  {
+    path: 'usuarios',
+    loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
   },
   {
     path: 'entidades',
@@ -55,13 +63,9 @@ const routes: Routes = [
     loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
   },
   {
-    path: 'calendario',
-    loadChildren: () => import('./calendar/calendar.module').then(m => m.CalendarEventsModule)
-  },
-  {
     path        : '**',
     pathMatch   : 'full',
-    component   : Error404Component
+    loadChildren: () => import('./pages/error404/error404.module').then(m => m.Error404Module)
   }
 ];
 @NgModule({
