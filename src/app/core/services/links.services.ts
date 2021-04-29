@@ -4,8 +4,8 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IBase, BaseType } from '@models/base';
-import { ILink } from '@models/link';
+import { IBase, BaseType } from 'src/app/core/models/base';
+import { ILink } from 'src/app/core/models/link';
 import { AppointmentsService } from '@services/appointments.service';
 
 const LINKS_COLLECTION = 'enlaces';

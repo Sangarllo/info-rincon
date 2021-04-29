@@ -4,8 +4,8 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IUser } from '@models/user';
-import { UserRole } from '@models/user-role.enum';
+import { IUser } from 'src/app/core/models/user';
+import { UserRole } from 'src/app/core/models/user-role.enum';
 import { LogService } from '@services/log.service';
 
 const USERS_COLLECTION = 'usuarios';

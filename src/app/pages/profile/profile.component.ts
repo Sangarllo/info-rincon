@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 
 import { UserService } from '@services/users.service';
 import { AuditService } from '@services/audit.service';
-import { IUser } from '@models/user';
-import { IAuditItem } from '@models/audit';
-import { BaseType } from '@models/base';
+import { IUser } from 'src/app/core/models/user';
+import { IAuditItem } from 'src/app/core/models/audit';
+import { BaseType } from 'src/app/core/models/base';
 
 
 @Component({

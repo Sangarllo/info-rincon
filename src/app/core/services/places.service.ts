@@ -4,8 +4,8 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IPlace } from '@models/place';
-import { IBase, BaseType } from '@models/base';
+import { IPlace } from 'src/app/core/models/place';
+import { IBase, BaseType } from 'src/app/core/models/base';
 
 const PLACES_COLLECTION = 'lugares';
 

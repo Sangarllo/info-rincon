@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [0.1.2] - Restructuring app
+
+### Add
+
+- Create new logo icon (developed by Edu).
+
+### Change
+
+- Add page folder (for about, home, admin... pages).
+- Add features folder (for events, places, entities...).
+- Move interceptors, models and auth to core instead of shared.
+
 ## [0.1.1] - Alerted Notice
 
 ### Add
@@ -14,7 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Alerted notice will appeared as a modal at home component.
 - Add links module, for using instead of news module.
 - Add Calendar page for weeky and diary view.
-- Create new logo icon (developed by Edu).
 
 ### Fixed
 
@@ -27,7 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add loading component with interceptor.
 - Diary view shown as default at home page.
 - Change buttons (mat-raised for mat-fab).
-- Add page folder (for about, home, admin... pages).
 
 ## [0.0.10] - 2021-03-11 Styling - Presentación al Ayuntamiento
 

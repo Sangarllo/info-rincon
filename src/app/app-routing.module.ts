@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from '@app/users/auth.guard';
-import { HomeComponent } from '@app/home/home.component';
+import { AuthGuard } from '@features/users/auth.guard';
+import { HomeComponent } from '@pages/home/home.component';
 
 const routes: Routes = [
   {
@@ -35,32 +35,32 @@ const routes: Routes = [
   },
   {
     path: 'usuarios',
-    loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
+    loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule)
   },
   {
     path: 'entidades',
-    loadChildren: () => import('./entities/entities.module').then(m => m.EntitiesModule)
+    loadChildren: () => import('./features/entities/entities.module').then(m => m.EntitiesModule)
   },
   {
     path: 'lugares',
-    loadChildren: () => import('./places/places.module').then(m => m.PlacesModule),
+    loadChildren: () => import('./features/places/places.module').then(m => m.PlacesModule),
     // canActivate: [AuthGuard]
   },
   {
     path: 'avisos',
-    loadChildren: () => import('./notices/notices.module').then(m => m.NoticesModule)
+    loadChildren: () => import('./features/notices/notices.module').then(m => m.NoticesModule)
   },
   {
     path: 'enlaces',
-    loadChildren: () => import('./links/links.module').then(m => m.LinksModule)
+    loadChildren: () => import('./features/links/links.module').then(m => m.LinksModule)
   },
   {
     path: 'noticias',
-    loadChildren: () => import('./news/news.module').then(m => m.NewsModule)
+    loadChildren: () => import('./features/news/news.module').then(m => m.NewsModule)
   },
   {
     path: 'eventos',
-    loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
+    loadChildren: () => import('./features/events/events.module').then(m => m.EventsModule)
   },
   {
     path        : '**',

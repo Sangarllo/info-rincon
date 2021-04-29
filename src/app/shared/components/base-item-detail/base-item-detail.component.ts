@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Entity } from '@models/entity';
-import { IBase, BaseType } from '@models/base';
+import { Entity } from 'src/app/core/models/entity';
+import { IBase, BaseType } from 'src/app/core/models/base';
 import { LogService } from '@services/log.service';
 
 @Component({

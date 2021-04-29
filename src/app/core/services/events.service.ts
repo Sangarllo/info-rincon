@@ -13,12 +13,12 @@ import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 import { colors } from '@shared/utils/colors';
-import { BaseType, IBase } from '@models/base';
-import { IEvent } from '@models/event';
-import { IUser } from '@models/user';
-import { AuditItem, AuditType } from '@models/audit';
-import { IEntity } from '@models/entity';
-import { ScheduleType } from '@models/shedule-type.enum';
+import { BaseType, IBase } from 'src/app/core/models/base';
+import { IEvent } from 'src/app/core/models/event';
+import { IUser } from 'src/app/core/models/user';
+import { AuditItem, AuditType } from 'src/app/core/models/audit';
+import { IEntity } from 'src/app/core/models/entity';
+import { ScheduleType } from 'src/app/core/models/shedule-type.enum';
 import { AppointmentsService } from '@services/appointments.service';
 
 const EVENTS_COLLECTION = 'eventos';

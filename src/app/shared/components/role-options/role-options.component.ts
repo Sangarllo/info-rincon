@@ -4,18 +4,18 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 
-import { AuthService } from '@auth/auth.service';
-import { UserRole } from '@models/user-role.enum';
-import { IEvent, Event } from '@models/event';
-import { IUser } from '@models/user';
-import { IBase, BaseType } from '@models/base';
-import { IEntity } from '@models/entity';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { UserRole } from 'src/app/core/models/user-role.enum';
+import { IEvent, Event } from 'src/app/core/models/event';
+import { IUser } from 'src/app/core/models/user';
+import { IBase, BaseType } from 'src/app/core/models/base';
+import { IEntity } from 'src/app/core/models/entity';
 import { EventService } from '@services/events.service';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 import { EntityService } from '@services/entities.service';
 import { LogService } from '@services/log.service';
 
-import { EventNewBaseDialogComponent } from '@app/events/event-new-base-dialog/event-new-base-dialog.component';
+import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dialog/event-new-base-dialog.component';
 
 @Component({
   selector: 'app-role-options',

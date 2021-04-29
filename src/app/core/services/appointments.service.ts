@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 
 import { Observable } from 'rxjs';
 
-import { IAppointment, Appointment } from '@models/appointment';
+import { IAppointment, Appointment } from 'src/app/core/models/appointment';
 
 const APPOINTMENTS_COLLECTION = 'appointments';
 

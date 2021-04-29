@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges, Output, EventEmitte
 import { MatTableDataSource } from '@angular/material/table';
 
 import { LogService } from '@services/log.service';
-import { BaseType, IBase } from '@models/base';
+import { BaseType, IBase } from 'src/app/core/models/base';
 
 @Component({
   selector: 'sh-base-items-table',

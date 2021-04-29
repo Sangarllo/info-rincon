@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 
 import { UserService } from '@services/users.service';
-import { IUser } from '@models/user';
+import { IUser } from 'src/app/core/models/user';
 
 @Component({
   selector: 'app-admin',

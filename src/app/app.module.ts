@@ -11,12 +11,12 @@ import localeEs from '@angular/common/locales/es';
 
 import { environment } from '@environments/environment';
 
-import { SpinnerInterceptor } from '@shared/interceptors/spinner.interceptor';
-import { SharedModule } from '@app/shared/shared.module';
-import { HomeModule } from '@app/home/home.module';
+import { SpinnerInterceptor } from 'src/app/core/interceptors/spinner.interceptor';
+import { SharedModule } from '@shared/shared.module';
+import { HomeModule } from '@pages/home/home.module';
 
-import { AppRoutingModule } from '@app/app-routing.module';
-import { AppComponent } from '@app/app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
 registerLocaleData(localeEs, 'es');
 

@@ -4,13 +4,14 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@app/*": ["./src/app/*"],
+      // "@app/*": ["./src/app/*"],
       "@assets/*": ["src/assets/*"],
       "@pages/*": ["./src/app/pages/*"],
+      "@features/*": ["./src/app/features/*"],
       "@services/*": ["./src/app/core/services/*"],
+      "@models/*": ["src/app/core/models/*"],
+      "@auth/*": ["src/app/core/auth/*"],
       "@shared/*": ["./src/app/shared/*"],
-      "@auth/*": ["./src/app/shared/auth/*"],
-      "@models/*": ["./src/app/shared/models/*"],
       "@environments/*": ["./src/environments/*"],
     },
     "outDir": "./dist/out-tsc",

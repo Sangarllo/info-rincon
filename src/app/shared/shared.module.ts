@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { MaterialModule } from '@app/material/material.module';
+import { MaterialModule } from '@shared/material/material.module';
 
 import { ShellComponent } from '@shared/layout/shell/shell.component';
 import { FooterComponent } from '@shared/layout/footer/footer.component';

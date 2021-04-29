@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-import { IBase } from '@models/base';
+import { IBase } from 'src/app/core/models/base';
 
 export enum SwalMessage {
   NO_CHANGES = 'NO_CHANGES',

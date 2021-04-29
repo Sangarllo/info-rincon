@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { SeoService } from '@services/seo.service';
-import { IEntity } from '@models/entity';
-import { IBase, BaseType } from '@models/base';
+import { IEntity } from 'src/app/core/models/entity';
+import { IBase, BaseType } from 'src/app/core/models/base';
 
 const ENTITIES_COLLECTION = 'entidades';
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { IBase, BaseType } from '@models/base';
+import { IBase, BaseType } from 'src/app/core/models/base';
 import { PlaceService } from '@services/places.service';
 import { EntityService } from '@services/entities.service';
 

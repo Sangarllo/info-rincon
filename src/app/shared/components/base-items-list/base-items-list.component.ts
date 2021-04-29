@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IBase } from '@models/base';
+import { IBase } from 'src/app/core/models/base';
 
 @Component({
   selector: 'sh-base-items-list',

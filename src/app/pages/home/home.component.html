@@ -1,0 +1,36 @@
+<div class="stories-wrapper" *ngIf="REAL_STORIES">
+    <img *ngFor="let story of REAL_STORIES" [routerLink]="story.url" [alt]="story.name" [src]="story.image" [ngClass]="story.baseType" />
+</div>
+
+<div class="content-wrapper mat-elevation-z8">
+    <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Eventos">
+            <div class="events">
+                <!--<div class="title">La Agenda Rinconera</div>-->
+                <div class="inner-events">
+                    <app-calendar [showHeader]="false"></app-calendar>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Avisos">
+            <div class="notices">
+                <!--<div class="title">La Esquina del Tío Valero</div>-->
+                <app-notices-dashboard [showHeader]="false"></app-notices-dashboard>
+            </div>
+        </mat-tab>
+        <mat-tab label="Enlaces">
+            <div class="links">
+                <!--<div class="title">Ebro News</div>-->
+                <app-links-dashboard [showHeader]="false"></app-links-dashboard>
+            </div>
+
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
+
+<div class="text-center">
+    <br/>
+    <h1>Bienvenido a Rincón de Soto</h1>
+    <br/>
+</div>
