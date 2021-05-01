@@ -11,17 +11,15 @@
 html,
 body {
     height: 100%;
-    //background-color: black;
-    //color: white;
     margin: 10px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     a {
-        color: hotpink;
-        border-bottom: 1px dotted hotpink;
+        color: #003A59;
+        border-bottom: 1px dotted #3E8B82;
         text-decoration: none;
     }
     a:hover {
-        color: white;
+        color: #3E8B82;
         border-bottom: 0px;
         text-decoration: none;
     }
@@ -44,10 +42,3 @@ body {
     align-items: center;
     justify-content: center;
 }
-
-
-/*
-div.mat-chip-list-wrapper {
-  margin-top: 20px;
-}
-*/

@@ -2,7 +2,7 @@
     "name": "Agenda Rinconera",
     "short_name": "agenda-rinconera",
     "theme_color": "#003a59",
-    "background_color": "#fafafa",
+    "background_color": "#DEEEEC",
     "display": "standalone",
     "scope": "./",
     "start_url": "./",

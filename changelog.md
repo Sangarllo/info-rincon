@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Move interceptors, models and auth to core instead of shared.
 - Change title: "Agenda Rinconera" instead of "info-rincon".
 - Create login as isolated module.
+- Create palette from [mycolor.space](https://mycolor.space/?hex=%23003A59&sub=1): Small Switch Palette.
+    - #003A59
+    - #DEEEEC
+    - #3E8B82
 
 ### Fixed
 
