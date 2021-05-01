@@ -11,12 +11,14 @@
     <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
 
+            <!--
             <ng-container matColumnDef="auditType">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td [class]="element.auditType" mat-cell *matCellDef="let element">
                     <div class="inside">{{ element.auditType }}</div>
                 </td>
             </ng-container>
+            -->
 
             <ng-container matColumnDef="timestamp">
                 <th mat-header-cell *matHeaderCellDef>timestamp</th>

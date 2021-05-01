@@ -21,7 +21,7 @@ export class UserAuditComponent implements OnInit {
   public loading = true;
   public auditItems: IAuditItem[];
   public dataSource: MatTableDataSource<IAuditItem> = new MatTableDataSource();
-  displayedColumns: string[] = [ 'auditType', 'timestamp', 'image', 'name', 'desc' ];
+  displayedColumns: string[] = [ 'timestamp', 'image', 'name', 'desc' ];
 
   constructor(
     private route: ActivatedRoute,
