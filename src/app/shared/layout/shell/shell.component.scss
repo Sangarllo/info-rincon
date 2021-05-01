@@ -6,6 +6,13 @@
     font-size: 1.2em;
     cursor: pointer;
     outline: none;
+    img {
+        height: 64px;
+        background-color: white;
+        border: 1px solid;
+        padding: 4px;
+        margin: 10px
+    }
 }
 
 .mat-drawer-side {

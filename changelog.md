@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add page folder (for about, home, admin... pages).
 - Add features folder (for events, places, entities...).
 - Move interceptors, models and auth to core instead of shared.
+- Change title: "Agenda Rinconera" instead of "info-rincon".
+
+### Fixed
+
+- Show side-menu just with logged user.
 
 ## [0.1.1] - Alerted Notice
 

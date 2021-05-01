@@ -6,7 +6,7 @@
         <mat-nav-list>
             <mat-list-item [routerLink]="link.path" (click)="drawer.close()" *ngFor="let link of LINKS">
                 <mat-icon>{{ link.icon }}</mat-icon>
-                <span class="list-item">{{ link.path }}</span>
+                <span class="list-item">{{ link.name }}</span>
                 <mat-divider></mat-divider>
             </mat-list-item>
         </mat-nav-list>
@@ -16,12 +16,12 @@
     <mat-sidenav-content>
         <mat-toolbar class="mat-elevation-z8" color="primary">
 
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async) && (afAuth.authState | async)">
               <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
 
             <span class="logo" routerLink="/">
-              <img [src]="'assets/icons/logo.png'" alt='go home' />
+              <img [src]="'assets/icons/logo.png'" alt='go home' class="rounded-circle" />
                Agenda Rinconera</span>
 
             <span class="fill-space"></span>
@@ -50,7 +50,7 @@
                     <i>🍐</i>
                     <span>Peras de Rincón de Soto</span>
                 </a>
-                <a mat-menu-item (click)="onLogout()">
+                <a *ngIf="afAuth.authState | async" mat-menu-item (click)="onLogout()">
                     <i>🚪</i>
                     <span>Cerrar Sesión</span>
                 </a>
@@ -64,6 +64,8 @@
     </mat-sidenav-content>
 </mat-sidenav-container>
 
+<!--
 <pre *ngIf="alertedNotices">
 {{ alertedNotices | json }}
 </pre>
+-->

@@ -30,38 +30,52 @@ export class ShellComponent {
       {
         icon: 'home',
         path: 'home',
+        name: 'inicio'
       },
       {
         icon: 'admin_panel_settings',
         path: 'admin',
+        name: 'admin',
+      },
+      {
+        icon: 'add_circle_outline',
+        path: 'eventos/new',
+        name: 'crear evento',
       },
       {
         icon: 'calendar_today',
         path: 'calendario',
+        name: 'agenda',
       },
       {
         icon: 'event',
         path: 'eventos',
+        name: 'ver eventos',
       },
       {
         icon: 'campaign',
         path: 'avisos',
+        name: 'ver avisos',
       },
       {
         icon: 'info',
         path: 'noticias',
+        name: 'ver noticias',
       },
       {
         icon: 'account_circle',
         path: 'usuarios',
+        name: 'ver usuarios',
       },
       {
         icon: 'group_work',
         path: 'entidades',
+        name: 'ver entidades'
       },
       {
         icon: 'place',
         path: 'lugares',
+        name: 'ver lugares'
       },
   ];
 
