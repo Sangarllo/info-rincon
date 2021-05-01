@@ -32,7 +32,7 @@
 
             <ng-container matColumnDef="collapsed-info">
                 <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Usuario</th>
-                <td mat-cell class="td-collapsed-info" [class]="item.role" *matCellDef="let item" (click)="gotoItem(item)">
+                <td mat-cell class="td-collapsed-info" [class]="item.role" *matCellDef="let item" (click)="gotoUser(item)">
                     <div class="inside"></div>
                     <div style="font-size: smaller;color:gray">
                         {{ item.email }}

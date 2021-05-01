@@ -98,7 +98,7 @@ export class ShellComponent {
       const currentUser = await this.afAuth.currentUser;
       this.auditSrv.addAuditItem(AuditType.LOGOUT, currentUser);
       await this.afAuth.signOut();
-      this.router.navigate(['/usuarios/login']);
+      this.router.navigate(['/home']);
     } catch (error) {
       this.logSrv.info(error);
     }

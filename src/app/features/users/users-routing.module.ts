@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from '@features/users/auth.guard';
-import { LoginPageComponent } from '@features/users/login-page/login-page.component';
+import { AuthGuard } from '@pages/login/auth.guard';
+
 import { UsersComponent } from '@features/users/users.component';
 import { UserViewComponent } from '@features/users/user-view/user-view.component';
 import { UserEditComponent } from '@features/users/user-edit/user-edit.component';
@@ -14,10 +14,6 @@ const routes: Routes = [
     path: '',
     component: UsersComponent,
     // canActivate: [AuthGuard]
-  },
-  {
-    path: 'login',
-    component: LoginPageComponent
   },
   {
     path: ':uid',

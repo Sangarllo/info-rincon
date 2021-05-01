@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from '@features/users/auth.guard';
+import { AuthGuard } from '@pages/login/auth.guard';
 import { HomeComponent } from '@pages/home/home.component';
 
 const routes: Routes = [
@@ -14,6 +14,10 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     // loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   },
   {
     path: 'dashboard',
