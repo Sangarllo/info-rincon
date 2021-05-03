@@ -1,0 +1,24 @@
+<div *ngIf="notice" class="alert alert-alarm" role="alert">
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <b>
+                      <span style="font-size: x-large;">🔔</span>
+                      Hay un aviso importante activado
+                    </b>
+                </mat-panel-title>
+                <!--
+                <mat-panel-description>
+                    Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                </mat-panel-description>
+                -->
+            </mat-expansion-panel-header>
+
+            <pre class="notice-content">
+              {{ notice | json }}
+            </pre>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

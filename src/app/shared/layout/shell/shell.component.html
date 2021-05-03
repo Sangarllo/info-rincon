@@ -18,7 +18,7 @@
         <mat-toolbar class="mat-elevation-z8" color="primary">
 
             <span class="logo" routerLink="/">
-              <img [src]="'assets/icons/logo.png'" alt='inicio' class="rounded-circle" />
+              <img [src]="'assets/icons/logo.png'" [ngClass]="{'alerted-logo' : (theAlertedNotice$ | async)}" alt='inicio' class="rounded-circle" />
             </span>
 
             <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async) && (afAuth.authState | async)">
@@ -33,7 +33,7 @@
 
             <div *ngIf="!(isHandset$ | async)">
                 <div *ngIf="(afAuth.authState | async);else login2Template">
-                    <a mat-button *ngIf="alertedNotices?.length === 1" (click)="showAlert(alertedNotices[0])">🔔 Alerta</a>
+
                     <a mat-button routerLink="/eventos/new">➕ Evento</a>
                     <a mat-button routerLink="/admin">⚙️ Admin</a>
 

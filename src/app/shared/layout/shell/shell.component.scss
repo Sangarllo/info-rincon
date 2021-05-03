@@ -1,3 +1,4 @@
+@import '../../../../base/variables';
 .sidenav-container {
     height: 100%;
 }
@@ -12,6 +13,9 @@
         border: 1px solid #003A59;
         padding: 4px;
         margin-right: 10px
+    }
+    img.alerted-logo {
+        background-color: $alarmcolor;
     }
 }
 

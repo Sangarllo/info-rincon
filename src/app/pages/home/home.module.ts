@@ -10,11 +10,13 @@ import { HomeComponent } from '@pages/home/home.component';
 import { NoticesModule } from '@features/notices/notices.module';
 import { LinksModule } from '@features/links/links.module';
 import { CalendarDayHeaderComponent } from './calendar-day-header/calendar-day-header.component';
+import { NoticeExpansionPanelComponent } from './notice-expansion-panel/notice-expansion-panel.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     CalendarDayHeaderComponent,
+    NoticeExpansionPanelComponent,
   ],
   imports: [
     HomeRoutingModule,

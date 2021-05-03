@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~bootstrap/dist/css/bootstrap.css';
+@import 'base/variables';
 @import 'base/cards';
 @import 'base/sections';
 @import 'base/tables';
@@ -14,7 +15,7 @@ body {
     margin: 10px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     a {
-        color: #003A59;
+        color: $maincolor;
         border-bottom: 1px dotted #3E8B82;
         text-decoration: none;
     }

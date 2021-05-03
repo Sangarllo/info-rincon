@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 import {
   isSameMonth,
@@ -14,7 +15,10 @@ import {
   endOfDay,
   format,
 } from 'date-fns';
+
 import { EventService } from '@services/events.service';
+import { NoticeService } from '@services/notices.service';
+import { INotice } from '@models/notice';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +27,9 @@ import { EventService } from '@services/events.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+
+  public alertedNotice: INotice;
+  public theAlertedNotice$: Observable<INotice>;
 
   view: CalendarView = CalendarView.Day;
   viewDate: Date = new Date();
@@ -34,7 +41,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private eventsSrv: EventService
+    private eventsSrv: EventService,
+    private noticesSrv: NoticeService,
   ) {
 
   }
@@ -42,7 +50,12 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.viewDate.setUTCHours(0, 0, 0, 0);
     this.viewDateStr = this.viewDate.toISOString().substr(0, 10);
-    // console.log(`today: ${dateStr}`);
+
+    this.theAlertedNotice$ = this.noticesSrv
+      .getTheAlertedNotice()
+      .pipe(
+        map( notices => { return notices[0] })
+      );
 
     this.fetchEvents();
   }
@@ -61,6 +74,10 @@ export class HomeComponent implements OnInit {
     }[this.view];
 
     this.events$ = this.eventsSrv.getAllDayEventsAppointments(this.viewDateStr);
+  }
+
+  eventClicked(event: CalendarEvent): void {
+    this.router.navigate([`eventos/${event.id}`]);
   }
 
 }

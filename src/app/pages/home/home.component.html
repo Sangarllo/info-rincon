@@ -1,22 +1,28 @@
 <app-section-header [title]="'Hoy en Rincón de Soto'"></app-section-header>
 
+<div *ngIf="theAlertedNotice$ | async as alertedNotice">
+    <app-notice-expansion-panel class="m-1" [notice]="alertedNotice"></app-notice-expansion-panel>
+</div>
+
+
 <app-calendar-day-header [(view)]="view" [(viewDate)]="viewDate" (viewDateChange)="fetchEvents()" (viewChange)="fetchEvents()" [locale]="locale">
 </app-calendar-day-header>
 
-<div *ngIf="events$ | async; else loading; let events" style="margin: 10px;">
+<div *ngIf="events$ | async; else loading; let events" style="margin: 4px;">
 
-    {{ viewDate | date:'EEEE, d \'de\' MMMM \'de\' YYYY' }}
+    <div class="alert alert-info">
+        Hay {{ events.length }} eventos:
+    </div>
 
     <div class="w-100">
-        <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [dayStartHour]="8" [dayEndHour]="20">
+        <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [dayStartHour]="8" [dayEndHour]="20" (eventClicked)="eventClicked($event.event)">
         </mwl-calendar-day-view>
     </div>
 
 </div>
 
-
 <ng-template #loading>
     <div>
-        Loading events...
+        Cargando eventos en la agenda...
     </div>
 </ng-template>

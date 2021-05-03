@@ -19,7 +19,7 @@ import { INotice } from 'src/app/core/models/notice';
 })
 export class ShellComponent {
 
-  public alertedNotices: INotice[];
+  public theAlertedNotice$: Observable<INotice>;
   public isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset])
     .pipe(
       map(result => result.matches),
@@ -87,10 +87,11 @@ export class ShellComponent {
     private noticeSrv: NoticeService,
     public afAuth: AngularFireAuth,
     ) {
-      this.noticeSrv.getAlertedNotice()
-        .subscribe((notices) => {
-          this.alertedNotices = notices;
-        });
+        this.theAlertedNotice$ = this.noticeSrv
+        .getTheAlertedNotice()
+        .pipe(
+          map( notices => { return notices[0] })
+        );
   }
 
   async onLogout(): Promise<void> {

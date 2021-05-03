@@ -110,4 +110,13 @@ export class NoticeService {
     );
     return this.noticeCollection.valueChanges();
   }
+
+  getTheAlertedNotice(): Observable<INotice[]> {
+    this.noticeCollection = this.afs.collection<INotice>(
+      NOTICES_COLLECTION,
+      ref => ref.where('alerted', '==', true)
+                .limit(1)
+    );
+    return this.noticeCollection.valueChanges();
+  }
 }
