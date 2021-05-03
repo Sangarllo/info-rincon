@@ -23,6 +23,19 @@ export class AppointmentsService {
     return this.appointmentCollection.valueChanges();
   }
 
+  getAppointmentsByRange( dateMin: string, dateMax: string ): Observable<IAppointment[]> {
+
+    this.appointmentCollection = this.afs.collection<IAppointment>(
+      APPOINTMENTS_COLLECTION,
+      ref => ref.where('dateIni', '>=', dateMin)
+                .where('dateIni', '<=', dateMax)
+                .where('active', '==', true)
+    );
+
+    return this.appointmentCollection.valueChanges();
+  }
+
+
   getOneAppointment(idAppointment: string): Observable<IAppointment | undefined> {
     return this.appointmentCollection.doc(idAppointment).valueChanges({ idField: 'id' });
   }

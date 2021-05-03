@@ -86,6 +86,7 @@ export class EventService {
     );
   }
 
+  // TODO: is it senseless to get start time (for month view)
   getAllCalendarEventsAppointments(): Observable<CalendarEvent[]> {
     const events$ = this.getAllEvents(true, false, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
@@ -100,7 +101,29 @@ export class EventService {
           title: event.name,
           color: colors.indigo,
           allDay: appointments.find(a => a.id === event.id)?.allDay,
-          start: new Date(appointments.find(a => a.id === event.id)?.dateIni)
+          start: new Date(appointments.find(a => a.id === event.id)?.timeIni)
+        }) as CalendarEvent)),
+        // tap(data => this.logSrv.info('event:  ', JSON.stringify(data))),
+    );
+  }
+
+  getAllDayEventsAppointments(dateStr: string): Observable<CalendarEvent[]> {
+    const events$ = this.getAllEvents(true, false, null);
+    const appointments$ = this.appointmentSrv.getAppointmentsByRange(dateStr,dateStr);
+
+    return combineLatest([
+      appointments$,
+      events$
+    ])
+      .pipe(
+        map(([appointments, events ]) => appointments.map(appointment => ({
+          id: appointment.id,
+          title: events.find(e => e.id === appointment.id)?.name,
+          color: colors.indigo,
+          allDay: appointment.allDay,
+          image: events.find(e => e.id === appointment.id)?.image,
+          start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
+          end: new Date(`${appointment.dateEnd}T${appointment.timeEnd}`)
         }) as CalendarEvent)),
         // tap(data => this.logSrv.info('event:  ', JSON.stringify(data))),
     );

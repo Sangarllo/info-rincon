@@ -1,0 +1,30 @@
+<div class="container">
+
+    <div class="buttons">
+        <button mat-mini-fab type="button" class="btn-nav" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+
+        <button mat-mini-fab type="button" class="btn-nav" mwlCalendarToday [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+            <mat-icon>calendar_today</mat-icon>
+          </button>
+
+        <button mat-mini-fab type="button" class="btn-nav" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+
+        <button mat-mini-fab type="button" class="btn-extra">
+            <mat-icon>search</mat-icon>
+          </button>
+
+
+
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="title">
+        {{ viewDate | date:'EEEE, d \'de\' MMMM \'de\' YYYY' }}
+    </div>
+</div>
