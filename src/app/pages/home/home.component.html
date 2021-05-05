@@ -9,9 +9,12 @@
 </app-calendar-day-header>
 
 <div *ngIf="events$ | async; else loading; let events" style="margin: 4px;">
-
+    <!-- <div *ngIf="events; else loading;" style="margin: 4px;"> -->
     <div class="alert alert-info">
         Hay {{ events.length }} eventos:
+        <!-- <pre *ngFor="let event of events">
+          {{ event | json }}
+        </pre> -->
     </div>
 
     <div class="w-100">

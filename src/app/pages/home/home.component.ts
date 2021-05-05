@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map, take, tap } from 'rxjs/operators';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 import {
   isSameMonth,
@@ -19,6 +19,7 @@ import {
 import { EventService } from '@services/events.service';
 import { NoticeService } from '@services/notices.service';
 import { INotice } from '@models/notice';
+import { CalendarEventExtended } from '@models/event';
 
 @Component({
   selector: 'app-home',
@@ -38,6 +39,8 @@ export class HomeComponent implements OnInit {
   showHeader = true;
 
   events$: Observable<CalendarEvent[]>;
+  events: CalendarEvent[];
+  eventsExtended: CalendarEventExtended[];
 
   constructor(
     private router: Router,
@@ -73,7 +76,9 @@ export class HomeComponent implements OnInit {
       day: endOfDay,
     }[this.view];
 
-    this.events$ = this.eventsSrv.getAllDayEventsAppointments(this.viewDateStr);
+    this.events$ = this.eventsSrv.getCalendarEventsByRange(
+      this.viewDate.toISOString().substr(0, 10),
+      this.viewDate.toISOString().substr(0, 10));
   }
 
   eventClicked(event: CalendarEvent): void {

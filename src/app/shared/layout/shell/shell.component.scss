@@ -9,13 +9,13 @@
     outline: none;
     img {
         height: 84px;
-        background-color: white;
-        border: 1px solid #003A59;
+        background-color: $color2;
+        border: 1px solid $color1;
         padding: 4px;
         margin-right: 10px
     }
     img.alerted-logo {
-        background-color: $alarmcolor;
+        background-color: $colorAlert;
     }
 }
 
@@ -57,7 +57,8 @@
 }
 
 .mat-toolbar {
-    background-color: #003a59 !important;
+    color: $color2;
+    background-color: $color1 !important;
 }
 
 .sidenav .mat-toolbar {

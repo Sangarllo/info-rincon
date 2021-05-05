@@ -7,18 +7,18 @@ import {
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import { Observable, combineLatest, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { CalendarEvent } from 'angular-calendar';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 import { colors } from '@shared/utils/colors';
-import { BaseType, IBase } from 'src/app/core/models/base';
-import { IEvent } from 'src/app/core/models/event';
-import { IUser } from 'src/app/core/models/user';
-import { AuditItem, AuditType } from 'src/app/core/models/audit';
-import { IEntity } from 'src/app/core/models/entity';
-import { ScheduleType } from 'src/app/core/models/shedule-type.enum';
+import { BaseType, IBase } from '@models/base';
+import { CalendarEventExtended, IEvent } from '@models/event';
+import { IUser } from '@models/user';
+import { AuditItem, AuditType } from '@models/audit';
+import { IEntity } from '@models/entity';
+import { ScheduleType } from '@models/shedule-type.enum';
 import { AppointmentsService } from '@services/appointments.service';
 
 const EVENTS_COLLECTION = 'eventos';
@@ -107,26 +107,73 @@ export class EventService {
     );
   }
 
-  getAllDayEventsAppointments(dateStr: string): Observable<CalendarEvent[]> {
+  getCalendarEventsExtendedByRange(dateMinStr: string, dateMaxStr: string): Observable<CalendarEventExtended[]> {
     const events$ = this.getAllEvents(true, false, null);
-    const appointments$ = this.appointmentSrv.getAppointmentsByRange(dateStr,dateStr);
+    const appointments$ = this.appointmentSrv.getAppointmentsByRange(
+      dateMinStr, dateMaxStr
+    );
 
     return combineLatest([
       appointments$,
       events$
     ])
       .pipe(
-        map(([appointments, events ]) => appointments.map(appointment => ({
-          id: appointment.id,
-          title: events.find(e => e.id === appointment.id)?.name,
-          color: colors.indigo,
-          allDay: appointment.allDay,
-          image: events.find(e => e.id === appointment.id)?.image,
-          start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
-          end: new Date(`${appointment.dateEnd}T${appointment.timeEnd}`)
-        }) as CalendarEvent)),
-        // tap(data => this.logSrv.info('event:  ', JSON.stringify(data))),
+        tap(([appointments, events ]) => {
+          console.log(`Nº appointments: ${appointments.length}`);
+          console.log(`Nº events: ${events.length}`);
+        }),
+        map(([appointments, events ]) => appointments
+
+          .map(appointment => (events.find(e => e.id == appointment.id)?.active) ? undefined :
+          ({
+            active: events.find(e => e.id == appointment.id)?.active,
+            id: appointment.id,
+            title: events.find(e => e.id == appointment.id)?.name,
+            color: colors.color1,
+            allDay: appointment.allDay,
+            image: events.find(e => e.id === appointment.id)?.image,
+            start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
+            end: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
+          }) as CalendarEventExtended)),
     );
+  }
+
+  getCalendarEventsByRange(dateMinStr: string, dateMaxStr: string): Observable<CalendarEvent[]> {
+    const events$ = this.getAllEvents(true, false, null);
+    const appointments$ = this.appointmentSrv.getAppointmentsByRange(
+      dateMinStr, dateMaxStr
+    );
+
+    return combineLatest([
+      appointments$,
+      events$
+    ])
+      .pipe(
+        tap(([appointments, events ]) => {
+          console.log(`Nº appointments: ${appointments.length}`);
+          console.log(`Nº events: ${events.length}`);
+        }),
+        map(([appointments, events ]) => appointments
+
+          .map(appointment => (
+            this.isValidCalendarEvent(events.find(e => e.id == appointment.id))) ?
+          ({
+            id: appointment.id,
+            title: events.find(e => e.id == appointment.id)?.name,
+            color: colors.color1,
+            allDay: appointment.allDay,
+            image: events.find(e => e.id === appointment.id)?.image,
+            start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
+            end: new Date(`${appointment.dateEnd}T${appointment.timeEnd}`),
+          }) as CalendarEvent : null)),
+          tap(data => console.log(`-> Hay ${data.length}`)),
+          map(data => data.filter(e => e?.id)),
+          tap(data => console.log(`-> Hay ${data.length}`)),
+    );
+  }
+
+  private isValidCalendarEvent(event: IEvent): boolean {
+    return ( event?.active && event?.status === 'VISIBLE' );
   }
 
   getAllEventsBase(): Observable<IBase[]> {

@@ -1,4 +1,8 @@
 export const colors: any = {
+  color1: {
+    primary: '#003A59',
+    secondary: '#DEEEEC'
+  },
   red: {
     primary: '#ad2121',
     secondary: '#FAE3E3'

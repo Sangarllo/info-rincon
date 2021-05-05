@@ -15,12 +15,12 @@ body {
     margin: 10px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     a {
-        color: $maincolor;
-        border-bottom: 1px dotted #3E8B82;
+        color: $color1;
+        border-bottom: 1px dotted $color2;
         text-decoration: none;
     }
     a:hover {
-        color: #3E8B82;
+        color: $color2;
         border-bottom: 0px;
         text-decoration: none;
     }

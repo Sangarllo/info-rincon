@@ -3,6 +3,12 @@ import { Status, STATUS_MODES } from 'src/app/core/models/status.enum';
 import { Category } from 'src/app/core/models/category.enum';
 import { ScheduleType, SCHEDULE_TYPE_DEFAULT } from 'src/app/core/models/shedule-type.enum';
 
+
+import { CalendarEvent } from 'angular-calendar';
+
+export interface CalendarEventExtended extends CalendarEvent {
+  active: boolean;
+}
 export interface IEvent {
   id: string;
   active: boolean;
