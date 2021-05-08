@@ -10,15 +10,15 @@
 
 <div *ngIf="events$ | async; else loading; let events" style="margin: 4px;">
     <!-- <div *ngIf="events; else loading;" style="margin: 4px;"> -->
-    <div class="alert alert-info">
+    <div *ngIf="events.length" class="alert alert-primary">
         Hay {{ events.length }} eventos:
         <!-- <pre *ngFor="let event of events">
           {{ event | json }}
         </pre> -->
     </div>
 
-    <div class="w-100">
-        <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [dayStartHour]="8" [dayEndHour]="20" (eventClicked)="eventClicked($event.event)">
+    <div *ngIf="events.length; else noEvents" class="w-100">
+        <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [dayStartHour]="8" [dayEndHour]="20" (eventClicked)="openEventClicked($event.event)">
         </mwl-calendar-day-view>
     </div>
 
@@ -27,5 +27,11 @@
 <ng-template #loading>
     <div>
         Cargando eventos en la agenda...
+    </div>
+</ng-template>
+
+<ng-template #noEvents>
+    <div class="alert alert-warning ">
+        No hay eventos para este día
     </div>
 </ng-template>

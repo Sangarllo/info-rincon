@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { INotice } from '@models/notice';
 
@@ -12,9 +13,19 @@ export class NoticeExpansionPanelComponent implements OnInit {
   @Input() notice: INotice;
   panelOpenState = false;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  closePanel(): void {
+    this.panelOpenState = false;
+  }
+
+  gotoNotice(): void {
+    this.router.navigate([`avisos/${this.notice.id}`]);
   }
 
 }

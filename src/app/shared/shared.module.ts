@@ -14,12 +14,14 @@ import { BaseItemsTableComponent } from '@shared/components/base-items-table/bas
 import { BaseItemsAdminComponent } from '@shared/components/base-items-admin/base-items-admin.component';
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component';
 import { RoleOptionsComponent } from '@shared/components/role-options/role-options.component';
+import { BaseItemDialogComponent } from '@shared/components/base-item-dialog/base-item-dialog.component';
 
 const components = [
   ShellComponent,
   FooterComponent,
   SectionHeaderComponent,
   BaseItemDetailComponent,
+  BaseItemDialogComponent,
   BaseItemsListComponent,
   BaseItemsTableComponent,
   BaseItemsAdminComponent,

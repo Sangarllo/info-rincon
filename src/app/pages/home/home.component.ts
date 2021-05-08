@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
@@ -19,7 +20,9 @@ import {
 import { EventService } from '@services/events.service';
 import { NoticeService } from '@services/notices.service';
 import { INotice } from '@models/notice';
-import { CalendarEventExtended } from '@models/event';
+import { CalendarEventExtended, IEvent } from '@models/event';
+import { Base, IBase, BaseType } from '@models/base';
+import { BaseItemDialogComponent } from '@shared/components/base-item-dialog/base-item-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -42,13 +45,19 @@ export class HomeComponent implements OnInit {
   events: CalendarEvent[];
   eventsExtended: CalendarEventExtended[];
 
+  public dialogConfig = new MatDialogConfig();
+
   constructor(
+    public dialog: MatDialog,
     private router: Router,
     private eventsSrv: EventService,
     private noticesSrv: NoticeService,
-  ) {
-
-  }
+    ) {
+      this.dialogConfig.disableClose = true;
+      this.dialogConfig.autoFocus = true;
+      this.dialogConfig.width = '600px';
+      this.dialogConfig.backdropClass = 'backdrop-dialog';
+    }
 
   ngOnInit(): void {
     this.viewDate.setUTCHours(0, 0, 0, 0);
@@ -85,4 +94,19 @@ export class HomeComponent implements OnInit {
     this.router.navigate([`eventos/${event.id}`]);
   }
 
+  openEventClicked(event: CalendarEvent): void {
+
+    this.eventsSrv.getOneEvent('' + event.id)
+      .subscribe((event: IEvent) => {
+        this.dialogConfig.data = event as IBase;
+        const dialogRef = this.dialog.open(
+          BaseItemDialogComponent,
+          this.dialogConfig
+        );
+
+        dialogRef.afterClosed().subscribe((baseDialog: IBase) => {
+          console.log('Cerrado dialog');
+        });
+      });
+  }
 }

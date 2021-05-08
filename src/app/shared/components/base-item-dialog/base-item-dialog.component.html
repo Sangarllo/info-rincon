@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>{{ baseItem.name }}</h2>
+
+<div style="text-align: center;">
+    <button mat-fab (click)="onNoClick()" color="primary">
+      <mat-icon>close</mat-icon>
+    </button>
+    <button mat-fab (click)="gotoBase()" color="accent">
+      <mat-icon>visibility</mat-icon>
+    </button>
+</div>
+
+<br/>
+<mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{ baseItem.desc }}</mat-card-title>
+    <!--
+    <mat-card-subtitle>{{ baseItem.timestamp | date:'EEEE, d \'de\' MMMM'}}</mat-card-subtitle>
+    -->
+</mat-card-header>
+<img mat-card-image [src]="baseItem.image" [alt]="baseItem.name">
+
+<mat-dialog-content class="mat-typography">
+    <p [innerHTML]="baseItem.name"></p>
+</mat-dialog-content>
