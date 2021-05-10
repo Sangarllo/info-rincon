@@ -49,7 +49,7 @@ export class Event implements IEvent, IBase { // IAudit
     public baseType: BaseType,
 
     public categories?: Category[],
-    public description?: string,
+    public desc?: string,
     public scheduleType?: ScheduleType,
     public timestamp?: string,
     public appointmentId?: string,
@@ -60,6 +60,10 @@ export class Event implements IEvent, IBase { // IAudit
     public auditItems?: IBase[],
     public userId?: string,
      ) {
+  }
+
+  getUrl(): string {
+    return `${Event.PATH_URL}/${this.id}`;
   }
 
   static InitDefault(): Event {

@@ -11,7 +11,7 @@
 <div *ngIf="events$ | async; else loading; let events" style="margin: 4px;">
     <!-- <div *ngIf="events; else loading;" style="margin: 4px;"> -->
     <div *ngIf="events.length" class="alert alert-primary">
-        Hay {{ events.length }} eventos:
+        Hay {{ (events.length === 1 ) ? 'un evento:' : '${events.length} eventos' }}
         <!-- <pre *ngFor="let event of events">
           {{ event | json }}
         </pre> -->

@@ -13,7 +13,11 @@
             <mat-icon>arrow_forward</mat-icon>
           </button>
 
-        <button mat-mini-fab class="btn-nav btn-extra">
+        <button mat-mini-fab (click)="gotoCalendar()" class="btn-nav btn-extra">
+            <mat-icon>date_range</mat-icon>
+        </button>
+
+        <button mat-mini-fab class="btn-nav">
             <mat-icon>search</mat-icon>
         </button>
 

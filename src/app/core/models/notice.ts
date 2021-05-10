@@ -32,9 +32,13 @@ export class Notice implements INotice, IBase {
     public focused: boolean,
     public alerted: boolean,
     public categories?: Category[],
-    public description?: string,
+    public desc?: string,
     public timestamp?: string,
      ) {
+  }
+
+  getUrl(): string {
+    return `${Notice.PATH_URL}/${this.id}`;
   }
 
   static InitDefault(): Notice {

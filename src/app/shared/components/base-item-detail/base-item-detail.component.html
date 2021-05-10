@@ -1,8 +1,27 @@
-<div (click)="gotoBaseItem(baseItem)">
-    <img [src]="baseItem.image" class="img-thumbnail">
-    <div>
-        <span class="desc">{{ baseItem.desc }}</span>
-        <br/>
-        <span class="name">{{ baseItem.name }}</span>
+<div class="base-container">
+
+    <h2>{{ baseItem.name }}</h2>
+
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+            <img [src]="baseItem.image" class="img-thumbnail">
+        </div>
+
+        <div class="col-lg-8 col-md-7 col-12" [innerHTML]="baseItem.desc">
+        </div>
     </div>
+
+    <div class="col-12">
+        <div class="buttons float-right">
+            <button (click)="gotoItem()" mat-mini-fab class="btn-nav">
+                <mat-icon>visibility</mat-icon>
+            </button>
+        </div>
+    </div>
+
 </div>
+
+<!--
+<pre class="content">
+  {{ baseItem | json }}
+</pre> -->

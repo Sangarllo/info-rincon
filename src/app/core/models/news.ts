@@ -40,6 +40,10 @@ export class NewsItem implements INewsItem, IBase {
      ) {
   }
 
+  getUrl(): string {
+    return `${NewsItem.PATH_URL}/${this.id}`;
+  }
+
   static InitDefault(): NewsItem {
     return new NewsItem(
       '0', true, '', NewsItem.IMAGE_DEFAULT, BaseType.NEWS_ITEM, // Base

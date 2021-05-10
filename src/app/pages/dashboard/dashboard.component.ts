@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           ...link,
           image: link.source.image,
           baseType: BaseType.LINK,
-          url: `../${Link.PATH_URL}/${link.id}`
+          // url: `../${Link.PATH_URL}/${link.id}`
         });
         // this.logSrv.info(`news item story! ${JSON.stringify(newsItem)}`);
       });
@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.REAL_STORIES.push({
           ...notice,
           baseType: BaseType.NOTICE,
-          url: `../${Notice.PATH_URL}/${notice.id}`
+          // url: `../${Notice.PATH_URL}/${notice.id}`
         });
         // this.logSrv.info(`notice story! ${JSON.stringify(notice)}`);
       });
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.REAL_STORIES.push({
           ...event,
           baseType: BaseType.EVENT,
-          url: `../${Event.PATH_URL}/${event.id}`
+          // url: `../${Event.PATH_URL}/${event.id}`
         });
         // this.logSrv.info(`event story! ${JSON.stringify(event)}`);
       });

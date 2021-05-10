@@ -10,38 +10,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <div class="notice-content">
-                <h2>{{ notice.name }}</h2>
-
-                <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
-                    <img [src]="notice.image" class="img-thumbnail">
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-12">
-                    <h5>Aviso vigente desde {{ notice.timestamp | date:'full'}} </h5>
-
-                    <div class="buttons float-right">
-                        <!--
-                    <button (click)="closePanel()" mat-mini-fab class="btn-nav">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                  -->
-
-                        <button (click)="gotoNotice()" mat-mini-fab class="btn-nav">
-                    <mat-icon>visibility</mat-icon>
-                  </button>
-
-                    </div>
-                </div>
-
-
-
-            </div>
-            <!--
-            <pre class="notice-content">
-              {{ notice | json }}
-            </pre>
-            -->
+            <app-base-item-detail [baseItem]="notice"></app-base-item-detail>
 
         </mat-expansion-panel>
     </mat-accordion>

@@ -1,9 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Entity } from 'src/app/core/models/entity';
-import { IBase, BaseType } from 'src/app/core/models/base';
-import { LogService } from '@services/log.service';
+import { IBase } from '@models/base';
 
 @Component({
   selector: 'app-base-item-detail',
@@ -16,19 +14,10 @@ export class BaseItemDetailComponent {
 
   constructor(
     private router: Router,
-    private logSrv: LogService,
   ) { }
 
-  gotoBaseItem(baseItem: IBase): void {
-    switch (baseItem.baseType) {
-
-      case BaseType.ENTITY:
-        this.router.navigate([`/${Entity.PATH_URL}/${baseItem.id}`]);
-        break;
-
-      default:
-        this.logSrv.error(`No implementado! (${JSON.stringify(baseItem)})`);
-        break;
-    }
+  gotoItem(): void {
+    const baseItemUrl = this.baseItem.getUrl();
+    this.router.navigate([`${baseItemUrl}`]);
   }
 }

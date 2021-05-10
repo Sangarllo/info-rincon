@@ -19,7 +19,7 @@ export interface IBase {
   baseType: BaseType;
   desc?: string;
   timestamp?: string;
-  url?: string;
+  getUrl?(): string;
 }
 
 export class Base implements IBase {
@@ -37,6 +37,17 @@ export class Base implements IBase {
     public desc?: string,
     public timestamp?: string,
   ) { }
+
+  // getUrl(): string {
+  //   switch(this.baseType) {
+  //     case BaseType.ENTITY:
+  //       return `entidades/${this.id}`;
+  //     case BaseType.EVENT:
+  //       return `eventos/${this.id}`;
+  //     default:
+  //       return `todo`;
+  //   }
+  // }
 
 
   static InitDefault(): Base {

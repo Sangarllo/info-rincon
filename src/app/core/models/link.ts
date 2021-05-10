@@ -40,6 +40,10 @@ export class Link implements ILink, IBase {
      ) {
   }
 
+  getUrl(): string {
+    return `${Link.PATH_URL}/${this.id}`;
+  }
+
   static InitDefault(): Link {
     return new Link(
       '0', true, '', Link.IMAGE_DEFAULT, BaseType.LINK, // Base

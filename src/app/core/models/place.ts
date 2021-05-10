@@ -31,6 +31,10 @@ export class Place implements IPlace, IBase {
      ) {
   }
 
+  getUrl(): string {
+    return `${Place.PATH_URL}/${this.id}`;
+  }
+
   static InitDefault(): Place {
     return new Place(
       '0', true, '', Place.IMAGE_DEFAULT, BaseType.PLACE, // Base

@@ -1,4 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { CalendarView } from 'angular-calendar';
 
 @Component({
@@ -16,4 +18,11 @@ export class CalendarDayHeaderComponent {
   @Output() viewDateChange = new EventEmitter<Date>();
 
   CalendarView = CalendarView;
+
+
+  constructor(private router: Router) {}
+
+  gotoCalendar() {
+    this.router.navigate([`calendario`]);
+  }
 }

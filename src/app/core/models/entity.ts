@@ -39,6 +39,10 @@ export class Entity implements IEntity, IBase {
      ) {
   }
 
+  getUrl(): string {
+    return `${Entity.PATH_URL}/${this.id}`;
+  }
+
   static InitDefault(): Entity {
     return new Entity(
       '0', true, Entity.NAME_DEFAULT, Entity.IMAGE_DEFAULT, BaseType.ENTITY, // Base
