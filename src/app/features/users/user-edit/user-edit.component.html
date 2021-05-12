@@ -67,17 +67,17 @@
 
                     </mat-card-content>
 
-                    <mat-card-actions class="text-center">
+                    <mat-card-actions class="buttons">
 
-                        <button mat-fab [title]="userForm.valid ? 'Guardar con los datos introducidos' : 'Deshabilitado hasta que los datos sean válidos'" [disabled]="!userForm.valid" type="submit" color="primary">
+                        <button mat-fab class="btn-1" [title]="userForm.valid ? 'Guardar con los datos introducidos' : 'Deshabilitado hasta que los datos sean válidos'" [disabled]="!userForm.valid" type="submit">
                           <mat-icon>check</mat-icon>
                         </button>
 
-                        <button mat-fab class="m-1" type="button" (click)="gotoList()" color="primary">
+                        <button mat-fab class="btn-1" (click)="gotoList()">
                           <mat-icon>list</mat-icon>
                         </button>
 
-                        <button mat-fab type="button" (click)="gotoAdminEntities()" color="primary">
+                        <button mat-fab class="btn-1" (click)="gotoAdminEntities()">
                           <mat-icon>people_alt</mat-icon>
                         </button>
 

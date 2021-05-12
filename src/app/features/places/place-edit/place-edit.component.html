@@ -47,13 +47,13 @@
 
                     </mat-card-content>
 
-                    <mat-card-actions class="text-center">
+                    <mat-card-actions class="buttons">
 
-                        <button mat-fab class="m-1" [title]="placeForm.valid ? 'Guardar con los datos introducidos' : 'Deshabilitado hasta que los datos sean válidos'" [disabled]="!placeForm.valid" type="submit" color="primary">
+                        <button mat-fab class="btn-1" [title]="placeForm.valid ? 'Guardar con los datos introducidos' : 'Deshabilitado hasta que los datos sean válidos'" [disabled]="!placeForm.valid" type="submit" color="primary">
                           <mat-icon>check</mat-icon>
                         </button>
 
-                        <button mat-fab class="m-1" type="button" (click)="gotoList()" color="primary">
+                        <button mat-fab class="btn-1" (click)="gotoList()">
                           <mat-icon>list</mat-icon>
                         </button>
 
