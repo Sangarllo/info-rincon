@@ -46,6 +46,7 @@ body {
 
 // NAV
 .buttons {
+    margin-top: 5px;
     text-align: right;
     button.btn-1,
     button.btn-2,
@@ -64,5 +65,13 @@ body {
     }
     button.btn-alert {
         background-color: $colorAlert;
+    }
+}
+
+.section-list-options {
+    display: flex;
+    margin-bottom: 20px;
+    .buttons {
+        margin-left: 20px;
     }
 }

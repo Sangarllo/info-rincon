@@ -2,11 +2,19 @@
 
 <div class="section-wrapper">
 
-    <mat-form-field>
-        <mat-label>Filtro</mat-label>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
-        <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+    <div class="section-list-options">
+        <mat-form-field>
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <div class="buttons">
+            <button mat-mini-fab class="btn-1" (click)="addItem()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
 
     <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
@@ -88,12 +96,6 @@
 
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
 
-    </div>
-
-    <div class="text-center m-3">
-        <button mat-fab type="button" (click)="addItem()" color="primary">
-        <mat-icon>add</mat-icon>
-      </button>
     </div>
 
 </div>
