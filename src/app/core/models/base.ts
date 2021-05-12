@@ -17,9 +17,9 @@ export interface IBase {
   name: string;
   image: string;
   baseType: BaseType;
-  desc?: string;
+  description?: string;
   timestamp?: string;
-  getUrl?(): string;
+  // getUrl(): string;
 }
 
 export class Base implements IBase {
@@ -34,21 +34,33 @@ export class Base implements IBase {
     public name: string,
     public image: string,
     public baseType: BaseType,
-    public desc?: string,
+    public description?: string,
     public timestamp?: string,
   ) { }
 
-  // getUrl(): string {
-  //   switch(this.baseType) {
-  //     case BaseType.ENTITY:
-  //       return `entidades/${this.id}`;
-  //     case BaseType.EVENT:
-  //       return `eventos/${this.id}`;
-  //     default:
-  //       return `todo`;
-  //   }
-  // }
+  getUrl(): string {
+    switch(this.baseType) {
+      case BaseType.ENTITY:
+        return `entidades/${this.id}`;
+      case BaseType.EVENT:
+        return `eventos/${this.id}`;
+      default:
+        return `todo`;
+    }
+  }
 
+  static getUrl(base: IBase): string {
+    switch(base.baseType) {
+      case BaseType.ENTITY:
+        return `entidades/${base.id}`;
+      case BaseType.EVENT:
+        return `eventos/${base.id}`;
+      case BaseType.NOTICE:
+          return `avisos/${base.id}`;
+      default:
+        return `todo`;
+    }
+  }
 
   static InitDefault(): Base {
     return new Base(

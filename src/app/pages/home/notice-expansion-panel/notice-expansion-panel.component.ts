@@ -24,8 +24,8 @@ export class NoticeExpansionPanelComponent implements OnInit {
     this.panelOpenState = false;
   }
 
-  gotoNotice(): void {
-    this.router.navigate([`avisos/${this.notice.id}`]);
+  onCloseClicked(): void {
+    console.log(`TODO Close pane!`);
+    this.panelOpenState = false;
   }
-
 }

@@ -7,21 +7,25 @@
             <img [src]="baseItem.image" class="img-thumbnail">
         </div>
 
-        <div class="col-lg-8 col-md-7 col-12" [innerHTML]="baseItem.desc">
+        <div class="col-lg-8 col-md-7 col-12" [innerHTML]="baseItem.description">
         </div>
     </div>
 
     <div class="col-12">
-        <div class="buttons float-right">
-            <button (click)="gotoItem()" mat-mini-fab class="btn-nav">
+        <div class="buttons">
+            <button *ngIf="btnView" mat-fab class="btn-1" (click)="onBtnViewClick()">
                 <mat-icon>visibility</mat-icon>
+            </button>
+
+            <button *ngIf="btnClose" mat-fab class="btn-1" (click)="onBtnCloseClick()">
+                <mat-icon>close</mat-icon>
             </button>
         </div>
     </div>
 
 </div>
 
-<!--
-<pre class="content">
+
+<!-- <pre class="content">
   {{ baseItem | json }}
 </pre> -->

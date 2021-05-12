@@ -71,7 +71,7 @@ export class NoticeService {
             name: notice.name,
             image: notice.image,
             baseType: BaseType.NOTICE,
-            desc: notice.description
+            description: notice.description
           };
         }
       }))

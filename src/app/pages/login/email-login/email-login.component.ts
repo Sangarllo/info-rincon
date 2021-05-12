@@ -88,8 +88,8 @@ export class EmailLoginComponent implements OnInit {
         await this.afAuth.signInWithEmailAndPassword(email, password);
         if ( this.afAuth.user ) {
           const currentUser = await this.afAuth.currentUser;
-          const desc = `${currentUser.displayName} (${currentUser.email})`;
-          this.auditSrv.addAuditItem(AuditType.LOGIN_EMAIL, currentUser, desc);
+          const description = `${currentUser.displayName} (${currentUser.email})`;
+          this.auditSrv.addAuditItem(AuditType.LOGIN_EMAIL, currentUser, description);
           this.router.navigate([`admin`]);
         }
       }

@@ -32,7 +32,7 @@ export class Notice implements INotice, IBase {
     public focused: boolean,
     public alerted: boolean,
     public categories?: Category[],
-    public desc?: string,
+    public description?: string,
     public timestamp?: string,
      ) {
   }

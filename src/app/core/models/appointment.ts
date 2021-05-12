@@ -7,7 +7,7 @@ export interface IAppointment {
   withEnd?: boolean;
   dateEnd?: string;
   timeEnd?: string;
-  desc?: string;
+  description?: string;
 }
 
 export class Appointment implements IAppointment {
@@ -25,7 +25,7 @@ export class Appointment implements IAppointment {
     public withEnd?: boolean,
     public dateEnd?: string,
     public timeEnd?: string,
-    public desc?: string
+    public description?: string
      ) {
   }
 
@@ -46,7 +46,7 @@ export class Appointment implements IAppointment {
       ''
     );
 
-    basicAppointment.desc = Appointment.computeDesc(basicAppointment);
+    basicAppointment.description = Appointment.computeDesc(basicAppointment);
 
     return basicAppointment;
   }

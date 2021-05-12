@@ -173,7 +173,7 @@ export class EventAdminComponent implements OnInit {
 
   openScheduleDialog(scheduleItemId: string): void {
 
-    const backupDesc = this.event.description;
+    const backupDescription = this.event.description;
     if ( scheduleItemId === '' ) {
       this.event.description = ''; // New Item
     } else {
@@ -185,7 +185,7 @@ export class EventAdminComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((scheduleItem: IBase) => {
 
-      this.event.description = backupDesc;
+      this.event.description = backupDescription;
       if ( scheduleItem ) {
 
         this.logSrv.info(`afterClosed -> ${JSON.stringify(scheduleItem)}`);

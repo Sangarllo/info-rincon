@@ -76,7 +76,7 @@ export class EventScheduleDialogComponent implements OnInit {
       this.title = `Edita el ${scheduleType} número ${this.orderId}`;
       name = this.event.scheduleItems.find( item => item.id === this.orderId ).name;
       this.imageSelected = this.event.scheduleItems.find( item => item.id === this.orderId ).image;
-      const datetimeIni = this.event.scheduleItems.find( item => item.id === this.orderId ).desc.split(' ');
+      const datetimeIni = this.event.scheduleItems.find( item => item.id === this.orderId ).description.split(' ');
       this.appointment.dateIni = datetimeIni[0];
       this.appointment.timeIni = datetimeIni[1];
     }
@@ -115,7 +115,7 @@ export class EventScheduleDialogComponent implements OnInit {
       name: this.scheduleItemForm.controls.name.value,
       image: this.imageSelected,
       baseType: BaseType.EVENT,
-      desc: dateIniStr
+      description: dateIniStr
     };
 
     // this.utilsSrv.swalFire(SwalMessage.OK_CHANGES, 'x elementos');

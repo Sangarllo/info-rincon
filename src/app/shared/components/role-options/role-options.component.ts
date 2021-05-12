@@ -82,7 +82,7 @@ export class RoleOptionsComponent {
         this.entitiesSrv.getOneEntity(newBase.id)
         .subscribe((entity: IEntity) => {
           const newEvent = Event.InitDefault();
-          this.eventSrv.addEventFromEntity(newEvent, entity, newBase.desc).then((eventId: string) => {
+          this.eventSrv.addEventFromEntity(newEvent, entity, newBase.description).then((eventId: string) => {
             this.logSrv.info(`EventId: ${eventId}`);
             this.router.navigate([`eventos/${eventId}/admin`]);
           });

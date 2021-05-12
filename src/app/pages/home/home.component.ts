@@ -53,10 +53,6 @@ export class HomeComponent implements OnInit {
     private eventsSrv: EventService,
     private noticesSrv: NoticeService,
     ) {
-      this.dialogConfig.disableClose = true;
-      this.dialogConfig.autoFocus = true;
-      this.dialogConfig.width = '600px';
-      this.dialogConfig.backdropClass = 'backdrop-dialog';
     }
 
   ngOnInit(): void {
@@ -95,18 +91,26 @@ export class HomeComponent implements OnInit {
   }
 
   openEventClicked(event: CalendarEvent): void {
-
     this.eventsSrv.getOneEvent('' + event.id)
+      .pipe(take(1))
       .subscribe((event: IEvent) => {
-        this.dialogConfig.data = event as IBase;
-        const dialogRef = this.dialog.open(
-          BaseItemDialogComponent,
-          this.dialogConfig
-        );
-
-        dialogRef.afterClosed().subscribe((baseDialog: IBase) => {
-          console.log('Cerrado dialog');
-        });
+        this.openEventDialog(event);
       });
+  }
+
+  openEventDialog(event: IEvent): void {
+    this.dialogConfig.width = '600px';
+    this.dialogConfig.data = event as IBase;
+    const dialogRef = this.dialog.open(
+      BaseItemDialogComponent,
+      this.dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe((baseDialog: IBase) => {
+      if ( baseDialog ) {
+        console.log('Cerrado dialog');
+      }
+    });
+
   }
 }

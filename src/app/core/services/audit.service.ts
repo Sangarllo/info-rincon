@@ -33,9 +33,9 @@ export class AuditService {
     return this.auditCollection.valueChanges();
   }
 
-  addAuditItem(type: AuditType, user: any, desc?: string ): void {
+  addAuditItem(type: AuditType, user: any, description?: string ): void {
     const timestamp = this.appointmentSrv.getTimestamp();
-    const auditItem = AuditItem.InitDefault(type, user, timestamp, desc);
+    const auditItem = AuditItem.InitDefault(type, user, timestamp, description);
     this.auditCollection.add({...auditItem});
   }
 }

@@ -46,10 +46,23 @@ body {
 
 // NAV
 .buttons {
-    button.btn-nav {
-        background-color: #003A59;
+    text-align: right;
+    button.btn-1,
+    button.btn-2,
+    button.btn-extra,
+    button.btn-alert {
+        margin: 5px !important;
     }
-    button.btn-nav+button.btn-nav {
-        margin-left: 5px;
+    button.btn-1 {
+        background-color: $color1;
+    }
+    button.btn-2 {
+        background-color: $color2;
+    }
+    button.btn-extra {
+        background-color: $colorExtra;
+    }
+    button.btn-alert {
+        background-color: $colorAlert;
     }
 }

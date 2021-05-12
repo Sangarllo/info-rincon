@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { IBase } from '@models/base';
+import { Base, IBase } from '@models/base';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-base-item-detail',
@@ -10,14 +11,34 @@ import { IBase } from '@models/base';
 })
 export class BaseItemDetailComponent {
 
-  @Input() baseItem: IBase;
+  @Input() baseItem: Base;
+
+  @Input() btnView: boolean;
+  @Input() btnClose: boolean;
+
+  @Output() onCloseClicked = new EventEmitter<void>();
+  @Output() onViewClicked = new EventEmitter<void>();
 
   constructor(
+    private logSrv: LogService,
     private router: Router,
   ) { }
 
-  gotoItem(): void {
-    const baseItemUrl = this.baseItem.getUrl();
+  gotoBaseItem(): void {
+    const baseItemUrl = Base.getUrl(this.baseItem);
+    this.logSrv.info(`gotoBaseItem: ${baseItemUrl}`);
     this.router.navigate([`${baseItemUrl}`]);
   }
+
+  onBtnCloseClick(): void {
+    this.logSrv.info(`onBtnCloseClick`);
+    this.onCloseClicked.emit();
+  }
+
+  onBtnViewClick(): void {
+    this.logSrv.info(`onBtnViewClick`);
+    this.gotoBaseItem();
+    this.onViewClicked.emit();
+  }
+
 }

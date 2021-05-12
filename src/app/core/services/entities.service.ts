@@ -51,7 +51,7 @@ export class EntityService {
             name: entity.name,
             image: entity.image,
             baseType: BaseType.ENTITY,
-            desc: entity.roleDefault
+            description: entity.roleDefault
           };
         }
       }))

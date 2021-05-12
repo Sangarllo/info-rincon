@@ -63,7 +63,7 @@ export class EventNewBaseDialogComponent implements OnInit {
 
   onSelectionChanged(event: any): void {
     this.baseItemSelected = event.value;
-    this.baseItemForm.controls.baseItemDesc.setValue(this.baseItemSelected.desc);
+    this.baseItemForm.controls.baseItemDesc.setValue(this.baseItemSelected.description);
   }
 
   compareFunction(o1: IBase, o2: IBase): boolean {
@@ -82,7 +82,7 @@ export class EventNewBaseDialogComponent implements OnInit {
       return this.onNoClick();
     } else {
       newBase.baseType = this.data;
-      newBase.desc = this.baseItemForm.controls.baseItemDesc.value;
+      newBase.description = this.baseItemForm.controls.baseItemDesc.value;
 
       this.dialogRef.close(newBase);
       this.utilsSrv.swalFire(SwalMessage.OK_CHANGES, this.baseItemName);

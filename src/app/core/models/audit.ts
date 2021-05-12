@@ -18,7 +18,7 @@ export interface IAuditItem {
   image: string;
   baseType: BaseType;
   auditType: AuditType;
-  desc: string;
+  description: string;
   userId?: string;
   timestamp?: string;
 }
@@ -40,7 +40,7 @@ export class AuditItem implements IAuditItem, IBase {
     public image: string,
     public baseType: BaseType,
     public auditType: AuditType,
-    public desc: string,
+    public description: string,
     public userId?: string,
     public timestamp?: string,
      ) {

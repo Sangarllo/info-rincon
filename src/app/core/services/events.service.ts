@@ -150,8 +150,8 @@ export class EventService {
     ])
       .pipe(
         tap(([appointments, events ]) => {
-          console.log(`Nº appointments: ${appointments.length}`);
-          console.log(`Nº events: ${events.length}`);
+          // console.log(`Nº appointments: ${appointments.length}`);
+          // console.log(`Nº events: ${events.length}`);
         }),
         map(([appointments, events ]) => appointments
 
@@ -166,9 +166,9 @@ export class EventService {
             start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
             end: new Date(`${appointment.dateEnd}T${appointment.timeEnd}`),
           }) as CalendarEvent : null)),
-          tap(data => console.log(`-> Hay ${data.length}`)),
+          // tap(data => console.log(`-> Hay ${data.length}`)),
           map(data => data.filter(e => e?.id)),
-          tap(data => console.log(`-> Hay ${data.length}`)),
+          // tap(data => console.log(`-> Hay ${data.length}`)),
     );
   }
 
@@ -192,7 +192,7 @@ export class EventService {
             name: event.name,
             image: event.image,
             baseType: BaseType.EVENT,
-            desc: event.description
+            description: event.description
           };
         }
       }))
@@ -237,7 +237,7 @@ export class EventService {
       name: entity.name,
       image: entity.image,
       baseType: BaseType.ENTITY,
-      desc: role,
+      description: role,
     };
 
     event.images = [];
@@ -256,7 +256,7 @@ export class EventService {
         name: place.name,
         image: place.image,
         baseType: BaseType.PLACE,
-        desc: place.roleDefault ?? '',
+        description: place.roleDefault ?? '',
       } : null;
 
     if ( place ) {

@@ -71,7 +71,7 @@ export class NewsService {
             name: newsItem.name,
             image: newsItem.image,
             baseType: BaseType.NEWS_ITEM,
-            desc: newsItem.description
+            description: newsItem.description
           };
         }
       }))

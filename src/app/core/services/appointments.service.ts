@@ -52,7 +52,7 @@ export class AppointmentsService {
       withEnd: newAppointment.withEnd,
       dateEnd: newAppointment.dateEnd,
       timeEnd: newAppointment.timeEnd,
-      desc: newAppointment.desc,
+      description: newAppointment.description,
     });
   }
 

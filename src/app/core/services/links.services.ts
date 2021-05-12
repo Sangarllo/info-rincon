@@ -71,7 +71,7 @@ export class LinksService {
             name: link.name,
             image: link.image,
             baseType: BaseType.LINK,
-            desc: link.description
+            description: link.description
           };
         }
       }))

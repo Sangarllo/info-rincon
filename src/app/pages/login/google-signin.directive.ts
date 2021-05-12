@@ -24,8 +24,8 @@ export class GoogleSigninDirective {
     await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     if ( this.afAuth.user ) {
       const currentUser = await this.afAuth.currentUser;
-      const desc = `${currentUser.displayName} (${currentUser.email})`;
-      this.auditSrv.addAuditItem(AuditType.LOGIN_PROVIDER, currentUser, desc);
+      const description = `${currentUser.displayName} (${currentUser.email})`;
+      this.auditSrv.addAuditItem(AuditType.LOGIN_PROVIDER, currentUser, description);
       this.usersSrv.updateUserData(currentUser);
       this.router.navigate([`admin`]);
     }

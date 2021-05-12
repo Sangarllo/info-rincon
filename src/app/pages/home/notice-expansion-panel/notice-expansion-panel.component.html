@@ -10,7 +10,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <app-base-item-detail [baseItem]="notice"></app-base-item-detail>
+            <app-base-item-detail [baseItem]="notice" [btnView]="true" [btnClose]="true" (onCloseClicked)="onCloseClicked()"></app-base-item-detail>
 
         </mat-expansion-panel>
     </mat-accordion>

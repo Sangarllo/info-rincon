@@ -43,7 +43,7 @@ export class EventAppointmentDialogComponent implements OnInit {
         withEnd: [ false, []],
         dateEnd: [ '', []],
         timeEnd: [ '', []],
-        desc: [ '', []],
+        description: [ '', []],
       });
     }
   }
@@ -82,7 +82,7 @@ export class EventAppointmentDialogComponent implements OnInit {
       withEnd: this.appointment.withEnd,
       dateEnd: this.appointment.dateEnd,
       timeEnd: this.appointment.timeEnd,
-      desc: this.appointment.desc,
+      description: this.appointment.description,
     });
 
     this.appointmentForm.controls.id.setValue(this.appointment.id);
@@ -128,8 +128,8 @@ export class EventAppointmentDialogComponent implements OnInit {
 
   public updateTemporalDesc(): void {
 
-    this.appointment.desc = Appointment.computeDesc(this.appointment);
-    this.appointmentForm.controls.desc.setValue(this.appointment.desc);
+    this.appointment.description = Appointment.computeDesc(this.appointment);
+    this.appointmentForm.controls.description.setValue(this.appointment.description);
   }
 
   onNoClick(): void {

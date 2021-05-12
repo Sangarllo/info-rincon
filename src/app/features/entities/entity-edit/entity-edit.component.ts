@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { Entity, IEntity } from 'src/app/core/models/entity';
-import { EVENT_CATEGORIES, Category } from 'src/app/core/models/category.enum';
-import { Base } from 'src/app/core/models/base';
-import { EntityRole } from 'src/app/core/models/entity-role.enum';
-import { ScheduleType, SCHEDULE_TYPES } from 'src/app/core/models/shedule-type.enum';
+import { Entity, IEntity } from '@models/entity';
+import { EVENT_CATEGORIES, Category } from '@models/category.enum';
+import { IBase, Base } from '@models/base';
+import { EntityRole } from '@models/entity-role.enum';
+import { ScheduleType, SCHEDULE_TYPES } from '@models/shedule-type.enum';
 import { EntityService } from '@services/entities.service';
 import { PlaceService } from '@services/places.service';
 import { LogService } from '@services/log.service';
@@ -35,7 +35,7 @@ export class EntityEditComponent implements OnInit {
 
   placeBaseSelected: Base;
   readonly SECTION_BLANK: Base = Base.InitDefault();
-  places$: Observable<Base[]>;
+  places$: Observable<IBase[]>;
 
   constructor(
     private afStorage: AngularFireStorage,

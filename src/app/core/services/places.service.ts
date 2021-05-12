@@ -47,7 +47,7 @@ export class PlaceService {
             name: place.name,
             image: place.image,
             baseType: BaseType.PLACE,
-            desc: place.locality
+            description: place.locality
           };
         }
       }))

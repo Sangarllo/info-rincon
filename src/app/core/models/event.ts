@@ -49,7 +49,7 @@ export class Event implements IEvent, IBase { // IAudit
     public baseType: BaseType,
 
     public categories?: Category[],
-    public desc?: string,
+    public description?: string,
     public scheduleType?: ScheduleType,
     public timestamp?: string,
     public appointmentId?: string,

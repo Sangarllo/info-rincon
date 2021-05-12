@@ -6,7 +6,7 @@ export interface ISource extends IBase {
   name: string;
   image: string;
   baseType: BaseType;
-  desc?: string;
+  description?: string;
 }
 
 const DEFAULT_SOURCE: ISource = {
@@ -15,7 +15,7 @@ const DEFAULT_SOURCE: ISource = {
   name: 'Otros',
   image: 'assets/images/sources/default.png',
   baseType: BaseType.SOURCE,
-  desc: '',
+  description: '',
 };
 
 const NEWS_SOURCES: ISource[] = [
@@ -25,7 +25,7 @@ const NEWS_SOURCES: ISource[] = [
     name: 'Otros',
     image: 'assets/images/sources/default.png',
     baseType: BaseType.SOURCE,
-    desc: '',
+    description: '',
   },
   {
     id: '01',
@@ -33,7 +33,7 @@ const NEWS_SOURCES: ISource[] = [
     name: 'Ayuntamiento de Rincón de Soto',
     image: 'assets/images/sources/ayuntamiento-rincondesoto.jpg',
     baseType: BaseType.SOURCE,
-    desc: '',
+    description: '',
   },
   {
     id: '02',
@@ -41,7 +41,7 @@ const NEWS_SOURCES: ISource[] = [
     name: '941',
     image: 'assets/images/sources/941.png',
     baseType: BaseType.SOURCE,
-    desc: '',
+    description: '',
   },
   {
     id: '03',
@@ -49,7 +49,7 @@ const NEWS_SOURCES: ISource[] = [
     name: 'TV Rioja',
     image: 'assets/images/sources/tvr.jpg',
     baseType: BaseType.SOURCE,
-    desc: '',
+    description: '',
   },
   {
     id: '04',
@@ -57,7 +57,7 @@ const NEWS_SOURCES: ISource[] = [
     name: 'Onda Cero',
     image: 'assets/images/sources/ondacero.png',
     baseType: BaseType.SOURCE,
-    desc: '',
+    description: '',
   },
   {
     id: '05',
@@ -65,7 +65,7 @@ const NEWS_SOURCES: ISource[] = [
     name: 'Radio Rioja - Cadena SER',
     image: 'assets/images/sources/radio-rioja-ser.jpg',
     baseType: BaseType.SOURCE,
-    desc: '',
+    description: '',
   },
   {
     id: '06',
@@ -73,7 +73,7 @@ const NEWS_SOURCES: ISource[] = [
     name: 'Cadena COPE',
     image: 'assets/images/sources/cope.jpg',
     baseType: BaseType.SOURCE,
-    desc: '',
+    description: '',
   },
   {
     id: '07',
@@ -81,7 +81,7 @@ const NEWS_SOURCES: ISource[] = [
     name: 'Gobierno de La Rioja',
     image: 'assets/images/sources/gobierno-rioja',
     baseType: BaseType.SOURCE,
-    desc: '',
+    description: '',
   },
   {
     id: '08',
@@ -89,7 +89,7 @@ const NEWS_SOURCES: ISource[] = [
     name: 'Actalidad Rioja Baja',
     image: 'assets/images/sources/actualidad-rioja-baja.jpg',
     baseType: BaseType.SOURCE,
-    desc: '',
+    description: '',
   },
   {
     id: '09',
@@ -97,7 +97,7 @@ const NEWS_SOURCES: ISource[] = [
     name: 'Revista Reserva',
     image: 'assets/images/sources/revista-reserva.jpg',
     baseType: BaseType.SOURCE,
-    desc: '',
+    description: '',
   },
   {
     id: '10',
@@ -105,7 +105,7 @@ const NEWS_SOURCES: ISource[] = [
     name: 'Medios Riojanos',
     image: 'assets/images/sources/mediosriojanos.png',
     baseType: BaseType.SOURCE,
-    desc: '',
+    description: '',
   },
   {
     id: '11',
@@ -113,7 +113,7 @@ const NEWS_SOURCES: ISource[] = [
     name: 'LaRioja.com',
     image: 'assets/images/sources/larioja-com.png',
     baseType: BaseType.SOURCE,
-    desc: '',
+    description: '',
   },
 ];
 

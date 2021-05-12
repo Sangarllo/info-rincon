@@ -16,4 +16,4 @@
     <p [innerHTML]="notice.description"></p>
 </mat-dialog-content> -->
 
-<app-base-item-detail [baseItem]="notice"></app-base-item-detail>
+<app-base-item-detail [baseItem]="notice" [btnView]="true" [btnClose]="true" (onCloseClicked)="onCloseClicked()"></app-base-item-detail>

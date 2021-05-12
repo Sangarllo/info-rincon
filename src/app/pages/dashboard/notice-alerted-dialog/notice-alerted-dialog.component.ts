@@ -20,4 +20,9 @@ export class NoticeAlertedDialogComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  onCloseClicked(): void {
+    this.dialogRef.close();
+  }
+
 }
