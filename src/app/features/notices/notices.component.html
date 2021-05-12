@@ -47,9 +47,9 @@
                 <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Aviso</th>
                 <td mat-cell class="td-collapsed-info" [class]="item.status" *matCellDef="let item">
 
-                    <button mat-mini-fab class="button-collapsed" color="primary" aria-label="Establecer como alerta" (click)="alertItem(item)">
-                  <mat-icon>lightbulb</mat-icon>
-                </button>
+                    <button mat-mini-fab class="button-collapsed btn-1" aria-label="Establecer como alerta" (click)="alertItem(item)">
+                        <mat-icon>lightbulb</mat-icon>
+                    </button>
 
                     <div (click)="gotoItem(item)" class="inside"></div>
 

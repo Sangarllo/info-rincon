@@ -15,7 +15,8 @@ import { SpinnerService } from '@services/spinner.service';
 
 @Component({
   selector: 'app-notices',
-  templateUrl: './notices.component.html'
+  templateUrl: './notices.component.html',
+  styleUrls: ['./notices.component.scss']
 })
 export class NoticesComponent implements OnInit {
 

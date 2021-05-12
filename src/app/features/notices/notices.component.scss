@@ -1,0 +1,8 @@
+@import '../../../base/variables';
+tr.alerted-notice {
+    td.mat-cell {
+        button.btn-1 {
+            color: $colorAlert;
+        }
+    }
+}

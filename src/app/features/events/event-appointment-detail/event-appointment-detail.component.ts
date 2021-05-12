@@ -8,7 +8,8 @@ import { IAppointment } from 'src/app/core/models/appointment';
 
 @Component({
   selector: 'app-event-appointment-detail',
-  templateUrl: './event-appointment-detail.component.html'
+  templateUrl: './event-appointment-detail.component.html',
+  styleUrls: ['./event-appointment-detail.component.scss']
 })
 export class EventAppointmentDetailComponent implements OnInit {
 

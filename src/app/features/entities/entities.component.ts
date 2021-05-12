@@ -16,7 +16,7 @@ import { SpinnerService } from '@services/spinner.service';
 @Component({
   selector: 'app-entities',
   templateUrl: './entities.component.html',
-  styleUrls: ['./entities.component.css']
+  styleUrls: ['./entities.component.scss']
 })
 export class EntitiesComponent implements OnInit {
 
@@ -64,7 +64,7 @@ export class EntitiesComponent implements OnInit {
     }
   }
 
-  public gotoEntity(entity: IEntity): void {
+  public gotoItem(entity: IEntity): void {
     this.router.navigate([`entidades/${entity.id}`]);
   }
 

@@ -21,15 +21,17 @@
 
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset class="type-other">
 
-                        <legend>¿Cuándo?</legend>
+                        <!--
+                          <legend>¿Cuándo?</legend>
+                        -->
 
                         <app-event-appointment-detail *ngIf="appointment$ | async as appointment" [showImage]="true" [appointment]="appointment"></app-event-appointment-detail>
 
                     </fieldset>
 
-                    <fieldset *ngIf="event.scheduleItems?.length > 0">
+                    <fieldset class="type-other" *ngIf="event.scheduleItems?.length > 0">
 
                         <legend>¿Cómo?</legend>
 
@@ -37,15 +39,7 @@
 
                     </fieldset>
 
-                    <fieldset *ngIf="event.placeItems?.length > 0">
-
-                        <legend>¿Dónde?</legend>
-
-                        <sh-base-items-list [baseItems]="event.placeItems"></sh-base-items-list>
-
-                    </fieldset>
-
-                    <fieldset *ngIf="event.entityItems?.length > 0">
+                    <fieldset class="type-other" *ngIf="event.entityItems?.length > 0">
 
                         <legend>¿Quiénes?</legend>
 
@@ -53,17 +47,21 @@
 
                     </fieldset>
 
+                    <fieldset class="type-other" *ngIf="event.placeItems?.length > 0">
+
+                        <legend>¿Dónde?</legend>
+
+                        <sh-base-items-list [baseItems]="event.placeItems"></sh-base-items-list>
+
+                    </fieldset>
+
                 </mat-card-content>
 
-                <mat-card-actions>
+                <mat-card-actions class="buttons">
 
-                    <div>
-
-                        <button *ngIf="adminAllowed" mat-fab type="button" (click)="adminItem()" color="accent">
-                        <mat-icon>build_circle</mat-icon>
-                      </button>
-
-                    </div>
+                    <button *ngIf="adminAllowed" mat-fab class="btn-extra" (click)="adminItem()">
+                        <mat-icon>build</mat-icon>
+                    </button>
 
                 </mat-card-actions>
 
