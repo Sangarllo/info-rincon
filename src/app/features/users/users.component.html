@@ -62,13 +62,13 @@
             <ng-container matColumnDef="entities">
                 <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header>Entidades Administradas</th>
                 <td [ngClass]="user.role" mat-cell class="td-extra-md" *matCellDef="let user">
-                    <div *ngIf="user.role === 'ADMIN' || user.role === 'SUPER' || user.role === 'CENSOR'">
+                    <div *appRole="['SUPER', 'ADMIN']">
                         <mat-icon>grid_on</mat-icon><br/><span>todas</span>
                     </div>
-                    <div *ngIf="user.role === 'AUTOR'">
+                    <div *appRole="['AUTOR']">
                         <img *ngFor="let entity of user.entitiesAdmin" [src]="entity.image" class="img-thumbnail" alt="entity.name">
                     </div>
-                    <div *ngIf="user.role === 'LECTOR'">
+                    <div *appRole="['LECTOR']">
                         <mat-icon>grid_off</mat-icon>
                         <br/><span>ninguna</span>
                     </div>

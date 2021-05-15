@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AngularFireAuth } from '@angular/fire/auth';
 
+import { AuthService } from '@auth/auth.service';
 import { EventService } from '@services/events.service';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 import { EntityService } from '@services/entities.service';
@@ -25,6 +26,7 @@ export class EventCreationComponent implements OnInit {
 
   public role: UserRole;
   public dialogConfig = new MatDialogConfig();
+  public currentUser: IUser;
 
   constructor(
     public auth: AngularFireAuth,
@@ -32,10 +34,15 @@ export class EventCreationComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private utilsSrv: UtilsService,
+    private authSrv: AuthService,
     private logSrv: LogService,
     private entitiesSrv: EntityService,
     private eventSrv: EventService
-  ) { }
+  ) {
+    this.authSrv.user$.subscribe( (user: any) => {
+      this.currentUser = user;
+    });
+  }
 
   ngOnInit(): void {
     this.auth.user.subscribe((usr) => {
@@ -73,4 +80,11 @@ export class EventCreationComponent implements OnInit {
     });
   }
 
+  createEventFromEntity(entity: IEntity): void {
+    const newEvent = Event.InitDefault();
+    this.eventSrv.addEventFromEntity(newEvent, entity, entity.description).then((eventId: string) => {
+      this.logSrv.info(`EventId: ${eventId}`);
+      this.router.navigate([`eventos/${eventId}/admin`]);
+    });
+  }
 }

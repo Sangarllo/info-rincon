@@ -52,17 +52,17 @@
 
                             <br/>
 
-                            <div *ngIf="(user.role === 'SUPER') || (user.role === 'ADMIN') || (user.role === 'CENSOR')" class="alert alert-success" role="alert">
+                            <div *appRole="['ADMIN', 'SUPER']" class="alert alert-success" role="alert">
                                 Actualmente, al tener <strong>ROL {{ user.role }}</strong> puede administrar cualquier entidad
                             </div>
 
-                            <div *ngIf="(user.role === 'LECTOR')" class="alert alert-danger" role="alert">
+                            <div *appRole="['LECTOR']" class="alert alert-danger" role="alert">
                                 Actualmente, al tener <strong>ROL {{ user.role }}</strong> no puede administrar ninguna entidad
                             </div>
 
                             <div *ngIf="user.entitiesAdmin">
 
-                                <h3 *ngIf="(user.role !== 'AUTOR' )">De tener ROL AUTOR, podría administrar:</h3>
+                                <h3 *appRole="['LECTOR', 'ADMIN', 'SUPER']">De tener ROL AUTOR, podría administrar:</h3>
 
                                 <sh-base-items-table [baseItems]="user.entitiesAdmin" [baseType]="baseTypeEntity"></sh-base-items-table>
 

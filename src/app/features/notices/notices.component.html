@@ -77,26 +77,26 @@
                 <td mat-cell class="td-extra-lg" *matCellDef="let notice">
 
                     <button [disabled]="notice.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" color="accent" (click)="gotoItem(notice)">
-                      <mat-icon aria-label="View">remove_red_eye</mat-icon>
+                        <mat-icon aria-label="View">remove_red_eye</mat-icon>
                     </button>
 
                     <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="accent" (click)="editItem(notice)">
-                      <mat-icon aria-label="Edit">build_circle</mat-icon>
+                        <mat-icon aria-label="Edit">build_circle</mat-icon>
                     </button>
 
                     <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="accent" (click)="deleteItem(notice)">
-                      <mat-icon aria-label="Delete">delete</mat-icon>
+                        <mat-icon aria-label="Delete">delete</mat-icon>
                     </button>
 
                     <button mat-icon-button matTooltip="Click to Alerted" class="iconbutton" [color]="(notice.alerted) ? 'accent' : 'gray'" (click)="alertItem(notice)">
-                      <mat-icon aria-label="Activar como alerta">lightbulb</mat-icon>
+                        <mat-icon aria-label="Activar como alerta">lightbulb</mat-icon>
                     </button>
 
                 </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'alerted-notice': row.alerted }"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'marked-row': row.alerted }"></tr>
         </table>
 
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>

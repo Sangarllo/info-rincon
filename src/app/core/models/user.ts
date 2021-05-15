@@ -11,6 +11,7 @@ export interface IUser {
   photoURL?: string;
   role?: UserRole;
   entitiesAdmin?: IEntity[];
+  entityDefault?: IEntity;
 }
 
 export class User implements IUser {
@@ -29,6 +30,7 @@ export class User implements IUser {
     public photoURL?: string,
     public role?: UserRole,
     public entitiesAdmin?: IEntity[],
+    public entityDefault?: IEntity,
      ) {
   }
 

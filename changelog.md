@@ -11,7 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Add
 
-- Create new logo icon (developed by Edu).
+- `feature` Default entity for users, and capacity to create events directly.
+- `style` Create new logo icon (developed by Edu).
+- `code` Create directive for roles.
 
 ### Change
 

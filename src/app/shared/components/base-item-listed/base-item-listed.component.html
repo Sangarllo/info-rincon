@@ -1,4 +1,4 @@
-<div (click)="gotoBaseItem(baseItem)">
+<div *ngIf="baseItem" (click)="gotoBaseItem(baseItem)">
     <img [src]="baseItem.image" class="img-thumbnail">
     <div>
         <span class="desc">{{ baseItem.description }}</span>

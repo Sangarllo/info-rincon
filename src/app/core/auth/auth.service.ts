@@ -12,6 +12,8 @@ import { IUser } from 'src/app/core/models/user';
 import { UserService } from '@services/users.service';
 import { LogService } from '@services/log.service';
 
+const USERS_COLLECTION = 'usuarios';
+
 @Injectable({ providedIn: 'root' })
 export class AuthService extends RoleValidator {
   public currentUser$: Observable<firebase.User>;
@@ -28,7 +30,7 @@ export class AuthService extends RoleValidator {
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
-          return this.afs.doc<IUser>(`users/${user.uid}`).valueChanges();
+          return this.afs.doc<IUser>(`${USERS_COLLECTION}/${user.uid}`).valueChanges();
         }
         return of(null);
       })

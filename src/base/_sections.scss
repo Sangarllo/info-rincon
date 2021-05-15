@@ -1,3 +1,5 @@
+@import './variables';
+
 /*
 Styles for Sections
 */
@@ -7,4 +9,11 @@ div.section-wrapper {
     margin-left: 4px;
     margin-right: 4px;
     padding: 20px;
+}
+
+.section-subtitle {
+    display: block;
+    font-size: larger;
+    color: $color1;
+    margin: 20px 0px 10px 0px;
 }

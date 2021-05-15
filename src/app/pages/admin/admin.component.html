@@ -15,14 +15,14 @@
                 </div>
             </mat-card>
 
-            <mat-card class="option-item" *ngIf="user.role >= 'AUTOR'" [routerLink]="'../usuarios/' + user.uid + '/entidades'">
+            <mat-card class="option-item" *appRole="['AUTOR', 'ADMIN', 'SUPER']" [routerLink]="'../usuarios/' + user.uid + '/entidades'">
                 <mat-card-title>Tus entidades</mat-card-title>
                 <div class="option-image">
                     <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" style="width:200px" class="img-thumbnail" />
                 </div>
             </mat-card>
 
-            <mat-card class="option-item" *ngIf="user.role >= 'AUTOR'" [routerLink]="'../usuarios/' + user.uid + '/audit'">
+            <mat-card class="option-item" *appRole="['AUTOR', 'ADMIN', 'SUPER']" [routerLink]="'../usuarios/' + user.uid + '/audit'">
                 <mat-card-title>Tus accesos</mat-card-title>
                 <div class="option-image">
                     <img alt="'Tus accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />
@@ -40,9 +40,7 @@
     </div>
 
     <div *ngIf="userData$ | async as user" class="mt-3 text-center">
-
-        <app-role-options [role]="user.role"></app-role-options>
-
+        <app-role-options></app-role-options>
     </div>
 
 </div>

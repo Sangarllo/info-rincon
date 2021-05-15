@@ -84,10 +84,10 @@ table {
     width: 80px;
     border: 2px solid transparent;
     .img-thumbnail {
-        min-width: 64px;
-        width: 64px !important;
-        min-height: 64px;
-        height: 64px;
+        min-width: 50px;
+        width: 50px !important;
+        min-height: 50px;
+        height: 50px;
     }
 }
 
@@ -311,9 +311,11 @@ td.mat-column-collapsed-info {
     }
 }
 
-// TODO: Remove from this file
-.alerted-notice {
-    background-color: gold
+.marked-row {
+    background-color: $colorAlert;
+    .btn-icon-1 {
+        color: $colorAlert;
+    }
 }
 
 .button-collapsed {

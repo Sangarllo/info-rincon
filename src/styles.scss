@@ -45,10 +45,14 @@ body {
 }
 
 // NAV
+.buttons {
+    text-align: right;
+}
+
 td.mat-cell,
+.mat-cell,
 .buttons {
     margin-top: 5px;
-    text-align: right;
     &.buttons-center {
         text-align: center;
     }
@@ -69,6 +73,11 @@ td.mat-cell,
     }
     button.btn-alert {
         background-color: $colorAlert;
+    }
+    button.btn-icon-1 {
+        background-color: $color2;
+        color: $color1;
+        margin-left: 2px;
     }
 }
 

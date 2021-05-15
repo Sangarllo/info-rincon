@@ -16,11 +16,13 @@ import { BaseItemDialogComponent } from '@shared/components/base-item-dialog/bas
 import { BaseItemDetailComponent } from '@shared/components/base-item-detail/base-item-detail.component';
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component';
 import { RoleOptionsComponent } from '@shared/components/role-options/role-options.component';
+import { RoleDirective } from '@shared/directives/role.directive';
 
 const components = [
   ShellComponent,
   FooterComponent,
   SectionHeaderComponent,
+  BaseItemDetailComponent,
   BaseItemDialogComponent,
   BaseItemsListComponent,
   BaseItemListedComponent,
@@ -30,6 +32,10 @@ const components = [
   SpinnerComponent,
   RoleOptionsComponent,
 ];
+
+const directives = [
+  RoleDirective,
+]
 
 const modules = [
   CommonModule,
@@ -42,7 +48,7 @@ const modules = [
 @NgModule({
   declarations: [
     ...components,
-    BaseItemDetailComponent,
+    ...directives,
   ],
   imports: [
     ...modules
@@ -50,6 +56,7 @@ const modules = [
   exports: [
     ...modules,
     ...components,
+    ...directives,
   ]
 })
 export class SharedModule { }

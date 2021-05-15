@@ -1,66 +1,84 @@
 <div class="options-wrapper">
 
-    <mat-card class="option-item" *ngIf="(role != 'LECTOR') && (role != 'AUTOR')" (click)="gotoNewEventFromScratch()">
+    <!--
+    <pre>
+        {{ currentUser | json }}
+    </pre>
+    -->
+
+    <mat-card class="option-item" *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="gotoNewEventFromScratch()">
         <mat-card-title>Evento desde cero</mat-card-title>
         <div class="option-image">
             <img alt="'Crear evento'" [src]="'assets/images/goto/add-from-scratch.png'" style="width:200px" class="img-thumbnail" />
         </div>
     </mat-card>
 
-    <mat-card class="option-item" *ngIf="(role != 'LECTOR')" (click)="openEntityDialog()">
+    <mat-card class="option-item" *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="openEntityDialog()">
         <mat-card-title>Evento de entidad</mat-card-title>
         <div class="option-image">
             <img alt="'Crear evento'" [src]="'assets/images/goto/add-from-entities.png'" style="width:200px" class="img-thumbnail" />
         </div>
     </mat-card>
 
+    <div *ngIf="currentUser?.entityDefault">
+        <mat-card class="option-item" *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="createEventFromEntity(currentUser.entityDefault)">
+            <mat-card-title>Evento de ...</mat-card-title>
+            <div class="option-image">
+                <img alt="'Crear evento'" [src]="currentUser.entityDefault.image" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
+
 </div>
 
 <mat-divider></mat-divider>
 
-<div class="options-wrapper" *ngIf="(role === 'CENSOR') || (role === 'ADMIN') || (role === 'SUPER')">
+<div class="options-wrapper" *appRole="['CENSOR', 'ADMIN', 'SUPER']">
 
-    <mat-card class="option-item" (click)="gotoUsersDashboard()">
-        <mat-card-title>Panel de Usuarios</mat-card-title>
-        <div class="option-image">
-            <img alt="'Panel de Usuarios'" [src]="'assets/images/goto/goto-users.png'" style="width:200px" class="img-thumbnail" />
-        </div>
-    </mat-card>
+    <div class="row">
+        <mat-card class="option-item" (click)="gotoUsersDashboard()">
+            <mat-card-title>Panel de Usuarios</mat-card-title>
+            <div class="option-image">
+                <img alt="'Panel de Usuarios'" [src]="'assets/images/goto/goto-users.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
 
-    <mat-card class="option-item" (click)="gotoEntitiesDashboard()">
-        <mat-card-title>Panel de Entidades</mat-card-title>
-        <div class="option-image">
-            <img alt="'Panel de Entidades'" [src]="'assets/images/goto/goto-entities.png'" style="width:200px" class="img-thumbnail" />
-        </div>
-    </mat-card>
+        <mat-card class="option-item" (click)="gotoEntitiesDashboard()">
+            <mat-card-title>Panel de Entidades</mat-card-title>
+            <div class="option-image">
+                <img alt="'Panel de Entidades'" [src]="'assets/images/goto/goto-entities.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
 
-    <mat-card class="option-item" (click)="gotoPlacesDashboard()">
-        <mat-card-title>Panel de Lugares</mat-card-title>
-        <div class="option-image">
-            <img alt="'Panel de Lugares'" [src]="'assets/images/goto/goto-places.png'" style="width:200px" class="img-thumbnail" />
-        </div>
-    </mat-card>
+        <mat-card class="option-item" (click)="gotoPlacesDashboard()">
+            <mat-card-title>Panel de Lugares</mat-card-title>
+            <div class="option-image">
+                <img alt="'Panel de Lugares'" [src]="'assets/images/goto/goto-places.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
 
+    <div class="row">
+        <mat-card class="option-item" (click)="gotoEventsDashboard()">
+            <mat-card-title>Panel de Eventos</mat-card-title>
+            <div class="option-image">
+                <img alt="'Panel de Eventos'" [src]="'assets/images/goto/goto-events.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
 
-    <mat-card class="option-item" (click)="gotoEventsDashboard()">
-        <mat-card-title>Panel de Eventos</mat-card-title>
-        <div class="option-image">
-            <img alt="'Panel de Eventos'" [src]="'assets/images/goto/goto-events.png'" style="width:200px" class="img-thumbnail" />
-        </div>
-    </mat-card>
+        <mat-card class="option-item" (click)="gotoNoticesDashboard()">
+            <mat-card-title>Panel de Avisos</mat-card-title>
+            <div class="option-image">
+                <img alt="'Panel de Avisos'" [src]="'assets/images/goto/goto-notices.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
 
-    <mat-card class="option-item" (click)="gotoNoticesDashboard()">
-        <mat-card-title>Panel de Avisos</mat-card-title>
-        <div class="option-image">
-            <img alt="'Panel de Avisos'" [src]="'assets/images/goto/goto-notices.png'" style="width:200px" class="img-thumbnail" />
-        </div>
-    </mat-card>
-
-    <mat-card class="option-item" (click)="gotoNewsDashboard()">
-        <mat-card-title>Panel de Noticias</mat-card-title>
-        <div class="option-image">
-            <img alt="'Panel de Noticias'" [src]="'assets/images/goto/goto-news.png'" style="width:200px" class="img-thumbnail" />
-        </div>
-    </mat-card>
+        <mat-card class="option-item" (click)="gotoNewsDashboard()">
+            <mat-card-title>Panel de Noticias</mat-card-title>
+            <div class="option-image">
+                <img alt="'Panel de Noticias'" [src]="'assets/images/goto/goto-news.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
 
 </div>

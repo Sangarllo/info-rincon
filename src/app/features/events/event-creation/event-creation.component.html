@@ -1,24 +1,38 @@
 <app-section-header [title]="'Creación de eventos en la aplicación'"></app-section-header>
 
+<div class="options-wrapper" *appRole="[ 'LECTOR' ]">
+    <div class="alert alert-warning">
+        No puedes crear eventos solo siendo lector
+    </div>
+</div>
 
-<div class="options-wrapper" *ngIf="role">
+<div class="options-wrapper" *appRole="[ 'AUTOR', 'ADMIN', 'SUPER' ]">
 
     <div class="w-100 m-3">
-        <h1>Con tu rol de <span style="text-transform: lowercase;font-weight: bolder;">{{ role }}</span> puedes crear eventos:</h1>
+        <h1>Con tu rol de <span style="text-transform: lowercase;font-weight: bolder;">{{ role }}</span> puedes:</h1>
     </div>
 
-    <mat-card class="option-item" *ngIf="(role != 'LECTOR') && (role != 'AUTOR')" (click)="gotoNewEventFromScratch()">
+    <mat-card class="option-item" *appRole="[ 'ADMIN', 'SUPER' ]" (click)="gotoNewEventFromScratch()">
         <mat-card-title>Evento desde cero</mat-card-title>
         <div class="option-image">
             <img alt="'Crear evento'" [src]="'assets/images/goto/add-from-scratch.png'" style="width:200px" class="img-thumbnail" />
         </div>
     </mat-card>
 
-    <mat-card class="option-item" *ngIf="(role != 'LECTOR')" (click)="openEntityDialog()">
+    <mat-card class="option-item" *appRole="['AUTOR', 'ADMIN', 'SUPER' ]" (click)="openEntityDialog()">
         <mat-card-title>Evento de entidad</mat-card-title>
         <div class="option-image">
             <img alt="'Crear evento'" [src]="'assets/images/goto/add-from-entities.png'" style="width:200px" class="img-thumbnail" />
         </div>
     </mat-card>
+
+    <div *ngIf="currentUser?.entityDefault">
+        <mat-card class="option-item" *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="createEventFromEntity(currentUser.entityDefault)">
+            <mat-card-title>Evento de ...</mat-card-title>
+            <div class="option-image">
+                <img alt="'Crear evento'" [src]="currentUser.entityDefault.image" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
 
 </div>

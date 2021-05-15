@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
 
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from '@auth/auth.service';
 import { UserRole } from 'src/app/core/models/user-role.enum';
 import { IEvent, Event } from 'src/app/core/models/event';
 import { IUser } from 'src/app/core/models/user';
@@ -24,10 +24,8 @@ import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dia
 })
 export class RoleOptionsComponent {
 
-  @Input() role: UserRole;
-
   public dialogConfig = new MatDialogConfig();
-  private currentUser: IUser;
+  public currentUser: IUser;
 
   constructor(
     public dialog: MatDialog,
@@ -38,7 +36,7 @@ export class RoleOptionsComponent {
     private entitiesSrv: EntityService,
     private eventSrv: EventService
   ) {
-    this.authSrv.currentUser$.subscribe( (user: any) => {
+    this.authSrv.user$.subscribe( (user: any) => {
       this.currentUser = user;
     });
   }
@@ -90,6 +88,14 @@ export class RoleOptionsComponent {
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
       }
+    });
+  }
+
+  createEventFromEntity(entity: IEntity): void {
+    const newEvent = Event.InitDefault();
+    this.eventSrv.addEventFromEntity(newEvent, entity, entity.description).then((eventId: string) => {
+      this.logSrv.info(`EventId: ${eventId}`);
+      this.router.navigate([`eventos/${eventId}/admin`]);
     });
   }
 }

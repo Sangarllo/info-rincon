@@ -28,7 +28,7 @@ export class UserAdminEntitiesComponent implements OnInit {
   entityForm!: FormGroup;
   selectedEntity: IEntity;
 
-  displayedColumns: string[] = [ 'image', 'name', 'actions2' ];
+  displayedColumns: string[] = [ 'image', 'name', 'actions3' ];
 
   constructor(
     private router: Router,
@@ -86,12 +86,22 @@ export class UserAdminEntitiesComponent implements OnInit {
         icon: 'success',
         title: 'Datos guardados con éxito',
         text: `${this.user.displayName} ya no gestiona la entidad ${deletedEntity.name}`,
-      });
+    });
+  }
+
+  public setAsEntityDefault(entity: IEntity): void {
+    this.user.entityDefault = entity;
+
+    this.userSrv.updateUser(this.user);
+
+    Swal.fire({
+        icon: 'success',
+        title: 'Datos guardados con éxito',
+        text: `${this.user.displayName} administra pr defecto ${entity.name}`,
+    });
   }
 
   public addUserEntity(): void {
-
-
 
     const filter = this.user.entitiesAdmin?.filter( entity => entity.id === this.selectedEntity.id );
 
