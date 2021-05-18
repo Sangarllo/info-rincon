@@ -33,9 +33,19 @@ export class ShellComponent {
         name: 'inicio'
       },
       {
+        icon: 'privacy_tip',
+        path: 'about',
+        name: 'acerca de'
+      },
+      {
         icon: 'admin_panel_settings',
         path: 'admin',
         name: 'admin',
+      },
+      {
+        icon: 'login',
+        path: 'audit',
+        name: 'auditoría',
       },
       {
         icon: 'add_circle_outline',

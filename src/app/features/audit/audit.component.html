@@ -1,0 +1,82 @@
+<app-section-header [title]="'Panel de Auditoría de Usuarios'"></app-section-header>
+
+<div class="section-wrapper">
+
+    <div class="section-list-options">
+        <mat-form-field>
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+    </div>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="role">
+                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Rol</th>
+                <td [class]="element.role" class="td-extra-lg" mat-cell *matCellDef="let element">
+                    <div class="inside">{{ element.role }}</div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="photoURL">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element">
+                    <img (click)="gotoUser(element)" [src]="element.photoURL" class="img-thumbnail" alt="element.displayName">
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="uid">
+                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Uid.</th>
+                <td mat-cell class="td-extra-lg" *matCellDef="let user">{{ user.uid }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="collapsed-info">
+                <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Usuario</th>
+                <td mat-cell class="td-collapsed-info" [class]="item.role" *matCellDef="let item" (click)="gotoUser(item)">
+                    <div class="inside"></div>
+                    <div style="font-size: smaller;color:gray">
+                        {{ item.email }}
+                    </div>
+                    {{ item.displayName }} - {{ item.lastLogin | date:'EEEE, d \'de\' MMMM \'de\' YYYY' }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="displayName">
+                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Nombre</th>
+                <td mat-cell class="td-extra-lg" *matCellDef="let user">{{ user.displayName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastLogin">
+                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Último Acceso</th>
+                <td mat-cell class="td-extra-lg" *matCellDef="let user">{{ user.lastLogin }}</td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="actions2">
+
+                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones</th>
+                <td mat-cell class="td-extra-lg" *matCellDef="let user">
+                    <button mat-icon-button matTooltip="Click to View" class="iconbutton" color="accent" (click)="gotoUser(user)">
+                        <mat-icon aria-label="View">remove_red_eye</mat-icon>
+                    </button>
+
+                    <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="accent" (click)="gotoItemAdmin(user)">
+                  <mat-icon aria-label="Edit">build_circle</mat-icon>
+                </button>
+
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+
+    </div>
+
+</div>

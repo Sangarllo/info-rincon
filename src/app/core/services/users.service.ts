@@ -4,9 +4,10 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IUser } from 'src/app/core/models/user';
-import { UserRole } from 'src/app/core/models/user-role.enum';
+import { IUser } from '@models/user';
+import { UserRole } from '@models/user-role.enum';
 import { LogService } from '@services/log.service';
+import { AppointmentsService } from '@services/appointments.service';
 
 const USERS_COLLECTION = 'usuarios';
 
@@ -21,6 +22,7 @@ export class UserService {
   constructor(
     private afs: AngularFirestore,
     private logSrv: LogService,
+    private appointmentSrv: AppointmentsService
   ) {
     this.userCollection = afs.collection(USERS_COLLECTION);
   }
@@ -30,6 +32,23 @@ export class UserService {
       USERS_COLLECTION,
       ref => ref.where('active', '==', true)
                 .orderBy('displayName')
+    );
+
+    return this.userCollection.valueChanges()
+      .pipe(
+        map((users) => users.map(
+          user => {
+            user.role = user.role || UserRole.Lector;
+            return { ...user };
+          }))
+      );
+  }
+
+  getAllAudit(): Observable<IUser[]> {
+    this.userCollection = this.afs.collection<IUser>(
+      USERS_COLLECTION,
+      ref => ref.where('active', '==', true)
+                .orderBy('lastLogin', 'desc')
     );
 
     return this.userCollection.valueChanges()
@@ -89,7 +108,8 @@ export class UserService {
       emailVerified: user.emailVerified,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      active: user.active ?? true
+      active: user.active ?? true,
+      lastLogin: this.appointmentSrv.getTimestamp(),
     };
 
     // this.logSrv.info(`updateUserData 2: ${JSON.stringify(data)}`);

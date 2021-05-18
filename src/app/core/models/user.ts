@@ -10,6 +10,7 @@ export interface IUser {
   password?: string;
   photoURL?: string;
   role?: UserRole;
+  lastLogin?: string;
   entitiesAdmin?: IEntity[];
   entityDefault?: IEntity;
 }
@@ -29,6 +30,7 @@ export class User implements IUser {
     public password?: string,
     public photoURL?: string,
     public role?: UserRole,
+    public lastLogin?: string,
     public entitiesAdmin?: IEntity[],
     public entityDefault?: IEntity,
      ) {
@@ -43,7 +45,8 @@ export class User implements IUser {
       '',
       '',
       User.IMAGE_DEFAULT,
-      UserRole.Lector
+      UserRole.Lector,
+      '',
     );
   }
 }
