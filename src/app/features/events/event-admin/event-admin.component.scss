@@ -1,3 +1,4 @@
+@import '../../../../base/variables';
 fieldset {
     padding: 20px;
     position: relative;
@@ -42,5 +43,11 @@ fieldset {
         //     right: -5px;
         //     bottom: -5px;
         // }
+    }
+    .mat-accordion {
+        float: left;
+        width: 100%;
+        border: 1px solid darkgray;
+        background-color: lightgrey;
     }
 }

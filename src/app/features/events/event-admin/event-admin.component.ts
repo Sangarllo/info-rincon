@@ -30,6 +30,7 @@ import { EventScheduleDialogComponent } from '@features/events/event-schedule-di
 })
 export class EventAdminComponent implements OnInit {
 
+  panelOpenState = false;
   public event: IEvent;
   public idEvent: string;
   public appointment$: Observable<IAppointment>;

@@ -111,14 +111,25 @@
 
                         <legend>¿Audit?</legend>
 
-                        <sh-base-items-list [baseItems]="event.auditItems"></sh-base-items-list>
+                        <mat-accordion>
+                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Auditoría de la administración
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <sh-base-items-list [baseItems]="event.auditItems"></sh-base-items-list>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
 
                     </fieldset>
 
                 </mat-card-content>
 
                 <mat-card-actions>
-
+                    <!--- todo if needed: buttons -->
                 </mat-card-actions>
 
             </div>
