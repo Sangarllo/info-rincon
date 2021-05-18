@@ -33,7 +33,7 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
     switch(this.baseType) {
 
       case BaseType.EVENT:
-        this.displayedColumns = ['baseId', 'baseSmallImage', 'baseSmallName', 'baseDescHorario', 'active', 'baseActions4' ];
+        this.displayedColumns = ['baseId', 'baseSmallImage', 'baseSmallName', 'placeSmallImage', 'baseDescHorario',  'active', 'baseActions4' ];
         break;
 
       case BaseType.AUDIT:

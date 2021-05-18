@@ -6,14 +6,17 @@
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
                 <app-event-image-detail [event]="event"></app-event-image-detail>
 
-                <button mat-fab type="button" (click)="openEventImageDialog()" color="accent">
-                  <mat-icon>photo_view</mat-icon>
-                </button>
+                <div class="buttons buttons-center">
 
-                <button [disabled]="event.status !== 'VISIBLE'" mat-fab type="button" (click)="gotoItemView()" color="accent">
-                  <mat-icon>visibility</mat-icon>
-                </button>
+                    <button mat-fab class="btn-1" (click)="openEventImageDialog()">
+                        <mat-icon>photo_view</mat-icon>
+                    </button>
 
+                    <button [disabled]="event.status !== 'VISIBLE'" mat-fab class="btn-1" (click)="gotoItemView()">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+
+                </div>
             </div>
 
             <div class="col-lg-9 col-md-8 col-12">
@@ -24,11 +27,13 @@
 
                         <legend>¿Qué?</legend>
 
-                        <button mat-fab type="button" (click)="openEventBasicDialog()" color="accent">
-                      <mat-icon>edit</mat-icon>
-                    </button>
-
                         <app-event-basic-detail [event]="event"></app-event-basic-detail>
+
+                        <div class="buttons">
+                            <button mat-fab class="btn-1" (click)="openEventBasicDialog()">
+                              <mat-icon>edit</mat-icon>
+                          </button>
+                        </div>
 
                     </fieldset>
 
@@ -36,11 +41,13 @@
 
                         <legend>¿Estado?</legend>
 
-                        <button mat-fab type="button" (click)="openEventStatusDialog()" color="accent">
-                    <mat-icon>settings</mat-icon>
-                  </button>
-
                         <app-event-status-detail [event]="event"></app-event-status-detail>
+
+                        <div class="buttons">
+                            <button mat-fab class="btn-1" (click)="openEventStatusDialog()">
+                                <mat-icon>settings</mat-icon>
+                            </button>
+                        </div>
 
                     </fieldset>
 
@@ -48,11 +55,13 @@
 
                         <legend>¿Cuándo?</legend>
 
-                        <button mat-fab type="button" (click)="openAppointmentDialog()" color="accent">
-                          <mat-icon>book_online</mat-icon>
-                        </button>
-
                         <app-event-appointment-detail *ngIf="appointment$ | async as appointment" [showImage]="true" [appointment]="appointment"></app-event-appointment-detail>
+
+                        <div class="buttons">
+                            <button mat-fab class="btn-1" (click)="openAppointmentDialog()" color="accent">
+                                <mat-icon>book_online</mat-icon>
+                            </button>
+                        </div>
 
                     </fieldset>
 
@@ -60,11 +69,13 @@
 
                         <legend>¿Cómo?</legend>
 
-                        <button mat-fab type="button" (click)="openScheduleDialog('')" color="accent">
-                          <mat-icon>alarm_add</mat-icon>
-                        </button>
-
                         <sh-base-items-table [baseItems]="event.scheduleItems" [baseType]="baseType" (changeOrderBase)="changeOrderScheduleItem($event)" (addBase)="addScheduleItem($event)" (deleteBase)="deleteScheduleItem($event)" (editBase)="editScheduleItem($event)"></sh-base-items-table>
+
+                        <div class="buttons">
+                            <button mat-fab class="btn-1" (click)="openScheduleDialog('')" color="accent">
+                                <mat-icon>alarm_add</mat-icon>
+                            </button>
+                        </div>
 
                     </fieldset>
 
@@ -72,11 +83,13 @@
 
                         <legend>¿Dónde?</legend>
 
-                        <button mat-fab type="button" (click)="openPlaceDialog()" color="accent">
-                          <mat-icon>add_location_alt</mat-icon>
-                        </button>
-
                         <sh-base-items-list [baseItems]="event.placeItems"></sh-base-items-list>
+
+                        <div class="buttons">
+                            <button mat-fab class="btn-1" (click)="openPlaceDialog()" color="accent">
+                                <mat-icon>add_location_alt</mat-icon>
+                            </button>
+                        </div>
 
                     </fieldset>
 
@@ -84,11 +97,13 @@
 
                         <legend>¿Quiénes?</legend>
 
-                        <button mat-fab type="button" (click)="openEntityDialog()" color="accent">
-                          <mat-icon>person_add</mat-icon>
-                        </button>
-
                         <sh-base-items-list [baseItems]="event.entityItems"></sh-base-items-list>
+
+                        <div class="buttons">
+                            <button mat-fab class="btn-1" (click)="openEntityDialog()" color="accent">
+                                <mat-icon>person_add</mat-icon>
+                            </button>
+                        </div>
 
                     </fieldset>
 
@@ -103,16 +118,6 @@
                 </mat-card-content>
 
                 <mat-card-actions>
-
-                    <div>
-
-                        <!--
-                        <button [disabled]="event.status !== 'VISIBLE'" mat-fab type="button" (click)="gotoItemView()" color="accent">
-                          <mat-icon>visibility</mat-icon>
-                        </button>
-                      -->
-
-                    </div>
 
                 </mat-card-actions>
 

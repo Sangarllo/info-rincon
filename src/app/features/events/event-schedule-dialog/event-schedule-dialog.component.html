@@ -10,12 +10,6 @@
 
     <div class="base-container">
 
-        <!--
-        <button (click)="addScheduleItem()" mat-fab aria-label="Añadir nuevo acto">
-          <mat-icon>add_circle</mat-icon>
-        </button>
-        -->
-
         <mat-form-field class="name-field" appearance="outline">
             <mat-label>Nombre</mat-label>
             <input matInput placeholder="Nombre del acto" formControlName="name">
@@ -35,11 +29,32 @@
 
     </div>
 
+    <div class="base-container">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Lugar</mat-label>
+            <mat-select placeholder="Lugar" formControlName="place" [compareWith]="compareFunction" (selectionChange)="onSelectionChanged($event)">
+                <mat-option [value]="SECTION_BLANK">
+                    SIN ESPECIFICAR
+                </mat-option>
+                <mat-option *ngFor="let place of places$ | async as places" [value]="place">
+                    {{place.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+
 </mat-dialog-content>
 
-<div mat-dialog-actions>
-    <button mat-raised-button color="warn" (click)="save()" cdkFocusInitial>
-      <mat-icon>check_circle_outline</mat-icon> Guardar
+<div mat-dialog-actions class="buttons">
+
+    <button mat-fab class="btn-1" (click)="save()" cdkFocusInitial>
+        <mat-icon>done</mat-icon>
     </button>
-    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+
+    <button mat-fab class="btn-1" (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+    </button>
+
 </div>

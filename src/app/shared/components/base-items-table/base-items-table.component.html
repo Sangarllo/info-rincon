@@ -35,6 +35,13 @@
             <td mat-cell *matCellDef="let element"> {{element.description}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="placeSmallImage">
+            <th mat-header-cell *matHeaderCellDef> Lugar </th>
+            <td mat-cell *matCellDef="let element">
+                <img [src]="element.place?.image" class="img-thumbnail" [alt]="element.place?.name">
+            </td>
+        </ng-container>
+
         <ng-container matColumnDef="baseDesc">
             <th mat-header-cell *matHeaderCellDef> Desc </th>
             <td mat-cell *matCellDef="let element"> {{element.description}} </td>

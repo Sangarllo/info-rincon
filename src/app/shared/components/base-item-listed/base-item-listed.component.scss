@@ -1,16 +1,27 @@
-img.img-thumbnail {
-    width: 48px;
-    height: 48px;
-}
-
-.desc {
-    color: #333333;
-    font-size: smaller;
-    text-transform: uppercase;
-}
-
-.name {
-    color: black;
-    font-size: larger;
-    font-weight: bolder;
+.base-container {
+    margin-bottom: 4px;
+    width: 100%;
+    float: left;
+    img.img-thumbnail {
+        width: 54px;
+        height: 54px;
+    }
+    .info {
+        .desc,
+        .extra,
+        .name {
+            display: block;
+            text-transform: uppercase;
+        }
+        .desc,
+        .extra {
+            color: #333333;
+            font-size: smaller;
+        }
+        .name {
+            color: black;
+            font-size: larger;
+            font-weight: bolder;
+        }
+    }
 }

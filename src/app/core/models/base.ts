@@ -1,3 +1,5 @@
+import { IPlace } from '@models/place';
+
 export enum BaseType {
   DEFAULT = '',
   ENTITY = 'ENTITY',
@@ -19,6 +21,7 @@ export interface IBase {
   baseType: BaseType;
   description?: string;
   timestamp?: string;
+  place?: IPlace;
   // getUrl(): string;
 }
 
@@ -36,6 +39,7 @@ export class Base implements IBase {
     public baseType: BaseType,
     public description?: string,
     public timestamp?: string,
+    public place?: IPlace,
   ) { }
 
   getUrl(): string {
@@ -44,6 +48,8 @@ export class Base implements IBase {
         return `entidades/${this.id}`;
       case BaseType.EVENT:
         return `eventos/${this.id}`;
+      case BaseType.NOTICE:
+        return `avisos/${this.id}`;
       default:
         return `todo`;
     }
@@ -69,6 +75,7 @@ export class Base implements IBase {
       Base.NAME_DEFAULT,
       Base.IMAGE_DEFAULT,
       BaseType.DEFAULT,
+      null,
       null,
     );
   }

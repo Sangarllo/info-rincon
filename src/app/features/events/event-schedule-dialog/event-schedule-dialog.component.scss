@@ -15,6 +15,7 @@ div.images-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-bottom: 30px;
     img {
         margin: 10px;
         border: 1px solid darkgray;
@@ -28,9 +29,10 @@ img.selected-image {
 }
 
 div.base-container {
-    margin-top: 20px;
+    margin-bottom: 10px;
     display: flex;
     align-items: stretch;
+    flex-wrap: nowrap;
     justify-content: space-between;
     .mat-form-field.name-field {
         width: 300px;

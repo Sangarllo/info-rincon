@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Add
 
 - `feature` Default entity for users, and capacity to create events directly.
+- `feature` Add place to base items (and event schedules).
 - `style` Create new logo icon (developed by Edu).
 - `code` Create directive for roles.
 

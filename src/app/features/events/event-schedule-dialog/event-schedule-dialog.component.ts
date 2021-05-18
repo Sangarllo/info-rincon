@@ -1,14 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
-import { IBase, Base, BaseType } from 'src/app/core/models/base';
-import { IEvent } from 'src/app/core/models/event';
+import { Observable } from 'rxjs';
+
+import { IBase, Base, BaseType } from '@models/base';
+import { IEvent } from '@models/event';
+import { Appointment, IAppointment } from '@models/appointment';
+import { SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
 import { UtilsService, SwalMessage } from '@services/utils.service';
 import { AppointmentsService } from '@services/appointments.service';
-import { Appointment, IAppointment } from 'src/app/core/models/appointment';
-import { SCHEDULE_TYPE_DEFAULT } from 'src/app/core/models/shedule-type.enum';
+import { PlaceService } from '@services/places.service';
 
 @Component({
   selector: 'app-event-schedule-dialog',
@@ -23,14 +26,20 @@ export class EventScheduleDialogComponent implements OnInit {
   orderId: string;
   imageSelected: string;
   dateIni: string;
+  placeBaseSelected: Base;
   readonly IMAGE_BLANK: string = Base.IMAGE_DEFAULT;
+  readonly SECTION_BLANK: Base = Base.InitDefault();
+  places$: Observable<IBase[]>;
 
   constructor(
     private fb: FormBuilder,
     private utilsSrv: UtilsService,
     private appointmentSrv: AppointmentsService,
+    private placeSrv: PlaceService,
     public dialogRef: MatDialogRef<EventScheduleDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public event: IEvent) {
+
+      this.places$ = this.placeSrv.getAllPlacesBase();
   }
 
   // Using desc to swich operation:
@@ -49,6 +58,7 @@ export class EventScheduleDialogComponent implements OnInit {
       name: [ '', []],
       dateIni: [ '', []],
       timeIni: [ Appointment.HOUR_DEFAULT, []],
+      place: [this.SECTION_BLANK, [Validators.required]],
   });
   }
 
@@ -81,17 +91,32 @@ export class EventScheduleDialogComponent implements OnInit {
       this.appointment.timeIni = datetimeIni[1];
     }
 
+    if ( this.event.placeItems.length > 0 ) {
+      this.placeBaseSelected = this.event.placeItems[0] as Base;
+    } else {
+      this.placeBaseSelected = this.SECTION_BLANK;
+    }
+
     this.scheduleItemForm.patchValue({
       id: this.orderId,
       image: this.imageSelected,
       name,
       dateIni: this.appointment.dateIni,
       timeIni: this.appointment.timeIni,
+      place: this.placeBaseSelected,
     });
   }
 
   onSelectedImage(path: string): void {
     this.imageSelected = path;
+  }
+
+  onSelectionChanged(event: any): void {
+    this.placeBaseSelected = event.value;
+  }
+
+  compareFunction(o1: any, o2: any): boolean {
+    return (o1.name === o2.name && o1.id === o2.id);
   }
 
   onDateIniChange(type: string, event: MatDatepickerInputEvent<Date>): void {
@@ -115,7 +140,8 @@ export class EventScheduleDialogComponent implements OnInit {
       name: this.scheduleItemForm.controls.name.value,
       image: this.imageSelected,
       baseType: BaseType.EVENT,
-      description: dateIniStr
+      description: dateIniStr,
+      place: this.placeBaseSelected
     };
 
     // this.utilsSrv.swalFire(SwalMessage.OK_CHANGES, 'x elementos');
