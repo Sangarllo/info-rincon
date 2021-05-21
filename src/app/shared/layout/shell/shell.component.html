@@ -5,13 +5,15 @@
         <mat-toolbar>Menu</mat-toolbar>
 
         <mat-nav-list class="buttons">
-            <mat-list-item [routerLink]="link.path" (click)="drawer.close()" *ngFor="let link of LINKS">
-                <button mat-mini-fab class="btn-1">
-                    <mat-icon>{{ link.icon }}</mat-icon>
-                </button>
-                <span class="list-item">{{ link.name }}</span>
-                <mat-divider></mat-divider>
-            </mat-list-item>
+            <div *ngFor="let link of LINKS">
+                <mat-list-item *appRole="link.roles" [routerLink]="link.path" (click)="drawer.close()">
+                    <button mat-mini-fab class="btn-1">
+                        <mat-icon>{{ link.icon }}</mat-icon>
+                    </button>
+                    <span class="list-item">{{ link.name }}</span>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+            </div>
         </mat-nav-list>
 
     </mat-sidenav>
@@ -36,8 +38,8 @@
             <div *ngIf="!(isHandset$ | async)">
                 <div *ngIf="(afAuth.authState | async);else login2Template">
 
-                    <a mat-button routerLink="/eventos/new">➕ Evento</a>
-                    <a mat-button routerLink="/admin">⚙️ Admin</a>
+                    <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/eventos/new">➕ Evento</a>
+                    <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/admin">⚙️ Admin</a>
 
                     <a mat-button (click)="onLogout()">🔐 Salir</a>
 

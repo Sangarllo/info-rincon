@@ -37,13 +37,16 @@
                             <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
                                 <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                                <mat-hint>
+                                    Cada usuario tenemos un rol, que permite hacer más o menos acciones en la web. Para más info <a href="./faq">pulsa aquí</a>.
+                                </mat-hint>
                             </mat-form-field>
 
                         </mat-tab>
 
 
                         <!-- B. Datos de Entidades -->
-                        <mat-tab label="Entidades Asociadas">
+                        <mat-tab *appRole="['AUTOR', 'ADMIN', 'SUPER']" label="Entidades Asociadas">
 
                             <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
@@ -56,13 +59,9 @@
                                 Actualmente, al tener <strong>ROL {{ user.role }}</strong> puede administrar cualquier entidad
                             </div>
 
-                            <div *appRole="['LECTOR']" class="alert alert-danger" role="alert">
-                                Actualmente, al tener <strong>ROL {{ user.role }}</strong> no puede administrar ninguna entidad
-                            </div>
-
                             <div *ngIf="user.entitiesAdmin">
 
-                                <h3 *appRole="['LECTOR', 'ADMIN', 'SUPER']">De tener ROL AUTOR, podría administrar:</h3>
+                                <h3 *appRole="['ADMIN', 'SUPER']">De tener ROL AUTOR, podría administrar:</h3>
 
                                 <sh-base-items-table [baseItems]="user.entitiesAdmin" [baseType]="baseTypeEntity"></sh-base-items-table>
 
@@ -71,9 +70,9 @@
                         </mat-tab>
 
                         <!-- C. Datos de Auditoría -->
-                        <mat-tab label="Auditoría de accesos" *ngIf="auditItems.length > 0">
+                        <mat-tab *appRole="['AUTOR', 'ADMIN', 'SUPER']" label="Auditoría de accesos">
 
-                            <sh-base-items-table [baseItems]="auditItems" [baseType]="baseTypeAudit"></sh-base-items-table>
+                            <sh-base-items-table *ngIf="auditItems.length > 0" [baseItems]="auditItems" [baseType]="baseTypeAudit"></sh-base-items-table>
 
                         </mat-tab>
 

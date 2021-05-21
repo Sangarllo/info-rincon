@@ -30,62 +30,74 @@ export class ShellComponent {
       {
         icon: 'home',
         path: 'home',
-        name: 'inicio'
+        name: 'inicio',
+        roles: [ 'LECTOR', 'AUTOR', 'ADMIN', 'SUPER' ],
       },
       {
         icon: 'privacy_tip',
         path: 'about',
-        name: 'acerca de'
+        name: 'acerca de',
+        roles: [ 'LECTOR', 'AUTOR', 'ADMIN', 'SUPER' ],
       },
       {
         icon: 'admin_panel_settings',
         path: 'admin',
         name: 'admin',
+        roles: [ 'AUTOR', 'ADMIN', 'SUPER' ],
       },
       {
         icon: 'login',
         path: 'audit',
         name: 'auditoría',
+        roles: [ 'SUPER' ],
       },
       {
         icon: 'add_circle_outline',
         path: 'eventos/new',
         name: 'crear evento',
+        roles: [ 'AUTOR', 'ADMIN', 'SUPER' ],
       },
       {
         icon: 'calendar_today',
         path: 'calendario',
         name: 'agenda',
+        roles: [ 'LECTOR', 'AUTOR', 'ADMIN', 'SUPER' ],
       },
       {
         icon: 'event',
         path: 'eventos',
         name: 'ver eventos',
+        roles: [ 'ADMIN', 'SUPER' ],
       },
       {
         icon: 'campaign',
         path: 'avisos',
         name: 'ver avisos',
+        roles: [ 'ADMIN', 'SUPER' ],
       },
       {
         icon: 'info',
         path: 'noticias',
         name: 'ver noticias',
+        roles: [ 'ADMIN', 'SUPER' ],
       },
       {
         icon: 'account_circle',
         path: 'usuarios',
         name: 'ver usuarios',
+        roles: [ 'ADMIN', 'SUPER' ],
       },
       {
         icon: 'group_work',
         path: 'entidades',
-        name: 'ver entidades'
+        name: 'ver entidades',
+        roles: [ 'ADMIN', 'SUPER' ],
       },
       {
         icon: 'place',
         path: 'lugares',
-        name: 'ver lugares'
+        name: 'ver lugares',
+        roles: [ 'ADMIN', 'SUPER' ],
       },
   ];
 
