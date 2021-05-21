@@ -14,15 +14,33 @@ body {
     height: 100%;
     margin: 10px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    a {
-        color: $color1;
-        border-bottom: 1px dotted $color2;
-        text-decoration: none;
+    mat-toolbar {
+        a {
+            color: $color1;
+            border-bottom: 1px dotted $color2;
+            text-decoration: none;
+        }
+        a:hover {
+            color: $color2;
+            border-bottom: 0px;
+            text-decoration: none;
+        }
     }
-    a:hover {
-        color: $color2;
-        border-bottom: 0px;
-        text-decoration: none;
+    app-footer,
+    .section-wrapper {
+        a,
+        a:visited,
+        a:active {
+            color: $color1;
+            border-bottom: 1px dotted $color2;
+            text-decoration: none;
+        }
+        a:hover {
+            color: $color1;
+            background-color: $color2;
+            border-bottom: 1px dotted $color1;
+            text-decoration: dotted;
+        }
     }
 }
 
@@ -46,16 +64,22 @@ body {
 
 // NAV
 .buttons {
-    text-align: right;
+    text-align: right; // TODO should be buttons buttons-right
+    &.buttons-center {
+        text-align: center;
+    }
+    &.buttons-right {
+        text-align: right;
+    }
+    &.buttons-left {
+        text-align: left;
+    }
 }
 
 td.mat-cell,
 .mat-cell,
 .buttons {
     margin-top: 5px;
-    &.buttons-center {
-        text-align: center;
-    }
     button.btn-1,
     button.btn-2,
     button.btn-extra,

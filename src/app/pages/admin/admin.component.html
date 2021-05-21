@@ -8,7 +8,7 @@
 
         <div class="options-wrapper">
 
-            <mat-card class="option-item" routerLink="perfil">
+            <mat-card class="option-item" [routerLink]="'../perfil'">
                 <mat-card-title>Tu cuenta personal</mat-card-title>
                 <div class="option-image">
                     <img alt="'Tu cuenta personal'" style="width:200px" [src]="user.photoURL" class="img-thumbnail" />
@@ -22,7 +22,7 @@
                 </div>
             </mat-card>
 
-            <mat-card class="option-item" *appRole="['AUTOR', 'ADMIN']" [routerLink]="'../usuarios/' + user.uid + '/audit'">
+            <mat-card class="option-item" *appRole="['ADMIN']" [routerLink]="'../usuarios/' + user.uid + '/audit'">
                 <mat-card-title>Tus accesos</mat-card-title>
                 <div class="option-image">
                     <img alt="'Tus accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />

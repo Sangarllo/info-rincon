@@ -75,6 +75,10 @@ const routes: Routes = [
     loadChildren: () => import('./features/audit/audit.module').then(m => m.AuditModule)
   },
   {
+    path: 'faq',
+    loadChildren: () => import('./pages/faq/faq.module').then(m => m.FaqModule)
+  },
+  {
     path        : '**',
     pathMatch   : 'full',
     loadChildren: () => import('./pages/error404/error404.module').then(m => m.Error404Module)

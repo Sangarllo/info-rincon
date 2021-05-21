@@ -36,9 +36,9 @@
 
                             <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
-                                <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                                <mat-icon matSuffix>admin_panel_settings</mat-icon>
                                 <mat-hint>
-                                    Cada usuario tenemos un rol, que permite hacer más o menos acciones en la web. Para más info <a href="./faq">pulsa aquí</a>.
+                                    Cada usuario tiene un rol en la web, en función del cual puede hacer ciertas acciones en la web. Para más info <a href="./faq">pulsa aquí</a>.
                                 </mat-hint>
                             </mat-form-field>
 
@@ -50,7 +50,7 @@
 
                             <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
-                                <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                                <mat-icon matSuffix>admin_panel_settings</mat-icon>
                             </mat-form-field>
 
                             <br/>
@@ -70,7 +70,7 @@
                         </mat-tab>
 
                         <!-- C. Datos de Auditoría -->
-                        <mat-tab *appRole="['AUTOR', 'ADMIN', 'SUPER']" label="Auditoría de accesos">
+                        <mat-tab *appRole="['ADMIN', 'SUPER']" label="Auditoría de accesos">
 
                             <sh-base-items-table *ngIf="auditItems.length > 0" [baseItems]="auditItems" [baseType]="baseTypeAudit"></sh-base-items-table>
 

@@ -9,6 +9,19 @@ div.section-wrapper {
     margin-left: 4px;
     margin-right: 4px;
     padding: 20px;
+    .section-title {
+        display: block;
+        font-size: large;
+        color: $color1;
+        background-color: $color2;
+        margin: 20px 0px 10px 0px;
+    }
+    .section-text {
+        display: block;
+        font-size: inherit;
+        color: $color1;
+        margin: 20px 0px 10px 0px;
+    }
 }
 
 .section-subtitle {

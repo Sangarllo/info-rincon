@@ -34,12 +34,6 @@ export class ShellComponent {
         roles: [ 'LECTOR', 'AUTOR', 'ADMIN', 'SUPER' ],
       },
       {
-        icon: 'privacy_tip',
-        path: 'about',
-        name: 'acerca de',
-        roles: [ 'LECTOR', 'AUTOR', 'ADMIN', 'SUPER' ],
-      },
-      {
         icon: 'admin_panel_settings',
         path: 'admin',
         name: 'admin',
@@ -99,7 +93,19 @@ export class ShellComponent {
         name: 'ver lugares',
         roles: [ 'ADMIN', 'SUPER' ],
       },
-  ];
+      {
+        icon: 'contact_support',
+        path: 'faq',
+        name: 'faq',
+        roles: [ 'LECTOR', 'AUTOR', 'ADMIN', 'SUPER' ],
+      },
+      {
+        icon: 'privacy_tip',
+        path: 'about',
+        name: 'acerca de',
+        roles: [ 'LECTOR', 'AUTOR', 'ADMIN', 'SUPER' ],
+      },
+];
 
   constructor(
     private breakpointObserver: BreakpointObserver,
