@@ -63,7 +63,7 @@
 
                                 <h3 *appRole="['ADMIN', 'SUPER']">De tener ROL AUTOR, podría administrar:</h3>
 
-                                <sh-base-items-table [baseItems]="user.entitiesAdmin" [baseType]="baseTypeEntity"></sh-base-items-table>
+                                <sh-base-items-table [baseItems]="user.entitiesAdmin" [baseType]="baseTypeEntity" [modeAdmin]="false"></sh-base-items-table>
 
                             </div>
 
@@ -72,9 +72,17 @@
                         <!-- C. Datos de Auditoría -->
                         <mat-tab *appRole="['ADMIN', 'SUPER']" label="Auditoría de accesos">
 
-                            <sh-base-items-table *ngIf="auditItems.length > 0" [baseItems]="auditItems" [baseType]="baseTypeAudit"></sh-base-items-table>
+                            <sh-base-items-table *ngIf="auditItems.length > 0" [baseItems]="auditItems" [baseType]="baseTypeAudit" [modeAdmin]="false"></sh-base-items-table>
 
                         </mat-tab>
+
+                        <!-- D. Datos de Eventos Creados -->
+                        <mat-tab *appRole="['AUTOR', 'ADMIN', 'SUPER']" label="Auditoría de eventos">
+
+                            <sh-base-items-table *ngIf="createdEventItems.length > 0" [baseItems]="createdEventItems" [baseType]="baseTypeEvent" [modeAdmin]="false"></sh-base-items-table>
+
+                        </mat-tab>
+
 
                     </mat-tab-group>
 

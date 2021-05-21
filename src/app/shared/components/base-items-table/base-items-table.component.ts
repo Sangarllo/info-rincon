@@ -1,8 +1,9 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { LogService } from '@services/log.service';
-import { BaseType, IBase } from 'src/app/core/models/base';
+import { BaseType, IBase } from '@models/base';
 
 @Component({
   selector: 'sh-base-items-table',
@@ -17,6 +18,7 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
   @Output() editBase = new EventEmitter<IBase>();
   @Input() baseItems: IBase[];
   @Input() baseType: BaseType;
+  @Input() modeAdmin: boolean;
   public baseItemsLength: string;
 
   displayedColumns: string[]; // = [ 'baseImage', 'baseName', 'baseActions4' ];
@@ -24,6 +26,7 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
 
   constructor(
     private logSrv: LogService,
+    private router: Router,
   ) {
   }
 
@@ -33,7 +36,12 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
     switch(this.baseType) {
 
       case BaseType.EVENT:
-        this.displayedColumns = ['baseId', 'baseSmallImage', 'baseSmallName', 'placeSmallImage', 'baseDescHorario',  'active', 'baseActions4' ];
+        if ( this.modeAdmin ) {
+          this.displayedColumns = ['baseId', 'baseSmallImage', 'baseSmallName', 'placeSmallImage', 'baseDescHorario',  'active', 'baseActions4' ];
+        } else {
+          this.displayedColumns = ['baseSmallImage', 'baseBigName', 'baseTimestamp', 'status', 'baseActions1' ];
+        }
+
         break;
 
       case BaseType.AUDIT:
@@ -66,7 +74,6 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
     this.addBase.emit(base);
   }
 
-
   deleteElement(base: IBase): void {
     this.logSrv.info(`deleteBase: ${JSON.stringify(base)}`);
     this.deleteBase.emit(base);
@@ -76,4 +83,9 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
     this.logSrv.info(`editBase: ${JSON.stringify(base)}`);
     this.editBase.emit(base);
   }
+
+  gotoElement(base: IBase): void {
+    this.router.navigate([`eventos/${base.id}`]);
+  }
+
 }

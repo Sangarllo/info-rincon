@@ -69,7 +69,7 @@
 
                         <legend>¿Cómo?</legend>
 
-                        <sh-base-items-table [baseItems]="event.scheduleItems" [baseType]="baseType" (changeOrderBase)="changeOrderScheduleItem($event)" (addBase)="addScheduleItem($event)" (deleteBase)="deleteScheduleItem($event)" (editBase)="editScheduleItem($event)"></sh-base-items-table>
+                        <sh-base-items-table [baseItems]="event.scheduleItems" [baseType]="baseType" [modeAdmin]="true" (changeOrderBase)="changeOrderScheduleItem($event)" (addBase)="addScheduleItem($event)" (deleteBase)="deleteScheduleItem($event)" (editBase)="editScheduleItem($event)"></sh-base-items-table>
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="openScheduleDialog('')" color="accent">

@@ -69,6 +69,17 @@ export class EventService {
     return this.eventCollection.valueChanges();
   }
 
+  getAllEventsByUser(userUid: string): Observable<IEvent[]> {
+
+    this.eventCollection = this.afs.collection<IEvent>(
+        EVENTS_COLLECTION,
+        ref => ref.where('userId', '==', userUid)
+                  .orderBy('timestamp', 'desc')
+    );
+
+    return this.eventCollection.valueChanges();
+  }
+
   getAllEventsWithAppointments(): Observable<IEvent[]> {
     const events$ = this.getAllEvents(false, false, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
