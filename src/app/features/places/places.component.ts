@@ -1,26 +1,28 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 import { PlaceService } from '@services/places.service';
 import { SpinnerService } from '@services/spinner.service';
-import { IPlace } from 'src/app/core/models/place';
+import { IPlace } from '@models/place';
 
 @Component({
   selector: 'app-places',
   templateUrl: './places.component.html',
   styleUrls: ['./places.component.css']
 })
-export class PlacesComponent implements OnInit {
+export class PlacesComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  private listOfObservers: Array<Subscription> = [];
   public loading = true;
   public places: IPlace[];
   public dataSource: MatTableDataSource<IPlace> = new MatTableDataSource();
@@ -35,7 +37,7 @@ export class PlacesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.placeSrv.getAllPlaces()
+    const subs1$ = this.placeSrv.getAllPlaces()
     .pipe(
       map(places => places.map(place => {
         const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
@@ -51,6 +53,8 @@ export class PlacesComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+
+    this.listOfObservers.push(subs1$);
   }
 
   applyFilter(filterValue: string): void {
@@ -92,5 +96,9 @@ export class PlacesComponent implements OnInit {
 
   public addItem(): void {
     this.router.navigate([`lugares/0/editar`]);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AuditType } from 'src/app/core/models/audit';
+import { AuditType } from '@models/audit';
 import { AuditService } from '@services/audit.service';
 
 @Component({

@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
 import { SeoService } from '@services/seo.service';
 import { PlaceService } from '@services/places.service';
 import { LogService } from '@services/log.service';
-import { IPlace, Place } from 'src/app/core/models/place';
+import { IPlace, Place } from '@models/place';
 
 @Component({
   selector: 'app-place-view',

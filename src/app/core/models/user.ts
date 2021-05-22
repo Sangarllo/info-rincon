@@ -1,5 +1,5 @@
-import { UserRole, USER_ROLES } from 'src/app/core/models/user-role.enum';
-import { IEntity } from 'src/app/core/models/entity';
+import { UserRole, USER_ROLES } from '@models/user-role.enum';
+import { IEntity } from '@models/entity';
 
 export interface IUser {
   uid: string;

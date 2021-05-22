@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AngularFireAuth } from '@angular/fire/auth';
+
+import { Subscription } from 'rxjs';
 
 import { AuthService } from '@auth/auth.service';
 import { EventService } from '@services/events.service';
@@ -9,11 +11,11 @@ import { SwalMessage, UtilsService } from '@services/utils.service';
 import { EntityService } from '@services/entities.service';
 import { LogService } from '@services/log.service';
 import { UserService } from '@services/users.service';
-import { Event } from 'src/app/core/models/event';
-import { IBase, BaseType } from 'src/app/core/models/base';
-import { IEntity } from 'src/app/core/models/entity';
-import { IUser } from 'src/app/core/models/user';
-import { UserRole } from 'src/app/core/models/user-role.enum';
+import { Event } from '@models/event';
+import { IBase, BaseType } from '@models/base';
+import { IEntity } from '@models/entity';
+import { IUser } from '@models/user';
+import { UserRole } from '@models/user-role.enum';
 
 import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dialog/event-new-base-dialog.component';
 
@@ -22,8 +24,10 @@ import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dia
   templateUrl: './event-creation.component.html',
   styleUrls: ['./event-creation.component.scss']
 })
-export class EventCreationComponent implements OnInit {
+export class EventCreationComponent implements OnInit, OnDestroy {
 
+
+  private listOfObservers: Array<Subscription> = [];
   public role: UserRole;
   public dialogConfig = new MatDialogConfig();
   public currentUser: IUser;
@@ -45,12 +49,15 @@ export class EventCreationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth.user.subscribe((usr) => {
+    const subs1$ = this.auth.user.subscribe((usr) => {
       const uidUser = usr.uid;
-      this.userSrv.getOneUser(uidUser)
+      const subs2$ = this.userSrv.getOneUser(uidUser)
         .subscribe((user: IUser) => {
           this.role = user.role;
         });
+
+        this.listOfObservers.push(subs1$);
+        this.listOfObservers.push(subs2$);
     });
   }
 
@@ -86,5 +93,9 @@ export class EventCreationComponent implements OnInit {
       this.logSrv.info(`EventId: ${eventId}`);
       this.router.navigate([`eventos/${eventId}/admin`]);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

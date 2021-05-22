@@ -1,29 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { Place, IPlace } from 'src/app/core/models/place';
-import { PlaceType, PLACE_TYPES } from 'src/app/core/models/place-type.enum';
+import { Place, IPlace } from '@models/place';
+import { PlaceType, PLACE_TYPES } from '@models/place-type.enum';
 import { PlaceService } from '@services/places.service';
 import { LogService } from '@services/log.service';
+import sub from 'date-fns/sub';
 
 @Component({
   selector: 'app-place-edit',
   templateUrl: './place-edit.component.html',
   styleUrls: ['./place-edit.component.scss']
 })
-export class PlaceEditComponent implements OnInit {
+export class PlaceEditComponent implements OnInit, OnDestroy {
 
   placeForm!: FormGroup;
   pageTitle = 'Creación de un nuevo lugar';
   errorMessage = '';
   uploadPercent: Observable<number>;
 
+  private listOfObservers: Array<Subscription> = [];
   public place!: IPlace | undefined;
   public TYPES: PlaceType[] = PLACE_TYPES;
 
@@ -63,17 +65,19 @@ export class PlaceEditComponent implements OnInit {
       this.pageTitle = 'Creación de un nuevo lugar';
       this.place = Place.InitDefault();
     } else {
-      this.placeSrv.getOnePlace(idPlace)
-      .subscribe({
-        next: (place: IPlace | undefined) => {
-          this.place = place;
-          this.displayPlace();
-          this.logSrv.info(JSON.stringify(this.place));
-        },
-        error: err => {
-          this.errorMessage = `Error: ${err}`;
-        }
+      const subs1$ = this.placeSrv.getOnePlace(idPlace)
+        .subscribe({
+            next: (place: IPlace | undefined) => {
+              this.place = place;
+              this.displayPlace();
+              this.logSrv.info(JSON.stringify(this.place));
+            },
+            error: err => {
+              this.errorMessage = `Error: ${err}`;
+            }
       });
+
+      this.listOfObservers.push(subs1$);
     }
   }
 
@@ -167,5 +171,9 @@ export class PlaceEditComponent implements OnInit {
         })
      )
     .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

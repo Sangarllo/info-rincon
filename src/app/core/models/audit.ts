@@ -1,5 +1,5 @@
-import { IUser } from 'src/app/core/models/user';
-import { BaseType, IBase } from 'src/app/core/models/base';
+import { IUser } from '@models/user';
+import { BaseType, IBase } from '@models/base';
 
 export enum AuditType {
   CREATED = 'CREATED',

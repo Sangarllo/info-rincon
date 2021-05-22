@@ -1,15 +1,16 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { IEvent } from 'src/app/core/models/event';
-import { IUser } from 'src/app/core/models/user';
+import { AuthService } from '@auth/auth.service';
+import { IEvent } from '@models/event';
+import { IUser } from '@models/user';
 import { LogService } from '@services/log.service';
 import { EventService } from '@services/events.service';
 import { SpinnerService } from '@services/spinner.service';
@@ -19,11 +20,12 @@ import { SpinnerService } from '@services/spinner.service';
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.css']
 })
-export class EventsComponent implements OnInit {
+export class EventsComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  private listOfObservers: Array<Subscription> = [];
   public events: IEvent[];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'image', 'collapsed-info', 'name', 'categories', 'dateIni', 'actions3'];
@@ -41,11 +43,13 @@ export class EventsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.authSrv.currentUser$.subscribe( (currentUser: IUser) => {
-      this.currentUser = currentUser;
-    });
+    const subs1$ = this.authSrv.currentUser$
+        .subscribe( (currentUser: IUser) => {
+            this.currentUser = currentUser;
+        });
+    this.listOfObservers.push(subs1$);
 
-    this.eventSrv.getAllEventsWithAppointments()
+    const subs2$ = this.eventSrv.getAllEventsWithAppointments()
         .pipe(
           map(events => events.map(event => {
             const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
@@ -62,6 +66,7 @@ export class EventsComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
     });
+    this.listOfObservers.push(subs2$);
   }
 
   applyFilter(filterValue: string): void {
@@ -104,5 +109,9 @@ export class EventsComponent implements OnInit {
 
   public addItem(): void {
     this.router.navigate([`eventos/0/editar`]);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

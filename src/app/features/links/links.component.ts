@@ -1,30 +1,32 @@
 /* eslint-disable max-len */
   // eslint-disable-next-line max-len
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { ILink, Link } from 'src/app/core/models/link';
 import { LinksService } from '@services/links.services';
 import { UtilsService } from '@services/utils.service';
 import { LogService } from '@services/log.service';
 import { SpinnerService } from '@services/spinner.service';
+import { ILink, Link } from '@models/link';
 
 @Component({
   selector: 'app-links',
   templateUrl: './links.component.html',
   styleUrls: ['./links.component.css']
 })
-export class LinksComponent implements OnInit {
+export class LinksComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  private listOfObservers: Array<Subscription> = [];
   public newsItems: ILink[];
   public dataSource: MatTableDataSource<ILink> = new MatTableDataSource();
   displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'sourceImage', 'sourceName', 'collapsed-info', 'name', 'categories', 'actions4'];
@@ -40,7 +42,7 @@ export class LinksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.linksSrv.getAllLinks(false, false) // TODO param based on userrole
+    const subs1$ = this.linksSrv.getAllLinks(false, false) // TODO param based on userrole
       .pipe(
         map((newsItems) => newsItems.map(newsItem => {
           const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
@@ -60,6 +62,8 @@ export class LinksComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });
+
+    this.listOfObservers.push(subs1$);
   }
 
   applyFilter(filterValue: string): void {
@@ -121,5 +125,9 @@ export class LinksComponent implements OnInit {
 
   public addItem(): void {
     this.router.navigate([`${Link.PATH_URL}/0/editar`]);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

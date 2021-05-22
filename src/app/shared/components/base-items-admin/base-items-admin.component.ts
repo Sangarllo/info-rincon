@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IBase } from 'src/app/core/models/base';
+import { IBase } from '@models/base';
 
 @Component({
   selector: 'sh-base-admin',

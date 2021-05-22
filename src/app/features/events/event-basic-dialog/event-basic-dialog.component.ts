@@ -4,9 +4,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import Swal from 'sweetalert2';
 
-import { Base } from 'src/app/core/models/base';
-import { IEvent } from 'src/app/core/models/event';
-import { Category, EVENT_CATEGORIES } from 'src/app/core/models/category.enum';
+import { Base } from '@models/base';
+import { IEvent } from '@models/event';
+import { Category, EVENT_CATEGORIES } from '@models/category.enum';
 
 @Component({
   selector: 'app-event-basic-dialog',

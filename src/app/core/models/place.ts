@@ -1,5 +1,5 @@
-import { IBase, BaseType } from 'src/app/core/models/base';
-import { PlaceType } from 'src/app/core/models/place-type.enum';
+import { IBase, BaseType } from '@models/base';
+import { PlaceType } from '@models/place-type.enum';
 export interface IPlace {
   id: string;
   active: boolean;

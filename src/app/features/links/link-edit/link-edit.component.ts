@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { ILink, Link } from 'src/app/core/models/link';
-import { Status } from 'src/app/core/models/status.enum';
-import { ISource, DEFAULT_SOURCE, NEWS_SOURCES } from 'src/app/core/models/source';
-import { Category, LINK_CATEGORIES } from 'src/app/core/models/category.enum';
+import { ILink, Link } from '@models/link';
+import { Status } from '@models/status.enum';
+import { ISource, DEFAULT_SOURCE, NEWS_SOURCES } from '@models/source';
+import { Category, LINK_CATEGORIES } from '@models/category.enum';
 import { AppointmentsService } from '@services/appointments.service';
 import { LinksService } from '@services/links.services';
 import { LogService } from '@services/log.service';
@@ -21,7 +21,7 @@ import { LogService } from '@services/log.service';
   templateUrl: './link-edit.component.html',
   styleUrls: ['./link-edit.component.scss']
 })
-export class LinkEditComponent implements OnInit {
+export class LinkEditComponent implements OnInit, OnDestroy {
 
   linkForm!: FormGroup;
   pageTitle = 'Creación de un nuevo enlace';
@@ -29,6 +29,7 @@ export class LinkEditComponent implements OnInit {
   sourceSelected: ISource;
   uploadPercent: Observable<number>;
 
+  private listOfObservers: Array<Subscription> = [];
   public link!: ILink | undefined;
   public STATUS: Status[] = Link.STATUS;
   public CATEGORIES: Category[] = LINK_CATEGORIES;
@@ -77,17 +78,19 @@ export class LinkEditComponent implements OnInit {
       this.pageTitle = 'Creación de una nueva noticia';
       this.link = Link.InitDefault();
     } else {
-      this.linksSrv.getOneLink(idLink)
-      .subscribe({
-        next: (link: ILink | undefined) => {
-          this.link = link;
-          this.displayLink();
-          this.logSrv.info(JSON.stringify(this.link));
-        },
-        error: err => {
-          this.errorMessage = `Error: ${err}`;
-        }
-      });
+      const subs1$ = this.linksSrv.getOneLink(idLink)
+        .subscribe({
+          next: (link: ILink | undefined) => {
+            this.link = link;
+            this.displayLink();
+            this.logSrv.info(JSON.stringify(this.link));
+          },
+          error: err => {
+            this.errorMessage = `Error: ${err}`;
+          }
+        });
+
+      this.listOfObservers.push(subs1$);
     }
   }
 
@@ -201,5 +204,9 @@ export class LinkEditComponent implements OnInit {
         })
      )
     .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
-import { IBase, Base, BaseType } from 'src/app/core/models/base';
+import { IBase, Base, BaseType } from '@models/base';
 import { UtilsService, SwalMessage } from '@services/utils.service';
 import { BaseService } from '@services/base.service';
 

@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { Event, IEvent } from 'src/app/core/models/event';
-import { Status } from 'src/app/core/models/status.enum';
-import { EVENT_CATEGORIES, Category } from 'src/app/core/models/category.enum';
-import { IUser } from 'src/app/core/models/user';
-import { AuditType } from 'src/app/core/models/audit';
+import { AuthService } from '@auth/auth.service';
+import { Event, IEvent } from '@models/event';
+import { Status } from '@models/status.enum';
+import { EVENT_CATEGORIES, Category } from '@models/category.enum';
+import { IUser } from '@models/user';
+import { AuditType } from '@models/audit';
 import { EventService } from '@services/events.service';
 import { LogService } from '@services/log.service';
 
@@ -21,7 +21,7 @@ import { LogService } from '@services/log.service';
   templateUrl: './event-edit.component.html',
   styleUrls: ['./event-edit.component.scss']
 })
-export class EventEditComponent implements OnInit {
+export class EventEditComponent implements OnInit, OnDestroy {
 
   currentUser: IUser;
   eventForm!: FormGroup;
@@ -29,6 +29,7 @@ export class EventEditComponent implements OnInit {
   errorMessage = '';
   uploadPercent: Observable<number>;
 
+  private listOfObservers: Array<Subscription> = [];
   public event!: IEvent | undefined;
   public STATUS: Status[] = Event.STATUS;
   public CATEGORIES: Category[] = EVENT_CATEGORIES;
@@ -44,9 +45,10 @@ export class EventEditComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.authSrv.currentUser$.subscribe( (user: any) => {
-      this.currentUser = user;
-    });
+    const subs1$ = this.authSrv.currentUser$
+        .subscribe( (user: any) => {
+          this.currentUser = user;
+        });
 
     const idEvent = this.route.snapshot.paramMap.get('id');
     if ( idEvent ) {
@@ -65,6 +67,8 @@ export class EventEditComponent implements OnInit {
       categories: null,
       description: ''
     });
+
+    this.listOfObservers.push(subs1$);
   }
 
   private getDetails(idEvent: string): void {
@@ -73,7 +77,7 @@ export class EventEditComponent implements OnInit {
       this.pageTitle = 'Creación de un nuevo evento';
       this.event = Event.InitDefault();
     } else {
-      this.eventSrv.getOneEvent(idEvent)
+      const subs2$ = this.eventSrv.getOneEvent(idEvent)
       .subscribe({
         next: (event: IEvent | undefined) => {
           this.event = event;
@@ -83,6 +87,8 @@ export class EventEditComponent implements OnInit {
           this.errorMessage = `Error: ${err}`;
         }
       });
+
+      this.listOfObservers.push(subs2$);
     }
   }
 
@@ -181,5 +187,9 @@ export class EventEditComponent implements OnInit {
         })
      )
     .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

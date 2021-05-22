@@ -1,15 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
+import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
 import { AuthService } from '@auth/auth.service';
-import { UserRole } from 'src/app/core/models/user-role.enum';
-import { IEvent, Event } from 'src/app/core/models/event';
-import { IUser } from 'src/app/core/models/user';
-import { IBase, BaseType } from 'src/app/core/models/base';
-import { IEntity } from 'src/app/core/models/entity';
+import { UserRole } from '@models/user-role.enum';
+import { IEvent, Event } from '@models/event';
+import { IUser } from '@models/user';
+import { IBase, BaseType } from '@models/base';
+import { IEntity } from '@models/entity';
 import { EventService } from '@services/events.service';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 import { EntityService } from '@services/entities.service';
@@ -22,8 +23,9 @@ import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dia
   templateUrl: './role-options.component.html',
   styleUrls: ['./role-options.component.scss']
 })
-export class RoleOptionsComponent {
+export class RoleOptionsComponent implements OnDestroy {
 
+  private listOfObservers: Array<Subscription> = [];
   public dialogConfig = new MatDialogConfig();
   public currentUser: IUser;
 
@@ -36,9 +38,12 @@ export class RoleOptionsComponent {
     private entitiesSrv: EntityService,
     private eventSrv: EventService
   ) {
-    this.authSrv.user$.subscribe( (user: any) => {
-      this.currentUser = user;
-    });
+    const subs$ = this.authSrv.user$
+      .subscribe( (user: any) => {
+          this.currentUser = user;
+      });
+
+    this.listOfObservers.push(subs$);
   }
 
   gotoNewEventFromScratch(): void {
@@ -97,5 +102,9 @@ export class RoleOptionsComponent {
       this.logSrv.info(`EventId: ${eventId}`);
       this.router.navigate([`eventos/${eventId}/admin`]);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

@@ -1,6 +1,6 @@
-import { IBase, BaseType } from 'src/app/core/models/base';
-import { Status, STATUS_MODES } from 'src/app/core/models/status.enum';
-import { Category } from 'src/app/core/models/category.enum';
+import { IBase, BaseType } from '@models/base';
+import { Status, STATUS_MODES } from '@models/status.enum';
+import { Category } from '@models/category.enum';
 
 export interface INotice {
   id: string;

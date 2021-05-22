@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-import { Observable, of } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { filter, map, take, tap } from 'rxjs/operators';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 import {
@@ -30,8 +30,9 @@ import { BaseItemDialogComponent } from '@shared/components/base-item-dialog/bas
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
+  private listOfObservers: Array<Subscription> = [];
   public alertedNotice: INotice;
   public theAlertedNotice$: Observable<INotice>;
 
@@ -91,11 +92,13 @@ export class HomeComponent implements OnInit {
   }
 
   openEventClicked(event: CalendarEvent): void {
-    this.eventsSrv.getOneEvent('' + event.id)
+    const subs1$ = this.eventsSrv.getOneEvent('' + event.id)
       .pipe(take(1))
       .subscribe((event: IEvent) => {
         this.openEventDialog(event);
       });
+
+    this.listOfObservers.push(subs1$);
   }
 
   openEventDialog(event: IEvent): void {
@@ -112,5 +115,9 @@ export class HomeComponent implements OnInit {
       }
     });
 
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

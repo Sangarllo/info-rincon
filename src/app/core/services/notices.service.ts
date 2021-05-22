@@ -4,8 +4,8 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IBase, BaseType } from 'src/app/core/models/base';
-import { INotice } from 'src/app/core/models/notice';
+import { IBase, BaseType } from '@models/base';
+import { INotice } from '@models/notice';
 import { AppointmentsService } from '@services/appointments.service';
 
 const NOTICES_COLLECTION = 'avisos';

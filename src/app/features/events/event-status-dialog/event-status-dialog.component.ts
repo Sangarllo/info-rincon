@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import Swal from 'sweetalert2';
 
-import { Status } from 'src/app/core/models/status.enum';
-import { IEvent, Event } from 'src/app/core/models/event';
+import { Status } from '@models/status.enum';
+import { IEvent, Event } from '@models/event';
 
 @Component({
   selector: 'app-event-status-dialog',

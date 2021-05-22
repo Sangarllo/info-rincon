@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 
 import { Observable } from 'rxjs';
 
-import { IAuditItem, AuditItem, AuditType } from 'src/app/core/models/audit';
+import { IAuditItem, AuditItem, AuditType } from '@models/audit';
 import { AppointmentsService } from '@services/appointments.service';
 
 const AUDIT_COLLECTION = 'audit';

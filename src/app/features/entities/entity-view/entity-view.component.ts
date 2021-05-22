@@ -6,7 +6,7 @@ import { tap } from 'rxjs/operators';
 
 import { SeoService } from '@services/seo.service';
 import { EntityService } from '@services/entities.service';
-import { IEntity, Entity } from 'src/app/core/models/entity';
+import { IEntity, Entity } from '@models/entity';
 
 @Component({
   selector: 'app-entity-view',

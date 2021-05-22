@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { IUser } from 'src/app/core/models/user';
-import { IEntity } from 'src/app/core/models/entity';
+import { IUser } from '@models/user';
+import { IEntity } from '@models/entity';
 import { UserService } from '@services/users.service';
 import { EntityService } from '@services/entities.service';
 import { LogService } from '@services/log.service';
@@ -17,8 +17,9 @@ import { LogService } from '@services/log.service';
   templateUrl: './user-admin-entities.component.html',
   styleUrls: ['./user-admin-entities.component.scss']
 })
-export class UserAdminEntitiesComponent implements OnInit {
+export class UserAdminEntitiesComponent implements OnInit, OnDestroy {
 
+  private listOfObservers: Array<Subscription> = [];
   public pageTitle = 'Administración de entides del nuevo usuario';
   public user: IUser;
   public filteredEntities: Observable<IEntity[]>;
@@ -37,16 +38,19 @@ export class UserAdminEntitiesComponent implements OnInit {
     private userSrv: UserService,
     private entitySrv: EntityService,
   ) {
-    this.entitySrv.getAllEntities().subscribe(
-      (entities: IEntity[]) => {
-        this.entities = entities;
-        this.filteredEntities = this.entityCtrl.valueChanges
-        .pipe(
-          startWith(''),
-          map(entity => entity ? this.filterEntities(entity) : this.entities.slice())
-        );
-      }
-    );
+    const subs1$ = this.entitySrv.getAllEntities()
+      .subscribe(
+        (entities: IEntity[]) => {
+          this.entities = entities;
+          this.filteredEntities = this.entityCtrl.valueChanges
+          .pipe(
+            startWith(''),
+            map(entity => entity ? this.filterEntities(entity) : this.entities.slice())
+          );
+        }
+      );
+
+    this.listOfObservers.push(subs1$);
   }
 
   ngOnInit(): void {
@@ -58,13 +62,16 @@ export class UserAdminEntitiesComponent implements OnInit {
   }
 
   public getDetails(uidUser: string): void {
-      this.userSrv.getOneUser(uidUser)
+
+    const subs2$ = this.userSrv.getOneUser(uidUser)
         .subscribe( (user: IUser) => {
           this.user = user;
           this.pageTitle = `Administración de entidades de ${this.user.displayName}`;
           this.logSrv.info(`title: ${this.pageTitle}`);
           this.user.entitiesAdmin = this.user.entitiesAdmin ?? [];
       });
+
+    this.listOfObservers.push(subs2$);
   }
 
   public onSelectedOption(entity: IEntity): void {
@@ -135,4 +142,7 @@ export class UserAdminEntitiesComponent implements OnInit {
     return this.entities.filter(entity => entity.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
 }

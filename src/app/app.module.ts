@@ -11,7 +11,7 @@ import localeEs from '@angular/common/locales/es';
 
 import { environment } from '@environments/environment';
 
-import { SpinnerInterceptor } from 'src/app/core/interceptors/spinner.interceptor';
+import { SpinnerInterceptor } from '@interceptors/spinner.interceptor';
 import { SharedModule } from '@shared/shared.module';
 import { HomeModule } from '@pages/home/home.module';
 

@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { Base, IBase, BaseType } from 'src/app/core/models/base';
-import { IAppointment } from 'src/app/core/models/appointment';
-import { IEvent, Event } from 'src/app/core/models/event';
-import { IUser } from 'src/app/core/models/user';
-import { AuditType } from 'src/app/core/models/audit';
+import { AuthService } from '@auth/auth.service';
+import { Base, IBase, BaseType } from '@models/base';
+import { IAppointment } from '@models/appointment';
+import { IEvent, Event } from '@models/event';
+import { IUser } from '@models/user';
+import { AuditType } from '@models/audit';
 import { EventService } from '@services/events.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { SwalMessage, UtilsService } from '@services/utils.service';
@@ -28,9 +28,10 @@ import { EventScheduleDialogComponent } from '@features/events/event-schedule-di
   templateUrl: './event-admin.component.html',
   styleUrls: ['./event-admin.component.scss']
 })
-export class EventAdminComponent implements OnInit {
+export class EventAdminComponent implements OnInit, OnDestroy {
 
   panelOpenState = false;
+  private listOfObservers: Array<Subscription> = [];
   public event: IEvent;
   public idEvent: string;
   public appointment$: Observable<IAppointment>;
@@ -56,7 +57,7 @@ export class EventAdminComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.authSrv.currentUser$.subscribe( (user: any) => {
+    const subs1$ = this.authSrv.currentUser$.subscribe( (user: any) => {
       this.currentUser = user;
     });
 
@@ -65,6 +66,8 @@ export class EventAdminComponent implements OnInit {
     if ( this.idEvent ) {
       this.getDetails(this.idEvent);
     }
+
+    this.listOfObservers.push(subs1$);
   }
 
   getDetails(idEvent: string): void {
@@ -253,5 +256,9 @@ export class EventAdminComponent implements OnInit {
   editScheduleItem(base: IBase): void {
     this.logSrv.info(`editScheduleItem: ${JSON.stringify(base)}`);
     this.openScheduleDialog(base.id);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

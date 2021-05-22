@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { INewsItem, NewsItem } from 'src/app/core/models/news';
-import { Status } from 'src/app/core/models/status.enum';
-import { ISource, DEFAULT_SOURCE, NEWS_SOURCES } from 'src/app/core/models/source';
-import { Category, NEWS_CATEGORIES } from 'src/app/core/models/category.enum';
+import { INewsItem, NewsItem } from '@models/news';
+import { Status } from '@models/status.enum';
+import { ISource, DEFAULT_SOURCE, NEWS_SOURCES } from '@models/source';
+import { Category, NEWS_CATEGORIES } from '@models/category.enum';
 import { AppointmentsService } from '@services/appointments.service';
 import { NewsService } from '@services/news.services';
 import { LogService } from '@services/log.service';
@@ -20,7 +20,7 @@ import { LogService } from '@services/log.service';
   templateUrl: './news-edit.component.html',
   styleUrls: ['./news-edit.component.scss']
 })
-export class NewsEditComponent implements OnInit {
+export class NewsEditComponent implements OnInit, OnDestroy {
 
   newsItemForm!: FormGroup;
   pageTitle = 'Creación de una nueva noticia';
@@ -28,6 +28,7 @@ export class NewsEditComponent implements OnInit {
   sourceSelected: ISource;
   uploadPercent: Observable<number>;
 
+  private listOfObservers: Array<Subscription> = [];
   public newsItem!: INewsItem | undefined;
   public STATUS: Status[] = NewsItem.STATUS;
   public CATEGORIES: Category[] = NEWS_CATEGORIES;
@@ -76,7 +77,8 @@ export class NewsEditComponent implements OnInit {
       this.pageTitle = 'Creación de una nueva noticia';
       this.newsItem = NewsItem.InitDefault();
     } else {
-      this.newsSrv.getOneNewsItem(idNewsItem)
+
+      const subs1$ = this.newsSrv.getOneNewsItem(idNewsItem)
       .subscribe({
         next: (newsItem: INewsItem | undefined) => {
           this.newsItem = newsItem;
@@ -87,6 +89,8 @@ export class NewsEditComponent implements OnInit {
           this.errorMessage = `Error: ${err}`;
         }
       });
+
+      this.listOfObservers.push(subs1$);
     }
   }
 
@@ -200,5 +204,9 @@ export class NewsEditComponent implements OnInit {
         })
      )
     .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

@@ -1,13 +1,14 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { INotice } from 'src/app/core/models/notice';
+import { INotice } from '@models/notice';
 import { NoticeService } from '@services/notices.service';
 import { UtilsService } from '@services/utils.service';
 import { LogService } from '@services/log.service';
@@ -18,11 +19,12 @@ import { SpinnerService } from '@services/spinner.service';
   templateUrl: './notices.component.html',
   styleUrls: ['./notices.component.scss']
 })
-export class NoticesComponent implements OnInit {
+export class NoticesComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  private listOfObservers: Array<Subscription> = [];
   public loading = true;
   public notices: INotice[];
   public dataSource: MatTableDataSource<INotice> = new MatTableDataSource();
@@ -39,7 +41,7 @@ export class NoticesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.noticeSrv.getAllNotices( false, false ) // TODO param based on userrole
+    const subs1$ = this.noticeSrv.getAllNotices( false, false ) // TODO param based on userrole
       .pipe(
         map((notices: INotice[]) => notices.map(notice => {
 
@@ -59,6 +61,8 @@ export class NoticesComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });
+
+    this.listOfObservers.push(subs1$);
   }
 
   applyFilter(filterValue: string): void {
@@ -105,7 +109,7 @@ export class NoticesComponent implements OnInit {
 
     if ( !notice.alerted ) { // Is new alerted
       let oldAlertedNotice: INotice;
-      this.noticeSrv.getAlertedNotice()
+      const subs2$ = this.noticeSrv.getAlertedNotice()
         .subscribe((alertedNotices) => {
 
           if ( done ) {
@@ -165,6 +169,8 @@ export class NoticesComponent implements OnInit {
 
           };
         });
+
+        this.listOfObservers.push( subs2$ );
       } else { // Desactivado como alertado
 
         Swal.fire({
@@ -197,5 +203,9 @@ export class NoticesComponent implements OnInit {
 
   public addItem(): void {
     this.router.navigate([`avisos/0/editar`]);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

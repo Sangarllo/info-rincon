@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { UserService } from '@services/users.service';
 import { LogService } from '@services/log.service';
 import { AuditService } from '@services/audit.service';
-import { IUser, User } from 'src/app/core/models/user';
-import { IAuditItem } from 'src/app/core/models/audit';
-import { BaseType } from 'src/app/core/models/base';
+import { IUser, User } from '@models/user';
+import { IAuditItem } from '@models/audit';
+import { BaseType } from '@models/base';
 
 @Component({
   selector: 'app-user-view',
   templateUrl: './user-view.component.html',
   styleUrls: ['./user-view.component.scss']
 })
-export class UserViewComponent implements OnInit {
+export class UserViewComponent implements OnInit, OnDestroy {
 
+  private listOfObservers: Array<Subscription> = [];
   public user$: Observable<IUser | undefined> | null = null;
   public uidUser: string;
   public auditItems: IAuditItem[] = [];
@@ -40,16 +41,18 @@ export class UserViewComponent implements OnInit {
     }
   }
 
-  getDetails(uidUser: string): void {
+  private getDetails(uidUser: string): void {
     this.logSrv.info(`uid asked ${uidUser}`);
     this.user$ = this.userSrv.getOneUser(uidUser);
   }
 
-  getAudit(uidUser: string): void {
-    this.auditSrv.getAllAuditItemsByUser(uidUser)
-    .subscribe( (auditItems: IAuditItem[]) => {
-      this.auditItems = auditItems;
-    });
+  private getAudit(uidUser: string): void {
+    const subs1$ = this.auditSrv.getAllAuditItemsByUser(uidUser)
+      .subscribe( (auditItems: IAuditItem[]) => {
+        this.auditItems = auditItems;
+      });
+
+    this.listOfObservers.push(subs1$);
   }
 
   public gotoList(): void {
@@ -60,5 +63,7 @@ export class UserViewComponent implements OnInit {
     this.router.navigate([`/${User.PATH_URL}/${this.uidUser}/editar`]);
   }
 
-
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
 }

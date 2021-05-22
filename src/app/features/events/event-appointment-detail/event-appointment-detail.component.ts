@@ -3,8 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AppointmentsService } from '@services/appointments.service';
-import { IEvent } from 'src/app/core/models/event';
-import { IAppointment } from 'src/app/core/models/appointment';
+import { IEvent } from '@models/event';
+import { IAppointment } from '@models/appointment';
 
 @Component({
   selector: 'app-event-appointment-detail',

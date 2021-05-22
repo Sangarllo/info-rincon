@@ -1,26 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
-import { SeoService } from '@services/seo.service';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { Base } from 'src/app/core/models/base';
-import { IEvent, Event } from 'src/app/core/models/event';
-import { IUser } from 'src/app/core/models/user';
-import { IAppointment } from 'src/app/core/models/appointment';
-import { UserRole } from 'src/app/core/models/user-role.enum';
+import { AuthService } from '@auth/auth.service';
+import { Base } from '@models/base';
+import { IEvent, Event } from '@models/event';
+import { IUser } from '@models/user';
+import { IAppointment } from '@models/appointment';
+import { UserRole } from '@models/user-role.enum';
 import { EventService } from '@services/events.service';
 import { UserService } from '@services/users.service';
 import { AppointmentsService } from '@services/appointments.service';
+import { SeoService } from '@services/seo.service';
 
 @Component({
   selector: 'app-event-view',
   templateUrl: './event-view.component.html',
   styleUrls: ['./event-view.component.scss']
 })
-export class EventViewComponent implements OnInit {
+export class EventViewComponent implements OnInit, OnDestroy {
 
+  private listOfObservers: Array<Subscription> = [];
   public userLogged: IUser;
   public adminAllowed: boolean;
   public event: IEvent;
@@ -38,12 +39,15 @@ export class EventViewComponent implements OnInit {
     private eventSrv: EventService,
   ) {
     this.adminAllowed = false;
-    this.authSvc.afAuth.user.subscribe( (user: any) => {
-      this.userSrv.getOneUser(user.uid).subscribe( (userLogged: any ) => {
-        this.userLogged = userLogged;
-        this.adminAllowed = this.canAdmin(this.userLogged);
+    const subs1$ = this.authSvc.afAuth.user
+      .subscribe( (user: any) => {
+          this.userSrv.getOneUser(user.uid).subscribe( (userLogged: any ) => {
+              this.userLogged = userLogged;
+              this.adminAllowed = this.canAdmin(this.userLogged);
+          });
       });
-    });
+
+    this.listOfObservers.push( subs1$ );
   }
 
   ngOnInit(): void {
@@ -55,15 +59,17 @@ export class EventViewComponent implements OnInit {
   }
 
   getDetails(idEvent: string): void {
-    this.eventSrv.getOneEvent(idEvent)
-    .subscribe((event: IEvent) => {
-      this.event = event;
-      this.seo.generateTags({
-        title: `${event.name} | Rincón de Soto`,
-        description: event.description,
-        image: event.image,
+    const subs2$ = this.eventSrv.getOneEvent(idEvent)
+      .subscribe((event: IEvent) => {
+          this.event = event;
+          this.seo.generateTags({
+            title: `${event.name} | Rincón de Soto`,
+            description: event.description,
+            image: event.image,
+          });
       });
-    });
+
+    this.listOfObservers.push( subs2$ );
   }
 
   public adminItem(): void {
@@ -75,5 +81,9 @@ export class EventViewComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

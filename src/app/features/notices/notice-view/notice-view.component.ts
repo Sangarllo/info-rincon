@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
-import { INotice, Notice } from 'src/app/core/models/notice';
+import { INotice, Notice } from '@models/notice';
 import { NoticeService } from '@services/notices.service';
 import { LogService } from '@services/log.service';
 import { SeoService } from '@services/seo.service';
@@ -13,8 +13,9 @@ import { SeoService } from '@services/seo.service';
   templateUrl: './notice-view.component.html',
   styleUrls: ['./notice-view.component.scss']
 })
-export class NoticeViewComponent implements OnInit {
+export class NoticeViewComponent implements OnInit, OnDestroy {
 
+  private listOfObservers: Array<Subscription> = [];
   public idNotice: string;
   public notice: INotice;
 
@@ -36,16 +37,19 @@ export class NoticeViewComponent implements OnInit {
 
   getDetails(idNotice: string): void {
     this.logSrv.info(`id asked ${idNotice}`);
-    this.noticeSrv.getOneNotice(idNotice)
-    .subscribe((notice: INotice) => {
-      this.notice = notice;
-      this.seo.generateTags({
-        title: `${notice.name} | Rincón de Soto`,
-        description: notice.description,
-        image: notice.image,
+    const subs1$ = this.noticeSrv.getOneNotice(idNotice)
+      .subscribe((notice: INotice) => {
+        this.notice = notice;
+        this.seo.generateTags({
+          title: `${notice.name} | Rincón de Soto`,
+          description: notice.description,
+          image: notice.image,
+        });
       });
-    });
+
+    this.listOfObservers.push(subs1$);
   }
+
   public gotoList(): void {
     this.router.navigate([`/${Notice.PATH_URL}`]);
   }
@@ -54,5 +58,7 @@ export class NoticeViewComponent implements OnInit {
     this.router.navigate([`/${Notice.PATH_URL}/${this.idNotice}/editar`]);
   }
 
-
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
 }

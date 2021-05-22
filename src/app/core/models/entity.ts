@@ -1,8 +1,8 @@
-import { IBase, BaseType } from 'src/app/core/models/base';
-import { Category } from 'src/app/core/models/category.enum';
-import { Place } from 'src/app/core/models/place';
-import { EntityRole, ENTITY_ROLES } from 'src/app/core/models/entity-role.enum';
-import { ScheduleType, SCHEDULE_TYPES, SCHEDULE_TYPE_DEFAULT } from 'src/app/core/models/shedule-type.enum';
+import { IBase, BaseType } from '@models/base';
+import { Category } from '@models/category.enum';
+import { Place } from '@models/place';
+import { EntityRole, ENTITY_ROLES } from '@models/entity-role.enum';
+import { ScheduleType, SCHEDULE_TYPES, SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
 
 export interface IEntity {
   id: string;

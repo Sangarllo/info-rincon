@@ -7,8 +7,8 @@ import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { Base } from 'src/app/core/models/base';
-import { IEvent } from 'src/app/core/models/event';
+import { Base } from '@models/base';
+import { IEvent } from '@models/event';
 import { EntityService } from '@services/entities.service';
 import { LogService } from '@services/log.service';
 

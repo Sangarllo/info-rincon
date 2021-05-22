@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
@@ -21,13 +21,14 @@ import { LogService } from '@services/log.service';
   templateUrl: './entity-edit.component.html',
   styleUrls: ['./entity-edit.component.scss']
 })
-export class EntityEditComponent implements OnInit {
+export class EntityEditComponent implements OnInit, OnDestroy {
 
   entityForm!: FormGroup;
   pageTitle = 'Creación de una nueva entidad';
   errorMessage = '';
   uploadPercent: Observable<number>;
 
+  private listOfObservers: Array<Subscription> = [];
   public entity!: IEntity | undefined;
   public CATEGORIES: Category[] = EVENT_CATEGORIES;
   public ROLES: EntityRole[] = Entity.ROLES;
@@ -69,13 +70,14 @@ export class EntityEditComponent implements OnInit {
     }
   }
 
+
   getDetails(idEntity: string): void {
 
     if ( idEntity === '0' ) {
       this.pageTitle = 'Creación de una nueva entidad';
       this.entity = Entity.InitDefault();
     } else {
-      this.entitiesSrv.getOneEntity(idEntity)
+      const subs1$ = this.entitiesSrv.getOneEntity(idEntity)
       .subscribe({
         next: (entity: IEntity | undefined) => {
           this.entity = entity;
@@ -86,6 +88,8 @@ export class EntityEditComponent implements OnInit {
           this.errorMessage = `Error: ${err}`;
         }
       });
+
+      this.listOfObservers.push(subs1$);
     }
   }
 
@@ -197,5 +201,9 @@ export class EntityEditComponent implements OnInit {
         })
      )
     .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

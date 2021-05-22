@@ -1,16 +1,16 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, Subscription } from 'rxjs';
 
 import { EventService } from '@services/events.service';
 import { LinksService } from '@services/links.services';
 import { NoticeService } from '@services/notices.service';
 import { UtilsService } from '@services/utils.service';
-import { ILink, Link } from 'src/app/core/models/link';
-import { INotice, Notice } from 'src/app/core/models/notice';
-import { Event, IEvent } from 'src/app/core/models/event';
-import { IBase, BaseType } from 'src/app/core/models/base';
+import { ILink, Link } from '@models/link';
+import { INotice, Notice } from '@models/notice';
+import { Event, IEvent } from '@models/event';
+import { IBase, BaseType } from '@models/base';
 import { SeoService } from '@services/seo.service';
 import { NoticeAlertedDialogComponent } from '@pages/dashboard/notice-alerted-dialog/notice-alerted-dialog.component';
 
@@ -19,8 +19,9 @@ import { NoticeAlertedDialogComponent } from '@pages/dashboard/notice-alerted-di
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  private listOfObservers: Array<Subscription> = [];
   public alertedNotice: INotice;
   public links$: Observable<ILink[]>;
   public notices$: Observable<INotice[]>;
@@ -52,7 +53,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.notices$ = this.noticesSrv.getAllNotices(true, true, 2);
     this.events$ = this.eventsSrv.getAllEvents(true, true, 2);
 
-    combineLatest([
+    const subs1$ = combineLatest([
       this.links$,
       this.notices$,
       this.events$,
@@ -96,6 +97,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       });
 
     });
+
+    this.listOfObservers.push( subs1$ );
   }
 
   ngAfterViewInit(): void {
@@ -103,7 +106,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     let done = false;
     console.log(`ngAfterViewInit`);
 
-    this.noticesSrv.getAlertedNotice()
+    const subs2$ = this.noticesSrv.getAlertedNotice()
       .subscribe( (notices) => {
 
         if ( done ) {
@@ -119,6 +122,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         }
       }
     );
+
+    this.listOfObservers.push( subs2$ );
   }
 
   openAlertedNotice(notice: INotice): void {
@@ -131,5 +136,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe((eventDialog: IEvent) => {
       console.log('Cerrado dialog');
     });
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

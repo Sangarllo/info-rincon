@@ -7,8 +7,8 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import firebase from 'firebase/app';
 
-import { RoleValidator } from 'src/app/core/auth/helpers/roleValidator';
-import { IUser } from 'src/app/core/models/user';
+import { RoleValidator } from '@auth/helpers/roleValidator';
+import { IUser } from '@models/user';
 import { UserService } from '@services/users.service';
 import { LogService } from '@services/log.service';
 

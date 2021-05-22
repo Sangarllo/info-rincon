@@ -11,6 +11,7 @@
       "@features/*": ["./src/app/features/*"],
       "@services/*": ["./src/app/core/services/*"],
       "@models/*": ["src/app/core/models/*"],
+      "@interceptors/*": ["src/app/core/interceptors/*"],
       "@auth/*": ["src/app/core/auth/*"],
       "@shared/*": ["./src/app/shared/*"],
       "@environments/*": ["./src/environments/*"],

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { INotice, Notice } from 'src/app/core/models/notice';
+import { INotice, Notice } from '@models/notice';
 import { NoticeService } from '@services/notices.service';
 import { UtilsService } from '@services/utils.service';
 

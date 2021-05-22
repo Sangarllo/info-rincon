@@ -1,9 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { IBase, Base, BaseType } from '@models/base';
 import { IEvent } from '@models/event';
@@ -18,8 +18,9 @@ import { PlaceService } from '@services/places.service';
   templateUrl: './event-schedule-dialog.component.html',
   styleUrls: ['./event-schedule-dialog.component.scss']
 })
-export class EventScheduleDialogComponent implements OnInit {
+export class EventScheduleDialogComponent implements OnInit, OnDestroy {
 
+  private listOfObservers: Array<Subscription> = [];
   title = 'Configura un nuevo acto para este evento';
   appointment: IAppointment;
   scheduleItemForm: FormGroup;
@@ -63,12 +64,14 @@ export class EventScheduleDialogComponent implements OnInit {
   }
 
   getDetails(eventId: string): void {
-    this.appointmentSrv.getOneAppointment(eventId)
+    const subs1$ = this.appointmentSrv.getOneAppointment(eventId)
       .subscribe((appointment: IAppointment) => {
           this.appointment = appointment;
           this.dateIni = this.appointment.dateIni;
           this.displayDetails();
       });
+
+    this.listOfObservers.push(subs1$);
   }
 
   displayDetails(): void {
@@ -146,5 +149,9 @@ export class EventScheduleDialogComponent implements OnInit {
 
     // this.utilsSrv.swalFire(SwalMessage.OK_CHANGES, 'x elementos');
     this.dialogRef.close(newBase);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

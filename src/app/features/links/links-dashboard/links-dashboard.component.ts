@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ILink, Link } from 'src/app/core/models/link';
+import { ILink, Link } from '@models/link';
 import { LinksService } from '@services/links.services';
 import { UtilsService } from '@services/utils.service';
 

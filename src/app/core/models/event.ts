@@ -1,7 +1,7 @@
-import { IBase, BaseType } from 'src/app/core/models/base';
-import { Status, STATUS_MODES } from 'src/app/core/models/status.enum';
-import { Category } from 'src/app/core/models/category.enum';
-import { ScheduleType, SCHEDULE_TYPE_DEFAULT } from 'src/app/core/models/shedule-type.enum';
+import { IBase, BaseType } from '@models/base';
+import { Status, STATUS_MODES } from '@models/status.enum';
+import { Category } from '@models/category.enum';
+import { ScheduleType, SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
 
 
 import { CalendarEvent } from 'angular-calendar';

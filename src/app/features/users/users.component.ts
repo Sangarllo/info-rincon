@@ -1,12 +1,13 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
-import { IUser } from 'src/app/core/models/user';
+import { IUser } from '@models/user';
 import { UserService } from '@services/users.service';
 import { LogService } from '@services/log.service';
 import { SpinnerService } from '@services/spinner.service';
@@ -16,11 +17,12 @@ import { SpinnerService } from '@services/spinner.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  private listOfObservers: Array<Subscription> = [];
   public loading = true;
   public users: IUser[];
   public dataSource: MatTableDataSource<IUser> = new MatTableDataSource();
@@ -36,14 +38,16 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userSrv.getAllUsers()
-    .subscribe( (users: IUser[]) => {
-      this.users = users;
-      this.dataSource = new MatTableDataSource(this.users);
-      this.spinnerSvc.hide();
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+    const subs1$ = this.userSrv.getAllUsers()
+      .subscribe( (users: IUser[]) => {
+        this.users = users;
+        this.dataSource = new MatTableDataSource(this.users);
+        this.spinnerSvc.hide();
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+
+    this.listOfObservers.push(subs1$);
   }
 
   applyFilter(filterValue: string): void {
@@ -86,5 +90,9 @@ export class UsersComponent implements OnInit {
 
   public addItem(): void {
     this.router.navigate([`usuarios/0/editar`]);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

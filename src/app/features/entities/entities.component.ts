@@ -1,14 +1,15 @@
 /* eslint-disable max-len */
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { IEntity } from 'src/app/core/models/entity';
+import { IEntity } from '@models/entity';
 import { EntityService } from '@services/entities.service';
 import { LogService } from '@services/log.service';
 import { SpinnerService } from '@services/spinner.service';
@@ -18,11 +19,12 @@ import { SpinnerService } from '@services/spinner.service';
   templateUrl: './entities.component.html',
   styleUrls: ['./entities.component.scss']
 })
-export class EntitiesComponent implements OnInit {
+export class EntitiesComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  private listOfObservers: Array<Subscription> = [];
   public loading = true;
   public entities: IEntity[];
   public dataSource: MatTableDataSource<IEntity> = new MatTableDataSource();
@@ -38,7 +40,7 @@ export class EntitiesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.entitySrv.getAllEntities()
+    const subs1$ = this.entitySrv.getAllEntities()
     .pipe(
       map(entities => entities.map(entity => {
         const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
@@ -54,6 +56,8 @@ export class EntitiesComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+
+    this.listOfObservers.push(subs1$);
   }
 
     applyFilter(filterValue: string): void {
@@ -97,4 +101,9 @@ export class EntitiesComponent implements OnInit {
   public addItem(): void {
     this.router.navigate([`entidades/0/editar`]);
   }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
 }
+

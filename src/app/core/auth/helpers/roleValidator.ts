@@ -1,5 +1,5 @@
-import { IUser } from 'src/app/core/models/user';
-import { UserRole } from 'src/app/core/models/user-role.enum';
+import { IUser } from '@models/user';
+import { UserRole } from '@models/user-role.enum';
 
 export class RoleValidator {
   isSuper(user: IUser): boolean {

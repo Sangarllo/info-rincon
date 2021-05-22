@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ILink, Link } from 'src/app/core/models/link';
+import { Subscription } from 'rxjs';
+
+import { ILink, Link } from '@models/link';
 import { LinksService } from '@services/links.services';
 import { LogService } from '@services/log.service';
 import { SeoService } from '@services/seo.service';
@@ -11,8 +13,9 @@ import { SeoService } from '@services/seo.service';
   templateUrl: './link-view.component.html',
   styleUrls: ['./link-view.component.scss']
 })
-export class LinkViewComponent implements OnInit {
+export class LinkViewComponent implements OnInit, OnDestroy {
 
+  private listOfObservers: Array<Subscription> = [];
   public idLink: string;
   public link: ILink;
   public urlLink: string;
@@ -34,7 +37,7 @@ export class LinkViewComponent implements OnInit {
   }
 
   getDetails(idLink: string): void {
-    this.linksSrv.getOneLink(idLink)
+    const subs1$ = this.linksSrv.getOneLink(idLink)
       .subscribe( ( link: ILink ) => {
         this.urlLink = link.sourceUrl;
         this.link = link;
@@ -44,6 +47,8 @@ export class LinkViewComponent implements OnInit {
           image: link.image,
         });
       });
+
+    this.listOfObservers.push(subs1$);
   }
 
   public gotoUrl(): void {
@@ -56,5 +61,9 @@ export class LinkViewComponent implements OnInit {
 
   public editItem(): void {
     this.router.navigate([`/${Link.PATH_URL}/${this.idLink}/editar`]);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

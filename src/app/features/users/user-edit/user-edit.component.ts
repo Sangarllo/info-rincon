@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { IUser, User } from 'src/app/core/models/user';
-import { UserRole } from 'src/app/core/models/user-role.enum';
-import { Avatar, IFile } from 'src/app/core/models/image';
+import { IUser, User } from '@models/user';
+import { UserRole } from '@models/user-role.enum';
+import { Avatar, IFile } from '@models/image';
 import { LogService } from '@services/log.service';
 import { UserService } from '@services/users.service';
 
@@ -19,13 +19,14 @@ import { UserService } from '@services/users.service';
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.scss']
 })
-export class UserEditComponent implements OnInit {
+export class UserEditComponent implements OnInit, OnDestroy {
 
   userForm!: FormGroup;
   pageTitle = 'Creación de un nuevo usuario';
   errorMessage = '';
   uploadPercent: Observable<number>;
 
+  private listOfObservers: Array<Subscription> = [];
   public user!: IUser | undefined;
   public ROLES: UserRole[] = User.ROLES;
   public AVATARES: Avatar[] = Avatar.getAvatares();
@@ -142,17 +143,19 @@ export class UserEditComponent implements OnInit {
       this.pageTitle = 'Creación de un nuevo usuario';
       this.user = User.InitDefault();
     } else {
-      this.usersSrv.getOneUser(uidUser)
-      .subscribe({
-        next: (user: IUser | undefined) => {
-          this.user = user;
-          this.displayUser();
-          this.logSrv.info(JSON.stringify(this.user));
-        },
-        error: err => {
-          this.errorMessage = `Error: ${err}`;
-        }
-      });
+      const subs1$ = this.usersSrv.getOneUser(uidUser)
+        .subscribe({
+          next: (user: IUser | undefined) => {
+            this.user = user;
+            this.displayUser();
+            this.logSrv.info(JSON.stringify(this.user));
+          },
+          error: err => {
+            this.errorMessage = `Error: ${err}`;
+          }
+        });
+
+      this.listOfObservers.push(subs1$);
     }
   }
 
@@ -184,5 +187,9 @@ export class UserEditComponent implements OnInit {
 
     // eslint-disable-next-line @typescript-eslint/dot-notation
     this.userForm.controls['uid'].setValue(this.user.uid);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

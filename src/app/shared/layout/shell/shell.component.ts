@@ -9,8 +9,8 @@ import { map, shareReplay } from 'rxjs/operators';
 import { AuditService } from '@services/audit.service';
 import { LogService } from '@services/log.service';
 import { NoticeService } from '@services/notices.service';
-import { AuditType } from 'src/app/core/models/audit';
-import { INotice } from 'src/app/core/models/notice';
+import { AuditType } from '@models/audit';
+import { INotice } from '@models/notice';
 
 @Component({
   selector: 'app-shell',

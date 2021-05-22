@@ -5,7 +5,7 @@ import firebase from 'firebase/app';
 
 import { UserService } from '@services/users.service';
 import { AuditService } from '@services/audit.service';
-import { AuditType } from 'src/app/core/models/audit';
+import { AuditType } from '@models/audit';
 
 @Directive({
   selector: '[appGoogleSignin]'

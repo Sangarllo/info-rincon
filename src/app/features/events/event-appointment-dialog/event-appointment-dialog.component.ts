@@ -1,21 +1,23 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
+import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
-import { Base } from 'src/app/core/models/base';
-import { IEvent } from 'src/app/core/models/event';
-import { Appointment, IAppointment } from 'src/app/core/models/appointment';
+import { Base } from '@models/base';
+import { IEvent } from '@models/event';
+import { Appointment, IAppointment } from '@models/appointment';
 import { AppointmentsService } from '@services/appointments.service';
 
 @Component({
   selector: 'app-event-appointment-dialog',
   templateUrl: './event-appointment-dialog.component.html'
 })
-export class EventAppointmentDialogComponent implements OnInit {
+export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
 
+  private listOfObservers: Array<Subscription> = [];
   title = 'Indica el horario de este evento';
   errorMessage = '';
   appointment: IAppointment;
@@ -54,7 +56,7 @@ export class EventAppointmentDialogComponent implements OnInit {
       this.title = 'Creación de una nueva entidad';
       this.appointment = Appointment.InitDefault(this.data.id);
     } else {
-      this.appointmentSrv.getOneAppointment(idAppointment)
+      const subs1$ = this.appointmentSrv.getOneAppointment(idAppointment)
       .subscribe({
         next: (appointment: IAppointment | undefined) => {
           this.appointment = appointment;
@@ -64,6 +66,8 @@ export class EventAppointmentDialogComponent implements OnInit {
           this.errorMessage = `Error: ${err}`;
         }
       });
+
+      this.listOfObservers.push(subs1$);
     }
   }
 
@@ -152,5 +156,9 @@ export class EventAppointmentDialogComponent implements OnInit {
     this.appointmentForm.controls.dateEnd.setValue(this.appointment.dateEnd);
 
     this.dialogRef.close(this.appointmentForm.value);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

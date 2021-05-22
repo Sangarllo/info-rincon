@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { UserService } from '@services/users.service';
 import { AuditService } from '@services/audit.service';
@@ -16,8 +16,9 @@ import { IAuditItem } from '@models/audit';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
+  private listOfObservers: Array<Subscription> = [];
   public userData$: Observable<IUser>;
   public auditItems: IAuditItem[] = [];
   public createdEventItems: IBase[] = [];
@@ -33,26 +34,35 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.auth.user.subscribe((usr) => {
+    const subs$ = this.auth.user.subscribe((usr) => {
       const uidUser = usr.uid;
       this.getCreatedEvents(uidUser);
       this.userData$ = this.userSrv.getOneUser(uidUser);
       this.getAudit(usr.uid);
     });
+
+    this.listOfObservers.push( subs$ );
   }
 
-  getAudit(uidUser: string): void {
-    this.auditSrv.getAllAuditItemsByUser(uidUser)
-    .subscribe( (auditItems: IAuditItem[]) => {
-      this.auditItems = auditItems;
-    });
+  private getAudit(uidUser: string): void {
+    const subs$ = this.auditSrv.getAllAuditItemsByUser(uidUser)
+      .subscribe( (auditItems: IAuditItem[]) => {
+        this.auditItems = auditItems;
+      });
+
+    this.listOfObservers.push( subs$ );
   }
 
-  getCreatedEvents(uidUser: string): void {
-    this.eventSrv.getAllEventsByUser(uidUser)
-    .subscribe( (eventItems: IBase[]) => {
-      this.createdEventItems = eventItems;
-    });
+  private getCreatedEvents(uidUser: string): void {
+    const subs$ = this.eventSrv.getAllEventsByUser(uidUser)
+      .subscribe( (eventItems: IBase[]) => {
+        this.createdEventItems = eventItems;
+      });
+
+    this.listOfObservers.push( subs$ );
   }
 
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
 }

@@ -1,4 +1,4 @@
-import { IBase, BaseType } from 'src/app/core/models/base';
+import { IBase, BaseType } from '@models/base';
 
 export interface ISource extends IBase {
   id: string;

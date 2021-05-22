@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { Notice, INotice } from 'src/app/core/models/notice';
-import { Status } from 'src/app/core/models/status.enum';
-import { NOTICE_CATEGORIES, Category } from 'src/app/core/models/category.enum';
+import { Notice, INotice } from '@models/notice';
+import { Status } from '@models/status.enum';
+import { NOTICE_CATEGORIES, Category } from '@models/category.enum';
 import { AppointmentsService } from '@services/appointments.service';
 import { NoticeService } from '@services/notices.service';
 import { LogService } from '@services/log.service';
@@ -19,13 +19,14 @@ import { LogService } from '@services/log.service';
   templateUrl: './notice-edit.component.html',
   styleUrls: ['./notice-edit.component.scss']
 })
-export class NoticeEditComponent implements OnInit {
+export class NoticeEditComponent implements OnInit, OnDestroy {
 
   noticeForm!: FormGroup;
   pageTitle = 'Creación de un nuevo aviso';
   errorMessage = '';
   uploadPercent: Observable<number>;
 
+  private listOfObservers: Array<Subscription> = [];
   public notice!: INotice | undefined;
   public STATUS: Status[] = Notice.STATUS;
   public CATEGORIES: Category[] = NOTICE_CATEGORIES;
@@ -136,7 +137,7 @@ export class NoticeEditComponent implements OnInit {
       this.pageTitle = 'Creación de un nuevo aviso';
       this.notice = Notice.InitDefault();
     } else {
-      this.NoticeSrv.getOneNotice(idNotice)
+      const subs$1 = this.NoticeSrv.getOneNotice(idNotice)
       .subscribe({
         next: (notice: INotice | undefined) => {
           this.notice = notice;
@@ -147,6 +148,8 @@ export class NoticeEditComponent implements OnInit {
           this.errorMessage = `Error: ${err}`;
         }
       });
+
+      this.listOfObservers.push(subs$1);
     }
   }
 
@@ -178,5 +181,9 @@ export class NoticeEditComponent implements OnInit {
 
     // eslint-disable-next-line @typescript-eslint/dot-notation
     this.noticeForm.controls['id'].setValue(this.notice.id);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }
