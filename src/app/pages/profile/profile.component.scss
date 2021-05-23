@@ -1,0 +1,27 @@
+@import '../../../base/variables';
+// @media (max-width: 699px) {
+//     .mat-tab-label {
+//         min-width: 25% !important;
+//     }
+// }
+@media screen and (max-width: 700px) {
+    .mat-tab-label {
+        min-width: 120px;
+    }
+    .extra-label {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 701px) and (max-width: 1200px) {
+    .extra-label {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 1201px) {
+    .extra-label {
+        margin-left: 10px;
+        // color: $color1;
+    }
+}

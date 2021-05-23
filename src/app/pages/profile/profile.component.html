@@ -18,6 +18,10 @@
                         <!-- A. Datos Personales -->
                         <mat-tab class="tab-card-detail" label="Datos Personales">
 
+                            <ng-template mat-tab-label>
+                                <mat-icon class="example-tab-icon">contact_mail</mat-icon>
+                                <span class="extra-label">Datos Personales</span>
+                            </ng-template>
 
                             <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="user.displayName" placeholder="Nombre Completo" />
@@ -48,6 +52,11 @@
                         <!-- B. Datos de Entidades -->
                         <mat-tab *appRole="['AUTOR', 'ADMIN', 'SUPER']" label="Entidades Asociadas">
 
+                            <ng-template mat-tab-label>
+                                <mat-icon class="example-tab-icon">manage_accounts</mat-icon>
+                                <span class="extra-label">Entidades Asociadas</span>
+                            </ng-template>
+
                             <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
                                 <mat-icon matSuffix>admin_panel_settings</mat-icon>
@@ -72,12 +81,22 @@
                         <!-- C. Datos de Auditoría -->
                         <mat-tab *appRole="['ADMIN', 'SUPER']" label="Auditoría de accesos">
 
+                            <ng-template mat-tab-label>
+                                <mat-icon class="example-tab-icon">login</mat-icon>
+                                <span class="extra-label">Auditoría de accesos</span>
+                            </ng-template>
+
                             <sh-base-items-table *ngIf="auditItems.length > 0" [baseItems]="auditItems" [baseType]="baseTypeAudit" [modeAdmin]="false"></sh-base-items-table>
 
                         </mat-tab>
 
                         <!-- D. Datos de Eventos Creados -->
                         <mat-tab *appRole="['AUTOR', 'ADMIN', 'SUPER']" label="Auditoría de eventos">
+
+                            <ng-template mat-tab-label>
+                                <mat-icon class="example-tab-icon">create_new_folder</mat-icon>
+                                <span class="extra-label">Auditoría de eventos</span>
+                            </ng-template>
 
                             <sh-base-items-table *ngIf="createdEventItems.length > 0" [baseItems]="createdEventItems" [baseType]="baseTypeEvent" [modeAdmin]="false"></sh-base-items-table>
 

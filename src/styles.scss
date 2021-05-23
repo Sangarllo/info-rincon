@@ -112,3 +112,35 @@ td.mat-cell,
         margin-left: 20px;
     }
 }
+
+.status {
+    padding: 3px;
+    &.status-VISIBLE {
+        background-color: $colorSuccessBack;
+        color: $colorSuccess;
+        &::before {
+            content: "✔️ ";
+        }
+    }
+    &.status-EDITING {
+        background-color: $colorWarningBack;
+        color: $colorWarning;
+        &::before {
+            content: "⚠️ ";
+        }
+    }
+    &.status-BLOCKED {
+        background-color: $colorDangerBack;
+        color: $colorDanger;
+        &::before {
+            content: "⛔ ";
+        }
+    }
+    &.status-DELETED {
+        background-color: $colorDeleteBack;
+        color: $colorDelete;
+        &::before {
+            content: "🗑️ ";
+        }
+    }
+}

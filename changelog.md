@@ -34,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Show side-menu just with logged user.
-- `code` Add unsubscription in onDestroy event.
+- `performance` Add unsubscription in onDestroy event.
 
 ## [0.1.1] - Alerted Notice
 
