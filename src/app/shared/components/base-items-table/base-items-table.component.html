@@ -2,8 +2,8 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="baseId">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            <th mat-header-cell class="td-extra-lg" *matHeaderCellDef> No. </th>
+            <td mat-cell class="td-extra-lg" *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
 
         <ng-container matColumnDef="baseSmallImage">
@@ -20,41 +20,52 @@
             </td>
         </ng-container>
 
+        <ng-container matColumnDef="collapsed-info">
+            <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef>Info</th>
+            <td mat-cell class="td-collapsed-info" [class]="element.name" *matCellDef="let element" (click)="gotoElement(element)">
+                <div class="inside"></div>
+                <div style="font-size: smaller;color:gray">
+                    {{ element.timestamp }}
+                </div>
+                {{ element.name }} {{ (element.description?.length > 25) ? (element.description | slice:0:25) + '...' : (element.description) }}
+            </td>
+        </ng-container>
+
         <ng-container matColumnDef="baseSmallName">
-            <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            <th mat-header-cell class="td-extra-lg" *matHeaderCellDef> Nombre </th>
+            <td mat-cell class="td-extra-lg" *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
 
         <ng-container matColumnDef="baseBigName">
-            <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            <th mat-header-cell class="td-extra-lg" *matHeaderCellDef> Nombre </th>
+            <td mat-cell class="td-extra-lg" *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
 
         <ng-container matColumnDef="baseDescHorario">
-            <th mat-header-cell *matHeaderCellDef> Horario </th>
-            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            <th mat-header-cell class="td-extra-lg" *matHeaderCellDef> Horario </th>
+            <td mat-cell class="td-extra-lg" *matCellDef="let element"> {{element.description}} </td>
         </ng-container>
 
         <ng-container matColumnDef="placeSmallImage">
-            <th mat-header-cell *matHeaderCellDef> Lugar </th>
-            <td mat-cell *matCellDef="let element">
+            <th mat-header-cell class="td-extra-lg" *matHeaderCellDef> Lugar </th>
+            <td mat-cell class="td-extra-lg" *matCellDef="let element">
                 <img *ngIf="element.place" [src]="element.place?.image" class="img-thumbnail" [alt]="element.place?.name">
             </td>
         </ng-container>
 
         <ng-container matColumnDef="baseDesc">
-            <th mat-header-cell *matHeaderCellDef> Desc </th>
-            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            <th mat-header-cell class="td-extra-lg" *matHeaderCellDef> Desc </th>
+            <td mat-cell class="td-extra-lg" *matCellDef="let element"> {{element.description}} </td>
         </ng-container>
 
         <ng-container matColumnDef="baseTimestamp">
-            <th mat-header-cell *matHeaderCellDef> Timestamp </th>
-            <td mat-cell *matCellDef="let element"> {{element.timestamp}} </td>
+            <th mat-header-cell class="td-extra-lg" *matHeaderCellDef> Timestamp </th>
+            <td mat-cell class="td-extra-lg" *matCellDef="let element"> {{element.timestamp}} </td>
         </ng-container>
 
         <ng-container matColumnDef="active">
-            <th mat-header-cell *matHeaderCellDef> Activo </th>
-            <td mat-cell *matCellDef="let element">{{(element.active) ? 'Activo' : 'No Activo'}}</td>
+            <th mat-header-cell class="td-extra-lg" *matHeaderCellDef> Activo </th>
+            <td mat-cell class="td-extra-lg" *matCellDef="let element">{{(element.active) ? 'Activo' : 'No Activo'}}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">
@@ -66,8 +77,8 @@
         </ng-container>
 
         <ng-container matColumnDef="baseActions1">
-            <th mat-header-cell *matHeaderCellDef>Ver </th>
-            <td mat-cell *matCellDef="let element">
+            <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Ver </th>
+            <td mat-cell class="td-extra-lg" *matCellDef="let element">
 
                 <button mat-icon-button matTooltip="Click to view" class="iconbutton" color="primary" (click)="gotoElement(element)">
                 <mat-icon aria-label="Edit">play_circle_outline</mat-icon>
@@ -76,8 +87,8 @@
         </ng-container>
 
         <ng-container matColumnDef="baseActions4">
-            <th mat-header-cell *matHeaderCellDef>Acciones </th>
-            <td mat-cell *matCellDef="let element">
+            <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones </th>
+            <td mat-cell class="td-extra-lg" *matCellDef="let element">
 
                 <button [disabled]="element.id === '1'" mat-icon-button matTooltip="Subir orden" class="iconbutton" color="primary" (click)="changeOrderElement(element,'-1')">
                   <mat-icon aria-label="Subir Orden">arrow_circle_up</mat-icon>

@@ -137,12 +137,14 @@ td.mat-column-desc {
     }
 }
 
-td.mat-column-baseSmallImage,
+.mat-column-baseSmallImage,
 .mat-column-placeSmallImage,
 .mat-column-sourceImage,
 .mat-column-placeImage {
-    text-align: right;
+    text-align: center;
     width: 60px;
+    padding-left: 0px !important;
+    margin-right: 10px;
     .img-thumbnail {
         min-width: 48px;
         width: 48px;
@@ -203,7 +205,7 @@ td.mat-column-roleDefault,
 td.mat-column-auditType,
 td.mat-column-role,
 td.mat-column-status {
-    width: 100px;
+    width: 110px;
     font-size: smaller;
     text-transform: uppercase;
     text-align: center;

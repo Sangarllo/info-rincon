@@ -37,19 +37,19 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
 
       case BaseType.EVENT:
         if ( this.modeAdmin ) {
-          this.displayedColumns = ['baseId', 'baseSmallImage', 'baseSmallName', 'placeSmallImage', 'baseDescHorario',  'active', 'baseActions4' ];
+          this.displayedColumns = ['baseId', 'baseSmallImage', 'baseSmallName', 'placeSmallImage', 'baseDescHorario',  'active', 'baseActions4', 'collapsed-info' ];
         } else {
-          this.displayedColumns = ['baseSmallImage', 'baseBigName', 'baseTimestamp', 'status', 'baseActions1' ];
+          this.displayedColumns = ['baseSmallImage', 'baseBigName', 'baseTimestamp', 'status', 'baseActions1', 'collapsed-info' ];
         }
 
         break;
 
       case BaseType.AUDIT:
-        this.displayedColumns = ['baseSmallImage', 'baseTimestamp', 'baseDesc' ];
+        this.displayedColumns = ['baseSmallImage', 'baseTimestamp', 'baseDesc', 'collapsed-info' ];
         break;
 
       case BaseType.ENTITY:
-        this.displayedColumns = [ 'baseBigImage', 'baseBigName' ];
+        this.displayedColumns = [ 'baseSmallImage', 'baseBigName', 'collapsed-info' ];
         break;
     }
   }
