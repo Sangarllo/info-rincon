@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import {MatAccordion} from '@angular/material/expansion';
 
 import { Observable, Subscription } from 'rxjs';
 import { filter, map, take, tap } from 'rxjs/operators';
@@ -31,6 +32,8 @@ import { BaseItemDialogComponent } from '@shared/components/base-item-dialog/bas
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
+
+  @ViewChild(MatAccordion) accordion: MatAccordion;
 
   private listOfObservers: Array<Subscription> = [];
   public alertedNotice: INotice;

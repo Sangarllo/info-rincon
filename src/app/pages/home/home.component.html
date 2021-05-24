@@ -1,15 +1,63 @@
 <app-section-header [title]="'Hoy en Rincón de Soto'"></app-section-header>
 
-<!-- Stories Panel -->
-<div>
-    <app-stories-panel></app-stories-panel>
+<div class="action-buttons">
+    <!--
+    <button mat-button (click)="accordion.openAll()">Expand All</button>
+    <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+    -->
 </div>
+<!-- #docregion multi -->
+<mat-accordion class="headers-align" multi>
+
+    <!-- Alerted Notice Panel -->
+    <mat-expansion-panel *ngIf="theAlertedNotice$ | async as alertedNotice">
+        <mat-expansion-panel-header class="alerted-notice-header">
+            <mat-panel-title>
+                Aviso Importante:
+            </mat-panel-title>
+            <mat-panel-description>
+                {{ alertedNotice.name }}
+                <mat-icon>notifications_active</mat-icon>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-base-item-detail [baseItem]="alertedNotice" [btnView]="true" [btnClose]="true" (onCloseClicked)="onCloseClicked()"></app-base-item-detail>
+    </mat-expansion-panel>
+
+    <!-- Stories Panel -->
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                En Portada
+            </mat-panel-title>
+            <mat-panel-description>
+                Elementos destacados
+                <mat-icon>new_releases</mat-icon>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-stories-panel></app-stories-panel>
+    </mat-expansion-panel>
+
+</mat-accordion>
+
+
+<!-- Copyright 2021 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
+
+<!-- Stories Panel -->
+<!-- <div>
+    <app-stories-panel></app-stories-panel>
+</div> -->
 
 
 <!-- Posible alerta por aviso -->
+<!--
 <div *ngIf="theAlertedNotice$ | async as alertedNotice">
     <app-notice-expansion-panel class="m-1" [notice]="alertedNotice"></app-notice-expansion-panel>
 </div>
+-->
 
 
 <app-calendar-day-header [(view)]="view" [(viewDate)]="viewDate" (viewDateChange)="fetchEvents()" (viewChange)="fetchEvents()" [locale]="locale">
@@ -24,7 +72,7 @@
         </div>
     </div>
 
-    <div *ngIf="events.length; else noEvents" class="w-100">
+    <div *ngIf="events.length; else noEventsTemplate" class="w-100">
         <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [dayStartHour]="8" [dayEndHour]="20" (eventClicked)="openEventClicked($event.event)">
         </mwl-calendar-day-view>
     </div>
@@ -37,8 +85,8 @@
     </div>
 </ng-template>
 
-<ng-template #noEvents>
-    <div class="alert alert-warning ">
+<ng-template #noEventsTemplate>
+    <div class="alert alert-warning div-no-events">
         No hay eventos para este día
     </div>
 </ng-template>
