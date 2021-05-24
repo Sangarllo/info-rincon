@@ -38,13 +38,15 @@
             <div *ngIf="!(isHandset$ | async)">
                 <div *ngIf="(afAuth.authState | async);else login2Template">
 
-                    <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/eventos/new">➕ Evento</a>
-                    <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/admin">⚙️ Admin</a>
+                    <a class="text-extra" *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/eventos/new">➕ Evento</a>
 
-                    <a mat-button (click)="onLogout()">🔐 Salir</a>
+                    <a class="text-extra" *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/admin">⚙️ Admin</a>
+
+                    <a class="text-extra" mat-button (click)="onLogout()">🔐 Salir</a>
 
                     <a mat-button routerLink="/perfil" *ngIf="afAuth.authState | async as user">
-                        <img class="avatar" [src]="user.photoURL || 'assets/default-user.svg'"> Perfil
+                        <img class="avatar" [src]="user.photoURL || 'assets/default-user.svg'">
+                        <span class="text-extra">Perfil</span>
                     </a>
 
                 </div>
@@ -72,14 +74,29 @@
                     <i>🍐</i>
                     <span>Peras de Rincón de Soto</span>
                 </a>
-                <a *ngIf="afAuth.authState | async; else loginTemplate" mat-menu-item (click)="onLogout()">
-                    <i>🔒</i>
-                    <span>Cerrar Sesión</span>
-                </a>
+
+                <div *ngIf="afAuth.authState | async; else loginTemplate">
+
+                    <a mat-menu-item href="./admin">
+                        <i>⚙️</i>
+                        <span>Administración</span>
+                    </a>
+
+                    <a mat-menu-item href="./eventos/new">
+                        <i>➕</i>
+                        <span>Crear evento</span>
+                    </a>
+
+                    <a mat-menu-item (click)="onLogout()">
+                        <i>🔐</i>
+                        <span>Cerrar Sesión</span>
+                    </a>
+
+                </div>
 
                 <ng-template #loginTemplate>
                     <a mat-menu-item [routerLink]="'/login'">
-                        <i>🔐</i>
+                        <i>🔑</i>
                         <span>Acceder con cuenta</span>
                     </a>
                 </ng-template>
