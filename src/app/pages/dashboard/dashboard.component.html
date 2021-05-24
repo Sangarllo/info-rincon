@@ -1,6 +1,4 @@
-<div class="stories-wrapper" *ngIf="REAL_STORIES">
-    <img *ngFor="let story of REAL_STORIES" [routerLink]="story.url" [alt]="story.name" [src]="story.image" [ngClass]="story.baseType" />
-</div>
+<app-stories-panel></app-stories-panel>
 
 <div class="content-wrapper mat-elevation-z8">
     <mat-tab-group mat-align-tabs="center">

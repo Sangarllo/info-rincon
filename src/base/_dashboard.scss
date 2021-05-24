@@ -18,36 +18,6 @@ div.news-wrapper::-webkit-scrollbar {
     display: none;
 }
 
-div.stories-wrapper {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    overflow-x: auto;
-    width: 100%;
-    height: 132px;
-    background-color: whitesmoke;
-    img {
-        margin: 15px;
-        border-radius: 50%;
-        height: 100px;
-        width: 100px;
-        padding: 4px;
-        &.NEWS_ITEM {
-            border: 1px solid #856404;
-            background-color: #fff3cd;
-        }
-        &.NOTICE {
-            border: 1px solid darkgreen;
-            background-color: lightgreen;
-        }
-        &.EVENT {
-            border: 1px solid darkred;
-            background-color: lightcoral;
-        }
-    }
-}
-
 div.content-wrapper {
     div.title {
         text-align: right;

@@ -1,5 +1,12 @@
 <app-section-header [title]="'Hoy en Rincón de Soto'"></app-section-header>
 
+<!-- Stories Panel -->
+<div>
+    <app-stories-panel></app-stories-panel>
+</div>
+
+
+<!-- Posible alerta por aviso -->
 <div *ngIf="theAlertedNotice$ | async as alertedNotice">
     <app-notice-expansion-panel class="m-1" [notice]="alertedNotice"></app-notice-expansion-panel>
 </div>

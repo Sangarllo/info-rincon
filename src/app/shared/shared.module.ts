@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from '@shared/material/material.module';
 
+import { RoleDirective } from '@shared/directives/role.directive';
 import { ShellComponent } from '@shared/layout/shell/shell.component';
 import { FooterComponent } from '@shared/layout/footer/footer.component';
 import { SectionHeaderComponent } from '@shared/layout/section-header/section-header.component';
@@ -16,7 +17,7 @@ import { BaseItemDialogComponent } from '@shared/components/base-item-dialog/bas
 import { BaseItemDetailComponent } from '@shared/components/base-item-detail/base-item-detail.component';
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component';
 import { RoleOptionsComponent } from '@shared/components/role-options/role-options.component';
-import { RoleDirective } from '@shared/directives/role.directive';
+import { StoriesPanelComponent } from '@shared/components/stories-panel/stories-panel.component';
 
 const components = [
   ShellComponent,
@@ -31,6 +32,7 @@ const components = [
   BaseItemDetailComponent,
   SpinnerComponent,
   RoleOptionsComponent,
+  StoriesPanelComponent,
 ];
 
 const directives = [
