@@ -1,3 +1,3 @@
 <div class="stories-wrapper" *ngIf="REAL_STORIES">
-    <img *ngFor="let story of REAL_STORIES" [routerLink]="story.url" [alt]="story.name" [src]="story.image" [ngClass]="story.baseType" />
+    <img *ngFor="let story of REAL_STORIES" (click)="gotoItem(story)" [alt]="story.name" [src]="story.image" [ngClass]="story.baseType" />
 </div>

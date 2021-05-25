@@ -20,8 +20,8 @@ export class BaseItemDetailComponent {
   @Output() onViewClicked = new EventEmitter<void>();
 
   constructor(
-    private logSrv: LogService,
     private router: Router,
+    private logSrv: LogService,
   ) { }
 
   gotoBaseItem(): void {

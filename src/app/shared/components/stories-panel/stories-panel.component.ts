@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable, combineLatest, Subscription } from 'rxjs';
 
 import { EventService } from '@services/events.service';
 import { LinksService } from '@services/links.services';
 import { NoticeService } from '@services/notices.service';
+import { LogService } from '@services/log.service';
 import { ILink } from '@models/link';
 import { INotice } from '@models/notice';
 import { IEvent } from '@models/event';
-import { IBase, BaseType } from '@models/base';
+import { IBase, BaseType, Base } from '@models/base';
 
 @Component({
   selector: 'app-stories-panel',
@@ -24,6 +26,8 @@ export class StoriesPanelComponent implements OnInit {
   public REAL_STORIES: IBase[];
 
   constructor(
+    private router: Router,
+    private logSrv: LogService,
     private noticesSrv: NoticeService,
     private linksSrv: LinksService,
     private eventsSrv: EventService,
@@ -81,6 +85,11 @@ export class StoriesPanelComponent implements OnInit {
     });
 
     this.listOfObservers.push( subs1$ );
+  }
+
+  gotoItem(story: IBase): void {
+    const baseItemUrl = Base.getUrl(story);
+    this.router.navigate([`${baseItemUrl}`]);
   }
 
 }
