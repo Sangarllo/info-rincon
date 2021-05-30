@@ -121,7 +121,6 @@ td.mat-column-desc {
         }
     }
     &.ADMIN,
-    &.CENSOR,
     &.SUPER {
         color: green;
         span {
@@ -211,18 +210,12 @@ td.mat-column-status {
     text-align: center;
     color: black;
     background-color: transparent;
-    &.CENSOR,
+    &.SUPER,
     &.DELETED {
         div.inside {
             color: lightgrey !important;
             border: 1px solid black;
             background-color: #202020;
-        }
-    }
-    &.SUPER {
-        div.inside {
-            border: 1px solid darkslateblue;
-            background-color: lightsteelblue;
         }
     }
     &.LOGOUT,

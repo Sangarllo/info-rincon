@@ -10,10 +10,6 @@ export class RoleValidator {
     return user.role === UserRole.Admin;
   }
 
-  isCensor(user: IUser): boolean {
-    return user.role === UserRole.Censor;
-  }
-
   isAutor(user: IUser): boolean {
     return user.role === UserRole.Autor;
   }

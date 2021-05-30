@@ -182,7 +182,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       password: this.user.password ?? '',
       photoURL: this.user.photoURL ?? User.IMAGE_DEFAULT,
       role: this.user.role,
-      entitiesAdmin: this.user.entitiesAdmin,
+      entitiesAdmin: this.user.entitiesAdmin ?? [],
     });
 
     // eslint-disable-next-line @typescript-eslint/dot-notation
