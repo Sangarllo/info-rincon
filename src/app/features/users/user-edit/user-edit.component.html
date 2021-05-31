@@ -33,14 +33,7 @@
 
                     <mat-card-content>
 
-                        <!--
-                        <mat-form-field appearance="outline">
-                            <mat-label>Uid</mat-label>
-                            <input matInput type="text" formControlName="uid" placeholder="identificador">
-                        </mat-form-field>
-                        -->
-
-                        <mat-slide-toggle class="mb-3 ml-2" formControlName="active">Usuario activo </mat-slide-toggle>
+                        <mat-slide-toggle *appRole="['ADMIN', 'SUPER']" class="mb-3 ml-2" formControlName="active">Usuario activo </mat-slide-toggle>
 
                         <mat-form-field appearance="outline">
                             <mat-label>Nombre del usuario</mat-label>
@@ -69,16 +62,16 @@
 
                     <mat-card-actions class="buttons">
 
-                        <button mat-fab class="btn-1" [title]="userForm.valid ? 'Guardar con los datos introducidos' : 'Deshabilitado hasta que los datos sean válidos'" [disabled]="!userForm.valid" type="submit">
+                        <button mat-fab class="btn-admin" [title]="userForm.valid ? 'Guardar con los datos introducidos' : 'Deshabilitado hasta que los datos sean válidos'" [disabled]="!userForm.valid" type="submit">
                           <mat-icon>check</mat-icon>
-                        </button>
-
-                        <button mat-fab class="btn-1" (click)="gotoList()">
-                          <mat-icon>list</mat-icon>
                         </button>
 
                         <button mat-fab class="btn-1" (click)="gotoAdminEntities()">
                           <mat-icon>people_alt</mat-icon>
+                        </button>
+
+                        <button mat-fab class="btn-1" (click)="gotoList()">
+                          <mat-icon>list</mat-icon>
                         </button>
 
                     </mat-card-actions>

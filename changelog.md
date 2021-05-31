@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - #003A59
     - #DEEEEC
     - #3E8B82
+- `business` Delete censor as role.
 
 ### Fixed
 

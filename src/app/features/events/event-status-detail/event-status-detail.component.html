@@ -10,7 +10,7 @@
         <span *ngSwitchCase="'VISIBLE'">Este evento está <b>en modo visible</b>, por lo que puede ser visto por cualquiera.</span>
     </div>
 
-    <div>El evento <b *ngIf="event.active; else ngTemplateNoActive">está activo</b>, y <b *ngIf="event.focused; else ngTemplateNoFocused">sería mostrado</b> en portada.</div>
+    <div>El evento <b *ngIf="event.focused; else ngTemplateNoFocused">sería mostrado</b> en portada.</div>
 
 </div>
 

@@ -11,20 +11,24 @@
         </mat-select>
     </mat-form-field>
 
-    <div>
-        <mat-slide-toggle formControlName="active">Evento activo</mat-slide-toggle>
-    </div>
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <mat-slide-toggle *appRole="['ADMIN', 'SUPER']" formControlName="active">Evento activo</mat-slide-toggle>
+        </div>
 
-    <div>
-        <mat-slide-toggle appearance="outline" formControlName="focused">Evento en portada</mat-slide-toggle>
+        <div class="col-md-6 col-12">
+            <mat-slide-toggle appearance="outline" formControlName="focused">Evento en portada</mat-slide-toggle>
+        </div>
     </div>
-
 
 </mat-dialog-content>
 
-<div mat-dialog-actions>
-    <button mat-raised-button color="warn" (click)="save()" cdkFocusInitial>
-      <mat-icon>check_circle_outline</mat-icon> Guardar
+<div mat-dialog-actions class="buttons buttons-center">
+    <button mat-fab class="btn-1" (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
     </button>
-    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+
+    <button mat-fab class="btn-admin" (click)="save()" cdkFocusInitial>
+        <mat-icon>done</mat-icon>
+    </button>
 </div>
