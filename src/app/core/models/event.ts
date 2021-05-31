@@ -23,6 +23,7 @@ export interface IEvent {
   scheduleType?: ScheduleType;
   timestamp?: string;
   appointmentId?: string;
+  shownAsAWhole?: boolean;
   scheduleItems?: IBase[];
   placeItems?: IBase[];
   entityItems?: IBase[];
@@ -52,9 +53,11 @@ export class Event implements IEvent, IBase { // IAudit
     public description?: string,
     public scheduleType?: ScheduleType,
     public timestamp?: string,
-    public appointmentId?: string,
 
+    public appointmentId?: string,
+    public shownAsAWhole?: boolean,
     public scheduleItems?: IBase[],
+
     public placeItems?: IBase[],
     public entityItems?: IBase[],
     public auditItems?: IBase[],
@@ -75,8 +78,8 @@ export class Event implements IEvent, IBase { // IAudit
       BaseType.EVENT, // BaseType
       [], '', // Basics,
       SCHEDULE_TYPE_DEFAULT, // ScheduleType
-      null, null, // Timestamp + Appointment
-      [], // Event
+      null, // Timestamp
+      null, true, [], // Appointment, HowIsShown, scheduleItems
       [], // Place
       [], // Entity
       [],  // Audit

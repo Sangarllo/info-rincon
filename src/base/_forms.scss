@@ -1,5 +1,8 @@
+@import './variables';
+@import './variables';
+
 /*
-Formularios
+Styles for Forms
 */
 
 .mat-form-field {
@@ -65,4 +68,12 @@ mat-card.item-edit {
             }
         }
     }
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: rgba(64, 140, 255, 0.54);
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: $color1;
 }

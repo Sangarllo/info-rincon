@@ -26,9 +26,11 @@
 
 </mat-dialog-content>
 
-<div mat-dialog-actions>
-    <button mat-raised-button color="warn" (click)="save()" cdkFocusInitial>
-      <mat-icon>check_circle_outline</mat-icon> Guardar
-    </button>
-    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+<div mat-dialog-actions class="buttons buttons-center">
+    <button mat-fab class="btn-admin" (click)="save()" cdkFocusInitial>
+      <mat-icon>done</mat-icon>
+  </button>
+    <button mat-fab class="btn-1" (click)="onNoClick()">
+      <mat-icon>close</mat-icon>
+  </button>
 </div>
