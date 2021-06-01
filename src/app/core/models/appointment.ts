@@ -1,3 +1,5 @@
+import { IBase } from '@models/base';
+
 export interface IAppointment {
   id: string;
   active: boolean;
@@ -49,6 +51,24 @@ export class Appointment implements IAppointment {
     basicAppointment.description = Appointment.computeDesc(basicAppointment);
 
     return basicAppointment;
+  }
+
+  static InitFromSchedule(scheduleItem: IBase, enable: boolean): Appointment {
+    const dateTime = scheduleItem.description.split(' ');
+
+    const scheduleAppointment = new Appointment(
+      scheduleItem.id,
+      enable,
+      false,
+      dateTime[0],
+      dateTime[1],
+      false,
+      dateTime[0],
+      Appointment.HOUR_DEFAULT,
+      ''
+    );
+
+    return scheduleAppointment;
   }
 
   static computeDesc(appointment: IAppointment): string {

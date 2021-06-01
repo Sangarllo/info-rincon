@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 
 import { IAppointment, Appointment } from '@models/appointment';
+import { IBase } from '@models/base';
 
 const APPOINTMENTS_COLLECTION = 'appointments';
 
@@ -56,10 +57,33 @@ export class AppointmentsService {
     });
   }
 
+  addScheduleAppointment(scheduleItem: IBase, active: boolean): void {
+    const idAppointment = scheduleItem.id;
+    const dateTime = scheduleItem.description.split(' ');
+    this.appointmentCollection.doc(idAppointment).set({
+      id: idAppointment,
+      active: active,
+      allDay: false,
+      dateIni: dateTime[0],
+      timeIni: dateTime[1],
+      withEnd: false,
+      dateEnd: '',
+      timeEnd: '',
+      description: '',
+    });
+  }
+
+  enableAppointment(idAppointment: string, enable: boolean): void {
+    this.appointmentDoc = this.afs.doc<IAppointment>(`${APPOINTMENTS_COLLECTION}/${idAppointment}`);
+    console.log(`idAppointment: ${idAppointment}, enable: ${enable}`)
+
+    this.appointmentDoc.update({ active: enable });
+  }
+
   updateAppointment(appointment: IAppointment): void {
     const idAppointment = appointment.id;
     this.appointmentDoc = this.afs.doc<IAppointment>(`${APPOINTMENTS_COLLECTION}/${idAppointment}`);
-    this.appointmentDoc.update(appointment);
+    this.appointmentDoc.update(Object.assign({}, appointment));
   }
 
   deleteAppointment(idAppointment: string): void {

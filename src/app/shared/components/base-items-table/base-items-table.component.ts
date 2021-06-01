@@ -20,7 +20,7 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
   @Input() baseItems: IBase[];
   @Input() baseType: BaseType;
   @Input() modeAdmin: boolean;
-  public baseItemsLength: string;
+  public baseItemsLength: number;
 
   displayedColumns: string[]; // = [ 'baseImage', 'baseName', 'baseActions4' ];
   public dataSource: MatTableDataSource<IBase> = new MatTableDataSource();
@@ -33,7 +33,7 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.baseItems);
-    this.baseItemsLength = this.baseItems.length.toString();
+    this.baseItemsLength = this.baseItems.length;
     switch(this.baseType) {
 
       case BaseType.EVENT:
@@ -58,13 +58,13 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
     this.dataSource = new MatTableDataSource(this.baseItems);
-    this.baseItemsLength = this.baseItems.length.toString();
+    this.baseItemsLength = this.baseItems.length;
     // this.doSomething(changes.categoryId.currentValue);
     // You can also use categoryId.previousValue and
     // categoryId.firstChange for comparing old and new values
   }
 
-  changeOrderElement(base: IBase, change: string): void {
+  changeOrderElement(base: IBase, change: number): void {
     base.id = `${base.id}|${change}`;
     this.logSrv.info(`changeOrderBase: ${JSON.stringify(base)}`);
     this.changeOrderBase.emit(base);

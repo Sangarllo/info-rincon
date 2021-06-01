@@ -29,6 +29,7 @@ export interface IEvent {
   entityItems?: IBase[];
   auditItems?: IBase[];
   userId?: string;
+  extra?: string; // Extra field to pass info
 }
 
 export class Event implements IEvent, IBase { // IAudit
@@ -62,6 +63,7 @@ export class Event implements IEvent, IBase { // IAudit
     public entityItems?: IBase[],
     public auditItems?: IBase[],
     public userId?: string,
+    public extra?: string,
      ) {
   }
 

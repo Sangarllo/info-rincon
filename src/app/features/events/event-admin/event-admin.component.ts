@@ -7,7 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 
 import { AuthService } from '@auth/auth.service';
 import { Base, IBase, BaseType } from '@models/base';
-import { IAppointment } from '@models/appointment';
+import { IAppointment, Appointment } from '@models/appointment';
 import { IEvent, Event } from '@models/event';
 import { IUser } from '@models/user';
 import { AuditType } from '@models/audit';
@@ -180,11 +180,10 @@ export class EventAdminComponent implements OnInit, OnDestroy {
 
   openScheduleDialog(scheduleItemId: string): void {
 
-    const backupDescription = this.event.description;
     if ( scheduleItemId === '' ) {
-      this.event.description = ''; // New Item
+      this.event.extra = ''; // New Item
     } else {
-      this.event.description = scheduleItemId; // Edit existing item
+      this.event.extra = scheduleItemId; // Edit existing item
     }
 
     this.dialogConfig.data = this.event;
@@ -192,16 +191,21 @@ export class EventAdminComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((scheduleItem: IBase) => {
 
-      this.event.description = backupDescription;
       if ( scheduleItem ) {
 
         this.logSrv.info(`afterClosed -> ${JSON.stringify(scheduleItem)}`);
         const index = this.event.scheduleItems.findIndex(item => item.id === scheduleItem.id);
         this.logSrv.info(`afterClosed 2 -> ${index}`);
-        if ( index < 0 ) { // Adding new ScheduleItem
+        if ( index < 0 ) { // Adding new ScheduleItem and appointment
           this.event.scheduleItems.push(scheduleItem);
+          this.appointmentSrv.addScheduleAppointment(
+            scheduleItem,
+            !this.event.shownAsAWhole
+          );
         } else {
           this.event.scheduleItems[index] = scheduleItem;
+          const scheduleAppointment = Appointment.InitFromSchedule(scheduleItem, !this.event.shownAsAWhole);
+          this.appointmentSrv.updateAppointment(scheduleAppointment);
         }
 
         this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
@@ -217,25 +221,20 @@ export class EventAdminComponent implements OnInit, OnDestroy {
     const baseId =  base.id;
     const input = baseId.split('|');
     const id1 = input[0];
-    const change = input[1];
-    let id2: string;
+    const change = +input[1];
+    const order1 = this.event.scheduleItems.find(item => item.id === baseId).order;
+    const order2 = order1 + change;
+    const id2 = this.event.scheduleItems.find(item => item.order === order2).id;
+
+    // Reestablecer
     this.event.scheduleItems.find(item => item.id === baseId).id = id1;
 
-    if ( change === '+1' ) {
-      this.logSrv.info(`bajando`);
-      id2 = (+id1 + 1).toString();
-    } else {
-      this.logSrv.info(`subiendo`);
-      id2 = (+id1 - 1).toString();
-    }
-
-    this.event.scheduleItems.find(item => item.id === id1).id = 'NEW';
-    this.event.scheduleItems.find(item => item.id === id2).id = id1;
-    this.event.scheduleItems.find(item => item.id === 'NEW').id = id2;
+    this.event.scheduleItems.find(item => item.id === id1).order = order2;
+    this.event.scheduleItems.find(item => item.id === id2).order = order1;
 
     this.event.scheduleItems = this.event.scheduleItems.sort((item1: IBase, item2: IBase) => {
-      if (item1.id > item2.id) { return 1; }
-      if (item1.id < item2.id) { return -1; }
+      if (item1.order > item2.order) { return 1; }
+      if (item1.order < item2.order) { return -1; }
       return 0;
     });
 
@@ -278,7 +277,11 @@ export class EventAdminComponent implements OnInit, OnDestroy {
     this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 
-  onValShownAsAWholeChange(value){
-    console.log(`onValShownAsAWholeChange: ${value}`);
+  onValShownAsAWholeChange(shownAsAWhole: string){
+    this.event.shownAsAWhole = ( shownAsAWhole === 'true' ) ? true : false;
+    this.appointmentSrv.enableAppointment(this.event.id, this.event.shownAsAWhole);
+    this.event.scheduleItems.forEach(item => {
+      this.appointmentSrv.enableAppointment(item.id, !this.event.shownAsAWhole)
+    });
   }
 }
