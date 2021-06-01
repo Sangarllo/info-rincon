@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { FormControl } from '@angular/forms';
 
 import { Observable, Subscription } from 'rxjs';
 
@@ -39,6 +40,7 @@ export class EventAdminComponent implements OnInit, OnDestroy {
   public dialogConfig = new MatDialogConfig();
   public baseType = BaseType.EVENT;
   private currentUser: IUser;
+  shownAsAWholeControl = new FormControl();
 
   constructor(
     public dialog: MatDialog,
@@ -74,6 +76,7 @@ export class EventAdminComponent implements OnInit, OnDestroy {
     this.eventSrv.getOneEvent(idEvent)
     .subscribe((event: IEvent) => {
       this.event = event;
+      this.shownAsAWholeControl.setValue(String(this.event.shownAsAWhole));
     });
   }
 
@@ -258,7 +261,24 @@ export class EventAdminComponent implements OnInit, OnDestroy {
     this.openScheduleDialog(base.id);
   }
 
+  deleteForeverScheduleItem(base: IBase): void {
+    const deletedId = base.id;
+    this.event.scheduleItems = this.event.scheduleItems.filter(item => item.id !== deletedId);
+
+    this.event.scheduleItems.forEach( item => {
+      if ( +item.id > +deletedId ) {
+        item.id = String(+item.id - 1);
+      };
+    });
+
+    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
+  }
+
   ngOnDestroy(): void {
     this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
+
+  onValShownAsAWholeChange(value){
+    console.log(`onValShownAsAWholeChange: ${value}`);
   }
 }

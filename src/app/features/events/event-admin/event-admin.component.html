@@ -56,7 +56,14 @@
 
                         <legend>¿Cuándo?</legend>
 
+                        <!--
                         <app-event-appointment-detail *ngIf="appointment$ | async as appointment" [showImage]="true" [appointment]="appointment"></app-event-appointment-detail>
+                        -->
+
+                        <mat-button-toggle-group *ngIf="appointment$ | async as appointment" [formControl]="shownAsAWholeControl" aria-label="Mostrado como un todo">
+                            <mat-button-toggle value="true" (change)="onValShownAsAWholeChange($event.value)">El evento se celebra {{appointment.description}}</mat-button-toggle>
+                            <mat-button-toggle *ngIf="event.scheduleItems?.length > 0" value="false" (change)="onValShownAsAWholeChange($event.value)">A partir de la información de sus {{ event.scheduleItems?.length }} actos</mat-button-toggle>
+                        </mat-button-toggle-group>
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="openAppointmentDialog()" color="accent">
@@ -66,11 +73,13 @@
 
                     </fieldset>
 
+
                     <fieldset class="event-item-detail type-other">
 
                         <legend>¿Cómo?</legend>
 
-                        <sh-base-items-table [baseItems]="event.scheduleItems" [baseType]="baseType" [modeAdmin]="true" (changeOrderBase)="changeOrderScheduleItem($event)" (addBase)="addScheduleItem($event)" (deleteBase)="deleteScheduleItem($event)" (editBase)="editScheduleItem($event)"></sh-base-items-table>
+                        <sh-base-items-table [baseItems]="event.scheduleItems" [baseType]="baseType" [modeAdmin]="true" (changeOrderBase)="changeOrderScheduleItem($event)" (addBase)="addScheduleItem($event)" (deleteBase)="deleteScheduleItem($event)" (editBase)="editScheduleItem($event)"
+                            (deleteForeverBase)="deleteForeverScheduleItem($event)"></sh-base-items-table>
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="openScheduleDialog('')" color="accent">

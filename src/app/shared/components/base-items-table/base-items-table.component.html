@@ -86,7 +86,7 @@
             </td>
         </ng-container>
 
-        <ng-container matColumnDef="baseActions4">
+        <ng-container matColumnDef="baseActions5">
             <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones </th>
             <td mat-cell class="td-extra-lg" *matCellDef="let element">
 
@@ -109,8 +109,14 @@
                 </ng-template>
 
                 <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="editElement(element)">
-                  <mat-icon aria-label="Delete">play_circle_outline</mat-icon>
+                  <mat-icon aria-label="Delete">build_circle</mat-icon>
                 </button>
+
+                <button [disabled]="element.active" mat-icon-button matTooltip="Click to Reomove" class="iconbutton" color="warn" (click)="deleteForeverElement(element)">
+                  <mat-icon aria-label="Delete Forever">cancel</mat-icon>
+                </button>
+
+
             </td>
         </ng-container>
 

@@ -77,3 +77,10 @@ mat-card.item-edit {
 .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
     background-color: $color1;
 }
+
+.mat-button-toggle-checked {
+    background-color: $color1;
+    &.mat-button-toggle-appearance-standard {
+        color: $color2;
+    }
+}

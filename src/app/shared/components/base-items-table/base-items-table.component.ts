@@ -16,6 +16,7 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
   @Output() addBase = new EventEmitter<IBase>();
   @Output() deleteBase = new EventEmitter<IBase>();
   @Output() editBase = new EventEmitter<IBase>();
+  @Output() deleteForeverBase = new EventEmitter<IBase>();
   @Input() baseItems: IBase[];
   @Input() baseType: BaseType;
   @Input() modeAdmin: boolean;
@@ -37,7 +38,7 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
 
       case BaseType.EVENT:
         if ( this.modeAdmin ) {
-          this.displayedColumns = ['baseId', 'baseSmallImage', 'baseSmallName', 'placeSmallImage', 'baseDescHorario',  'active', 'baseActions4', 'collapsed-info' ];
+          this.displayedColumns = ['baseId', 'baseSmallImage', 'baseSmallName', 'placeSmallImage', 'baseDescHorario',  'active', 'baseActions5', 'collapsed-info' ];
         } else {
           this.displayedColumns = ['baseSmallImage', 'baseBigName', 'baseTimestamp', 'status', 'baseActions1', 'collapsed-info' ];
         }
@@ -77,6 +78,11 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
   deleteElement(base: IBase): void {
     this.logSrv.info(`deleteBase: ${JSON.stringify(base)}`);
     this.deleteBase.emit(base);
+  }
+
+  deleteForeverElement(base: IBase): void {
+    this.logSrv.info(`deleteForeverElement: ${JSON.stringify(base)}`);
+    this.deleteForeverBase.emit(base);
   }
 
   editElement(base: IBase): void {

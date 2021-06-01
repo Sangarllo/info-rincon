@@ -22,6 +22,7 @@ export interface IBase {
   description?: string;
   timestamp?: string;
   place?: IPlace;
+  order?: number;
   // getUrl(): string;
 }
 
@@ -40,6 +41,7 @@ export class Base implements IBase {
     public description?: string,
     public timestamp?: string,
     public place?: IPlace,
+    public order?: number,
   ) { }
 
   getUrl(): string {
@@ -75,6 +77,7 @@ export class Base implements IBase {
       Base.NAME_DEFAULT,
       Base.IMAGE_DEFAULT,
       BaseType.DEFAULT,
+      null,
       null,
       null,
     );
