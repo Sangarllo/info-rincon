@@ -20,6 +20,7 @@ import { AuditItem, AuditType } from '@models/audit';
 import { IEntity } from '@models/entity';
 import { ScheduleType } from '@models/shedule-type.enum';
 import { AppointmentsService } from '@services/appointments.service';
+import { IAppointment } from '@models/appointment';
 
 const EVENTS_COLLECTION = 'eventos';
 
@@ -160,23 +161,16 @@ export class EventService {
       events$
     ])
       .pipe(
-        tap(([appointments, events ]) => {
-          // console.log(`Nº appointments: ${appointments.length}`);
-          // console.log(`Nº events: ${events.length}`);
-        }),
+        // tap(([appointments, events ]) => {
+        //   console.log(`Nº appointments: ${appointments.length}`);
+        //   console.log(`Nº events: ${events.length}`);
+        //   appointments.forEach(item => console.warn(item.id));
+        // }),
         map(([appointments, events ]) => appointments
 
-          .map(appointment => (
-            this.isValidCalendarEvent(events.find(e => e.id == appointment.id))) ?
-          ({
-            id: appointment.id,
-            title: events.find(e => e.id == appointment.id)?.name,
-            color: colors.color1,
-            allDay: appointment.allDay,
-            image: events.find(e => e.id === appointment.id)?.image,
-            start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
-            end: new Date(`${appointment.dateEnd}T${appointment.timeEnd}`),
-          }) as CalendarEvent : null)),
+          .map(appointment =>
+            this.getEventFromAppointment(appointment, events)
+            )),
           // tap(data => console.log(`-> Hay ${data.length}`)),
           map(data => data.filter(e => e?.id)),
           // tap(data => console.log(`-> Hay ${data.length}`)),
@@ -185,6 +179,36 @@ export class EventService {
 
   private isValidCalendarEvent(event: IEvent): boolean {
     return ( event?.active && event?.status === 'VISIBLE' );
+  }
+
+  private getEventFromAppointment(appointment: IAppointment, events: IEvent[]): CalendarEvent | null {
+    const idData = appointment.id.split('_');
+    const eventId = idData[0];
+    const event = events.find(e => e.id === eventId);
+    const isSchedule = idData.length > 1;
+    const isValidEvent = this.isValidCalendarEvent(event);
+
+    if ( isValidEvent ) {
+
+      let scheduleItem: IBase;
+      if ( isSchedule ) {
+        scheduleItem = event.scheduleItems.find( item => item.id === appointment.id );
+      }
+
+      return ({
+        id: appointment.id,
+        title: isSchedule ? scheduleItem.name : event.name,
+        color: colors.color1,
+        allDay: appointment.allDay,
+        image: isSchedule ? scheduleItem.image : event.image,
+        start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
+        end: isSchedule ?
+          new Date(`${appointment.dateIni}T${appointment.timeIni}`) :
+          new Date(`${appointment.dateEnd}T${appointment.timeEnd}`),
+      }) as CalendarEvent;
+    } else {
+      return null;
+    }
   }
 
   getAllEventsBase(): Observable<IBase[]> {
@@ -286,7 +310,8 @@ export class EventService {
         categories,
         scheduleType,
         placeItems: [ newPlaceItem ],
-        entityItems: [ newEntityItem ]
+        entityItems: [ newEntityItem ],
+        extra: '',
       }
     );
 

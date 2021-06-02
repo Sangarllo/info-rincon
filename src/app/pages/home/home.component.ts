@@ -95,17 +95,33 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   openEventClicked(event: CalendarEvent): void {
-    const subs1$ = this.eventsSrv.getOneEvent('' + event.id)
+    console.log(`event: ${JSON.stringify(event)}`);
+
+    const idData = String(event.id).split('_');
+    const eventId = idData[0];
+    const scheduleId = idData.length > 1 ? String(event.id) : '';
+
+    const subs1$ = this.eventsSrv.getOneEvent(eventId)
       .pipe(take(1))
       .subscribe((event: IEvent) => {
-        this.openEventDialog(event);
+        this.openEventDialog(event, scheduleId);
       });
 
     this.listOfObservers.push(subs1$);
   }
 
-  openEventDialog(event: IEvent): void {
+  openEventDialog(event: IEvent, scheduleId: string): void {
     this.dialogConfig.width = '600px';
+    console.log(`event: ${JSON.stringify(event)}`);
+
+    if ( scheduleId ) {
+      const schedule = event.scheduleItems.find( item => item.id === scheduleId );
+      console.log(`scheduleId: ${scheduleId}`);
+      console.log(`schedule: ${JSON.stringify(schedule)}`);
+      event.name = `${event?.name} | ${schedule?.name}`;
+      event.image = schedule.image;
+    }
+
     this.dialogConfig.data = event as IBase;
     const dialogRef = this.dialog.open(
       BaseItemDialogComponent,
