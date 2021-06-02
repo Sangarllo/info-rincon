@@ -193,9 +193,7 @@ export class EventAdminComponent implements OnInit, OnDestroy {
 
       if ( scheduleItem ) {
 
-        this.logSrv.info(`afterClosed -> ${JSON.stringify(scheduleItem)}`);
         const index = this.event.scheduleItems.findIndex(item => item.id === scheduleItem.id);
-        this.logSrv.info(`afterClosed 2 -> ${index}`);
         if ( index < 0 ) { // Adding new ScheduleItem and appointment
           this.event.scheduleItems.push(scheduleItem);
           this.appointmentSrv.addScheduleAppointment(
@@ -226,19 +224,19 @@ export class EventAdminComponent implements OnInit, OnDestroy {
     const order2 = order1 + change;
     const id2 = this.event.scheduleItems.find(item => item.order === order2).id;
 
-    // Reestablecer
+    // Reestablish
     this.event.scheduleItems.find(item => item.id === baseId).id = id1;
 
+    // Exchange
     this.event.scheduleItems.find(item => item.id === id1).order = order2;
     this.event.scheduleItems.find(item => item.id === id2).order = order1;
 
+    // Order
     this.event.scheduleItems = this.event.scheduleItems.sort((item1: IBase, item2: IBase) => {
       if (item1.order > item2.order) { return 1; }
       if (item1.order < item2.order) { return -1; }
       return 0;
     });
-
-    // this.event.scheduleItems = this.event.scheduleItems.sort(this.comparar);
 
     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
   }
@@ -261,16 +259,21 @@ export class EventAdminComponent implements OnInit, OnDestroy {
   }
 
   deleteForeverScheduleItem(base: IBase): void {
-    const deletedId = base.id;
-    this.event.scheduleItems = this.event.scheduleItems.filter(item => item.id !== deletedId);
+    const scheduleDeletedId = base.id;
+    this.event.scheduleItems = this.event.scheduleItems.filter(item => item.id !== scheduleDeletedId);
 
-    this.event.scheduleItems.forEach( item => {
-      if ( +item.id > +deletedId ) {
-        item.id = String(+item.id - 1);
-      };
-    });
+    if ( this.event.scheduleItems.length === 0 ) {
+      this.onValShownAsAWholeChange('true');
+    } else {
+      this.event.scheduleItems.forEach( item => {
+        if ( +item.id > +scheduleDeletedId ) {
+          item.id = String(+item.id - 1);
+        };
+      });
+    }
 
     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
+    this.appointmentSrv.deleteAppointment(scheduleDeletedId);
   }
 
   ngOnDestroy(): void {

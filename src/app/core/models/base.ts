@@ -23,6 +23,7 @@ export interface IBase {
   timestamp?: string;
   place?: IPlace;
   order?: number;
+  extra?: string; // With Schedule, date + time
   // getUrl(): string;
 }
 
@@ -42,6 +43,7 @@ export class Base implements IBase {
     public timestamp?: string,
     public place?: IPlace,
     public order?: number,
+    public extra?: string,
   ) { }
 
   getUrl(): string {
@@ -77,6 +79,7 @@ export class Base implements IBase {
       Base.NAME_DEFAULT,
       Base.IMAGE_DEFAULT,
       BaseType.DEFAULT,
+      null,
       null,
       null,
       null,

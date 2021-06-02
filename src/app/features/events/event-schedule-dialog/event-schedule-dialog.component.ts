@@ -59,6 +59,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       order: [ {value: '', disabled: true}, []],
       image: [ '', []],
       name: [ '', []],
+      description: [ '', []],
       dateIni: [ '', []],
       timeIni: [ Appointment.HOUR_DEFAULT, []],
       place: [this.SECTION_BLANK, [Validators.required]],
@@ -80,22 +81,25 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
 
     const scheduleType = ( this.event.scheduleType ) ?? SCHEDULE_TYPE_DEFAULT;
     let name = '';
+    let description = '';
 
+    this.orderId = this.event.scheduleItems.length + 1;
     if ( this.event.extra === '' ) {
       const GUID = this.utilsSrv.getGUID();
       console.log(`GUID: ${GUID}`);
       this.thisScheduleId = `${this.event.id}_${GUID}`;
-      this.orderId = this.event.scheduleItems.length + 1;
       this.title = `Configura un nuevo ${scheduleType} para este evento`;
       name = `${scheduleType} ${this.orderId}`;
+      description = '';
       this.imageSelected = this.event.image;
     } else {
       this.thisScheduleId = this.event.extra;
-      this.orderId = +this.event.extra;
-      this.title = `Edita el ${scheduleType} número ${this.orderId}`;
-      name = this.event.scheduleItems.find( item => item.id === this.thisScheduleId ).name;
-      this.imageSelected = this.event.scheduleItems.find( item => item.id === this.thisScheduleId ).image;
-      const datetimeIni = this.event.scheduleItems.find( item => item.id === this.thisScheduleId ).description.split(' ');
+      const scheduleEdited = this.event.scheduleItems.find( item => item.id === this.thisScheduleId );
+      name = scheduleEdited.name;
+      this.title = `Edita los datos de ${name}`;
+      description = scheduleEdited.description;
+      this.imageSelected = scheduleEdited.image;
+      const datetimeIni = scheduleEdited.extra.split(' ');
       this.appointment.dateIni = datetimeIni[0];
       this.appointment.timeIni = datetimeIni[1];
     }
@@ -111,6 +115,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       order: this.orderId,
       image: this.imageSelected,
       name,
+      description,
       dateIni: this.appointment.dateIni,
       timeIni: this.appointment.timeIni,
       place: this.placeBaseSelected,
@@ -151,7 +156,8 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       name: this.scheduleItemForm.controls.name.value,
       image: this.imageSelected,
       baseType: BaseType.EVENT,
-      description: dateIniStr,
+      description: this.scheduleItemForm.controls.description.value,
+      extra: dateIniStr,
       place: this.placeBaseSelected
     };
 

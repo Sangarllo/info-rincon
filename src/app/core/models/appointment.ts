@@ -54,7 +54,7 @@ export class Appointment implements IAppointment {
   }
 
   static InitFromSchedule(scheduleItem: IBase, enable: boolean): Appointment {
-    const dateTime = scheduleItem.description.split(' ');
+    const dateTime = scheduleItem.extra.split(' ');
 
     const scheduleAppointment = new Appointment(
       scheduleItem.id,

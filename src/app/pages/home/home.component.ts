@@ -95,8 +95,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   openEventClicked(event: CalendarEvent): void {
-    console.log(`event: ${JSON.stringify(event)}`);
-
     const idData = String(event.id).split('_');
     const eventId = idData[0];
     const scheduleId = idData.length > 1 ? String(event.id) : '';
@@ -112,14 +110,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   openEventDialog(event: IEvent, scheduleId: string): void {
     this.dialogConfig.width = '600px';
-    console.log(`event: ${JSON.stringify(event)}`);
 
     if ( scheduleId ) {
       const schedule = event.scheduleItems.find( item => item.id === scheduleId );
-      console.log(`scheduleId: ${scheduleId}`);
-      console.log(`schedule: ${JSON.stringify(schedule)}`);
       event.name = `${event?.name} | ${schedule?.name}`;
       event.image = schedule.image;
+      event.description = schedule.description;
     }
 
     this.dialogConfig.data = event as IBase;

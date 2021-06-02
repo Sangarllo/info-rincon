@@ -45,6 +45,20 @@
 
     </div>
 
+    <div class="base-container description-wrapper">
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput formControlName="description" placeholder="Descripción"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div *ngIf="scheduleItemForm.controls.description.value">
+            <span class="title">Así se visualizaría la Descripción:</span>
+            <div class="preview" [innerHTML]="scheduleItemForm.controls.description.value"></div>
+        </div>
+    </div>
+
 </mat-dialog-content>
 
 <div mat-dialog-actions class="buttons buttons-center">

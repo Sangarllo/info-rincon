@@ -59,7 +59,7 @@ export class AppointmentsService {
 
   addScheduleAppointment(scheduleItem: IBase, active: boolean): void {
     const idAppointment = scheduleItem.id;
-    const dateTime = scheduleItem.description.split(' ');
+    const dateTime = scheduleItem.extra.split(' ');
     this.appointmentCollection.doc(idAppointment).set({
       id: idAppointment,
       active: active,

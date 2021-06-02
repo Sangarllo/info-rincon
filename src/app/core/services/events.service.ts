@@ -193,11 +193,12 @@ export class EventService {
       let scheduleItem: IBase;
       if ( isSchedule ) {
         scheduleItem = event.scheduleItems.find( item => item.id === appointment.id );
+        console.log(`scheduleItem: ${JSON.stringify(scheduleItem)}`);
       }
 
       return ({
         id: appointment.id,
-        title: isSchedule ? scheduleItem.name : event.name,
+        title: isSchedule ? scheduleItem?.name : event?.name,
         color: colors.color1,
         allDay: appointment.allDay,
         image: isSchedule ? scheduleItem.image : event.image,
