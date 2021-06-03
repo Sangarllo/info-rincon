@@ -8,33 +8,41 @@
 
         <div class="options-wrapper">
 
-            <mat-card class="option-item" [routerLink]="'../perfil'">
-                <mat-card-title>Tu cuenta personal</mat-card-title>
-                <div class="option-image">
-                    <img alt="'Tu cuenta personal'" style="width:200px" [src]="user.photoURL" class="img-thumbnail" />
-                </div>
-            </mat-card>
+            <div class="option-item col-12 col-sm-4">
+                <mat-card [routerLink]="'../perfil'">
+                    <mat-card-title>Tu cuenta personal</mat-card-title>
+                    <div class="option-image">
+                        <img alt="'Tu cuenta personal'" style="width:200px" [src]="user.photoURL" class="img-thumbnail" />
+                    </div>
+                </mat-card>
+            </div>
 
-            <mat-card class="option-item" *appRole="['AUTOR', 'ADMIN', 'SUPER']" [routerLink]="'../usuarios/' + user.uid + '/entidades'">
-                <mat-card-title>Tus entidades</mat-card-title>
-                <div class="option-image">
-                    <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" style="width:200px" class="img-thumbnail" />
-                </div>
-            </mat-card>
+            <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-12 col-sm-4">
+                <mat-card [routerLink]="'../usuarios/' + user.uid + '/entidades'">
+                    <mat-card-title>Tus entidades</mat-card-title>
+                    <div class="option-image">
+                        <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" style="width:200px" class="img-thumbnail" />
+                    </div>
+                </mat-card>
+            </div>
 
-            <mat-card class="option-item" *appRole="['ADMIN']" [routerLink]="'../usuarios/' + user.uid + '/audit'">
-                <mat-card-title>Tus accesos</mat-card-title>
-                <div class="option-image">
-                    <img alt="'Tus accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />
-                </div>
-            </mat-card>
+            <div *appRole="['ADMIN']" class="option-item col-12 col-sm-4">
+                <mat-card [routerLink]="'../usuarios/' + user.uid + '/audit'">
+                    <mat-card-title>Tus accesos</mat-card-title>
+                    <div class="option-image">
+                        <img alt="'Tus accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />
+                    </div>
+                </mat-card>
+            </div>
 
-            <mat-card class="option-item" *appRole="['SUPER']" [routerLink]="'../audit'">
-                <mat-card-title>Auditoría</mat-card-title>
-                <div class="option-image">
-                    <img alt="'Auditoría de accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />
-                </div>
-            </mat-card>
+            <div *appRole="['SUPER']" class="option-item col-12 col-sm-4">
+                <mat-card [routerLink]="'../audit'">
+                    <mat-card-title>Auditoría</mat-card-title>
+                    <div class="option-image">
+                        <img alt="'Auditoría de accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />
+                    </div>
+                </mat-card>
+            </div>
 
         </div>
 

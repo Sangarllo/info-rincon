@@ -4,11 +4,14 @@ div.options-wrapper {
     flex-wrap: wrap;
     justify-content: center;
     .option-item {
-        margin: 20px;
+        margin: 0px;
         padding: 10px;
         flex-direction: column;
         .option-image {
             margin-top: 12px;
         }
+    }
+    .mat-card-title {
+        font-size: 18px;
     }
 }
