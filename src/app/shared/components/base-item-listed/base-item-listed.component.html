@@ -1,7 +1,7 @@
 <div class="base-container" *ngIf="baseItem" (click)="gotoBaseItem(baseItem)">
     <img [src]="baseItem.image" class="img-thumbnail">
     <div class="info">
-        <span class="desc">{{ baseItem.description }}</span>
+        <span class="extra">{{ baseItem.extra }}</span>
         <span class="name">{{ baseItem.name }}</span>
         <span class="extra">{{ baseItem.place?.name }}</span>
     </div>

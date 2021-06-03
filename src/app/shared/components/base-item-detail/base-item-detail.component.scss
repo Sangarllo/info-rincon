@@ -1,8 +1,27 @@
-div.base-container {
+@import '../../../../base/variables';
+.base-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     img {
         margin: 10px;
+    }
+    .mat-toolbar {
+        color: $color2;
+        background-color: $color1 !important;
+        margin-bottom: 30px;
+        .logo {
+            font-size: 1.2em;
+            cursor: pointer;
+            outline: none;
+            img {
+                height: 70px;
+                width: 70px;
+                background-color: $color2;
+                border: 1px solid $color1;
+                padding: 4px;
+                margin-right: 10px
+            }
+        }
     }
 }

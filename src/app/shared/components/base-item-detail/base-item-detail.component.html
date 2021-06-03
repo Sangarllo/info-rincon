@@ -1,5 +1,19 @@
 <div class="base-container">
 
+    <div *ngIf="extraBase">
+
+        <mat-toolbar class="mat-elevation-z8" color="primary" (click)="gotoExtraItem()">
+            <span class="logo">
+                <img [src]="extraBase.image" [alt]="extraBase.name" class="rounded-circle" />
+            </span>
+
+            <span class="logo-title">
+                {{ extraBase.name }}
+            </span>
+        </mat-toolbar>
+
+    </div>
+
     <h2>{{ baseItem.name }}</h2>
 
     <div class="row">

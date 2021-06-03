@@ -58,6 +58,11 @@
 </app-calendar-day-header>
 
 <div *ngIf="events$ | async; else loading; let events" style="margin: 4px;">
+
+    <!-- <pre>
+      {{ events | json }}
+    </pre> -->
+
     <!-- <div *ngIf="events; else loading;" style="margin: 4px;"> -->
     <div *ngIf="events.length" class="alert alert-primary">
         Hay {{ (events.length === 1 ) ? 'un evento:' : "varios eventos:" }}

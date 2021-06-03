@@ -112,8 +112,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.dialogConfig.width = '600px';
 
     if ( scheduleId ) {
+
+      event.extra = `${event.id}|${event.name}|${event.image}`;
+
       const schedule = event.scheduleItems.find( item => item.id === scheduleId );
-      event.name = `${event?.name} | ${schedule?.name}`;
+      event.name = schedule.name;
       event.image = schedule.image;
       event.description = schedule.description;
     }
