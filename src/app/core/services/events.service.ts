@@ -119,36 +119,6 @@ export class EventService {
     );
   }
 
-  getCalendarEventsExtendedByRange(dateMinStr: string, dateMaxStr: string): Observable<CalendarEventExtended[]> {
-    const events$ = this.getAllEvents(true, false, null);
-    const appointments$ = this.appointmentSrv.getAppointmentsByRange(
-      dateMinStr, dateMaxStr
-    );
-
-    return combineLatest([
-      appointments$,
-      events$
-    ])
-      .pipe(
-        tap(([appointments, events ]) => {
-          console.log(`Nº appointments: ${appointments.length}`);
-          console.log(`Nº events: ${events.length}`);
-        }),
-        map(([appointments, events ]) => appointments
-
-          .map(appointment => (events.find(e => e.id == appointment.id)?.active) ? undefined :
-          ({
-            active: events.find(e => e.id == appointment.id)?.active,
-            id: appointment.id,
-            title: events.find(e => e.id == appointment.id)?.name,
-            color: colors.color1,
-            allDay: appointment.allDay,
-            image: events.find(e => e.id === appointment.id)?.image,
-            start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
-            end: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
-          }) as CalendarEventExtended)),
-    );
-  }
 
   getCalendarEventsByRange(dateMinStr: string, dateMaxStr: string): Observable<CalendarEvent[]> {
     const events$ = this.getAllEvents(true, false, null);

@@ -1,31 +1,33 @@
 <div class="row text-center">
     <div class="col-md-4">
-        <div class="btn-group">
-            <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
-                Anterior
-            </div>
-            <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
-                Hoy
-            </div>
-            <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
-                Siguiente
-            </div>
+        <div class="buttons">
+            <button mat-mini-fab class="btn-1" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+
+            <button mat-mini-fab class="btn-1" mwlCalendarToday [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+                HOY
+            </button>
+
+            <button mat-mini-fab class="btn-1" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
         </div>
     </div>
     <div class="col-md-4">
         <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
     </div>
     <div class="col-md-4">
-        <div class="btn-group">
-            <div class="btn btn-primary" (click)="viewChange.emit(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+        <div class="buttons">
+            <button mat-mini-fab class="btn-1" (click)="viewChange.emit(CalendarView.Month)" [class.active]="view === CalendarView.Month">
                 Mes
-            </div>
-            <div class="btn btn-primary" (click)="viewChange.emit(CalendarView.Week)" [class.active]="view === CalendarView.Week">
-                Semana
-            </div>
-            <div class="btn btn-primary" (click)="viewChange.emit(CalendarView.Day)" [class.active]="view === CalendarView.Day">
+            </button>
+            <button mat-mini-fab class="btn-1" (click)="viewChange.emit(CalendarView.Week)" [class.active]="view === CalendarView.Week">
+                Sem
+            </button>
+            <button mat-mini-fab class="btn-1" (click)="viewChange.emit(CalendarView.Day)" [class.active]="view === CalendarView.Day">
                 Día
-            </div>
+            </button>
         </div>
     </div>
 </div>

@@ -74,18 +74,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   fetchEvents(): void {
-    const getStart: any = {
-      month: startOfMonth,
-      week: startOfWeek,
-      day: startOfDay,
-    }[this.view];
-
-    const getEnd: any = {
-      month: endOfMonth,
-      week: endOfWeek,
-      day: endOfDay,
-    }[this.view];
-
     this.events$ = this.eventsSrv.getCalendarEventsByRange(
       this.viewDate.toISOString().substr(0, 10),
       this.viewDate.toISOString().substr(0, 10));

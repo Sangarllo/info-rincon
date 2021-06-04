@@ -44,19 +44,7 @@ export class CalendarComponent implements OnInit {
   }
 
   fetchEvents(): void {
-    const getStart: any = {
-      month: startOfMonth,
-      week: startOfWeek,
-      day: startOfDay,
-    }[this.view];
-
-    const getEnd: any = {
-      month: endOfMonth,
-      week: endOfWeek,
-      day: endOfDay,
-    }[this.view];
-
-    this.events$ = this.eventsSrv.getAllCalendarEventsAppointments();
+    this.events$ = this.eventsSrv.getCalendarEventsByRange('','',);
   }
 
   dayClicked({

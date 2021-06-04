@@ -27,12 +27,20 @@ export class AppointmentsService {
   getAppointmentsByRange( dateMin: string, dateMax: string ): Observable<IAppointment[]> {
 
     console.log(`getAppointmentsByRange( ${dateMin} - ${dateMax} )`);
-    this.appointmentCollection = this.afs.collection<IAppointment>(
-      APPOINTMENTS_COLLECTION,
-      ref => ref.where('dateIni', '>=', dateMin)
-                .where('dateIni', '<=', dateMax)
-                .where('active', '==', true)
-    );
+    if ( dateMin === '' && dateMax === '' ) {
+      this.appointmentCollection = this.afs.collection<IAppointment>(
+        APPOINTMENTS_COLLECTION,
+        ref => ref.where('active', '==', true)
+      );
+
+    } else {
+      this.appointmentCollection = this.afs.collection<IAppointment>(
+        APPOINTMENTS_COLLECTION,
+        ref => ref.where('dateIni', '>=', dateMin)
+                  .where('dateIni', '<=', dateMax)
+                  .where('active', '==', true)
+      );
+    }
 
     return this.appointmentCollection.valueChanges();
   }
