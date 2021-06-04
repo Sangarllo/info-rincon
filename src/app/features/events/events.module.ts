@@ -18,6 +18,8 @@ import { EventImageDetailComponent } from '@features/events/event-image-detail/e
 import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dialog/event-new-base-dialog.component';
 import { EventScheduleDialogComponent } from '@features/events/event-schedule-dialog/event-schedule-dialog.component';
 import { EventCreationComponent } from '@features/events/event-creation/event-creation.component';
+import { EventItemDetailComponent } from '@features/events/event-item-detail/event-item-detail.component';
+import { EventItemDialogComponent } from '@features/events/event-item-dialog/event-item-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { EventCreationComponent } from '@features/events/event-creation/event-cr
     EventNewBaseDialogComponent,
     EventScheduleDialogComponent,
     EventCreationComponent,
+    EventItemDetailComponent,
+    EventItemDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +47,8 @@ import { EventCreationComponent } from '@features/events/event-creation/event-cr
     EventsRoutingModule
   ],
   exports: [
+    EventItemDetailComponent,
+    EventItemDialogComponent,
   ]
 })
 export class EventsModule { }

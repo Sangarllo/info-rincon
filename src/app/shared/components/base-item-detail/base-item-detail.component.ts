@@ -27,15 +27,6 @@ export class BaseItemDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if ( this.baseItem.extra ) {
-      // For events -> if there is extra: base Item = schedule, extra = event
-      const data = this.baseItem.extra.split('|');
-      this.extraBase = Base.InitDefault();
-      this.extraBase.id = data[0];
-      this.extraBase.name = data[1];
-      this.extraBase.image = data[2];
-      this.extraBase.baseType = BaseType.EVENT;
-    }
   }
 
   gotoBaseItem(): void {
@@ -50,7 +41,6 @@ export class BaseItemDetailComponent implements OnInit {
     this.logSrv.info(`gotoExtraItem: ${extraItemUrl}`);
     this.router.navigate([`${extraItemUrl}`]);
   }
-
 
   onBtnCloseClick(): void {
     this.logSrv.info(`onBtnCloseClick`);

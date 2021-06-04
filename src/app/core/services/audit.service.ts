@@ -34,8 +34,9 @@ export class AuditService {
   }
 
   addAuditItem(type: AuditType, user: any, description?: string ): void {
-    const timestamp = this.appointmentSrv.getTimestamp();
-    const auditItem = AuditItem.InitDefault(type, user, timestamp, description);
-    this.auditCollection.add({...auditItem});
+    // TODO: Add in production
+    // const timestamp = this.appointmentSrv.getTimestamp();
+    // const auditItem = AuditItem.InitDefault(type, user, timestamp, description);
+    // this.auditCollection.add({...auditItem});
   }
 }

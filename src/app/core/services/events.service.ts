@@ -161,11 +161,11 @@ export class EventService {
       events$
     ])
       .pipe(
-        // tap(([appointments, events ]) => {
-        //   console.log(`Nº appointments: ${appointments.length}`);
-        //   console.log(`Nº events: ${events.length}`);
-        //   appointments.forEach(item => console.warn(item.id));
-        // }),
+        tap(([appointments, events ]) => {
+          console.log(`Nº appointments: ${appointments.length}`);
+          console.log(`Nº events: ${events.length}`);
+          appointments.forEach(item => console.warn(item.id));
+        }),
         map(([appointments, events ]) => appointments
 
           .map(appointment =>
@@ -193,10 +193,10 @@ export class EventService {
       let scheduleItem: IBase;
       if ( isSchedule ) {
         scheduleItem = event.scheduleItems.find( item => item.id === appointment.id );
-        console.log(`scheduleItem: ${JSON.stringify(scheduleItem)}`);
+        //console.log(`scheduleItem: ${JSON.stringify(scheduleItem)}`);
       }
 
-      return ({
+      const theCalendarEvent = ({
         id: appointment.id,
         title: isSchedule ? scheduleItem?.name : event?.name,
         color: colors.color1,
@@ -205,8 +205,10 @@ export class EventService {
         start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
         end: isSchedule ?
           new Date(`${appointment.dateIni}T${appointment.timeIni}`) :
-          new Date(`${appointment.dateEnd}T${appointment.timeEnd}`),
+          null,
       }) as CalendarEvent;
+      console.log(`CalendarEvent: ${JSON.stringify(theCalendarEvent)}`);
+      return theCalendarEvent;
     } else {
       return null;
     }

@@ -23,7 +23,8 @@ import { NoticeService } from '@services/notices.service';
 import { INotice } from '@models/notice';
 import { CalendarEventExtended, IEvent } from '@models/event';
 import { Base, IBase, BaseType } from '@models/base';
-import { BaseItemDialogComponent } from '@shared/components/base-item-dialog/base-item-dialog.component';
+import { EventItemDialogComponent } from '@features/events/event-item-dialog/event-item-dialog.component';
+import { IPlace } from '@models/place';
 
 @Component({
   selector: 'app-home',
@@ -110,20 +111,28 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   openEventDialog(event: IEvent, scheduleId: string): void {
     this.dialogConfig.width = '600px';
+    let eventPlace: IPlace = event?.placeItems[0] ?? null;
 
     if ( scheduleId ) {
 
       event.extra = `${event.id}|${event.name}|${event.image}`;
 
       const schedule = event.scheduleItems.find( item => item.id === scheduleId );
+      console.log(`schedule: ${JSON.stringify(schedule)}`);
       event.name = schedule.name;
       event.image = schedule.image;
       event.description = schedule.description;
+      event.timestamp = schedule.extra;
+      eventPlace = schedule.place ?? eventPlace;
     }
 
-    this.dialogConfig.data = event as IBase;
+    const eventBase = event as IBase;
+    eventBase.place = eventPlace;
+
+    this.dialogConfig.data = eventBase;
+
     const dialogRef = this.dialog.open(
-      BaseItemDialogComponent,
+      EventItemDialogComponent,
       this.dialogConfig
     );
 
@@ -132,7 +141,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log('Cerrado dialog');
       }
     });
-
   }
 
   ngOnDestroy(): void {

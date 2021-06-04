@@ -1,14 +1,14 @@
 <div class="base-container">
 
-    <div *ngIf="extraBase">
+    <div *ngIf="superEventBase">
 
-        <mat-toolbar class="mat-elevation-z8" color="primary" (click)="gotoExtraItem()">
+        <mat-toolbar class="mat-elevation-z8" color="primary" (click)="gotoSuperEvent()">
             <span class="logo">
-                <img [src]="extraBase.image" [alt]="extraBase.name" class="rounded-circle" />
+                <img [src]="superEventBase.image" [alt]="superEventBase.name" class="rounded-circle" />
             </span>
 
             <span class="logo-title">
-                {{ extraBase.name }}
+                {{ superEventBase.name }}
             </span>
         </mat-toolbar>
 
@@ -17,14 +17,15 @@
     <div class="row">
 
         <div class="col-3 col-md-4 col-sm-12" style="text-align: center;">
-            <img [src]="baseItem.image" class="img-thumbnail">
+            <img [src]="eventItem.image" class="img-thumbnail">
         </div>
 
         <div class="col-9 col-md-8 col-sm-12">
-            <span class="title">{{ baseItem.name }}</span>
-            <div class="data">{{ baseItem.timestamp }} 🕑</div>
+            <span class="title">{{ eventItem.name }}</span>
+            <div class="data">{{ eventItem.timestamp | date:'EEEE, d \'de\' MMMM hh:mm' }} 🕑</div>
+            <div class="data" *ngIf="eventItem.place">{{ eventItem.place?.name }} 🏠</div>
 
-            <div class="desc" [innerHTML]="baseItem.description">
+            <div class="desc" [innerHTML]="eventItem.description">
             </div>
         </div>
     </div>
@@ -33,17 +34,12 @@
         <div class="buttons">
             <button *ngIf="btnView" mat-fab class="btn-1" (click)="onBtnViewClick()">
                 <mat-icon>arrow_forward_ios</mat-icon>
-            </button>
+          </button>
 
             <button *ngIf="btnClose" mat-fab class="btn-1" (click)="onBtnCloseClick()">
                 <mat-icon>close</mat-icon>
-            </button>
+          </button>
         </div>
     </div>
 
 </div>
-
-
-<!-- <pre class="content">
-  {{ baseItem | json }}
-</pre> -->
