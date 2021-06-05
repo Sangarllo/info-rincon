@@ -20,13 +20,16 @@
                 background-color: $color2;
                 border: 1px solid $color1;
                 padding: 4px;
-                margin-right: 10px
+                margin-right: 10px;
+                margin-left: -30px;
             }
+        }
+        .logo-title {
+            color: $color2;
         }
     }
     .title {
         display: block;
-        font-size: x-large;
         color: $color1;
         background-color: $color2;
         padding: 10px;
@@ -40,5 +43,28 @@
     }
     .desc {
         margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .title {
+        font-size: medium;
+        font-weight: bolder;
+    }
+    .mat-toolbar {
+        .logo-title {
+            font-size: medium;
+        }
+    }
+}
+
+@media screen and (min-width: 601px) {
+    .title {
+        font-size: x-large;
+    }
+    .mat-toolbar {
+        .logo-title {
+            font-size: x-large;
+        }
     }
 }
