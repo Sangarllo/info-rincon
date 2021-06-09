@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public alertedNotice: INotice;
   public theAlertedNotice$: Observable<INotice>;
 
+  step = 0;
   view: CalendarView = CalendarView.Day;
   viewDate: Date = new Date();
   viewDateStr: string;
@@ -129,6 +130,18 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log('Cerrado dialog');
       }
     });
+  }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
   }
 
   ngOnDestroy(): void {

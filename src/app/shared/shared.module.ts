@@ -15,6 +15,7 @@ import { BaseItemsTableComponent } from '@shared/components/base-items-table/bas
 import { BaseItemsAdminComponent } from '@shared/components/base-items-admin/base-items-admin.component';
 import { BaseItemDialogComponent } from '@shared/components/base-item-dialog/base-item-dialog.component';
 import { BaseItemDetailComponent } from '@shared/components/base-item-detail/base-item-detail.component';
+import { BaseItemsPanelComponent } from '@shared/components/base-items-panel/base-items-panel.component';
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component';
 import { RoleOptionsComponent } from '@shared/components/role-options/role-options.component';
 import { StoriesPanelComponent } from '@shared/components/stories-panel/stories-panel.component';
@@ -30,9 +31,10 @@ const components = [
   BaseItemsTableComponent,
   BaseItemsAdminComponent,
   BaseItemDetailComponent,
+  BaseItemsPanelComponent,
+  StoriesPanelComponent,
   SpinnerComponent,
   RoleOptionsComponent,
-  StoriesPanelComponent,
 ];
 
 const directives = [

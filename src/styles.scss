@@ -151,3 +151,17 @@ td.mat-cell,
         }
     }
 }
+
+@media screen and (max-width: 700px) {
+    .label-for-tablet-desktop {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 701px) {
+    .label-for-tablet-desktop {
+        margin-left: 10px;
+        color: $color1;
+        font-weight: bolder;
+    }
+}

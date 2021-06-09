@@ -1,28 +1,25 @@
 <app-section-header [title]="'Hoy en Rincón de Soto'"></app-section-header>
 
-<div class="action-buttons">
-    <!--
-    <button mat-button (click)="accordion.openAll()">Expand All</button>
-    <button mat-button (click)="accordion.closeAll()">Collapse All</button>
-    -->
-</div>
-<!-- #docregion multi -->
-<mat-accordion class="headers-align" multi>
+<mat-accordion class="headers-align">
 
     <!-- Alerted Notice Panel -->
-    <mat-expansion-panel *ngIf="theAlertedNotice$ | async as alertedNotice">
+    <mat-expansion-panel *ngIf="theAlertedNotice$ | async as alertedNotice" class="alerted-notice-background" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
         <mat-expansion-panel-header class="alerted-notice-header">
             <mat-panel-title>
                 <span style="font-size: larger">🔔</span>&nbsp;&nbsp;
-                <span style="font-weight: bolder">{{ alertedNotice.name }}</span>
+                <span style="font-weight: bolder">Hay activado un aviso importante</span>
             </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <app-base-item-detail [baseItem]="alertedNotice" [btnView]="true" [btnClose]="true" (onCloseClicked)="onCloseClicked()"></app-base-item-detail>
+        <app-base-items-panel [baseItems]="[alertedNotice]" [alerted]="true"></app-base-items-panel>
+
+        <mat-action-row>
+            <button mat-button color="primary" (click)="nextStep()">SIG</button>
+        </mat-action-row>
     </mat-expansion-panel>
 
     <!-- Stories Panel -->
-    <mat-expansion-panel>
+    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <span style="font-size: larger">📡</span>&nbsp;&nbsp;
@@ -31,27 +28,29 @@
         </mat-expansion-panel-header>
 
         <app-stories-panel></app-stories-panel>
+
+        <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">ANT</button>
+            <button mat-button color="primary" (click)="nextStep()">SIG</button>
+        </mat-action-row>
+    </mat-expansion-panel>
+
+    <!-- Events Panel -->
+    <mat-expansion-panel *ngIf="events$ | async; else loading; let events" [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <span style="font-size: larger">📆</span>&nbsp;&nbsp;
+                <span style="font-size:medium">El día {{ viewDate | date:'EEEE, d \'de\' MMMM \'de\' YYYY' }}</span>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">ANT.</button>
+            <button mat-button color="primary" (click)="nextStep()">SIG.</button>
+        </mat-action-row>
     </mat-expansion-panel>
 
 </mat-accordion>
-
-
-<!-- Copyright 2021 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license -->
-
-<!-- Stories Panel -->
-<!-- <div>
-    <app-stories-panel></app-stories-panel>
-</div> -->
-
-
-<!-- Posible alerta por aviso -->
-<!--
-<div *ngIf="theAlertedNotice$ | async as alertedNotice">
-    <app-notice-expansion-panel class="m-1" [notice]="alertedNotice"></app-notice-expansion-panel>
-</div>
--->
 
 
 <app-calendar-day-header [(view)]="view" [(viewDate)]="viewDate" (viewDateChange)="fetchEvents()" (viewChange)="fetchEvents()" [locale]="locale">
