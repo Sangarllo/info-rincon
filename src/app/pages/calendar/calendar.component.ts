@@ -14,7 +14,7 @@ import {
   endOfDay,
   format,
 } from 'date-fns';
-import { EventService } from '@services/events.service';
+import { CalendarEventsService } from '@services/calendar-events.service';
 
 @Component({
   selector: 'app-calendar',
@@ -36,7 +36,7 @@ export class CalendarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private eventsSrv: EventService
+    private calEventsSrv: CalendarEventsService
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class CalendarComponent implements OnInit {
   }
 
   fetchEvents(): void {
-    this.events$ = this.eventsSrv.getCalendarEventsByRange('','',);
+    this.events$ = this.calEventsSrv.getCalendarEventsByRange('','');
   }
 
   dayClicked({

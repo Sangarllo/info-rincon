@@ -13,9 +13,12 @@
 
         <app-base-items-panel [baseItems]="[alertedNotice]" [alerted]="true"></app-base-items-panel>
 
+        <!--
         <mat-action-row>
             <button mat-button class="btn-1" (click)="nextStep()">SIG</button>
         </mat-action-row>
+        -->
+
     </mat-expansion-panel>
 
     <!-- Stories Panel -->
@@ -29,14 +32,17 @@
 
         <app-stories-panel></app-stories-panel>
 
+        <!--
         <mat-action-row>
             <button mat-button class="btn-1" (click)="prevStep()">ANT</button>
             <button mat-button class="btn-1" (click)="nextStep()">SIG</button>
         </mat-action-row>
+        -->
+
     </mat-expansion-panel>
 
     <!-- Events Panel -->
-    <mat-expansion-panel *ngIf="events$ | async; else loading; let events" [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+    <mat-expansion-panel *ngIf="calendarEvents$ | async; else loading; let calendarEvents" [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <span style="font-size: larger">📆</span>&nbsp;&nbsp;
@@ -47,23 +53,25 @@
         <app-calendar-day-header [(view)]="view" [(viewDate)]="viewDate" (viewDateChange)="fetchEvents()" (viewChange)="fetchEvents()" [locale]="locale">
         </app-calendar-day-header>
 
-        <div *ngIf="events.length" class="alert alert-primary">
-            Hay {{ (events.length === 1 ) ? 'un evento:' : "varios eventos:" }}
+        <div *ngIf="calendarEvents.length" class="alert alert-primary">
+            {{ (calendarEvents.length === 1 ) ? '' : "Hay " + calendarEvents.length + " varios eventos:" }}
 
-            <app-calendar-event-items-panel [calendarEvents]="events"></app-calendar-event-items-panel>
+            <app-calendar-event-items-panel [calendarEvents]="calendarEvents"></app-calendar-event-items-panel>
 
         </div>
 
-        <div *ngIf="events.length; else noEventsTemplate" class="w-100">
-            <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [dayStartHour]="8" [dayEndHour]="20" (eventClicked)="openEventClicked($event.event)">
+        <div *ngIf="calendarEvents.length; else noEventsTemplate" class="w-100">
+            <mwl-calendar-day-view [viewDate]="viewDate" [events]="calendarEvents" [dayStartHour]="8" [dayEndHour]="20" (eventClicked)="openCalendarEventClicked($event.event)">
             </mwl-calendar-day-view>
         </div>
 
-
+        <!--
         <mat-action-row>
             <button mat-button class="btn-1" (click)="prevStep()">ANT</button>
             <button mat-button class="btn-1" (click)="nextStep()">SIG</button>
         </mat-action-row>
+        -->
+
     </mat-expansion-panel>
 
 </mat-accordion>

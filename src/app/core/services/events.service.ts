@@ -120,69 +120,7 @@ export class EventService {
   }
 
 
-  getCalendarEventsByRange(dateMinStr: string, dateMaxStr: string): Observable<CalendarEvent[]> {
-    const events$ = this.getAllEvents(true, false, null);
-    const appointments$ = this.appointmentSrv.getAppointmentsByRange(
-      dateMinStr, dateMaxStr
-    );
 
-    return combineLatest([
-      appointments$,
-      events$
-    ])
-      .pipe(
-        tap(([appointments, events ]) => {
-          console.log(`Nº appointments: ${appointments.length}`);
-          console.log(`Nº events: ${events.length}`);
-          appointments.forEach(item => console.warn(item.id));
-        }),
-        map(([appointments, events ]) => appointments
-
-          .map(appointment =>
-            this.getEventFromAppointment(appointment, events)
-            )),
-          // tap(data => console.log(`-> Hay ${data.length}`)),
-          map(data => data.filter(e => e?.id)),
-          // tap(data => console.log(`-> Hay ${data.length}`)),
-    );
-  }
-
-  private isValidCalendarEvent(event: IEvent): boolean {
-    return ( event?.active && event?.status === 'VISIBLE' );
-  }
-
-  private getEventFromAppointment(appointment: IAppointment, events: IEvent[]): CalendarEvent | null {
-    const idData = appointment.id.split('_');
-    const eventId = idData[0];
-    const event = events.find(e => e.id === eventId);
-    const isSchedule = idData.length > 1;
-    const isValidEvent = this.isValidCalendarEvent(event);
-
-    if ( isValidEvent ) {
-
-      let scheduleItem: IBase;
-      if ( isSchedule ) {
-        scheduleItem = event.scheduleItems.find( item => item.id === appointment.id );
-        //console.log(`scheduleItem: ${JSON.stringify(scheduleItem)}`);
-      }
-
-      const theCalendarEvent = ({
-        id: appointment.id,
-        title: isSchedule ? scheduleItem?.name : event?.name,
-        color: colors.color1,
-        allDay: appointment.allDay,
-        image: isSchedule ? scheduleItem.image : event.image,
-        start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
-        end: isSchedule ?
-          new Date(`${appointment.dateIni}T${appointment.timeIni}`) :
-          null,
-      }) as CalendarEvent;
-      console.log(`CalendarEvent: ${JSON.stringify(theCalendarEvent)}`);
-      return theCalendarEvent;
-    } else {
-      return null;
-    }
-  }
 
   getAllEventsBase(): Observable<IBase[]> {
     this.eventCollection = this.afs.collection<IEvent>(
