@@ -1,4 +1,20 @@
+@import '../../../../base/variables';
 table {
     width: 100%;
     // background-color: lightgray;
+    .row-disabled {
+        background-color: lightgray;
+        td {
+            color: gray;
+            font-size: small;
+        }
+    }
+    .row-enabled {
+        background-color: white;
+        td {
+            color: $color1;
+            font-size: small;
+            font-weight: bolder;
+        }
+    }
 }

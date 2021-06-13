@@ -29,88 +29,6 @@ export class CalendarEventsService {
     private appointmentSrv: AppointmentsService,
   ) { }
 
-  openCalendarEventClicked(calEvent: CalendarEvent): void {
-    const idData = String(calEvent.id).split('_');
-    const eventId = idData[0];
-    const scheduleId = idData.length > 1 ? String(calEvent.id) : '';
-
-    const subs1$ = this.eventsSrv.getOneEvent(eventId)
-      .pipe(take(1))
-      .subscribe((event: IEvent) => {
-        this.openEventDialog(event, scheduleId);
-      });
-
-    this.listOfObservers.push(subs1$);
-  }
-
-  getBaseFromCalendarEvent(calEvent: CalendarEvent): Observable<IBase> {
-    const idData = String(calEvent.id).split('_');
-    const eventId = idData[0];
-    const scheduleId = idData.length > 1 ? String(calEvent.id) : '';
-
-    return this.eventsSrv.getOneEvent(eventId)
-      .pipe(
-        take(1),
-        map(event => {
-
-            let eventPlace: IPlace = event?.placeItems[0] ?? null;
-
-            if ( scheduleId ) {
-
-              event.extra = `${event.id}|${event.name}|${event.image}`;
-
-              const schedule = event.scheduleItems.find( item => item.id === scheduleId );
-              console.log(`schedule: ${JSON.stringify(schedule)}`);
-              event.name = schedule.name;
-              event.image = schedule.image;
-              event.description = schedule.description;
-              event.timestamp = schedule.extra;
-              eventPlace = schedule.place ?? eventPlace;
-            }
-
-            const eventBase = event as IBase;
-            eventBase.place = eventPlace;
-
-            return eventBase;
-          }
-        )
-      );
-  }
-
-  private openEventDialog(event: IEvent, scheduleId: string): void {
-    this.dialogConfig.width = '600px';
-    let eventPlace: IPlace = event?.placeItems[0] ?? null;
-
-    if ( scheduleId ) {
-
-      event.extra = `${event.id}|${event.name}|${event.image}`;
-
-      const schedule = event.scheduleItems.find( item => item.id === scheduleId );
-      console.log(`schedule: ${JSON.stringify(schedule)}`);
-      event.name = schedule.name;
-      event.image = schedule.image;
-      event.description = schedule.description;
-      event.timestamp = schedule.extra;
-      eventPlace = schedule.place ?? eventPlace;
-    }
-
-    const eventBase = event as IBase;
-    eventBase.place = eventPlace;
-
-    this.dialogConfig.data = eventBase;
-
-    const dialogRef = this.dialog.open(
-      EventItemDialogComponent,
-      this.dialogConfig
-    );
-
-    dialogRef.afterClosed().subscribe((baseDialog: IBase) => {
-      if ( baseDialog ) {
-        console.log('Cerrado dialog');
-      }
-    });
-  }
-
   getCalendarEventsByRange(dateMinStr: string, dateMaxStr: string): Observable<CalendarEvent[]> {
     const events$ = this.eventsSrv.getAllEvents(true, false, null);
     const appointments$ = this.appointmentSrv.getAppointmentsByRange(
@@ -136,6 +54,75 @@ export class CalendarEventsService {
           map(data => data.filter(e => e?.id)),
           // tap(data => console.log(`-> Hay ${data.length}`)),
     );
+  }
+
+  openCalendarEventClicked(calEvent: CalendarEvent): void {
+    const idData = String(calEvent.id).split('_');
+    const eventId = idData[0];
+    const scheduleId = idData.length > 1 ? String(calEvent.id) : '';
+
+    const subs1$ = this.eventsSrv.getOneEvent(eventId)
+      .pipe(take(1))
+      .subscribe((event: IEvent) => {
+        this.openEventDialog(event, scheduleId);
+      });
+
+    this.listOfObservers.push(subs1$);
+  }
+
+  getBaseFromCalendarEvent(calEvent: CalendarEvent): Observable<IBase> {
+    const idData = String(calEvent.id).split('_');
+    const eventId = idData[0];
+    const scheduleId = idData.length > 1 ? String(calEvent.id) : '';
+
+    return this.eventsSrv.getOneEvent(eventId)
+      .pipe(
+        take(1),
+        map(event => {
+            return this.getBaseFromEvent(event, scheduleId)
+          }
+        )
+      );
+  }
+
+  private getBaseFromEvent(event: IEvent, scheduleId: string): IBase {
+
+    let eventPlace: IPlace = event?.placeItems[0] ?? null;
+
+    if ( scheduleId ) {
+
+      event.extra = `${event.id}|${event.name}|${event.image}`;
+
+      const schedule = event.scheduleItems.find( item => item.id === scheduleId );
+              // console.log(`schedule: ${JSON.stringify(schedule)}`);
+      event.name = schedule.name;
+      event.image = schedule.image;
+      event.description = schedule.description;
+      event.timestamp = schedule.extra;
+      eventPlace = schedule.place ?? eventPlace;
+    }
+
+    const eventBase = event as IBase;
+    eventBase.place = eventPlace;
+
+    return eventBase;
+  }
+
+
+  private openEventDialog(event: IEvent, scheduleId: string): void {
+    this.dialogConfig.width = '600px';
+    this.dialogConfig.data = this.getBaseFromEvent(event, scheduleId);
+
+    const dialogRef = this.dialog.open(
+      EventItemDialogComponent,
+      this.dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe((baseDialog: IBase) => {
+      if ( baseDialog ) {
+        console.log('Cerrado dialog');
+      }
+    });
   }
 
   private isValidCalendarEvent(event: IEvent): boolean {

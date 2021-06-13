@@ -22,7 +22,7 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
   @Input() modeAdmin: boolean;
   public baseItemsLength: number;
 
-  displayedColumns: string[]; // = [ 'baseImage', 'baseName', 'baseActions4' ];
+  displayedColumns: string[];
   public dataSource: MatTableDataSource<IBase> = new MatTableDataSource();
 
   constructor(
@@ -38,7 +38,7 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
 
       case BaseType.EVENT:
         if ( this.modeAdmin ) {
-          this.displayedColumns = ['baseId', 'baseSmallImage', 'baseSmallName', 'placeSmallImage', 'baseDescHorario',  'active', 'baseActions5', 'collapsed-info' ];
+          this.displayedColumns = ['baseId', 'baseSmallImage', 'baseBigName', 'placeSmallImage', 'baseDescHorario',  'baseActions5', 'collapsed-info' ]; // 'active',
         } else {
           this.displayedColumns = ['baseSmallImage', 'baseBigName', 'baseTimestamp', 'status', 'baseActions1', 'collapsed-info' ];
         }

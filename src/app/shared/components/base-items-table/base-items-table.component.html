@@ -64,10 +64,12 @@
             <td mat-cell class="td-extra-lg" *matCellDef="let element"> {{element.timestamp}} </td>
         </ng-container>
 
+        <!--
         <ng-container matColumnDef="active">
             <th mat-header-cell class="td-extra-lg" *matHeaderCellDef> Activo </th>
             <td mat-cell class="td-extra-lg" *matCellDef="let element">{{(element.active) ? 'Activo' : 'No Activo'}}</td>
         </ng-container>
+        -->
 
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef> Estado </th>
@@ -96,33 +98,32 @@
                 </button>
 
                 <button [disabled]="element.order === baseItemsLength" mat-icon-button matTooltip="Bajar orden" class="iconbutton" color="primary" (click)="changeOrderElement(element, 1)">
-                  <mat-icon class="btn-1" aria-label="Bajar Orden">arrow_circle_down</mat-icon>
+                    <mat-icon class="btn-1" aria-label="Bajar Orden">arrow_circle_down</mat-icon>
                 </button>
 
                 <button *ngIf="element.active === true; else buttonAddElementTemplate" mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="primary" (click)="deleteElement(element)">
-                  <mat-icon class="btn-1" aria-label="Delete">remove_circle_outline</mat-icon>
+                    <mat-icon class="btn-1" aria-label="Delete">remove_circle_outline</mat-icon>
                 </button>
 
                 <ng-template #buttonAddElementTemplate>
                     <button mat-icon-button matTooltip="Click to Add" class="iconbutton" color="warn" (click)="addElement(element)">
-                    <mat-icon class="btn-1" aria-label="Add">add_circle_outline</mat-icon>
+                        <mat-icon class="btn-1" aria-label="Add">add_circle_outline</mat-icon>
                   </button>
                 </ng-template>
 
                 <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="editElement(element)">
-                  <mat-icon class="btn-1" aria-label="Delete">build_circle</mat-icon>
+                    <mat-icon class="btn-1" aria-label="Delete">build_circle</mat-icon>
                 </button>
 
-                <button [disabled]="element.active" mat-icon-button matTooltip="Click to Reomove" class="iconbutton" color="warn" (click)="deleteForeverElement(element)">
-                  <mat-icon class="btn-1" aria-label="Delete Forever">cancel</mat-icon>
+                <button *ngIf="!element.active" [disabled]="element.active" mat-icon-button matTooltip="Click to Reomove" class="iconbutton" color="warn" (click)="deleteForeverElement(element)">
+                    <mat-icon class="btn-1" aria-label="Delete Forever">cancel</mat-icon>
                 </button>
-
 
             </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="(row.active) ? 'row-enabled' : 'row-disabled'"></tr>
     </table>
 </div>
 

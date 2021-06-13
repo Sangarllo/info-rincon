@@ -162,6 +162,12 @@ td.mat-column-placeName {
     padding-right: 5px !important;
 }
 
+td.mat-column-baseDescHorario {
+    width: 160px;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
 td.mat-column-types,
 td.mat-column-categories {
     text-align: left;
@@ -191,10 +197,9 @@ td.mat-column-categories {
     text-align: center;
 }
 
-.mat-column-baseActions4,
 .mat-column-baseActions5 {
-    width: 160px;
-    text-align: center;
+    width: 200px;
+    text-align: left;
     .mat-icon-button {
         width: 30px;
         height: 30px;

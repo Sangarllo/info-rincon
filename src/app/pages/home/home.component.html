@@ -54,7 +54,7 @@
         </app-calendar-day-header>
 
         <div *ngIf="calendarEvents.length" class="alert alert-primary">
-            {{ (calendarEvents.length === 1 ) ? '' : "Hay " + calendarEvents.length + " varios eventos:" }}
+            {{ (calendarEvents.length === 1 ) ? '' : "Hay " + calendarEvents.length + " eventos:" }}
 
             <app-calendar-event-items-panel [calendarEvents]="calendarEvents"></app-calendar-event-items-panel>
 

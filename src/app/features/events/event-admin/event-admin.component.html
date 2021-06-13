@@ -2,12 +2,6 @@
 
     <mat-card class="item-view" *ngIf="event; else noEventTemplate">
 
-        <pre>
-          id: {{ event.id}} |
-          name: {{ event.name}} |
-          show : {{ event.shownAsAWhole}}
-        </pre>
-
         <div class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
                 <app-event-image-detail [event]="event"></app-event-image-detail>

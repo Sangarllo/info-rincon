@@ -246,12 +246,14 @@ export class EventAdminComponent implements OnInit, OnDestroy {
     this.logSrv.info(`addScheduleItem: ${JSON.stringify(base)}`);
     this.event.scheduleItems.find(item => item.id === base.id).active = true;
     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
+    this.appointmentSrv.enableAppointment(base.id, true);
   }
 
   deleteScheduleItem(base: IBase): void {
     this.logSrv.info(`deleteScheduleItem: ${JSON.stringify(base)}`);
     this.event.scheduleItems.find(item => item.id === base.id).active = false;
     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
+    this.appointmentSrv.enableAppointment(base.id, false);
   }
 
   editScheduleItem(base: IBase): void {
