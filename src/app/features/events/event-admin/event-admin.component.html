@@ -2,6 +2,12 @@
 
     <mat-card class="item-view" *ngIf="event; else noEventTemplate">
 
+        <pre>
+          id: {{ event.id}} |
+          name: {{ event.name}} |
+          show : {{ event.shownAsAWhole}}
+        </pre>
+
         <div class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
                 <app-event-image-detail [event]="event"></app-event-image-detail>
@@ -62,11 +68,11 @@
 
                         <mat-button-toggle-group *ngIf="appointment$ | async as appointment" [formControl]="shownAsAWholeControl" aria-label="Mostrado como un todo">
                             <mat-button-toggle value="true" (change)="onValShownAsAWholeChange($event.value)">El evento se celebra {{appointment.description}}</mat-button-toggle>
-                            <mat-button-toggle *ngIf="event.scheduleItems?.length > 0" value="false" (change)="onValShownAsAWholeChange($event.value)">A partir de la información de sus {{ event.scheduleItems?.length }} actos</mat-button-toggle>
+                            <mat-button-toggle *ngIf="event.scheduleItems?.length > 0" value="false" (change)="onValShownAsAWholeChange($event.value)">A partir de la información de sus actos (actualmente {{ event.scheduleItems?.length }})</mat-button-toggle>
                         </mat-button-toggle-group>
 
                         <div class="buttons">
-                            <button mat-fab class="btn-1" (click)="openAppointmentDialog()" color="accent">
+                            <button mat-fab class="btn-1" (click)="openAppointmentDialog()">
                                 <mat-icon>book_online</mat-icon>
                             </button>
                         </div>

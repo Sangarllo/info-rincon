@@ -112,6 +112,12 @@ td.mat-cell,
     }
 }
 
+button:not(.mat-button-disabled) {
+    mat-icon.btn-1 {
+        color: $color1;
+    }
+}
+
 .section-list-options {
     display: flex;
     margin-bottom: 20px;

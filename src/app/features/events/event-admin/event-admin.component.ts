@@ -76,6 +76,7 @@ export class EventAdminComponent implements OnInit, OnDestroy {
     this.eventSrv.getOneEvent(idEvent)
     .subscribe((event: IEvent) => {
       this.event = event;
+
       this.shownAsAWholeControl.setValue(String(this.event.shownAsAWhole));
     });
   }
@@ -286,5 +287,6 @@ export class EventAdminComponent implements OnInit, OnDestroy {
     this.event.scheduleItems.forEach(item => {
       this.appointmentSrv.enableAppointment(item.id, !this.event.shownAsAWhole)
     });
+    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado ShownAsAWhole');
   }
 }
