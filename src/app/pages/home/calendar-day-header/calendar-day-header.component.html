@@ -1,31 +1,38 @@
 <div class="container">
 
-    <div class="buttons">
-        <button mat-mini-fab class="btn-1" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
-            <mat-icon>arrow_back</mat-icon>
-          </button>
+    <div class="title">
 
-        <button mat-mini-fab class="btn-1" mwlCalendarToday [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+        <div class="title__nav buttons">
+            <button mat-mini-fab class="btn-1" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+
+            <button mat-mini-fab class="btn-1" mwlCalendarToday [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
             HOY
         </button>
 
-        <button mat-mini-fab class="btn-1" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+            <button mat-mini-fab class="btn-1" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
             <mat-icon>arrow_forward</mat-icon>
+        </button>
+        </div>
+
+        <div class="title__name">
+            <span>{{ viewDate | date:'EEEE, d \'de\' MMMM \'de\' YYYY' }}</span>
+        </div>
+
+        <div class="title__mode buttons">
+            <button mat-mini-fab (click)="gotoCalendar()" class=" btn-extra">
+              <mat-icon>date_range</mat-icon>
           </button>
 
-        <button mat-mini-fab (click)="gotoCalendar()" class=" btn-extra">
-            <mat-icon>date_range</mat-icon>
-        </button>
-
-        <button mat-mini-fab class="btn-extra">
-            <mat-icon>search</mat-icon>
-        </button>
+            <button mat-mini-fab class="btn-extra">
+              <mat-icon>search</mat-icon>
+          </button>
+        </div>
 
     </div>
 
-</div>
-
-<!--
+    <!--
 <div class="container">
     <div class="title">
         {{ viewDate | date:'EEEE, d \'de\' MMMM \'de\' YYYY' }}

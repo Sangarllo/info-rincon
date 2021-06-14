@@ -1,7 +1,14 @@
-@import '../../../../base/variables';
+@import '../../../base/variables';
 .container {
-    margin-top: 0px;
+    margin-top: -30px;
     margin-bottom: 10px;
+    .large-title {
+        text-align: center;
+        color: $color1;
+        text-transform: uppercase;
+        font-size: x-large;
+        font-weight: bolder;
+    }
     .title {
         display: flex;
         flex-direction: row;
@@ -32,6 +39,12 @@
 
 @media screen and (max-width: 600px) {
     .title__name {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    .large-title {
         display: none;
     }
 }

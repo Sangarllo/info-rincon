@@ -1,34 +1,42 @@
-<div class="row text-center">
-    <div class="col-md-4">
-        <div class="buttons">
+<div class="container">
+    <div class="large-title">
+        <span>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</span>
+    </div>
+
+    <div class="title">
+
+        <div class="title__nav buttons">
             <button mat-mini-fab class="btn-1" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
-                <mat-icon>arrow_back</mat-icon>
-            </button>
+            <mat-icon>arrow_back</mat-icon>
+        </button>
 
             <button mat-mini-fab class="btn-1" mwlCalendarToday [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
-                HOY
-            </button>
+            HOY
+        </button>
 
             <button mat-mini-fab class="btn-1" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
-                <mat-icon>arrow_forward</mat-icon>
-            </button>
+            <mat-icon>arrow_forward</mat-icon>
+        </button>
         </div>
-    </div>
-    <div class="col-md-4">
-        <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
-    </div>
-    <div class="col-md-4">
-        <div class="buttons">
+
+        <div class="title__name">
+            <span>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</span>
+        </div>
+
+
+        <div class="title__mode buttons">
             <button mat-mini-fab class="btn-1" (click)="viewChange.emit(CalendarView.Month)" [class.active]="view === CalendarView.Month">
                 Mes
             </button>
+
             <button mat-mini-fab class="btn-1" (click)="viewChange.emit(CalendarView.Week)" [class.active]="view === CalendarView.Week">
                 Sem
             </button>
+
             <button mat-mini-fab class="btn-1" (click)="viewChange.emit(CalendarView.Day)" [class.active]="view === CalendarView.Day">
                 Día
             </button>
         </div>
+
     </div>
 </div>
-<br />
