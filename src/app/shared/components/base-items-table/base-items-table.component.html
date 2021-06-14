@@ -123,7 +123,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="(row.active) ? 'row-enabled' : 'row-disabled'"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="(row.active) ? 'table__row--enabled' : 'table__row--disabled'"></tr>
     </table>
 </div>
 

@@ -2,14 +2,14 @@
 table {
     width: 100%;
     // background-color: lightgray;
-    .row-disabled {
+    .table__row--disabled {
         background-color: lightgray;
         td {
             color: gray;
             font-size: small;
         }
     }
-    .row-enabled {
+    .table__row--enabled {
         background-color: white;
         td {
             color: $color1;
