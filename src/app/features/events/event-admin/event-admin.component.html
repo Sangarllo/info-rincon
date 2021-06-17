@@ -93,7 +93,7 @@
 
                         <legend>¿Dónde?</legend>
 
-                        <sh-base-items-list [baseItems]="event.placeItems"></sh-base-items-list>
+                        <sh-base-items-list [baseItems]="event.placeItems" [order]="'columns'"></sh-base-items-list>
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="openPlaceDialog()" color="accent">
@@ -107,7 +107,7 @@
 
                         <legend>¿Quiénes?</legend>
 
-                        <sh-base-items-list [baseItems]="event.entityItems"></sh-base-items-list>
+                        <sh-base-items-list [baseItems]="event.entityItems" [order]="'columns'"></sh-base-items-list>
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="openEntityDialog()" color="accent">

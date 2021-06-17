@@ -1,0 +1,28 @@
+@import '../../../../base/variables';
+.list--order-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    .list__item {
+        border: 1px dotted $color2;
+        background-color: $color2;
+        flex-grow: 1;
+        padding: 2px;
+        margin: 2px;
+    }
+}
+
+.list--order-column {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    .list__item {
+        border: 1px dotted $color2;
+        background-color: $color2;
+        flex-grow: 1;
+        padding: 2px;
+        margin: 2px;
+    }
+}

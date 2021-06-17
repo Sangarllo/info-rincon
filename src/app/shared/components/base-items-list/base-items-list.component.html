@@ -1,6 +1,6 @@
-<div *ngIf="baseItems; else noBaseItemsTemplate">
+<div *ngIf="baseItems; else noBaseItemsTemplate" [ngClass]="(order==='row') ? 'list--order-row' : 'list--order-column'">
 
-    <app-base-item-listed *ngFor="let baseItem of baseItems" [baseItem]="baseItem"></app-base-item-listed>
+    <app-base-item-listed *ngFor="let baseItem of baseItems" [baseItem]="baseItem" class="list__item"></app-base-item-listed>
 
 </div>
 

@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { LogService } from '@services/log.service';
 import { Base, IBase, BaseType } from '@models/base';
-import { IPlace } from '@models/place';
 
 @Component({
   selector: 'app-event-item-detail',
@@ -21,15 +20,16 @@ export class EventItemDetailComponent implements OnInit {
   @Output() onViewClicked = new EventEmitter<void>();
 
   public superEventBase: IBase;
-  public place: IPlace;
 
   constructor(
     private router: Router,
     private logSrv: LogService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    // console.log(`event: ${JSON.stringify(this.eventItem)}`);
+    console.log(`eventItem: ${JSON.stringify(this.eventItem)}`);
+
     if ( this.eventItem.extra ) {
       const data = this.eventItem.extra.split('|');
       this.superEventBase = Base.InitDefault();

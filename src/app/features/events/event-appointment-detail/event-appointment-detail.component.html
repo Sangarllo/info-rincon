@@ -1,6 +1,10 @@
 <div class="wrapper">
     <div class="event-item-detail" *ngIf="appointment; else noAppointmentTemplate">
-        <span class="desc">El evento se celebra {{ appointment.description }}</span>
+        <img [src]="'assets/images/appointments/calendar.png'" class="img-thumbnail">
+        <div class="info">
+            <span class="extra">El evento se celebra</span>
+            <span class="name">{{ appointment.description }}</span>
+        </div>
     </div>
 </div>
 

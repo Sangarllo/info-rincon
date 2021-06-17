@@ -3,6 +3,6 @@
     <div class="info">
         <span class="extra">{{ baseItem.extra }}</span>
         <span class="name">{{ baseItem.name }}</span>
-        <span class="extra">{{ baseItem.place?.name }}</span>
+        <span *ngIf="baseItem.place" class="extra">🏠 {{ baseItem.place?.name }}</span>
     </div>
 </div>

@@ -23,9 +23,7 @@
 
                     <fieldset class="type-other">
 
-                        <!--
-                          <legend>¿Cuándo?</legend>
-                        -->
+                        <legend>¿Cuándo?</legend>
 
                         <app-event-appointment-detail *ngIf="appointment$ | async as appointment" [showImage]="true" [appointment]="appointment"></app-event-appointment-detail>
 
@@ -35,7 +33,7 @@
 
                         <legend>¿Cómo?</legend>
 
-                        <sh-base-items-list [baseItems]="event.scheduleItems"></sh-base-items-list>
+                        <sh-base-items-list [baseItems]="event.scheduleItems" [order]="'column'"></sh-base-items-list>
 
                     </fieldset>
 
@@ -43,7 +41,7 @@
 
                         <legend>¿Quiénes?</legend>
 
-                        <sh-base-items-list [baseItems]="event.entityItems"></sh-base-items-list>
+                        <sh-base-items-list [baseItems]="event.entityItems" [order]="'row'"></sh-base-items-list>
 
                     </fieldset>
 
@@ -51,7 +49,7 @@
 
                         <legend>¿Dónde?</legend>
 
-                        <sh-base-items-list [baseItems]="event.placeItems"></sh-base-items-list>
+                        <sh-base-items-list [baseItems]="event.placeItems" [order]="'row'"></sh-base-items-list>
 
                     </fieldset>
 

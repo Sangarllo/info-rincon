@@ -1,6 +1,20 @@
 .wrapper {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    .info {
+        .extra,
+        .name {
+            display: block;
+            text-transform: uppercase;
+        }
+        .extra {
+            color: #333333;
+            font-size: smaller;
+        }
+        .name {
+            color: black;
+            font-size: larger;
+            font-weight: bolder;
+        }
+    }
 }
 
 .desc {
