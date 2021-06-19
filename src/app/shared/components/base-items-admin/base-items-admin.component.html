@@ -1,9 +1,0 @@
-<div *ngIf="baseItems; else noBaseItemsTemplate">
-
-    <app-base-item-listed *ngFor="let baseItem of baseItems" [baseItem]="baseItem"></app-base-item-listed>
-
-</div>
-
-<ng-template #noBaseItemsTemplate>
-    No hay elementos asociados
-</ng-template>

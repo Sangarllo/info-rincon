@@ -279,6 +279,24 @@ export class EventAdminComponent implements OnInit, OnDestroy {
     this.appointmentSrv.deleteAppointment(scheduleDeletedId);
   }
 
+  deleteEntity(base: IBase): void {
+    this.logSrv.info(`deleteEntity: ${JSON.stringify(base)}`);
+
+    const entityId = base.id;
+    this.event.entityItems = this.event.entityItems.filter(item => item.id !== entityId);
+
+    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado entityItems');
+  }
+
+  deletePlace(base: IBase): void {
+    this.logSrv.info(`deletePlace: ${JSON.stringify(base)}`);
+
+    const placeId = base.id;
+    this.event.placeItems = this.event.placeItems.filter(item => item.id !== placeId);
+
+    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado placeItems');
+  }
+
   ngOnDestroy(): void {
     this.listOfObservers.forEach(sub => sub.unsubscribe());
   }

@@ -1,28 +1,81 @@
 @import '../../../../base/variables';
-.list--order-row {
+.list {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+    overflow: hidden;
+    margin-bottom: 4px;
+    width: 100%;
     .list__item {
-        border: 1px dotted $color2;
+        // outline: blue 1px solid;
+        min-width: 400px;
         background-color: $color2;
         flex-grow: 1;
         padding: 2px;
         margin: 2px;
+        .list__item-img {
+            width: 54px;
+            height: 54px;
+        }
+        .list__item-info {
+            .extra,
+            .name {
+                display: block;
+                text-transform: uppercase;
+            }
+            .extra {
+                color: #333333;
+                font-size: smaller;
+            }
+            .name {
+                color: black;
+                font-size: larger;
+                font-weight: bolder;
+            }
+        }
+        .list__item-button-delete {
+            float: right;
+            margin-top: -20px;
+            color: $color1;
+        }
     }
 }
 
-.list--order-column {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: stretch;
-    .list__item {
-        border: 1px dotted $color2;
-        background-color: $color2;
-        flex-grow: 1;
-        padding: 2px;
-        margin: 2px;
+@media screen and (max-width: 800px) {
+    .list {
+        // outline: orangered 1px solid;
+        flex-direction: column;
     }
 }
+
+@media screen and (min-width: 801px) {
+    .list {
+        // outline: slateblue 1px solid;
+        flex-direction: row;
+    }
+}
+
+// .list--order-row {
+//     flex-direction: row;
+//     flex-wrap: wrap;
+//     justify-content: flex-start;
+//     .list__item {
+//         border: 1px dotted $color2;
+//         background-color: $color2;
+//         flex-grow: 1;
+//         padding: 2px;
+//         margin: 2px;
+//     }
+// }
+// .list--order-column {
+//     flex-direction: column;
+//     flex-wrap: wrap;
+//     justify-content: stretch;
+//     .list__item {
+//         border: 1px dotted $color2;
+//         background-color: $color2;
+//         flex-grow: 1;
+//         padding: 2px;
+//         margin: 2px;
+//     }
+// }

@@ -1,6 +1,22 @@
-<div *ngIf="baseItems; else noBaseItemsTemplate" [ngClass]="(order==='row') ? 'list--order-row' : 'list--order-column'">
+<div *ngIf="baseItems; else noBaseItemsTemplate" class="list">
 
-    <app-base-item-listed *ngFor="let baseItem of baseItems" [baseItem]="baseItem" class="list__item"></app-base-item-listed>
+    <div class="list__item" *ngFor="let baseItem of baseItems">
+
+        <img [src]="baseItem.image" class="list__item-img img-thumbnail">
+
+        <div class="list__item-info">
+            <span class="extra">{{ baseItem.extra }}</span>
+            <span class="name">{{ baseItem.name }}</span>
+            <span *ngIf="baseItem.place" class="extra">🏠 {{ baseItem.place?.name }}</span>
+        </div>
+
+        <button *ngIf="modeAdmin === true" class="list__item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteBaseItem(baseItem)">
+            <mat-icon class="btn-1" aria-label="Delete">
+                remove_circle_outline
+            </mat-icon>
+        </button>
+
+    </div>
 
 </div>
 

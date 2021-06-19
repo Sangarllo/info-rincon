@@ -93,10 +93,10 @@
 
                         <legend>¿Dónde?</legend>
 
-                        <sh-base-items-list [baseItems]="event.placeItems" [order]="'columns'"></sh-base-items-list>
+                        <sh-base-items-list [baseItems]="event.placeItems" [modeAdmin]="true" (deleteBase)="deletePlace($event)"></sh-base-items-list>
 
                         <div class="buttons">
-                            <button mat-fab class="btn-1" (click)="openPlaceDialog()" color="accent">
+                            <button mat-fab class="btn-1" (click)="openPlaceDialog()">
                                 <mat-icon>add_location_alt</mat-icon>
                             </button>
                         </div>
@@ -107,10 +107,10 @@
 
                         <legend>¿Quiénes?</legend>
 
-                        <sh-base-items-list [baseItems]="event.entityItems" [order]="'columns'"></sh-base-items-list>
+                        <sh-base-items-list [baseItems]="event.entityItems" [modeAdmin]="true" (deleteBase)="deleteEntity($event)"></sh-base-items-list>
 
                         <div class="buttons">
-                            <button mat-fab class="btn-1" (click)="openEntityDialog()" color="accent">
+                            <button mat-fab class="btn-1" (click)="openEntityDialog()">
                                 <mat-icon>person_add</mat-icon>
                             </button>
                         </div>
