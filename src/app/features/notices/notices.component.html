@@ -76,20 +76,28 @@
                 <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones</th>
                 <td mat-cell class="td-extra-lg" *matCellDef="let notice">
 
-                    <button [disabled]="notice.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" color="accent" (click)="gotoItem(notice)">
-                        <mat-icon aria-label="View">remove_red_eye</mat-icon>
+                    <button [disabled]="notice.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(notice)">
+                        <mat-icon class="btn-1" aria-label="View">
+                            remove_red_eye
+                        </mat-icon>
                     </button>
 
-                    <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="accent" (click)="editItem(notice)">
-                        <mat-icon aria-label="Edit">build_circle</mat-icon>
+                    <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" (click)="editItem(notice)">
+                        <mat-icon class="btn-1" aria-label="Edit">
+                            build_circle
+                        </mat-icon>
                     </button>
 
-                    <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="accent" (click)="deleteItem(notice)">
-                        <mat-icon aria-label="Delete">delete</mat-icon>
+                    <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(notice)">
+                        <mat-icon class="btn-1" aria-label="Delete">
+                            delete
+                        </mat-icon>
                     </button>
 
-                    <button mat-icon-button matTooltip="Click to Alerted" class="iconbutton" [color]="(notice.alerted) ? 'accent' : 'gray'" (click)="alertItem(notice)">
-                        <mat-icon aria-label="Activar como alerta">lightbulb</mat-icon>
+                    <button mat-icon-button matTooltip="Click to Alerted" class="iconbutton" [color]="(notice.alerted) ? 'accent' : 'yellow'" (click)="alertItem(notice)">
+                        <mat-icon aria-label="Activar como alerta">
+                            lightbulb
+                        </mat-icon>
                     </button>
 
                 </td>

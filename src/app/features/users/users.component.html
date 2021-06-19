@@ -78,17 +78,23 @@
             <ng-container matColumnDef="actions3">
                 <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones</th>
                 <td mat-cell class="td-extra-lg" *matCellDef="let user">
-                    <button mat-icon-button matTooltip="Click to View" class="iconbutton" color="accent" (click)="gotoUser(user)">
-                  <mat-icon aria-label="View">remove_red_eye</mat-icon>
-                </button>
+                    <button mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoUser(user)">
+                        <mat-icon class="btn-1" aria-label="View">
+                            remove_red_eye
+                        </mat-icon>
+                    </button>
 
-                    <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="accent" (click)="gotoItemAdmin(user)">
-                  <mat-icon aria-label="Edit">build_circle</mat-icon>
-                </button>
+                    <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" (click)="gotoItemAdmin(user)">
+                        <mat-icon class="btn-1" aria-label="Edit">
+                            build_circle
+                        </mat-icon>
+                    </button>
 
-                    <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="accent" (click)="deleteUser(user)">
-                  <mat-icon aria-label="Delete">delete</mat-icon>
-                </button>
+                    <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteUser(user)">
+                        <mat-icon class="btn-1" aria-label="Delete">
+                            delete
+                        </mat-icon>
+                    </button>
                 </td>
             </ng-container>
 

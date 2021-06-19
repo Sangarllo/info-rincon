@@ -83,20 +83,28 @@
                 <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones </th>
                 <td mat-cell class="td-extra-lg" *matCellDef="let newsItem">
 
-                    <button mat-icon-button matTooltip="Click to visit news" class="iconbutton" color="accent" (click)="gotoUrl(newsItem)">
-                    <mat-icon aria-label="View">open_in_new</mat-icon>
-                  </button>
-
-                    <button [disabled]="newsItem.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" color="accent" (click)="gotoItem(newsItem)">
-                      <mat-icon aria-label="View">remove_red_eye</mat-icon>
+                    <button mat-icon-button matTooltip="Click to visit news" class="iconbutton" (click)="gotoUrl(newsItem)">
+                        <mat-icon class="btn-1" aria-label="View">
+                            open_in_new
+                        </mat-icon>
                     </button>
 
-                    <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="accent" (click)="editItem(newsItem)">
-                      <mat-icon aria-label="Edit">build_circle</mat-icon>
+                    <button [disabled]="newsItem.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(newsItem)">
+                        <mat-icon class="btn-1" aria-label="View">
+                            remove_red_eye
+                        </mat-icon>
                     </button>
 
-                    <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="accent" (click)="deleteItem(newsItem)">
-                      <mat-icon aria-label="Delete">delete</mat-icon>
+                    <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" (click)="editItem(newsItem)">
+                        <mat-icon class="btn-1" aria-label="Edit">
+                            build_circle
+                        </mat-icon>
+                    </button>
+
+                    <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(newsItem)">
+                        <mat-icon class="btn-1" aria-label="Delete">
+                            delete
+                        </mat-icon>
                     </button>
 
                 </td>
