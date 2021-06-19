@@ -1,8 +1,8 @@
-<div class="base-container" (click)="onBtnViewClick()">
+<div class="container" (click)="onBtnViewClick()">
 
     <div *ngIf="superEventBase">
 
-        <mat-toolbar class="mat-elevation-z8" color="primary" (click)="gotoSuperEvent()">
+        <mat-toolbar class="mat-elevation-z8 cointainer__superevent" color="primary" (click)="gotoSuperEvent()">
             <span class="logo">
                 <img [src]="superEventBase.image" [alt]="superEventBase.name" class="rounded-circle" />
             </span>
@@ -14,31 +14,29 @@
 
     </div>
 
-    <div class="row">
+    <div class="container-event">
 
-        <div class="col-3 col-md-4 col-sm-12" style="text-align: center;">
+        <figure class="container-event__figure" style="text-align: center;">
             <img [src]="eventItem.image" class="img-thumbnail">
-        </div>
+        </figure>
 
-        <div class="col-9 col-md-8 col-sm-12">
+        <div class="container-event__texts">
             <span class="title">{{ eventItem.name }}</span>
             <div class="data">{{ eventItem.timestamp | date:'EEEE, d \'de\' MMMM hh:mm' }} 🕑</div>
             <div class="data" *ngIf="eventItem.place">{{ eventItem.place?.name }} 🏠</div>
 
             <div class="desc" [innerHTML]="eventItem.description">
             </div>
-        </div>
-    </div>
 
-    <div class="col-12">
-        <div class="buttons">
-            <button *ngIf="btnView" mat-fab class="btn-1" (click)="onBtnViewClick()">
-                VER
-            </button>
+            <div class="buttons">
+                <button *ngIf="btnView" mat-fab class="btn-1" (click)="onBtnViewClick()">
+                    VE!
+                </button>
 
-            <button *ngIf="btnClose" mat-fab class="btn-1" (click)="onBtnCloseClick()">
-                <mat-icon>close</mat-icon>
-          </button>
+                <button *ngIf="btnClose" mat-fab class="btn-1" (click)="onBtnCloseClick()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
         </div>
     </div>
 

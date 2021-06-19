@@ -12,7 +12,6 @@ import { Base, IBase, BaseType } from '@models/base';
 export class EventItemDetailComponent implements OnInit {
 
   @Input() eventItem: IBase;
-
   @Input() btnView: boolean;
   @Input() btnClose: boolean;
 
