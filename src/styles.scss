@@ -9,11 +9,19 @@
 @import 'base/dashboard';
 @import 'base/dialogs';
 @import 'base/events';
-html,
+* {
+    font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    // font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    // color: $color1;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0px;
+}
+
 body {
     height: 100%;
-    margin: 10px;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
     mat-toolbar {
         a {
             color: $color1;
@@ -26,7 +34,6 @@ body {
             text-decoration: none;
         }
     }
-    app-footer,
     .section-wrapper {
         a,
         a:visited,
@@ -156,6 +163,11 @@ button:not(.mat-button-disabled) {
             content: "🗑️ ";
         }
     }
+}
+
+// FIX: hide sroll
+.mat-drawer-content {
+    overflow: hidden !important;
 }
 
 @media screen and (max-width: 700px) {

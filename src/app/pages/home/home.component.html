@@ -3,11 +3,11 @@
 <mat-accordion class="headers-align">
 
     <!-- Alerted Notice Panel -->
-    <mat-expansion-panel *ngIf="theAlertedNotice$ | async as alertedNotice" class="alerted-notice-background" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel *ngIf="theAlertedNotice$ | async as alertedNotice" class="alerted-notice-background expansion-panel" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
         <mat-expansion-panel-header class="alerted-notice-header">
             <mat-panel-title>
-                <span style="font-size: larger">🔔</span>&nbsp;&nbsp;
-                <span style="font-weight: bolder">Hay activado un aviso importante</span>
+                <span class="expansion-panel__text">🔔</span>&nbsp;&nbsp;
+                <span class="expansion-panel__text expansion-panel__text--bolder">Hay activado un aviso importante</span>
             </mat-panel-title>
         </mat-expansion-panel-header>
 
@@ -22,11 +22,11 @@
     </mat-expansion-panel>
 
     <!-- Stories Panel -->
-    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+    <mat-expansion-panel class="expansion-panel" [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <span style="font-size: larger">📡</span>&nbsp;&nbsp;
-                <span style="font-size:medium">Hoy destacamos en portada...</span>
+                <span class="expansion-panel__text">📡</span>&nbsp;&nbsp;
+                <span class="expansion-panel__text">Hoy destacamos en portada...</span>
             </mat-panel-title>
         </mat-expansion-panel-header>
 
@@ -42,11 +42,11 @@
     </mat-expansion-panel>
 
     <!-- Events Panel -->
-    <mat-expansion-panel *ngIf="calendarEvents$ | async; else loading; let calendarEvents" [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+    <mat-expansion-panel class="expansion-panel" *ngIf="calendarEvents$ | async; else loading; let calendarEvents" [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <span style="font-size: larger">📆</span>&nbsp;&nbsp;
-                <span style="font-size:medium">El {{ viewDate | date:'EEEE, d \'de\' MMMM \'de\' YYYY' }}</span>
+                <span class="expansion-panel__text">📆</span>&nbsp;&nbsp;
+                <span class="expansion-panel__text">El {{ viewDate | date:'EEEE, d \'de\' MMMM \'de\' YYYY' }}</span>
             </mat-panel-title>
         </mat-expansion-panel-header>
 

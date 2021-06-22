@@ -12,6 +12,14 @@
     .headers-align .mat-form-field+.mat-form-field {
         margin-left: 8px;
     }
+    .expansion-panel {
+        .expansion-panel__text {
+            font-size: 1.2em;
+        }
+        .expansion-panel__text--bolder {
+            font-weight: bolder;
+        }
+    }
 }
 
 app-calendar-day-header {

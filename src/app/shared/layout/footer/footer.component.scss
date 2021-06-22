@@ -1,3 +1,28 @@
+@import '../../../../base/variables';
 footer {
-    height: 100px;
+    margin-top: 8px;
+    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: $color2;
+    a,
+    a:visited,
+    a:active {
+        color: $color1;
+        border-bottom: 1px dotted $color2;
+        text-decoration: none;
+    }
+    a:hover {
+        color: $color1;
+        background-color: $color2;
+        border-bottom: 1px dotted $color1;
+        text-decoration: dotted;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .footer__author {
+        display: none;
+    }
 }
