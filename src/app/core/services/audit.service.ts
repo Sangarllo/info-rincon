@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 import { Observable } from 'rxjs';
 
+import { environment } from '@environments/environment';
 import { IAuditItem, AuditItem, AuditType } from '@models/audit';
 import { AppointmentsService } from '@services/appointments.service';
 
@@ -14,7 +15,6 @@ const AUDIT_COLLECTION = 'audit';
 export class AuditService {
 
   private auditCollection!: AngularFirestoreCollection<IAuditItem>;
-  private auditDoc!: AngularFirestoreDocument<IAuditItem>;
 
   constructor(
     private afs: AngularFirestore,
@@ -34,9 +34,10 @@ export class AuditService {
   }
 
   addAuditItem(type: AuditType, user: any, description?: string ): void {
-    // TODO: Add in production
-    // const timestamp = this.appointmentSrv.getTimestamp();
-    // const auditItem = AuditItem.InitDefault(type, user, timestamp, description);
-    // this.auditCollection.add({...auditItem});
+    if ( environment.setAudit ) {
+      const timestamp = this.appointmentSrv.getTimestamp();
+      const auditItem = AuditItem.InitDefault(type, user, timestamp, description);
+      this.auditCollection.add({...auditItem});
+    }
   }
 }

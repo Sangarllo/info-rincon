@@ -12,6 +12,7 @@ import { CalendarEvent } from 'angular-calendar';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
 
+import { environment } from '@environments/environment';
 import { colors } from '@shared/utils/colors';
 import { BaseType, IBase } from '@models/base';
 import { CalendarEventExtended, IEvent } from '@models/event';
@@ -163,7 +164,7 @@ export class EventService {
       id: eventId,
       appointmentId: eventId,
       timestamp,
-      auditItems: [{...auditItem}],
+      auditItems: (environment.setAudit) ? [{...auditItem}] : [],
       userId: currentUser.uid,
     });
   }
@@ -171,10 +172,12 @@ export class EventService {
   async addEventFromEntity(event: IEvent, entity: IEntity, role: string): Promise<string> {
 
     const currentUser = await this.afAuth.currentUser;
-
     const timestamp = this.appointmentSrv.getTimestamp();
-    const auditItem = AuditItem.InitDefault(AuditType.CREATED, currentUser, timestamp);
-    event.auditItems.push({...auditItem});
+
+    if ( environment.setAudit ) {
+      const auditItem = AuditItem.InitDefault(AuditType.CREATED, currentUser, timestamp);
+      event.auditItems.push({...auditItem});
+    }
 
     const eventId: string = this.afs.createId();
     const newEntityItem: IBase = {
@@ -236,8 +239,10 @@ export class EventService {
     const timeStamp = this.appointmentSrv.getTimestamp();
     event.timestamp = timeStamp;
 
-    const auditItem = AuditItem.InitDefault(auditType, currentUser, timeStamp, descExtra);
-    event.auditItems.push({...auditItem});
+    if ( environment.setAudit ) {
+      const auditItem = AuditItem.InitDefault(auditType, currentUser, timeStamp, descExtra);
+      event.auditItems.push({...auditItem});
+    }
 
     const idEvent = event.id;
     this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
@@ -250,8 +255,10 @@ export class EventService {
     const timeStamp = this.appointmentSrv.getTimestamp();
     event.timestamp = timeStamp;
 
-    const auditItem = AuditItem.InitDefault(AuditType.DELETED, currentUser, timeStamp);
-    event.auditItems.push({...auditItem});
+    if ( environment.setAudit ) {
+      const auditItem = AuditItem.InitDefault(AuditType.DELETED, currentUser, timeStamp);
+      event.auditItems.push({...auditItem});
+    }
 
     const idEvent = event.id;
     event.active = false;

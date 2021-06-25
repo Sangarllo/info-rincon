@@ -2,6 +2,7 @@ export const environment = {
   production: true,
   appVersion: '0.1.2',
   baseUrl: 'https://info-rincon.web.app/',
+  setAudit: true,
   firebase: {
     apiKey: 'AIzaSyChFHMB9Kj4sEBdPKLRWu-JFVMg7gketuM',
     authDomain: 'info-rincon.firebaseapp.com',
