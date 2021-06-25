@@ -1,13 +1,18 @@
 <div *ngIf="baseItems; else noBaseItemsTemplate" class="list">
 
-    <div class="list__item" *ngFor="let baseItem of baseItems">
+    <div [ngClass]="(baseItem.active) ? 'list__item' : 'list__item--disabled'" *ngFor="let baseItem of baseItems">
 
         <img [src]="baseItem.image" class="list__item-img img-thumbnail">
 
+        <!-- <pre>
+          {{ baseItem | json }}
+        </pre> -->
+
         <div class="list__item-info">
-            <span class="extra">{{ baseItem.extra }}</span>
             <span class="name">{{ baseItem.name }}</span>
-            <span *ngIf="baseItem.place" class="extra">🏠 {{ baseItem.place?.name }}</span>
+            <span *ngIf="baseItem.extra" class="extra-data">🕑 {{ baseItem.extra }}</span>
+            <span *ngIf="baseItem.place" class="extra-data">🏠 {{ baseItem.place?.name }}</span>
+            <span *ngIf="baseItem.description" class="extra-data">{{ baseItem.description }}</span>
         </div>
 
         <button *ngIf="modeAdmin === true" class="list__item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteBaseItem(baseItem)">

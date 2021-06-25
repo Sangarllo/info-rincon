@@ -6,29 +6,33 @@
     overflow: hidden;
     margin-bottom: 4px;
     width: 100%;
+    .list__item--disabled {
+        display: none;
+    }
     .list__item {
-        // outline: blue 1px solid;
         min-width: 400px;
         background-color: $color2;
         flex-grow: 1;
-        padding: 2px;
+        padding: 6px;
+        border-radius: 10px;
         margin: 2px;
         .list__item-img {
             width: 54px;
             height: 54px;
         }
         .list__item-info {
-            .extra,
+            margin-bottom: 0px;
+            .extra-data,
             .name {
                 display: block;
                 text-transform: uppercase;
             }
-            .extra {
-                color: #333333;
+            .extra-data {
+                color: $colorExtraData;
                 font-size: smaller;
             }
             .name {
-                color: black;
+                color: $colorTitleData;
                 font-size: larger;
                 font-weight: bolder;
             }
@@ -43,39 +47,12 @@
 
 @media screen and (max-width: 800px) {
     .list {
-        // outline: orangered 1px solid;
         flex-direction: column;
     }
 }
 
 @media screen and (min-width: 801px) {
     .list {
-        // outline: slateblue 1px solid;
         flex-direction: row;
     }
 }
-
-// .list--order-row {
-//     flex-direction: row;
-//     flex-wrap: wrap;
-//     justify-content: flex-start;
-//     .list__item {
-//         border: 1px dotted $color2;
-//         background-color: $color2;
-//         flex-grow: 1;
-//         padding: 2px;
-//         margin: 2px;
-//     }
-// }
-// .list--order-column {
-//     flex-direction: column;
-//     flex-wrap: wrap;
-//     justify-content: stretch;
-//     .list__item {
-//         border: 1px dotted $color2;
-//         background-color: $color2;
-//         flex-grow: 1;
-//         padding: 2px;
-//         margin: 2px;
-//     }
-// }

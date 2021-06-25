@@ -3,17 +3,32 @@ table {
     width: 100%;
     // background-color: lightgray;
     .table__row--disabled {
-        background-color: lightgray;
+        background-color: $colorRowDisabledBg;
         td {
-            color: gray;
-            font-size: small;
+            color: $colorRowDisabledData;
+        }
+        img {
+            opacity: .2;
         }
     }
     .table__row--enabled {
-        background-color: white;
+        background-color: $colorRowEnabledBg;
         td {
-            color: $color1;
-            font-size: small;
+            color: $colorTitleData;
+        }
+    }
+    .table__row {
+        .extra-data,
+        .name {
+            display: block;
+            text-transform: uppercase;
+        }
+        .extra-data {
+            color: $colorExtraData;
+            font-size: smaller;
+        }
+        .name {
+            font-size: larger;
             font-weight: bolder;
         }
     }

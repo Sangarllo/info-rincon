@@ -25,10 +25,18 @@
             <td mat-cell class="td-collapsed-info" [class]="element.name" *matCellDef="let element" (click)="editElement(element)">
                 <!-- TODO Not admin can't edit, just view -->
                 <div class="inside"></div>
+                <!--
                 <div style="font-size: smaller;color:gray">
                     {{ element.timestamp }}
                 </div>
                 {{ element.name }} {{ (element.description?.length > 25) ? (element.description | slice:0:25) + '...' : (element.description) }}
+                -->
+
+                <span class="name">{{ element.name }}</span>
+                <span *ngIf="element.extra" class="extra-data">🕑 {{ element.extra }}</span>
+                <span *ngIf="element.place" class="extra-data">🏠 {{ element.place?.name }}</span>
+                <span *ngIf="element.description" class="extra-data">{{ element.description }}</span>
+
             </td>
         </ng-container>
 
@@ -123,7 +131,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="(row.active) ? 'table__row--enabled' : 'table__row--disabled'"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="(row.active) ? 'table__row table__row--enabled' : 'table__row table__row--disabled'"></tr>
     </table>
 </div>
 
