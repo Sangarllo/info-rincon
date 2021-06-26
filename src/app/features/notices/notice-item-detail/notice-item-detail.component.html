@@ -1,0 +1,24 @@
+<div class="container" (click)="onBtnViewClick()">
+
+    <div class="container-event">
+
+        <figure class="container-event__figure" style="text-align: center;">
+            <img [src]="notice.image" class="img-thumbnail">
+        </figure>
+
+        <div class="container-event__texts">
+            <span class="title">{{ notice.name }}</span>
+            <div class="data">{{ notice.timestamp | date:'EEEE, d \'de\' MMMM hh:mm' }} 🕑</div>
+
+            <div class="desc" [innerHTML]="notice.description">
+            </div>
+
+            <div class="buttons">
+                <button mat-fab class="btn-1" (click)="onBtnViewClick()">
+                  VE!
+              </button>
+            </div>
+        </div>
+    </div>
+
+</div>

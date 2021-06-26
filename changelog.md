@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Add faq module.
 - `feature` Add social buttons.
 - `style` Create new logo icon (developed by Edu).
+- `style` Improve styles of event+notices at home page.
 - `code` Create directive for roles.
 - `security` Add audit by settings.
 

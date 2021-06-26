@@ -11,21 +11,11 @@ import { INotice } from '@models/notice';
 export class NoticeExpansionPanelComponent implements OnInit {
 
   @Input() notice: INotice;
-  panelOpenState = false;
 
   constructor(
     private router: Router,
   ) { }
 
   ngOnInit(): void {
-  }
-
-  closePanel(): void {
-    this.panelOpenState = false;
-  }
-
-  onCloseClicked(): void {
-    console.log(`TODO Close pane!`);
-    this.panelOpenState = false;
   }
 }

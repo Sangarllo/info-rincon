@@ -23,15 +23,13 @@
 
                 </mat-card-content>
 
-                <mat-card-actions class="buttons buttons-center">
+                <mat-card-actions class="buttons">
 
-                    <button mat-fab class="btn-1" (click)="gotoList()">
-                    <mat-icon>list</mat-icon>
-                  </button>
-
-                    <button mat-fab class="btn-extra" (click)="editItem()">
-                      <mat-icon>edit</mat-icon>
+                    <button *ngIf="adminAllowed" mat-fab class="btn-extra" (click)="editItem()">
+                        <mat-icon>edit</mat-icon>
                     </button>
+
+                    <share-buttons [theme]="'circles-dark'" [include]="['facebook','whatsapp','copy']" [show]="3" [autoSetMeta]="true"></share-buttons>
 
                 </mat-card-actions>
 
