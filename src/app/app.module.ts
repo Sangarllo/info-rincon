@@ -33,7 +33,7 @@ registerLocaleData(localeEs, 'es');
     BrowserAnimationsModule,
     SharedModule,
     FlexLayoutModule,
-    HomeModule
+    HomeModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },

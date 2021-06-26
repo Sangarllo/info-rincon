@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+
 import { SharedModule } from '@shared/shared.module';
 import { EventsRoutingModule } from '@features/events/events-routing.module';
 import { EventsComponent } from '@features/events/events.component';
@@ -46,7 +49,9 @@ import { CalendarEventItemsPanelComponent } from '@features/events/calendar-even
   imports: [
     CommonModule,
     SharedModule,
-    EventsRoutingModule
+    EventsRoutingModule,
+    ShareButtonsModule,
+    ShareIconsModule
   ],
   exports: [
     EventItemDetailComponent,

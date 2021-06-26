@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Add audition module for cheking login of users.
 - `feature` Add event-creation audit at profile.
 - `feature` Add faq module.
+- `feature` Add social buttons.
 - `style` Create new logo icon (developed by Edu).
 - `code` Create directive for roles.
 - `security` Add audit by settings.
