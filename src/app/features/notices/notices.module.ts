@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
-
-import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
-import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { HttpClientModule } from "@angular/common/http";
 
 import { SharedModule } from '@shared/shared.module';
 
@@ -23,10 +21,9 @@ import { NoticeExpansionPanelComponent } from '@features/notices/notice-expansio
     NoticeItemDetailComponent,
   ],
   imports: [
+    HttpClientModule,
     SharedModule,
-    NoticesRoutingModule,
-    ShareButtonsModule,
-    ShareIconsModule
+    NoticesRoutingModule
   ],
   exports: [
     NoticesDashboardComponent,

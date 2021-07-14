@@ -57,11 +57,21 @@
 
                 <mat-card-actions class="buttons">
 
+                    <span mat-fab (click)="shareLink('twitter')" class="share-button">
+                        <mat-icon svgIcon="twitter"></mat-icon>
+                    </span>
+
+                    <span mat-fab (click)="shareLink('facebook')" class="share-button">
+                      <mat-icon svgIcon="facebook"></mat-icon>
+                    </span>
+
+                    <span mat-fab (click)="shareLink('whatsapp')" class="share-button">
+                        <mat-icon svgIcon="whatsapp"></mat-icon>
+                    </span>
+
                     <button *ngIf="adminAllowed" mat-fab class="btn-extra" (click)="adminItem()">
                         <mat-icon>build</mat-icon>
                     </button>
-
-                    <share-buttons [theme]="'circles-dark'" [include]="['facebook','whatsapp','copy']" [show]="3" [autoSetMeta]="true"></share-buttons>
 
                 </mat-card-actions>
 

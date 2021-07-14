@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from "@angular/common/http";
 
 import { SharedModule } from '@shared/shared.module';
 
@@ -16,6 +17,7 @@ import { LinksDashboardComponent } from '@features/links/links-dashboard/links-d
     LinksDashboardComponent,
   ],
   imports: [
+    HttpClientModule,
     SharedModule,
     LinksRoutingModule,
   ],

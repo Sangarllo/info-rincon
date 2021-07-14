@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '~ngx-sharebuttons/themes/circles/circles-dark-theme';
 @import '~bootstrap/dist/css/bootstrap.css';
 @import 'base/variables';
 @import 'base/cards';
@@ -84,6 +83,15 @@ body {
     &.buttons-left {
         display: block;
         text-align: left;
+    }
+}
+
+.share-button {
+    margin-right: 8px;
+    background-color: white;
+    .mat-icon {
+        width: 55px;
+        height: 55px
     }
 }
 

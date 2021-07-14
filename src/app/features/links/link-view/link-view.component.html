@@ -32,7 +32,19 @@
 
                 </mat-card-content>
 
-                <mat-card-actions class="buttons buttons-center">
+                <mat-card-actions class="buttons">
+
+                    <span mat-fab (click)="shareLink('twitter')" class="share-button">
+                        <mat-icon svgIcon="twitter"></mat-icon>
+                    </span>
+
+                    <span mat-fab (click)="shareLink('facebook')" class="share-button">
+                        <mat-icon svgIcon="facebook"></mat-icon>
+                    </span>
+
+                    <span mat-fab (click)="shareLink('whatsapp')" class="share-button">
+                        <mat-icon svgIcon="whatsapp"></mat-icon>
+                    </span>
 
                     <button mat-fab class="btn-1" (click)="gotoList()">
                         <mat-icon>list</mat-icon>
