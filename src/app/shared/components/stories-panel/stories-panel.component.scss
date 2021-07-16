@@ -16,16 +16,16 @@
         padding: 4px;
         &.NEWS_ITEM,
         &.LINK {
-            border: 1px solid $colorWarning;
-            background-color: $colorWarningBack;
+            border: 1px solid $colorLinkFront;
+            background-color: $colorLinkBack;
         }
         &.NOTICE {
-            border: 1px solid $color1;
-            background-color: $colorSuccessBack;
+            border: 1px solid $colorNoticeFront;
+            background-color: $colorNoticeBack;
         }
         &.EVENT {
-            border: 1px solid $colorDanger;
-            background-color: $colorDangerBack;
+            border: 1px solid $colorEventFront;
+            background-color: $colorEventBack;
         }
     }
 }

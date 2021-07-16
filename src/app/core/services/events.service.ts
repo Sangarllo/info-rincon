@@ -166,6 +166,7 @@ export class EventService {
       timestamp,
       auditItems: (environment.setAudit) ? [{...auditItem}] : [],
       userId: currentUser.uid,
+      extra: '',
     });
   }
 
