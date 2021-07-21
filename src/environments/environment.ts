@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  appVersion: '0.1.2',
+  appVersion: '0.1.3',
   baseUrl: 'http://localhost:4200/',
   setAudit: false,
   firebase: {

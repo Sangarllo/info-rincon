@@ -1,6 +1,6 @@
 <div class="section-wrapper">
 
-    <mat-card class="item-view" *ngIf="event; else noEventTemplate">
+    <mat-card class="item-view" *ngIf="event; else loadingTemplate">
 
         <div *ngIf="event.status === 'VISIBLE'; else noVisibleTemplate" class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
@@ -104,6 +104,6 @@
 </ng-template>
 
 
-<ng-template #noEventTemplate>
-    ¡No existe este evento!
+<ng-template #loadingTemplate>
+    Cargando este evento...
 </ng-template>
