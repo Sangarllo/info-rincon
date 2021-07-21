@@ -29,10 +29,10 @@ export class CalendarComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
   locale = 'es';
+  weekStartsOn = 1;
+  activeDayIsOpen = false;
 
   events$: Observable<CalendarEvent[]>;
-
-  activeDayIsOpen = false;
 
   constructor(
     private router: Router,

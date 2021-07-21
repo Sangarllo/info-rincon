@@ -1,0 +1,17 @@
+@import './variables';
+mwl-calendar-month-cell.cal-cell.cal-day-cell.cal-today.cal-in-month.ng-star-inserted {
+    color: $color1;
+    background-color: $color2;
+    span {
+        font-weight: bolder;
+        font-size: 1.2em;
+    }
+}
+
+.cal-month-view .cal-day-cell {
+    min-height: 80px;
+}
+
+.cal-month-view .cal-day-badge {
+    display: none;
+}
