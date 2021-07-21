@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Change
 
 - `feature` Show 'loading event' message.
+- `feature` Show monthly-calendar button for smaller screen.
 
 ## [0.1.2] - Restructuring app
 
