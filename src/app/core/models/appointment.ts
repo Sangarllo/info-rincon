@@ -73,31 +73,46 @@ export class Appointment implements IAppointment {
 
   static computeDesc(appointment: IAppointment): string {
     try {
+
+      const DMYdateIni = this.from_YYYYMMDD_to_DDMMYYYY(appointment.dateIni);
+      console.log(`${appointment.dateIni} -> ${DMYdateIni}`);
+      const DMYdateEnd = this.from_YYYYMMDD_to_DDMMYYYY(appointment.dateEnd);
+      console.log(`${appointment.dateEnd} -> ${DMYdateEnd}`);
+
       if ( appointment.allDay ) {
         if ( appointment.withEnd && ( appointment.dateIni !== appointment.dateEnd )) {
-          return `entre los días ${appointment.dateIni} y ${appointment.dateEnd}, ambos incluidos`;
+          return `entre los días ${DMYdateIni} y ${DMYdateEnd}, ambos incluidos`;
         } else {
-          return `durante el día ${appointment.dateIni}`;
+          return `durante el día ${DMYdateIni}`;
         }
       } else {
         if ( appointment.withEnd ) {
           if ( appointment.dateIni === appointment.dateEnd ) {
             if ( appointment.timeIni === appointment.timeEnd ) {
-              return `el día ${appointment.dateIni} a las ${appointment.timeIni}`;
+              return `el día ${DMYdateIni} a las ${appointment.timeIni}`;
             } else {
-              return `el día ${appointment.dateIni}, de las ${appointment.timeIni} a las ${appointment.timeEnd}`;
+              return `el día ${DMYdateIni}, de las ${appointment.timeIni} a las ${appointment.timeEnd}`;
             }
           } else {
             // eslint-disable-next-line max-len
-            return `desde el día ${appointment.dateIni} a las ${appointment.timeIni}, al día ${appointment.dateEnd} a las ${appointment.timeEnd}`;
+            return `desde el día ${DMYdateIni} a las ${appointment.timeIni}, al día ${DMYdateEnd} a las ${appointment.timeEnd}`;
           }
         } else {
-          return `el día ${appointment.dateIni} a las ${appointment.timeIni}`;
+          return `el día ${DMYdateIni} a las ${appointment.timeIni}`;
         }
       }
     }
     catch (exception) {
       return '# no se ha podido calcular #';
     }
+  }
+
+
+  static from_YYYYMMDD_to_DDMMYYYY(date: string): string {
+    const YYYY = date.substr(0, 4);
+    const MM = date.substr(5,2);
+    const DD = date.substr(8,2);
+
+    return [DD, MM, YYYY].join('-');
   }
 }

@@ -33,7 +33,6 @@
             }
             .name {
                 color: $colorTitleData;
-                font-size: larger;
                 font-weight: bolder;
             }
         }
@@ -42,6 +41,24 @@
             margin-top: -20px;
             color: $color1;
         }
+    }
+}
+
+@media screen and (max-width: 450px) {
+    span.name {
+        font-size: small;
+    }
+}
+
+@media screen and (min-width: 451px) and (max-width: 600px) {
+    span.name {
+        font-size: medium;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    span.name {
+        font-size: larger;
     }
 }
 

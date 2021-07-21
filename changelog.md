@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Show 'loading event' message.
 - `feature` Show monthly-calendar button for smaller screen.
+- `feature` Show 'el evento se celebra' with dd-mm-yyyy format. 
 
 ## [0.1.2] - Restructuring app
 

@@ -154,4 +154,12 @@ export class AppointmentsService {
     var today = new Date();
     return this.formatDateTime(today);
   }
+
+  from_YYYYMMDD_to_DDMMYYYY(date: string): string {
+    const YYYY = date.substring(6, 4);
+    const MM = date.substring(3,2);
+    const DD = date.substring(0,2);
+
+    return [DD, MM, YYYY].join('-');
+  }
 }
