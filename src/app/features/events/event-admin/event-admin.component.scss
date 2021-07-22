@@ -60,4 +60,7 @@ mat-button-toggle-group {
     flex-wrap: wrap;
     display: grid;
     margin-bottom: 30px;
+    mat-button-toggle.button__when-description {
+        white-space: normal;
+    }
 }

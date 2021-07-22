@@ -61,8 +61,8 @@
                         -->
 
                         <mat-button-toggle-group *ngIf="appointment$ | async as appointment" [formControl]="shownAsAWholeControl" aria-label="Mostrado como un todo">
-                            <mat-button-toggle value="true" (change)="onValShownAsAWholeChange($event.value)">El evento se celebra {{appointment.description}}</mat-button-toggle>
-                            <mat-button-toggle *ngIf="event.scheduleItems?.length > 0" value="false" (change)="onValShownAsAWholeChange($event.value)">A partir de la información de sus actos (actualmente {{ event.scheduleItems?.length }})</mat-button-toggle>
+                            <mat-button-toggle class="button__when-description" value="true" (change)="onValShownAsAWholeChange($event.value)">El evento se celebra<br/>{{appointment.description}}</mat-button-toggle>
+                            <mat-button-toggle class="button__when-description" *ngIf="event.scheduleItems?.length > 0" value="false" (change)="onValShownAsAWholeChange($event.value)">A partir de la información de sus actos (actualmente {{ event.scheduleItems?.length }})</mat-button-toggle>
                         </mat-button-toggle-group>
 
                         <div class="buttons">
