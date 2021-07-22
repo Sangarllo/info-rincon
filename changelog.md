@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.3] - Improvements after users review
 
+### Add
+
+- `feature` Add event search dialog component.
+
 ### Change
 
 - `feature` Show 'loading event' message.

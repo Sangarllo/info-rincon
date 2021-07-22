@@ -2,13 +2,6 @@
 
 <mat-dialog-content class="cointainer" [formGroup]="appointmentForm">
 
-    <!--
-    <pre *ngIf="appointmentForm.value">
-      <b>appointment:</b>
-      {{ appointmentForm.value | json }}
-    </pre>
-    -->
-
     <div class="row">
         <div class="col-6" style="color:1px solid red">
             <mat-slide-toggle (change)="onInputChange('allDay')" formControlName="allDay">

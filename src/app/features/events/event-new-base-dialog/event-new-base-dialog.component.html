@@ -3,12 +3,12 @@
 <mat-dialog-content [formGroup]="baseItemForm">
 
     <div *ngIf="baseItemSelected.image; else noBaseItemTemplate">
-        <img [src]="baseItemSelected.image">
+        <img class="container__image" [src]="baseItemSelected.image">
     </div>
 
     <ng-template #noBaseItemTemplate>
         <div>
-            <img [src]="SECTION_BLANK.image">
+            <img class="container__image" [src]="SECTION_BLANK.image">
         </div>
     </ng-template>
 

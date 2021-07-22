@@ -20,6 +20,7 @@ import { EventScheduleDialogComponent } from '@features/events/event-schedule-di
 import { EventCreationComponent } from '@features/events/event-creation/event-creation.component';
 import { EventItemDetailComponent } from '@features/events/event-item-detail/event-item-detail.component';
 import { EventItemDialogComponent } from '@features/events/event-item-dialog/event-item-dialog.component';
+import { EventsSearchDialogComponent } from '@features/events/events-search-dialog/events-search-dialog.component';
 import { CalendarEventItemsPanelComponent } from '@features/events/calendar-event-items-panel/calendar-event-items-panel.component';
 
 @NgModule({
@@ -41,6 +42,7 @@ import { CalendarEventItemsPanelComponent } from '@features/events/calendar-even
     EventCreationComponent,
     EventItemDetailComponent,
     EventItemDialogComponent,
+    EventsSearchDialogComponent,
     CalendarEventItemsPanelComponent,
   ],
   imports: [

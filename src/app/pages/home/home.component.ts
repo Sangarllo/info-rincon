@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import {MatAccordion} from '@angular/material/expansion';
+import { MatAccordion } from '@angular/material/expansion';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -45,10 +44,7 @@ export class HomeComponent implements OnInit {
   calendarEvents$: Observable<CalendarEvent[]>;
   calendarEvents: CalendarEvent[];
 
-  public dialogConfig = new MatDialogConfig();
-
   constructor(
-    public dialog: MatDialog,
     private router: Router,
     private calEventsSrv: CalendarEventsService,
     private noticesSrv: NoticeService,

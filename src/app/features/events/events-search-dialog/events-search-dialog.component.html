@@ -1,0 +1,60 @@
+<div class="section-wrapper">
+
+    <div class="section-list-options">
+        <mat-form-field>
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div class="mat-elevation-z8" *ngIf="filterValid; else noFilterValidTemplate">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="image">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element">
+                    <img (click)="gotoItem(element)" [src]="element.image" class="img-thumbnail" alt="element.name">
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="collapsed-info">
+                <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Evento</th>
+                <td mat-cell class="td-collapsed-info" [class]="event.status" *matCellDef="let event" (click)="gotoItem(event)">
+                    <div class="inside"></div>
+                    <div style="font-size: smaller;color:gray">
+                        {{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}
+                    </div>
+                    {{ event.name }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Nombre del evento</th>
+                <td mat-cell class="td-extra-lg" *matCellDef="let event">{{ event.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="categories">
+                <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header>Categorías</th>
+                <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.description }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+
+    </div>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Salir</button>
+    </mat-dialog-actions>
+
+</div>
+
+<ng-template #noFilterValidTemplate>
+    <div class="alert alert-warning">
+        Incluye al menos 3 letras para realizar una búsqueda entre nuestra base de datos de eventos
+    </div>
+</ng-template>

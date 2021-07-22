@@ -4,16 +4,4 @@
     <button mat-raised-button (click)="onNoClick()">Cerrar</button>
 </div>
 
-<!-- <br/>
-<mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ notice.name }}</mat-card-title>
-    <mat-card-subtitle>{{ notice.timestamp | date:'EEEE, d \'de\' MMMM'}}</mat-card-subtitle>
-</mat-card-header>
-<img mat-card-image [src]="notice.image" [alt]="notice.name">
-
-<mat-dialog-content class="mat-typography">
-    <p [innerHTML]="notice.description"></p>
-</mat-dialog-content> -->
-
 <app-base-item-detail [baseItem]="notice" [btnView]="true" [btnClose]="true" (onCloseClicked)="onCloseClicked()"></app-base-item-detail>
