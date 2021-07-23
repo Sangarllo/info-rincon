@@ -27,8 +27,6 @@ export class EventItemDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(`eventItem: ${JSON.stringify(this.eventItem)}`);
-
     if ( this.eventItem.extra ) {
       const data = this.eventItem.extra.split('|');
       this.superEventBase = Base.InitDefault();

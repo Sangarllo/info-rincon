@@ -43,7 +43,7 @@ export class CalendarEventsService {
         tap(([appointments, events ]) => {
           console.log(`Nº appointments: ${appointments.length}`);
           console.log(`Nº events: ${events.length}`);
-          appointments.forEach(item => console.warn(item.id));
+          // appointments.forEach(item => console.warn(item.id));
         }),
         map(([appointments, events ]) => appointments
 
@@ -149,7 +149,7 @@ export class CalendarEventsService {
         title: isSchedule ? scheduleItem?.name : event?.name,
         color: colors.color1,
         allDay: appointment.allDay,
-        image: isSchedule ? scheduleItem.image : event.image,
+        image: isSchedule ? scheduleItem?.image : event?.image,
         start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
         end: isSchedule ?
           new Date(`${appointment.dateIni}T${appointment.timeIni}`) :
