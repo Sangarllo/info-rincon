@@ -20,7 +20,7 @@
 
             <ng-container matColumnDef="collapsed-info">
                 <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Evento</th>
-                <td mat-cell class="td-collapsed-info" [class]="event.status" *matCellDef="let event" (click)="gotoItem(event)">
+                <td mat-cell class="td-collapsed-info" *matCellDef="let event" (click)="gotoItem(event)">
                     <div class="inside"></div>
                     <div style="font-size: smaller;color:gray">
                         {{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}
@@ -42,8 +42,6 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
 
     </div>
 
