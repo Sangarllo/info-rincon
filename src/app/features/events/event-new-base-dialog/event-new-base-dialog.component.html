@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{ title }}</h1>
 
-<mat-dialog-content [formGroup]="baseItemForm">
+<mat-dialog-content class="dialog-wrapper" [formGroup]="baseItemForm">
 
     <div *ngIf="baseItemSelected.image; else noBaseItemTemplate">
         <img class="container__image" [src]="baseItemSelected.image">
