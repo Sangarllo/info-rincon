@@ -1,6 +1,34 @@
 <div class="options-wrapper">
 
     <div class="option-item col-12 col-sm-4">
+        <mat-card *appRole="['LECTOR']" (click)="gotoHome()">
+            <mat-card-title>¡Disfrutar de la Web!</mat-card-title>
+            <div class="option-image">
+                <img alt="'Ir al inicio'" [src]="'assets/images/goto/goto-calendar-home.jpg'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="option-item col-12 col-sm-4">
+        <mat-card *appRole="['LECTOR']" (click)="gotoDashboard()">
+            <mat-card-title>Ver el tablero de eventos, avisos y noticias</mat-card-title>
+            <div class="option-image">
+                <img alt="'Ir al dashboard'" [src]="'assets/images/goto/goto-calendar-dashboard.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="option-item col-12 col-sm-4">
+        <mat-card *appRole="['LECTOR']" (click)="gotoFavourites()">
+            <mat-card-title>Suscribirte a tus eventos Favoritos</mat-card-title>
+            <div class="option-image">
+                <img alt="'Añadir Favoritos'" [src]="'assets/images/goto/add-favourite.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
+
+
+    <div class="option-item col-12 col-sm-4">
         <mat-card *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="gotoNewEventFromScratch()">
             <mat-card-title>Evento desde cero</mat-card-title>
             <div class="option-image">

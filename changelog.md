@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Add
 
 - `feature` Add event search dialog component.
+- `feature` Add role-options for lector role.
 
 ### Change
 

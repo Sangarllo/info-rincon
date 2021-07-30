@@ -46,6 +46,18 @@ export class RoleOptionsComponent implements OnDestroy {
     this.listOfObservers.push(subs$);
   }
 
+  gotoHome(): void {
+    this.router.navigate([`home`]);
+  }
+
+  gotoDashboard(): void {
+    this.router.navigate([`dashboard`]);
+  }
+
+  gotoFavourites(): void {
+    this.router.navigate([`.`]);
+  }
+
   gotoNewEventFromScratch(): void {
     this.router.navigate([`eventos/0/editar`]);
   }
