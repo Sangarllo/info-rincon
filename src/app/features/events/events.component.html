@@ -27,7 +27,7 @@
             <ng-container matColumnDef="status">
                 <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Estado</th>
                 <td mat-cell [class]="event.status" class="td-extra-lg" *matCellDef="let event">
-                    <div class="inside">{{ event.status }}</div>
+                    <div class="inside">{{ event.status | status }}</div>
                 </td>
             </ng-container>
 

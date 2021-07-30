@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from '@shared/material/material.module';
 
+import { StatusPipe } from '@pipes/status.pipe';
 import { RoleDirective } from '@shared/directives/role.directive';
 import { ShellComponent } from '@shared/layout/shell/shell.component';
 import { FooterComponent } from '@shared/layout/footer/footer.component';
@@ -33,6 +34,10 @@ const components = [
   RoleOptionsComponent,
 ];
 
+const pipes = [
+  StatusPipe,
+]
+
 const directives = [
   RoleDirective,
 ]
@@ -49,6 +54,7 @@ const modules = [
   declarations: [
     ...components,
     ...directives,
+    ...pipes,
   ],
   imports: [
     ...modules
@@ -57,6 +63,7 @@ const modules = [
     ...modules,
     ...components,
     ...directives,
+    ...pipes,
   ]
 })
 export class SharedModule { }

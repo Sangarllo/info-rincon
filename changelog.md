@@ -13,12 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Add event search dialog component.
 - `feature` Add role-options for lector role.
+- `style` Add Event status pipe for translation.
 
 ### Change
 
 - `feature` Show 'loading event' message.
 - `feature` Show monthly-calendar button for smaller screen.
-- `feature` Show 'el evento se celebra' with dd-mm-yyyy format. 
+- `feature` Show 'el evento se celebra' with dd-mm-yyyy format.
 
 ### Fixed
 

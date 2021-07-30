@@ -6,7 +6,7 @@
         <mat-label>Estado</mat-label>
         <mat-select formControlName="status" [value]="statusForm.get('status')">
             <mat-option *ngFor="let status of STATUS" [value]="status">
-                {{status}}
+                {{ status | status }}
             </mat-option>
         </mat-select>
     </mat-form-field>
