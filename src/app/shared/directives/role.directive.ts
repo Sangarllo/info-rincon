@@ -25,7 +25,6 @@ export class RoleDirective implements OnInit {
 
   @Input()
   set appRole(val: Array<string>) { // ['write']
-    console.log(` ****`, val);
     this.permissions = val;
     this.updateView();
   }

@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Show monthly-calendar button for smaller screen.
 - `feature` Show 'el evento se celebra' with dd-mm-yyyy format. 
 
+### Fixed
+
+- `style` Start MatDatepicker on monday.
+
+
 ## [0.1.2] - Restructuring app
 
 ### Add

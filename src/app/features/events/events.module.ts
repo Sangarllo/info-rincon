@@ -1,5 +1,9 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { HttpClientModule } from "@angular/common/http";
+
+import { DateAdapter } from "@angular/material/core";
+
+import { CustomDateAdapter } from "@services/custom-date-adapter.service";
 
 import { SharedModule } from '@shared/shared.module';
 import { EventsRoutingModule } from '@features/events/events-routing.module';
@@ -54,6 +58,15 @@ import { CalendarEventItemsPanelComponent } from '@features/events/calendar-even
     EventItemDetailComponent,
     EventItemDialogComponent,
     CalendarEventItemsPanelComponent,
+  ],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: CustomDateAdapter
+    },
+    {
+      provide: LOCALE_ID, useValue: 'es'
+    },
   ]
 })
 export class EventsModule { }
