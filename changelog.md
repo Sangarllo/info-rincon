@@ -26,6 +26,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `style` Start MatDatepicker on monday.
 - `style` Center image at event-dialog.
 
+
+### Remove
+
+- `style` Remove @angular/flex-layout.
+
 ## [0.1.2] - Restructuring app
 
 ### Add

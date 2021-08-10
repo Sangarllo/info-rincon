@@ -10,4 +10,5 @@ export class FooterComponent {
 
   angularVersion = `Angular ${VERSION.full}`;
   appVersion = environment.appVersion;
+  releaseDate = environment.releaseDate;
 }
