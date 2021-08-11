@@ -8,6 +8,7 @@ import { CustomDateAdapter } from "@services/custom-date-adapter.service";
 import { SharedModule } from '@shared/shared.module';
 import { EventsRoutingModule } from '@features/events/events-routing.module';
 import { EventsComponent } from '@features/events/events.component';
+import { EventsFavComponent } from '@features/events/events-fav/events-fav.component';
 import { EventViewComponent } from '@features/events/event-view/event-view.component';
 import { EventAdminComponent } from '@features/events/event-admin/event-admin.component';
 import { EventEditComponent } from '@features/events/event-edit/event-edit.component';
@@ -30,6 +31,7 @@ import { CalendarEventItemsPanelComponent } from '@features/events/calendar-even
 @NgModule({
   declarations: [
     EventsComponent,
+    EventsFavComponent,
     EventViewComponent,
     EventAdminComponent,
     EventEditComponent,

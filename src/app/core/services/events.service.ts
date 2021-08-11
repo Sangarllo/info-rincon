@@ -150,6 +150,17 @@ export class EventService {
     return this.eventCollection.doc(idEvent).valueChanges({ idField: 'id' });
   }
 
+  getSeveralEvent(events: string[]): Observable<IEvent[]>{
+
+    const eventsObs: Observable<IEvent>[] = [];
+    events.forEach(eventId => {
+      eventsObs.push(this.getOneEvent(eventId));
+    });
+
+    return combineLatest(eventsObs);
+  }
+
+
   async addEvent(event: IEvent): Promise<any> {
 
     const currentUser = await this.afAuth.currentUser;

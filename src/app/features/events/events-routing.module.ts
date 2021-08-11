@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuard } from '@pages/login/auth.guard';
+
 import { EventsComponent } from '@features/events/events.component';
+import { EventsFavComponent } from '@features/events/events-fav/events-fav.component';
 import { EventViewComponent } from '@features/events/event-view/event-view.component';
 import { EventAdminComponent } from '@features/events/event-admin/event-admin.component';
 import { EventEditComponent } from '@features/events/event-edit/event-edit.component';
@@ -15,6 +18,10 @@ const routes: Routes = [
   {
     path: 'new',
     component: EventCreationComponent,
+  },
+  {
+    path: 'favoritos',
+    component: EventsFavComponent
   },
   {
     path: ':id',

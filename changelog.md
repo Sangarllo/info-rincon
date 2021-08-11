@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4] - Favourite events for logged users
+
+### Add
+
+- `feature` Add favourite events for logged users.
+
 ## [0.1.3] - Improvements after users review
 
 ### Add
