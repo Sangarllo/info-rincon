@@ -69,6 +69,15 @@
                             <span mat-fab (click)="shareLink('whatsapp')" class="share-button">
                                 <mat-icon svgIcon="whatsapp"></mat-icon>
                             </span>
+
+                            <span *ngIf="userLogged && !isFav" mat-fab (click)="isFavourite(true)" class="share-button">
+                                <mat-icon svgIcon="favourite-off"></mat-icon>
+                            </span>
+
+                            <span *ngIf="userLogged && isFav" mat-fab (click)="isFavourite(false)" class="share-button">
+                              <mat-icon svgIcon="favourite-on"></mat-icon>
+                          </span>
+
                         </div>
 
                     </fieldset>

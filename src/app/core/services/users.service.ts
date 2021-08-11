@@ -110,6 +110,7 @@ export class UserService {
       photoURL: user.photoURL,
       active: user.active ?? true,
       lastLogin: this.appointmentSrv.getTimestamp(),
+      favEvents: user.favEvents ?? [],
     };
 
     // this.logSrv.info(`updateUserData 2: ${JSON.stringify(data)}`);

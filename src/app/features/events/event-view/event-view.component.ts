@@ -4,6 +4,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 
 import { MatIconRegistry } from "@angular/material/icon";
 import { Observable, Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 import { environment } from '@environments/environment';
 import { AuthService } from '@auth/auth.service';
@@ -28,6 +29,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public userLogged: IUser;
   public adminAllowed: boolean;
   public event: IEvent;
+  public isFav: boolean = false;
   public idEvent: string;
   public appointment$: Observable<IAppointment>;
   readonly SECTION_BLANK: Base = Base.InitDefault();
@@ -58,6 +60,16 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.matIconRegistry.addSvgIcon(
       `twitter`,
       this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/twitter.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      `favourite-on`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/favourite-on.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      `favourite-off`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/favourite-off.svg")
     );
 
     const subs1$ = this.authSvc.afAuth.user
@@ -117,6 +129,28 @@ export class EventViewComponent implements OnInit, OnDestroy {
         window.open(`whatsapp://send?text=${SHARED_URL}`);
         break;
     }
+  }
+
+  public isFavourite(isFav: boolean): void {
+
+    this.userLogged.favEvents = this.userLogged.favEvents ?? [];
+    this.userLogged.favEvents = this.userLogged.favEvents.filter( (eventId: string) => eventId !== this.event.id );
+
+    this.isFav = !this.isFav;
+    if ( isFav ) {
+      this.userLogged.favEvents.push(this.event.id);
+      Swal.fire({
+        icon: 'success',
+        title: 'Este evento ya es uno de tus favoritos',
+      });
+    } else {
+      Swal.fire({
+        icon: 'success',
+        title: 'Este evento ha dejado de estar entre tus favoritos',
+      });
+    }
+
+    this.userSrv.updateUser(this.userLogged);
   }
 
   private canAdmin(userLogged: IUser): boolean {
