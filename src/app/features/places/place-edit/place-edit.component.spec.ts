@@ -1,20 +1,34 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EntityEditComponent } from './place-edit.component';
+import { environment } from '@environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { RouterTestingModule } from '@angular/router/testing';
 
-describe('EntityEditComponent', () => {
-  let component: EntityEditComponent;
-  let fixture: ComponentFixture<EntityEditComponent>;
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '@shared/material/material.module';
+
+import { PlaceEditComponent } from './place-edit.component';
+
+describe('PlaceEditComponent', () => {
+  let component: PlaceEditComponent;
+  let fixture: ComponentFixture<PlaceEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EntityEditComponent ]
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        RouterTestingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MaterialModule,
+      ],
+      declarations: [ PlaceEditComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EntityEditComponent);
+    fixture = TestBed.createComponent(PlaceEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

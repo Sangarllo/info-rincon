@@ -50,7 +50,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const subs1$ = this.auth.user.subscribe((usr) => {
-      const uidUser = usr.uid;
+      const uidUser = usr?.uid;
       const subs2$ = this.userSrv.getOneUser(uidUser)
         .subscribe((user: IUser) => {
           this.role = user.role;

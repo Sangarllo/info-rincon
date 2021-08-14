@@ -1,5 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { environment } from '@environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialModule } from '@shared/material/material.module';
+
 import { Error404Component } from './error404.component';
 
 describe('Error404Component', () => {
@@ -8,6 +13,11 @@ describe('Error404Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        RouterTestingModule,
+        MaterialModule,
+      ],
       declarations: [ Error404Component ]
     })
     .compileComponents();

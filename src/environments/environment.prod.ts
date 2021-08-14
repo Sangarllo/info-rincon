@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   appVersion: '0.1.4',
-  releaseDate: '2021-08-11 23:45',
+  releaseDate: '2021-08-14 12:20',
   baseUrl: 'https://info-rincon.web.app/',
   setAudit: true,
   firebase: {

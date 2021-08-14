@@ -4,12 +4,13 @@ import { environment } from '@environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from '@shared/material/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { LoginComponent } from './login.component';
+import { PlaceViewComponent } from './place-view.component';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('PlaceViewComponent', () => {
+  let component: PlaceViewComponent;
+  let fixture: ComponentFixture<PlaceViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -17,14 +18,15 @@ describe('LoginComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         RouterTestingModule,
         MaterialModule,
+        BrowserAnimationsModule,
       ],
-      declarations: [ LoginComponent ]
+      declarations: [ PlaceViewComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(PlaceViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

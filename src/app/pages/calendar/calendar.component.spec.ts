@@ -1,5 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { environment } from '@environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { MaterialModule } from '@shared/material/material.module';
+import { RouterTestingModule } from '@angular/router/testing';
+
 import { CalendarComponent } from './calendar.component';
 
 describe('CalendarComponent', () => {
@@ -8,6 +13,11 @@ describe('CalendarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        RouterTestingModule,
+        MaterialModule,
+      ],
       declarations: [ CalendarComponent ]
     })
     .compileComponents();

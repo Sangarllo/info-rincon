@@ -7,11 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- `feature` Enabled url https//www.agendarinconera.es.
+
+
 ## [0.1.4] - Favourite events for logged users
 
 ### Add
 
 - `feature` Add favourite events for logged users.
+
+### Fix
+
+- `code` Enable and fix tests.
+
 
 ## [0.1.3] - Improvements after users review
 

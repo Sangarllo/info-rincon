@@ -18,7 +18,7 @@
             </div>
 
             <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-12 col-sm-4">
-                <mat-card [routerLink]="'../usuarios/' + user.uid + '/entidades'">
+                <mat-card [routerLink]="'../usuarios/' + user?.uid + '/entidades'">
                     <mat-card-title>Tus entidades</mat-card-title>
                     <div class="option-image">
                         <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" style="width:200px" class="img-thumbnail" />
@@ -27,7 +27,7 @@
             </div>
 
             <div *appRole="['ADMIN']" class="option-item col-12 col-sm-4">
-                <mat-card [routerLink]="'../usuarios/' + user.uid + '/audit'">
+                <mat-card [routerLink]="'../usuarios/' + user?.uid + '/audit'">
                     <mat-card-title>Tus accesos</mat-card-title>
                     <div class="option-image">
                         <img alt="'Tus accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />
