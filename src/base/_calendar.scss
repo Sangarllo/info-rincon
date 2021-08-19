@@ -8,6 +8,10 @@ mwl-calendar-month-cell.cal-cell.cal-day-cell.cal-today.cal-in-month.ng-star-ins
     }
 }
 
+.mat-calendar-body-selected {
+    background-color: $color1;
+}
+
 .cal-month-view .cal-day-cell {
     min-height: 80px;
 }

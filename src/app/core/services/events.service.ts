@@ -260,6 +260,21 @@ export class EventService {
     this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
 
     return this.eventDoc.set(event, { merge: true });
+
+    // const eventId = event.id;
+    // // this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${eventId}`);
+
+    // // console.log(`updatEvent1 ${JSON.stringify(event)}`);
+
+    // event = this.readyToSave(event);
+
+    // // console.log(`updatEvent2 ${JSON.stringify(event)}`);
+
+    // //return this.eventDoc.set(event, { merge: true });
+    // return this.eventCollection.doc(eventId).set({
+    //   ...event,
+    //   id: eventId,
+    // });
   }
 
   deleteEvent(event: IEvent, currentUser: IUser): void {
@@ -298,5 +313,30 @@ export class EventService {
     ];
 
     return of(EVENTS);
+  }
+
+  private readyToSave(event: IEvent): IEvent {
+
+    // scheduleItems
+    if ( event.scheduleItems.length > 0 ) {
+      event.scheduleItems = event.scheduleItems.map((obj)=> {return Object.assign({}, obj)});
+    }
+
+    // placeItems
+    if ( event.placeItems.length > 0 ) {
+      event.placeItems = event.placeItems.map((obj)=> {return Object.assign({}, obj)});
+    }
+
+    // entityItems
+    if ( event.entityItems.length > 0 ) {
+      event.entityItems = event.entityItems.map((obj)=> {return Object.assign({}, obj)});
+    }
+
+    // auditItems
+    if ( event.auditItems.length > 0 ) {
+      event.auditItems = event.auditItems.map((obj)=> {return Object.assign({}, obj)});
+    }
+
+    return event;
   }
 }

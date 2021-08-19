@@ -8,6 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 import { IBase, Base, BaseType } from '@models/base';
 import { IEvent } from '@models/event';
 import { Appointment, IAppointment } from '@models/appointment';
+import { Place } from '@models/place';
 import { SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
 import { UtilsService, SwalMessage } from '@services/utils.service';
 import { AppointmentsService } from '@services/appointments.service';
@@ -30,7 +31,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
   dateIni: string;
   placeBaseSelected: Base;
   readonly IMAGE_BLANK: string = Base.IMAGE_DEFAULT;
-  readonly SECTION_BLANK: Base = Base.InitDefault();
+  readonly SECTION_BLANK: Base = Place.InitDefault();
   places$: Observable<IBase[]>;
 
   constructor(
@@ -83,6 +84,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
     let name = '';
     let description = '';
 
+    debugger;
     this.orderId = this.event.scheduleItems.length + 1;
     if ( this.event.extra === '' ) {
       const GUID = this.utilsSrv.getGUID();
@@ -158,8 +160,11 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       baseType: BaseType.EVENT,
       description: this.scheduleItemForm.controls.description.value,
       extra: dateIniStr,
-      place: this.placeBaseSelected
     };
+
+    if ( this.placeBaseSelected.id !== '0' ) {
+      newBase.place = this.placeBaseSelected;
+    }
 
     // this.utilsSrv.swalFire(SwalMessage.OK_CHANGES, 'x elementos');
     this.dialogRef.close(newBase);

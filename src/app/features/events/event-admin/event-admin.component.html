@@ -1,6 +1,6 @@
 <div class="section-wrapper">
 
-    <mat-card class="item-view" *ngIf="event; else noEventTemplate">
+    <mat-card class="item-view" *ngIf="event; else loadingEventTemplate">
 
         <div class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
@@ -60,10 +60,13 @@
                         <app-event-appointment-detail *ngIf="appointment$ | async as appointment" [showImage]="true" [appointment]="appointment"></app-event-appointment-detail>
                         -->
 
+                        <span class="text__when-intro">El evento se celebra...</span>
                         <mat-button-toggle-group *ngIf="appointment$ | async as appointment" [formControl]="shownAsAWholeControl" aria-label="Mostrado como un todo">
-                            <mat-button-toggle class="button__when-description" value="true" (change)="onValShownAsAWholeChange($event.value)">El evento se celebra<br/>{{appointment.description}}</mat-button-toggle>
+                            <mat-button-toggle class="button__when-description" value="true" (change)="onValShownAsAWholeChange($event.value)">{{appointment.description}}</mat-button-toggle>
                             <mat-button-toggle class="button__when-description" *ngIf="event.scheduleItems?.length > 0" value="false" (change)="onValShownAsAWholeChange($event.value)">A partir de la información de sus actos (actualmente {{ event.scheduleItems?.length }})</mat-button-toggle>
                         </mat-button-toggle-group>
+                        <span class="text__when-info">(así será mostrado en la agenda)</span>
+
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="openAppointmentDialog()">
@@ -149,6 +152,6 @@
 
 </div>
 
-<ng-template #noEventTemplate>
-    ¡No existe este evento!
+<ng-template #loadingEventTemplate>
+    Cargando este evento...
 </ng-template>

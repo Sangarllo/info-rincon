@@ -15,6 +15,7 @@ export interface IPlace {
 export class Place implements IPlace, IBase {
 
   public static IMAGE_DEFAULT = 'assets/images/places/default.png';
+  public static NAME_DEFAULT = 'SIN ESPECIFICAR';
   public static LOCALITY_DEFAULT = 'Rincón de Soto';
   public static PATH_URL = 'lugares';
 
@@ -37,9 +38,9 @@ export class Place implements IPlace, IBase {
 
   static InitDefault(): Place {
     return new Place(
-      '0', true, '', Place.IMAGE_DEFAULT, BaseType.PLACE, // Base
+      '0', true, Place.NAME_DEFAULT, Place.IMAGE_DEFAULT, BaseType.PLACE, // Base
       [],
-      null,
+      '',
       Place.LOCALITY_DEFAULT,
       'SE CELEBRA EN',
     );

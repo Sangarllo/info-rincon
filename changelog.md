@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fix
 
 - `code` Enable and fix tests.
-
+- `code` Fix problem adding schedule without place.
 
 ## [0.1.3] - Improvements after users review
 

@@ -9,6 +9,7 @@ import { EventViewComponent } from '@features/events/event-view/event-view.compo
 import { EventAdminComponent } from '@features/events/event-admin/event-admin.component';
 import { EventEditComponent } from '@features/events/event-edit/event-edit.component';
 import { EventCreationComponent } from '@features/events/event-creation/event-creation.component';
+import { EventWikiComponent } from '@features/events/event-wiki/event-wiki.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,11 @@ const routes: Routes = [
     path: ':id/admin',
     component: EventAdminComponent,
   },
+  {
+    path: ':id/wiki',
+    component: EventWikiComponent,
+  },
+
 ];
 
 @NgModule({

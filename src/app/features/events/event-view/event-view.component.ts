@@ -63,13 +63,13 @@ export class EventViewComponent implements OnInit, OnDestroy {
     );
 
     this.matIconRegistry.addSvgIcon(
-      `favourite-on`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/favourite-on.svg")
+      `favorite-on`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/favorite-on.svg")
     );
 
     this.matIconRegistry.addSvgIcon(
-      `favourite-off`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/favourite-off.svg")
+      `favorite-off`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/favorite-off.svg")
     );
 
     const subs1$ = this.authSvc.afAuth.user
@@ -131,7 +131,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  public isFavourite(isFav: boolean): void {
+  public isFavorite(isFav: boolean): void {
 
     this.userLogged.favEvents = this.userLogged.favEvents ?? [];
     this.userLogged.favEvents = this.userLogged.favEvents.filter( (eventId: string) => eventId !== this.event.id );
@@ -141,7 +141,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
       this.userLogged.favEvents.push(this.event.id);
       Swal.fire({
         icon: 'success',
-        title: 'Este evento ya es uno de tus favoritos',
+        title: 'Este evento se ha convertido en uno de tus favoritos',
       });
     } else {
       Swal.fire({

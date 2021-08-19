@@ -27,6 +27,7 @@ import { EventItemDetailComponent } from '@features/events/event-item-detail/eve
 import { EventItemDialogComponent } from '@features/events/event-item-dialog/event-item-dialog.component';
 import { EventsSearchDialogComponent } from '@features/events/events-search-dialog/events-search-dialog.component';
 import { CalendarEventItemsPanelComponent } from '@features/events/calendar-event-items-panel/calendar-event-items-panel.component';
+import { EventWikiComponent } from '@features/events/event-wiki/event-wiki.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { CalendarEventItemsPanelComponent } from '@features/events/calendar-even
     EventItemDialogComponent,
     EventsSearchDialogComponent,
     CalendarEventItemsPanelComponent,
+    EventWikiComponent,
   ],
   imports: [
     HttpClientModule,

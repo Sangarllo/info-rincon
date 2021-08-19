@@ -1,0 +1,15 @@
+<div class="section-wrapper">
+
+    <mat-card class="item-view" *ngIf="event; else loadingTemplate">
+
+        <pre>
+      {{ event | json }}
+    </pre>
+
+    </mat-card>
+
+</div>
+
+<ng-template #loadingTemplate>
+    Cargando este evento...
+</ng-template>

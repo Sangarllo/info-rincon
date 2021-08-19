@@ -70,12 +70,12 @@
                                 <mat-icon svgIcon="whatsapp"></mat-icon>
                             </span>
 
-                            <span *ngIf="userLogged && !isFav" mat-fab (click)="isFavourite(true)" class="share-button">
-                                <mat-icon svgIcon="favourite-off"></mat-icon>
+                            <span *ngIf="userLogged && !isFav" mat-fab (click)="isFavorite(true)" class="share-button">
+                                <mat-icon svgIcon="favorite-off"></mat-icon>
                             </span>
 
-                            <span *ngIf="userLogged && isFav" mat-fab (click)="isFavourite(false)" class="share-button">
-                              <mat-icon svgIcon="favourite-on"></mat-icon>
+                            <span *ngIf="userLogged && isFav" mat-fab (click)="isFavorite(false)" class="share-button">
+                              <mat-icon svgIcon="favorite-on"></mat-icon>
                           </span>
 
                         </div>
