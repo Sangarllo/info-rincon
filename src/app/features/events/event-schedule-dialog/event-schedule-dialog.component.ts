@@ -84,7 +84,6 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
     let name = '';
     let description = '';
 
-    debugger;
     this.orderId = this.event.scheduleItems.length + 1;
     if ( this.event.extra === '' ) {
       const GUID = this.utilsSrv.getGUID();

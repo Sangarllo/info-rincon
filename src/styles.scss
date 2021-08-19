@@ -97,6 +97,15 @@ body {
     }
 }
 
+.fav-button {
+    margin-right: 8px;
+    background-color: white;
+    .mat-icon {
+        width: 55px;
+        height: 55px
+    }
+}
+
 td.mat-cell,
 .mat-cell,
 .buttons {

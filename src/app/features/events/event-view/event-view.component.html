@@ -70,13 +70,24 @@
                                 <mat-icon svgIcon="whatsapp"></mat-icon>
                             </span>
 
-                            <span *ngIf="userLogged && !isFav" mat-fab (click)="isFavorite(true)" class="share-button">
+                            <span class="share-button">
+
+                            </span>
+
+                            <span *ngIf="userLogged && !isFav" mat-fab (click)="isFavorite(true)" class="fav-button">
                                 <mat-icon svgIcon="favorite-off"></mat-icon>
                             </span>
 
-                            <span *ngIf="userLogged && isFav" mat-fab (click)="isFavorite(false)" class="share-button">
-                              <mat-icon svgIcon="favorite-on"></mat-icon>
-                          </span>
+                            <span *ngIf="userLogged && isFav" mat-fab (click)="isFavorite(false)" class="fav-button">
+                                <mat-icon svgIcon="favorite-on"></mat-icon>
+                            </span>
+
+                            <span mat-fab (click)="clap()" class="fav-button">
+                                <mat-icon *ngIf="applause; else noClapTemplate" svgIcon="clap-on"></mat-icon>
+                                <ng-template #noClapTemplate>
+                                    <mat-icon svgIcon="clap-off"></mat-icon>
+                                </ng-template>
+                            </span>
 
                         </div>
 

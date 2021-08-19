@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from "@angular/platform-browser";
 
 import { MatIconRegistry } from "@angular/material/icon";
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, timer } from 'rxjs';
 import Swal from 'sweetalert2';
 
 import { environment } from '@environments/environment';
@@ -30,6 +30,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public adminAllowed: boolean;
   public event: IEvent;
   public isFav: boolean = false;
+  public applause: boolean = false;
   public idEvent: string;
   public appointment$: Observable<IAppointment>;
   readonly SECTION_BLANK: Base = Base.InitDefault();
@@ -63,6 +64,16 @@ export class EventViewComponent implements OnInit, OnDestroy {
     );
 
     this.matIconRegistry.addSvgIcon(
+      `clap-on`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/clap-on.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      `clap-off`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/clap-off.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
       `favorite-on`,
       this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/favorite-on.svg")
     );
@@ -74,10 +85,16 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
     const subs1$ = this.authSvc.afAuth.user
       .subscribe( (user: any) => {
-          this.userSrv.getOneUser(user.uid).subscribe( (userLogged: any ) => {
+          if ( user?.uid ) {
+            this.userSrv.getOneUser(user.uid).subscribe( (userLogged: any ) => {
               this.userLogged = userLogged;
+              if ( this.userLogged.favEvents?.includes(this.event.id) ) {
+                  this.isFav = true;
+              }
+
               this.adminAllowed = this.canAdmin(this.userLogged);
           });
+          }
       });
 
     this.listOfObservers.push( subs1$ );
@@ -151,6 +168,17 @@ export class EventViewComponent implements OnInit, OnDestroy {
     }
 
     this.userSrv.updateUser(this.userLogged);
+  }
+
+  public clap(): void {
+    console.log(`applause!`);
+    this.applause = true;
+    const source = timer(3000);
+    const subsTimer$ = source.subscribe(val => {
+      console.log(val);
+      this.applause = false;
+    });
+    this.listOfObservers.push( subsTimer$ );
   }
 
   private canAdmin(userLogged: IUser): boolean {

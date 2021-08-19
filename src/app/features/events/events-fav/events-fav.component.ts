@@ -56,7 +56,7 @@ export class EventsFavComponent implements OnInit, OnDestroy {
         const favEvents = this.currentUser.favEvents;
         console.log(`favEvents: ${JSON.stringify(favEvents)}`);
         this.events = [];
-        // debugger;
+
         if ( favEvents?.length > 0 ) {
           this.eventSrv.getSeveralEvent(favEvents)
             .pipe(

@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Add
 
 - `feature` Add favourite events for logged users.
+- `feature` Add applause support for events.
 
 ### Fix
 
