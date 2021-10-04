@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import 'globalthis/auto';
-import 'zone.js/dist/zone-node';
+import 'zone.js/node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
