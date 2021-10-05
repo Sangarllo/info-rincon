@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Enabled url https//www.agendarinconera.es.
 
 
+## [0.2.0] - Update to Angular 12
+
+### Update
+
+- `code` Update to Angular 12, AngularFire 7 and Firebase 9.
+
 ## [0.1.4] - Favourite events for logged users
 
 ### Add
