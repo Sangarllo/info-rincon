@@ -1,6 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
+/dist/info-rincon/
 /dist/info-rincon/dist
 /dist/info-rincon/browser
 /dist/info-rincon/node_modules

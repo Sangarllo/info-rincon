@@ -1,7 +1,7 @@
 import { Directive, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
+import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
 
 import { UserService } from '@services/users.service';
 import { AuditService } from '@services/audit.service';

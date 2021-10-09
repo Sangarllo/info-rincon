@@ -81,7 +81,33 @@ const AVATARES = [
   {path: 'assets/images/avatar/067-man-14.png', name: 'Hombre 14'},
   {path: 'assets/images/avatar/068-girl-8.png', name: 'Chica 8'},
   {path: 'assets/images/avatar/069-woman-15.png', name: 'Mujer 15'},
-  {path: 'assets/images/avatar/070-man-15.png', name: 'Hombre 15'}
+  {path: 'assets/images/avatar/070-man-15.png', name: 'Hombre 15'},
+
+  {path: 'assets/images/avatar/101-pitufina.png', name: 'Pitufina'},
+  {path: 'assets/images/avatar/102-papa-pitufo.png', name: 'Papá Pitufo'},
+  {path: 'assets/images/avatar/103-pitufa-tormenta.png', name: 'Pitufa Tormenta'},
+  {path: 'assets/images/avatar/104-pitufo-filosofo.png', name: 'Pitufo Filósofo'},
+  {path: 'assets/images/avatar/105-pitufa-vexy.png', name: 'Pitufa Vexy'},
+  {path: 'assets/images/avatar/106-pitufo-fortachon.png', name: 'Pitufo Fortachón'},
+  {path: 'assets/images/avatar/107-pitufa-melody.png', name: 'Pitufa Melody'},
+  {path: 'assets/images/avatar/108-pitufo-hackus.png', name: 'Pitufo Hackus'},
+  {path: 'assets/images/avatar/109-pitufa-lily.png', name: 'Pitufa Lily'},
+  {path: 'assets/images/avatar/110-pitufo-valiente.png', name: 'Pitufo Valiente'},
+  {path: 'assets/images/avatar/111-pitufo-cocinero.png', name: 'Pitufo Cocinero'},
+  {path: 'assets/images/avatar/112-pitufo-grunon.png', name: 'Pitufo Gruñón'},
+  {path: 'assets/images/avatar/113-azrael.png', name: 'Azrael'},
+  {path: 'assets/images/avatar/114-gargamel.png', name: 'Gargamel'},
+
+  {path: 'assets/images/avatar/121-homer-simpson.png', name: 'Homer Simpson'},
+  {path: 'assets/images/avatar/122-marge-simpson.png', name: 'Marge Simpson'},
+  {path: 'assets/images/avatar/123-bart-simpson.png', name: 'Bart Simpson'},
+  {path: 'assets/images/avatar/124-lisa-simpson.png', name: 'Lisa Simpson'},
+  {path: 'assets/images/avatar/125-maggie-simpson.png', name: 'Maggie Simpson'},
+  {path: 'assets/images/avatar/126-apu-nahasapeemapetilon.png', name: 'Apu Nahasapeemapetilon'},
+  {path: 'assets/images/avatar/127-barney-gumble.png', name: 'Barney Gumble'},
+  {path: 'assets/images/avatar/128-pez-radiactivo.png', name: 'Pez Radiactivo'},
+  {path: 'assets/images/avatar/129-krusy-el-payaso.png', name: 'Krusty El Payaso'},
+  {path: 'assets/images/avatar/130-montgomery-burns.png', name: 'Montgomery Burns'},
 ];
 
 
