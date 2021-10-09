@@ -14,7 +14,8 @@
         "serve:ssr": "node dist/info-rincon/server/main.js",
         "build:ssr": "ng build --prod && ng run info-rincon:server:production",
         "prerender": "ng run info-rincon:prerender",
-        "git-log-pretty": "git log --pretty=format:\"%h%x09%an%x09%ad%x09%s\""
+        "git-log-pretty": "git log --pretty=format:\"%h%x09%an%x09%ad%x09%s\"",
+        "build-and-deploy": "ng build --prod && ng run info-rincon:server:production && firebase deploy --only hosting"
     },
     "private": true,
     "dependencies": {
