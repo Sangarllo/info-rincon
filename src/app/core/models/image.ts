@@ -96,7 +96,18 @@ const AVATARES = [
   {path: 'assets/images/avatar/111-pitufo-cocinero.png', name: 'Pitufo Cocinero'},
   {path: 'assets/images/avatar/112-pitufo-grunon.png', name: 'Pitufo Gruñón'},
   {path: 'assets/images/avatar/113-azrael.png', name: 'Azrael'},
-  {path: 'assets/images/avatar/114-gargamel.png', name: 'Gargamel'}
+  {path: 'assets/images/avatar/114-gargamel.png', name: 'Gargamel'},
+
+  {path: 'assets/images/avatar/121-homer-simpson.png', name: 'Homer Simpson'},
+  {path: 'assets/images/avatar/122-marge-simpson.png', name: 'Marge Simpson'},
+  {path: 'assets/images/avatar/123-bart-simpson.png', name: 'Bart Simpson'},
+  {path: 'assets/images/avatar/124-lisa-simpson.png', name: 'Lisa Simpson'},
+  {path: 'assets/images/avatar/125-maggie-simpson.png', name: 'Maggie Simpson'},
+  {path: 'assets/images/avatar/126-apu-nahasapeemapetilon.png', name: 'Apu Nahasapeemapetilon'},
+  {path: 'assets/images/avatar/127-barney-gumble.png', name: 'Barney Gumble'},
+  {path: 'assets/images/avatar/128-pez-radiactivo.png', name: 'Pez Radiactivo'},
+  {path: 'assets/images/avatar/129-krusy-el-payaso.png', name: 'Krusty El Payaso'},
+  {path: 'assets/images/avatar/130-montgomery-burns.png', name: 'Montgomery Burns'},
 ];
 
 

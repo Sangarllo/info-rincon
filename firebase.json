@@ -1,7 +1,7 @@
 {
     "hosting": [{
         "target": "info-rincon",
-        "public": "dist/info-rincon/dist/info-rincon/browser",
+        "public": "dist/info-rincon/browser",
         "ignore": [
             "**/.*"
         ],
