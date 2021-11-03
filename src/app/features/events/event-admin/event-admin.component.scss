@@ -65,6 +65,17 @@ mat-button-toggle-group {
     }
 }
 
+#event-item-title {
+    position: relative;
+}
+
+#event-item-title img {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 200px;
+}
+
 span.text__when-intro {}
 
 span.text__when-info {}
