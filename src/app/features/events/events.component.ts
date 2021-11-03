@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { AuthService } from '@auth/auth.service';
 import { IEvent } from '@models/event';
 import { IUser } from '@models/user';
+import { Status } from '@models/status.enum';
 import { LogService } from '@services/log.service';
 import { EventService } from '@services/events.service';
 import { SpinnerService } from '@services/spinner.service';
@@ -25,10 +26,10 @@ export class EventsComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  private listOfObservers: Array<Subscription> = [];
   public events: IEvent[];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'image', 'collapsed-info', 'name', 'categories', 'dateIni', 'actions3'];
+  private listOfObservers: Array<Subscription> = [];
   private currentUser: IUser;
 
   constructor(

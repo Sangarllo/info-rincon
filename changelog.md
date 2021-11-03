@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Enabled url https//www.agendarinconera.es.
 
+## [0.2.1] - Improves with betatesters
+
+### Add
+
+- `feature` Add event-panel for autor+ users in admin dashboard.
 
 ## [0.2.0] - Update to Angular 12
 

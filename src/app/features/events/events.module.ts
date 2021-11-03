@@ -1,9 +1,9 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 
-import { DateAdapter } from "@angular/material/core";
+import { DateAdapter } from '@angular/material/core';
 
-import { CustomDateAdapter } from "@services/custom-date-adapter.service";
+import { CustomDateAdapter } from '@services/custom-date-adapter.service';
 
 import { SharedModule } from '@shared/shared.module';
 import { EventsRoutingModule } from '@features/events/events-routing.module';

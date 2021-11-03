@@ -45,7 +45,7 @@
 
             <ng-container matColumnDef="collapsed-info">
                 <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Evento</th>
-                <td mat-cell class="td-collapsed-info" [class]="event.status" *matCellDef="let event" (click)="gotoItem(event)">
+                <td mat-cell class="td-collapsed-info" [class]="event.status" *matCellDef="let event" (click)="gotoItemAdmin(event)">
                     <div class="inside"></div>
                     <div style="font-size: smaller;color:gray">
                         {{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}

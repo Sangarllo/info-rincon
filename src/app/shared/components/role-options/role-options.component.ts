@@ -25,9 +25,9 @@ import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dia
 })
 export class RoleOptionsComponent implements OnDestroy {
 
-  private listOfObservers: Array<Subscription> = [];
   public dialogConfig = new MatDialogConfig();
   public currentUser: IUser;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public dialog: MatDialog,

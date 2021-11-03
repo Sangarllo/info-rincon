@@ -1,6 +1,6 @@
 <div class="options-wrapper">
 
-    <div class="option-item col-12 col-sm-4">
+    <div class="option-item col-12 col-sm-3">
         <mat-card *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="gotoNewEventFromScratch()">
             <mat-card-title>Evento desde cero</mat-card-title>
             <div class="option-image">
@@ -9,7 +9,7 @@
         </mat-card>
     </div>
 
-    <div class="option-item col-12 col-sm-4">
+    <div class="option-item col-12 col-sm-3">
         <mat-card *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="openEntityDialog()">
             <mat-card-title>Evento de entidad</mat-card-title>
             <div class="option-image">
@@ -18,11 +18,20 @@
         </mat-card>
     </div>
 
-    <div *ngIf="currentUser?.entityDefault" class="option-item col-12 col-sm-4">
+    <div *ngIf="currentUser?.entityDefault" class="option-item col-12 col-sm-3">
         <mat-card class="" *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="createEventFromEntity(currentUser.entityDefault)">
             <mat-card-title>Evento de ...</mat-card-title>
             <div class="option-image">
                 <img alt="'Crear evento'" [src]="currentUser.entityDefault.image" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
+
+    <div *ngIf="currentUser?.entityDefault" class="option-item col-12 col-sm-3">
+        <mat-card (click)="gotoEventsDashboard()">
+            <mat-card-title>Tus Eventos</mat-card-title>
+            <div class="option-image">
+                <img alt="'Panel de Eventos'" [src]="'assets/images/goto/goto-events.png'" style="width:200px" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
