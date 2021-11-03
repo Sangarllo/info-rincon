@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Update
 
-- `code` Update to Angular 12, AngularFire 7 and Firebase 9.
+- `code` Update to Angular 12.
+- `code` Update to AngularFire 6.1.5, compatible with Angular 12 and Firebase 7,8.
 
 ## [0.1.4] - Favourite events for logged users
 
