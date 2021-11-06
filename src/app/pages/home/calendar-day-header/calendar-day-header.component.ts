@@ -22,7 +22,6 @@ export class CalendarDayHeaderComponent {
 
   CalendarView = CalendarView;
 
-
   constructor(
     public dialog: MatDialog,
     private router: Router

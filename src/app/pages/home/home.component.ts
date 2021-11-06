@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
   public alertedNotice: INotice;
   public theAlertedNotice$: Observable<INotice>;
 
-  step = 1;
   view: CalendarView = CalendarView.Day;
   viewDate: Date = new Date();
   viewDateStr: string;
@@ -62,8 +61,6 @@ export class HomeComponent implements OnInit {
       );
 
     this.fetchEvents();
-
-    console.log(`Step: ${this.step}`);
   }
 
   fetchEvents(): void {
@@ -80,15 +77,4 @@ export class HomeComponent implements OnInit {
     this.calEventsSrv.openCalendarEventClicked(event);
   }
 
-  setStep(index: number) {
-    this.step = index;
-  }
-
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
-  }
 }

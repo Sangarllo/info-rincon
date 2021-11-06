@@ -3,7 +3,7 @@
 <mat-accordion class="headers-align" multi>
 
     <!-- Alerted Notice Panel -->
-    <mat-expansion-panel *ngIf="theAlertedNotice$ | async as alertedNotice" class="alerted-notice-background expansion-panel" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel *ngIf="theAlertedNotice$ | async as alertedNotice" class="alerted-notice-background expansion-panel" [expanded]="true" hideToggle>
         <mat-expansion-panel-header class="alerted-notice-header">
             <mat-panel-title>
                 <span class="expansion-panel__text">🔔</span>&nbsp;&nbsp;
@@ -19,16 +19,10 @@
         <app-base-items-panel [baseItems]="[alertedNotice]" [alerted]="true"></app-base-items-panel>
         -->
 
-        <!--
-        <mat-action-row>
-            <button mat-button class="btn-1" (click)="nextStep()">SIG</button>
-        </mat-action-row>
-        -->
-
     </mat-expansion-panel>
 
     <!-- Stories Panel -->
-    <mat-expansion-panel class="expansion-panel" [expanded]="true" (opened)="setStep(1)" hideToggle>
+    <mat-expansion-panel class="expansion-panel" [expanded]="true" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <span class="expansion-panel__text">📡</span>&nbsp;&nbsp;
@@ -38,17 +32,10 @@
 
         <app-stories-panel></app-stories-panel>
 
-        <!--
-        <mat-action-row>
-            <button mat-button class="btn-1" (click)="prevStep()">ANT</button>
-            <button mat-button class="btn-1" (click)="nextStep()">SIG</button>
-        </mat-action-row>
-        -->
-
     </mat-expansion-panel>
 
     <!-- Events Panel -->
-    <mat-expansion-panel class="expansion-panel" *ngIf="calendarEvents$ | async; else loading; let calendarEvents" [expanded]="true" (opened)="setStep(2)" hideToggle>
+    <mat-expansion-panel class="expansion-panel" *ngIf="calendarEvents$ | async; else loading; let calendarEvents" [expanded]="true" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <span class="expansion-panel__text">📆</span>&nbsp;&nbsp;
@@ -56,6 +43,9 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
 
+        <app-calendar [showSectionHeader]="false" [showHeader]="true"></app-calendar>
+
+        <!--
         <app-calendar-day-header [(view)]="view" [(viewDate)]="viewDate" (viewDateChange)="fetchEvents()" (viewChange)="fetchEvents()" [locale]="locale">
         </app-calendar-day-header>
 
@@ -63,19 +53,12 @@
             {{ (calendarEvents.length === 1 ) ? '' : "Hay " + calendarEvents.length + " eventos:" }}
 
             <app-calendar-event-items-panel [calendarEvents]="calendarEvents"></app-calendar-event-items-panel>
-
         </div>
 
         <div *ngIf="calendarEvents.length; else noEventsTemplate" class="w-100">
             <mwl-calendar-day-view [viewDate]="viewDate" [events]="calendarEvents" [dayStartHour]="8" [dayEndHour]="20" (eventClicked)="openCalendarEventClicked($event.event)">
             </mwl-calendar-day-view>
         </div>
-
-        <!--
-        <mat-action-row>
-            <button mat-button class="btn-1" (click)="prevStep()">ANT</button>
-            <button mat-button class="btn-1" (click)="nextStep()">SIG</button>
-        </mat-action-row>
         -->
 
     </mat-expansion-panel>

@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Update
 
 - `feature` Home accordion-panels are opened by default.
+- `feature` Set month-view as calendar default at home.
 
 ## [0.2.0] - Update to Angular 12
 

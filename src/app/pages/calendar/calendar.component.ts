@@ -24,6 +24,7 @@ import { CalendarEventsService } from '@services/calendar-events.service';
 })
 export class CalendarComponent implements OnInit {
 
+  @Input() showSectionHeader = true;
   @Input() showHeader = true;
 
   view: CalendarView = CalendarView.Month;
