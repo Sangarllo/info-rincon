@@ -25,14 +25,14 @@ import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dia
 import { EventScheduleDialogComponent } from '@features/events/event-schedule-dialog/event-schedule-dialog.component';
 
 @Component({
-  selector: 'app-event-admin',
-  templateUrl: './event-admin.component.html',
-  styleUrls: ['./event-admin.component.scss']
+  selector: 'app-event-config',
+  templateUrl: './event-config.component.html',
+  styleUrls: ['./event-config.component.scss']
 })
-export class EventAdminComponent implements OnInit, OnDestroy {
+export class EventConfigComponent implements OnInit, OnDestroy {
 
   panelOpenState = false;
-  private listOfObservers: Array<Subscription> = [];
+  shownAsAWholeControl = new FormControl();
   public event: IEvent;
   public idEvent: string;
   public appointment$: Observable<IAppointment>;
@@ -40,7 +40,7 @@ export class EventAdminComponent implements OnInit, OnDestroy {
   public dialogConfig = new MatDialogConfig();
   public baseType = BaseType.EVENT;
   private currentUser: IUser;
-  shownAsAWholeControl = new FormControl();
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public dialog: MatDialog,
@@ -305,7 +305,7 @@ export class EventAdminComponent implements OnInit, OnDestroy {
     this.event.shownAsAWhole = ( shownAsAWhole === 'true' ) ? true : false;
     this.appointmentSrv.enableAppointment(this.event.id, this.event.shownAsAWhole);
     this.event.scheduleItems.forEach(item => {
-      this.appointmentSrv.enableAppointment(item.id, !this.event.shownAsAWhole)
+      this.appointmentSrv.enableAppointment(item.id, !this.event.shownAsAWhole);
     });
     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado ShownAsAWhole');
   }

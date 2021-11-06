@@ -10,7 +10,7 @@ import { EventsRoutingModule } from '@features/events/events-routing.module';
 import { EventsComponent } from '@features/events/events.component';
 import { EventsFavComponent } from '@features/events/events-fav/events-fav.component';
 import { EventViewComponent } from '@features/events/event-view/event-view.component';
-import { EventAdminComponent } from '@features/events/event-admin/event-admin.component';
+import { EventConfigComponent } from '@features/events/event-config/event-config.component';
 import { EventEditComponent } from '@features/events/event-edit/event-edit.component';
 import { EventBasicDialogComponent } from '@features/events/event-basic-dialog/event-basic-dialog.component';
 import { EventBasicDetailComponent } from '@features/events/event-basic-detail/event-basic-detail.component';
@@ -34,7 +34,7 @@ import { EventWikiComponent } from '@features/events/event-wiki/event-wiki.compo
     EventsComponent,
     EventsFavComponent,
     EventViewComponent,
-    EventAdminComponent,
+    EventConfigComponent,
     EventEditComponent,
     EventBasicDialogComponent,
     EventBasicDetailComponent,

@@ -97,7 +97,7 @@
 
                 <mat-card-actions class="buttons">
 
-                    <button *ngIf="adminAllowed" mat-fab class="btn-extra" (click)="adminItem()">
+                    <button *ngIf="configAllowed" mat-fab class="btn-extra" (click)="configItem()">
                         <mat-icon>build</mat-icon>
                     </button>
 
@@ -112,12 +112,12 @@
 
 
 <ng-template #noVisibleTemplate>
-    <fieldset *ngIf="adminAllowed" [ngClass]="event.status">
+    <fieldset *ngIf="configAllowed" [ngClass]="event.status">
         <app-event-status-detail [event]="event"></app-event-status-detail>
     </fieldset>
 
     <mat-card-actions class="buttons buttons-right">
-        <button *ngIf="adminAllowed" mat-fab class="btn-extra" (click)="adminItem()">
+        <button *ngIf="configAllowed" mat-fab class="btn-extra" (click)="configItem()">
           <mat-icon>build</mat-icon>
       </button>
     </mat-card-actions>

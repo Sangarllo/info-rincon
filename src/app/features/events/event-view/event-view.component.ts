@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DomSanitizer } from "@angular/platform-browser";
+import { DomSanitizer } from '@angular/platform-browser';
 
-import { MatIconRegistry } from "@angular/material/icon";
+import { MatIconRegistry } from '@angular/material/icon';
 import { Observable, Subscription, timer } from 'rxjs';
 import Swal from 'sweetalert2';
 
@@ -25,15 +25,15 @@ import { SeoService } from '@services/seo.service';
 })
 export class EventViewComponent implements OnInit, OnDestroy {
 
-  private listOfObservers: Array<Subscription> = [];
   public userLogged: IUser;
-  public adminAllowed: boolean;
+  public configAllowed: boolean;
   public event: IEvent;
-  public isFav: boolean = false;
-  public applause: boolean = false;
+  public isFav = false;
+  public applause = false;
   public idEvent: string;
   public appointment$: Observable<IAppointment>;
   readonly SECTION_BLANK: Base = Base.InitDefault();
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public authSvc: AuthService,
@@ -46,41 +46,41 @@ export class EventViewComponent implements OnInit, OnDestroy {
     private appointmentSrv: AppointmentsService,
     private eventSrv: EventService,
   ) {
-    this.adminAllowed = false;
+    this.configAllowed = false;
 
     this.matIconRegistry.addSvgIcon(
       `whatsapp`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/whatsapp.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/whatsapp.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `facebook`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/facebook.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/facebook.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `twitter`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/twitter.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/twitter.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `clap-on`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/clap-on.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/clap-on.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `clap-off`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/clap-off.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/clap-off.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `favorite-on`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/favorite-on.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/favorite-on.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `favorite-off`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/favorite-off.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/favorite-off.svg')
     );
 
     const subs1$ = this.authSvc.afAuth.user
@@ -92,7 +92,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
                   this.isFav = true;
               }
 
-              this.adminAllowed = this.canAdmin(this.userLogged);
+              this.configAllowed = this.canConfig(this.userLogged);
           });
           }
       });
@@ -106,6 +106,10 @@ export class EventViewComponent implements OnInit, OnDestroy {
     if ( this.idEvent ) {
       this.getDetails(this.idEvent);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 
   getDetails(idEvent: string): void {
@@ -122,8 +126,8 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.listOfObservers.push( subs2$ );
   }
 
-  public adminItem(): void {
-    this.router.navigate([`/${Event.PATH_URL}/${this.idEvent}/admin`]);
+  public configItem(): void {
+    this.router.navigate([`/${Event.PATH_URL}/${this.idEvent}/config`]);
   }
 
   public shareLink(social: string) {
@@ -135,10 +139,12 @@ export class EventViewComponent implements OnInit, OnDestroy {
     switch ( social ) {
       case 'twitter':
         const title = `${this.event.name} | Rincón de Soto`;
+        // eslint-disable-next-line max-len
         window.open('http://twitter.com/share?url='+encodeURIComponent(SHARED_URL)+'&text='+encodeURIComponent(title), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
         break;
 
       case 'facebook':
+        // eslint-disable-next-line max-len
         window.open('http://facebook.com/sharer/sharer.php?u='+encodeURIComponent(SHARED_URL), '', 'left=0,top=0,width=650,height=420,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
         break;
 
@@ -181,14 +187,10 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.listOfObservers.push( subsTimer$ );
   }
 
-  private canAdmin(userLogged: IUser): boolean {
+  private canConfig(userLogged: IUser): boolean {
     if ( userLogged.role !== UserRole.Lector) {
       return true;
     }
     return false;
-  }
-
-  ngOnDestroy(): void {
-    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }
