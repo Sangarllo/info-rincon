@@ -1,6 +1,6 @@
 <app-section-header [title]="'Hoy en Rincón de Soto'"></app-section-header>
 
-<mat-accordion class="headers-align">
+<mat-accordion class="headers-align" multi>
 
     <!-- Alerted Notice Panel -->
     <mat-expansion-panel *ngIf="theAlertedNotice$ | async as alertedNotice" class="alerted-notice-background expansion-panel" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
@@ -28,7 +28,7 @@
     </mat-expansion-panel>
 
     <!-- Stories Panel -->
-    <mat-expansion-panel class="expansion-panel" [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+    <mat-expansion-panel class="expansion-panel" [expanded]="true" (opened)="setStep(1)" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <span class="expansion-panel__text">📡</span>&nbsp;&nbsp;
@@ -48,7 +48,7 @@
     </mat-expansion-panel>
 
     <!-- Events Panel -->
-    <mat-expansion-panel class="expansion-panel" *ngIf="calendarEvents$ | async; else loading; let calendarEvents" [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+    <mat-expansion-panel class="expansion-panel" *ngIf="calendarEvents$ | async; else loading; let calendarEvents" [expanded]="true" (opened)="setStep(2)" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <span class="expansion-panel__text">📆</span>&nbsp;&nbsp;

@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Add event-panel for autor+ users in admin dashboard.
 - `feature` Add event-mode logo in event-admin view.
 
+### Update
+
+- `feature` Home accordion-panels are opened by default.
+
 ## [0.2.0] - Update to Angular 12
 
 ### Update
