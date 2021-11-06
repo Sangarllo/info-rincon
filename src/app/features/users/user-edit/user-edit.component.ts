@@ -26,10 +26,10 @@ export class UserEditComponent implements OnInit, OnDestroy {
   errorMessage = '';
   uploadPercent: Observable<number>;
 
-  private listOfObservers: Array<Subscription> = [];
   public user!: IUser | undefined;
   public ROLES: UserRole[] = User.ROLES;
   public AVATARES: Avatar[] = Avatar.getAvatares();
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private afStorage: AngularFireStorage,
@@ -65,9 +65,13 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
   }
 
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
+
   public onResetForm(): void {
     this.userForm.reset();
- }
+  }
 
  public onSaveForm(): void {
 
@@ -187,9 +191,5 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
     // eslint-disable-next-line @typescript-eslint/dot-notation
     this.userForm.controls['uid'].setValue(this.user.uid);
-  }
-
-  ngOnDestroy(): void {
-    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }
