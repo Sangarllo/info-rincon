@@ -29,10 +29,10 @@ export class EventEditComponent implements OnInit, OnDestroy {
   errorMessage = '';
   uploadPercent: Observable<number>;
 
-  private listOfObservers: Array<Subscription> = [];
   public event!: IEvent | undefined;
   public STATUS: Status[] = Event.STATUS;
   public CATEGORIES: Category[] = EVENT_CATEGORIES;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private authSrv: AuthService,
@@ -64,11 +64,16 @@ export class EventEditComponent implements OnInit, OnDestroy {
         Validators.minLength(3),
         Validators.maxLength(50)]],
       image: Event.IMAGE_DEFAULT,
+      sanitizedUrl: '',
       categories: null,
       description: ''
     });
 
     this.listOfObservers.push(subs1$);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 
   private getDetails(idEvent: string): void {
@@ -113,6 +118,7 @@ export class EventEditComponent implements OnInit, OnDestroy {
       focused: this.event.focused,
       name: this.event.name,
       image: this.event.image ?? Event.IMAGE_DEFAULT,
+      sanitizedUrl: this.event.sanitizedUrl,
       categories: this.event.categories ?? [],
       description: ''
     });
@@ -187,9 +193,5 @@ export class EventEditComponent implements OnInit, OnDestroy {
         })
      )
     .subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

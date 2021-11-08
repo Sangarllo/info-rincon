@@ -7,7 +7,7 @@ import {
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import { Observable, combineLatest, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { first, map, tap } from 'rxjs/operators';
 import { CalendarEvent } from 'angular-calendar';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -148,6 +148,21 @@ export class EventService {
 
   getOneEvent(idEvent: string): Observable<IEvent | undefined> {
     return this.eventCollection.doc(idEvent).valueChanges({ idField: 'id' });
+  }
+
+  getEventByUrl(sanitizedUrl: string): Observable<IEvent[]> {
+
+    this.eventCollection = this.afs.collection<IEvent>(
+      EVENTS_COLLECTION,
+      ref => ref.where('sanitizedUrl', '==', sanitizedUrl)
+                .where('active', '==', true)
+                .where('status', '==', 'VISIBLE')
+    );
+
+    return this.eventCollection.valueChanges()
+      .pipe(
+        first()
+      );//.subscribe(console.log, err => console.log('Error', err));
   }
 
   getSeveralEvent(events: string[]): Observable<IEvent[]>{
@@ -315,28 +330,28 @@ export class EventService {
     return of(EVENTS);
   }
 
-  private readyToSave(event: IEvent): IEvent {
+  // private readyToSave(event: IEvent): IEvent {
 
-    // scheduleItems
-    if ( event.scheduleItems.length > 0 ) {
-      event.scheduleItems = event.scheduleItems.map((obj)=> {return Object.assign({}, obj)});
-    }
+  //   // scheduleItems
+  //   if ( event.scheduleItems.length > 0 ) {
+  //     event.scheduleItems = event.scheduleItems.map((obj)=> {return Object.assign({}, obj)});
+  //   }
 
-    // placeItems
-    if ( event.placeItems.length > 0 ) {
-      event.placeItems = event.placeItems.map((obj)=> {return Object.assign({}, obj)});
-    }
+  //   // placeItems
+  //   if ( event.placeItems.length > 0 ) {
+  //     event.placeItems = event.placeItems.map((obj)=> {return Object.assign({}, obj)});
+  //   }
 
-    // entityItems
-    if ( event.entityItems.length > 0 ) {
-      event.entityItems = event.entityItems.map((obj)=> {return Object.assign({}, obj)});
-    }
+  //   // entityItems
+  //   if ( event.entityItems.length > 0 ) {
+  //     event.entityItems = event.entityItems.map((obj)=> {return Object.assign({}, obj)});
+  //   }
 
-    // auditItems
-    if ( event.auditItems.length > 0 ) {
-      event.auditItems = event.auditItems.map((obj)=> {return Object.assign({}, obj)});
-    }
+  //   // auditItems
+  //   if ( event.auditItems.length > 0 ) {
+  //     event.auditItems = event.auditItems.map((obj)=> {return Object.assign({}, obj)});
+  //   }
 
-    return event;
-  }
+  //   return event;
+  // }
 }

@@ -1,0 +1,37 @@
+<p>event-resolver works!</p>
+
+<h1>
+    URL: {{urlEvent}}
+</h1>
+
+
+<div class="section-wrapper">
+
+    <mat-card class="item-view" *ngIf="event; else loadingTemplate">
+
+        <div *ngIf="event.status === 'VISIBLE'; else noVisibleTemplate" class="row">
+
+            <img [src]="event.image" [alt]="event.name" />
+            <h1>{{ event.name }}</h1>
+
+        </div>
+
+    </mat-card>
+
+</div>
+
+<ng-template #noVisibleTemplate>
+    <fieldset *ngIf="configAllowed" [ngClass]="event.status">
+        <app-event-status-detail [event]="event"></app-event-status-detail>
+    </fieldset>
+
+    <mat-card-actions class="buttons buttons-right">
+        <button *ngIf="configAllowed" mat-fab class="btn-extra" (click)="configItem()">
+        <mat-icon>build</mat-icon>
+    </button>
+    </mat-card-actions>
+</ng-template>
+
+<ng-template #loadingTemplate>
+    Cargando este evento...
+</ng-template>

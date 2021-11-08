@@ -45,7 +45,7 @@
 
             <ng-container matColumnDef="collapsed-info">
                 <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Evento</th>
-                <td mat-cell class="td-collapsed-info" [class]="event.status" *matCellDef="let event" (click)="gotoItemAdmin(event)">
+                <td mat-cell class="td-collapsed-info" [class]="event.status" *matCellDef="let event" (click)="gotoItemConfig(event)">
                     <div class="inside"></div>
                     <div style="font-size: smaller;color:gray">
                         {{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}
@@ -79,8 +79,8 @@
                         </mat-icon>
                     </button>
 
-                    <button mat-icon-button matTooltip="Click to Admin" class="iconbutton" (click)="gotoItemAdmin(event)">
-                        <mat-icon class="btn-1" aria-label="Admin">
+                    <button mat-icon-button matTooltip="Click to Config" class="iconbutton" (click)="gotoItemConfig(event)">
+                        <mat-icon class="btn-1" aria-label="Config">
                             build_circle
                         </mat-icon>
                     </button>

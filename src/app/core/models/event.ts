@@ -18,6 +18,7 @@ export interface IEvent {
   baseType: BaseType;
   status: Status;
   focused: boolean;
+  sanitizedUrl?: string;
   categories?: Category[];
   description?: string;
   scheduleType?: ScheduleType;
@@ -50,6 +51,7 @@ export class Event implements IEvent, IBase { // IAudit
     public images: string[],
     public baseType: BaseType,
 
+    public sanitizedUrl?: string,
     public categories?: Category[],
     public description?: string,
     public scheduleType?: ScheduleType,
@@ -67,10 +69,6 @@ export class Event implements IEvent, IBase { // IAudit
      ) {
   }
 
-  getUrl(): string {
-    return `${Event.PATH_URL}/${this.id}`;
-  }
-
   static InitDefault(): Event {
     return new Event(
       '0',
@@ -78,7 +76,9 @@ export class Event implements IEvent, IBase { // IAudit
       '', // Name
       Event.IMAGE_DEFAULT, [ Event.IMAGE_DEFAULT ], // Image
       BaseType.EVENT, // BaseType
-      [], '', // Basics,
+      '', // SanitizedUrl
+      [], // Categories
+      '', // Basics,
       SCHEDULE_TYPE_DEFAULT, // ScheduleType
       null, // Timestamp
       null, true, [], // Appointment, HowIsShown, scheduleItems
@@ -87,5 +87,9 @@ export class Event implements IEvent, IBase { // IAudit
       [],  // Audit
       null, // UserId
     );
+  }
+
+  getUrl(): string {
+    return `${Event.PATH_URL}/${this.id}`;
   }
 }

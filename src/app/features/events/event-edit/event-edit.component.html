@@ -51,6 +51,11 @@
                             </mat-form-field>
 
                             <mat-form-field appearance="outline">
+                                <mat-label>URL Sanitizada</mat-label>
+                                <input matInput type="text" disabled formControlName="sanitizedUrl" placeholder="URL Sanitizada">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
                                 <mat-label>Categorías</mat-label>
                                 <mat-select formControlName="categories" multiple>
                                     <mat-option *ngFor="let category of CATEGORIES" [value]="category">{{category}}</mat-option>

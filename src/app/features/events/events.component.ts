@@ -82,8 +82,8 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.router.navigate([`eventos/${event.id}`]);
   }
 
-  public gotoItemAdmin(event: IEvent): void {
-    this.router.navigate([`eventos/${event.id}/admin`]);
+  public gotoItemConfig(event: IEvent): void {
+    this.router.navigate([`eventos/${event.id}/config`]);
   }
 
   public deleteItem(event: IEvent): void {

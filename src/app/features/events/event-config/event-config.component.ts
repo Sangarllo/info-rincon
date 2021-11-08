@@ -98,6 +98,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       if ( eventDialog ) {
         this.event.name = eventDialog.name;
         this.event.description = eventDialog.description;
+        this.event.sanitizedUrl = eventDialog.sanitizedUrl;
         this.event.categories = eventDialog.categories;
         this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO);
       } else {

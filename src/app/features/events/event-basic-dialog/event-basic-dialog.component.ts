@@ -32,7 +32,8 @@ export class EventBasicDialogComponent implements OnInit {
       name: [ this.data.name, []],
       description: [ this.data.description, []],
       categories: [ this.data.categories, []],
-  });
+      sanitizedUrl: [ this.data.sanitizedUrl, []],
+    });
   }
 
    onNoClick(): void {
