@@ -26,11 +26,10 @@ import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dia
 })
 export class EventCreationComponent implements OnInit, OnDestroy {
 
-
-  private listOfObservers: Array<Subscription> = [];
   public role: UserRole;
   public dialogConfig = new MatDialogConfig();
   public currentUser: IUser;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public auth: AngularFireAuth,
@@ -78,7 +77,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
           const newEvent = Event.InitDefault();
           this.eventSrv.addEventFromEntity(newEvent, entity, newBase.description).then((eventId: string) => {
             this.logSrv.info(`EventId: ${eventId}`);
-            this.router.navigate([`eventos/${eventId}/admin`]);
+            this.router.navigate([`eventos/${eventId}/config`]);
           });
         });
       } else {
@@ -91,7 +90,7 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     const newEvent = Event.InitDefault();
     this.eventSrv.addEventFromEntity(newEvent, entity, entity.description).then((eventId: string) => {
       this.logSrv.info(`EventId: ${eventId}`);
-      this.router.navigate([`eventos/${eventId}/admin`]);
+      this.router.navigate([`eventos/${eventId}/config`]);
     });
   }
 

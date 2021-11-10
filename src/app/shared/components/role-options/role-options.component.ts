@@ -99,7 +99,7 @@ export class RoleOptionsComponent implements OnDestroy {
           const newEvent = Event.InitDefault();
           this.eventSrv.addEventFromEntity(newEvent, entity, newBase.description).then((eventId: string) => {
             this.logSrv.info(`EventId: ${eventId}`);
-            this.router.navigate([`eventos/${eventId}/admin`]);
+            this.router.navigate([`eventos/${eventId}/config`]);
           });
         });
       } else {
@@ -112,7 +112,7 @@ export class RoleOptionsComponent implements OnDestroy {
     const newEvent = Event.InitDefault();
     this.eventSrv.addEventFromEntity(newEvent, entity, entity.description).then((eventId: string) => {
       this.logSrv.info(`EventId: ${eventId}`);
-      this.router.navigate([`eventos/${eventId}/admin`]);
+      this.router.navigate([`eventos/${eventId}/config`]);
     });
   }
 
