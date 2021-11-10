@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { IPlace } from '@models/place';
 
+// eslint-disable-next-line no-shadow
 export enum BaseType {
   DEFAULT = '',
   ENTITY = 'ENTITY',
