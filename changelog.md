@@ -23,6 +23,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Set month-view as calendar default at home.
 - `business` Change event-admin by event-config.
 
+### Fix
+
+- `code` Fix problem in user-entities with roles.
+
 ### Delete
 
 - `feature` Remove extra avatars.

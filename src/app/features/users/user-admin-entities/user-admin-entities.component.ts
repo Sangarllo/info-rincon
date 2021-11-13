@@ -19,17 +19,15 @@ import { LogService } from '@services/log.service';
 })
 export class UserAdminEntitiesComponent implements OnInit, OnDestroy {
 
-  private listOfObservers: Array<Subscription> = [];
   public pageTitle = 'Administración de entides del nuevo usuario';
   public user: IUser;
   public filteredEntities: Observable<IEntity[]>;
-
   entities: IEntity[];
   entityCtrl = new FormControl();
   entityForm!: FormGroup;
   selectedEntity: IEntity;
-
-  displayedColumns: string[] = [ 'image', 'name', 'actions3' ];
+  displayedColumns: string[] = [ 'image', 'name', 'actions2' ];
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private router: Router,
@@ -59,6 +57,10 @@ export class UserAdminEntitiesComponent implements OnInit, OnDestroy {
       this.logSrv.info(`uid asked ${uidUser}`);
       this.getDetails(uidUser);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 
   public getDetails(uidUser: string): void {
@@ -142,7 +144,4 @@ export class UserAdminEntitiesComponent implements OnInit, OnDestroy {
     return this.entities.filter(entity => entity.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  ngOnDestroy(): void {
-    this.listOfObservers.forEach(sub => sub.unsubscribe());
-  }
 }
