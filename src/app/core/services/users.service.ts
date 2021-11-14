@@ -4,10 +4,11 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IUser } from '@models/user';
-import { UserRole } from '@models/user-role.enum';
 import { LogService } from '@services/log.service';
 import { AppointmentsService } from '@services/appointments.service';
+import { IUser } from '@models/user';
+import { UserRole } from '@models/user-role.enum';
+import { Avatar } from '@models/image';
 
 const USERS_COLLECTION = 'usuarios';
 
@@ -117,4 +118,31 @@ export class UserService {
 
     return userRef.set(data, { merge: true });
   }
+
+  createUserDataFromEmail(user: any): Promise<any> {
+    const userRef: AngularFirestoreDocument<IUser> = this.afs.doc(
+      `${USERS_COLLECTION}/${user.uid}`
+    );
+
+    // this.logSrv.info(`updateUserData 1: ${JSON.stringify(user)}`);
+
+
+    // TODO: if role exists (or entities), don't update!
+    const data: IUser = {
+      uid: user.uid,
+      email: user.email,
+      emailVerified: user.emailVerified,
+      displayName: user.email.split('@')[0],
+      photoURL: Avatar.getRandom().path,
+      active: true,
+      lastLogin: this.appointmentSrv.getTimestamp(),
+      favEvents: [],
+      role: UserRole.Lector,
+    };
+
+    // this.logSrv.info(`updateUserData 2: ${JSON.stringify(data)}`);
+
+    return userRef.set(data, { merge: true });
+  }
+
 }

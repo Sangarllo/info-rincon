@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AuditType } from '@models/audit';
+
+import { AuthService } from '@auth/auth.service';
+import { UserService } from '@services/users.service';
 import { AuditService } from '@services/audit.service';
+import { AuditType } from '@models/audit';
 
 @Component({
   selector: 'app-email-login',
@@ -22,7 +25,9 @@ export class EmailLoginComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private fb: FormBuilder,
     private router: Router,
-    private auditSrv: AuditService
+    private auditSrv: AuditService,
+    private usersSrv: UserService,
+    private authSrv: AuthService,
   ) {
   }
 
@@ -95,6 +100,15 @@ export class EmailLoginComponent implements OnInit {
       }
       if (this.isSignup) {
         await this.afAuth.createUserWithEmailAndPassword(email, password);
+
+        if ( this.afAuth.user ) {
+          const currentUser = await this.afAuth.currentUser;
+          const description = `${currentUser.displayName} (${currentUser.email})`;
+          this.auditSrv.addAuditItem(AuditType.LOGIN_PROVIDER, currentUser, description);
+          this.usersSrv.createUserDataFromEmail(currentUser);
+          this.authSrv.sendVerificationMail();
+          this.router.navigate([`admin`]);
+        }
       }
       if (this.isPasswordReset) {
         await this.afAuth.sendPasswordResetEmail(email);

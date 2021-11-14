@@ -58,4 +58,10 @@ export class AuthService extends RoleValidator {
       this.logSrv.info(error);
     }
   }
+
+  async sendVerificationMail() {
+    (await this.afAuth.currentUser).sendEmailVerification().then(() => {
+        console.log('email sent');
+    });
+}
 }

@@ -47,13 +47,15 @@
 
         <mat-error class="server-error">{{ serverMessage }}</mat-error>
 
-        <button *ngIf="isPasswordReset" mat-stroked-button type="submit" [disabled]="loading">
-          Reestablecer correo electrónico
-        </button>
+        <div class="buttons buttons-center">
+            <button *ngIf="isPasswordReset" mat-stroked-button type="submit" [disabled]="loading">
+                Reestablecer correo electrónico
+            </button>
 
-        <button *ngIf="!isPasswordReset" mat-raised-button color="accent" type="submit" [disabled]="form.invalid || !passwordDoesMatch || loading">
-          Enviar
-        </button>
+            <button *ngIf="!isPasswordReset" mat-mini-fab class="btn-1" type="submit" [disabled]="form.invalid || !passwordDoesMatch || loading">
+                <mat-icon>done</mat-icon>
+            </button>
+        </div>
     </form>
 
     <button mat-button *ngIf="isLogin && !isPasswordReset" (click)="changeType('reset')">
