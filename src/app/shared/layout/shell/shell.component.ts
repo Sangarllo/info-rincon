@@ -37,7 +37,7 @@ export class ShellComponent {
         icon: 'admin_panel_settings',
         path: 'admin',
         name: 'admin',
-        roles: [ 'AUTOR', 'ADMIN', 'SUPER' ],
+        roles: [ 'LECTOR', 'AUTOR', 'ADMIN', 'SUPER' ],
       },
       {
         icon: 'login',

@@ -17,12 +17,12 @@ import { BaseType } from '@models/base';
 })
 export class UserViewComponent implements OnInit, OnDestroy {
 
-  private listOfObservers: Array<Subscription> = [];
   public user$: Observable<IUser | undefined> | null = null;
   public uidUser: string;
   public auditItems: IAuditItem[] = [];
   public baseTypeEntity: BaseType = BaseType.ENTITY;
   public baseTypeAudit: BaseType = BaseType.AUDIT;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private route: ActivatedRoute,

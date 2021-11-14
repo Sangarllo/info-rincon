@@ -38,11 +38,21 @@
             <div *ngIf="!(isHandset$ | async)">
                 <div *ngIf="(afAuth.authState | async);else login2Template">
 
-                    <a class="text-extra" *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/eventos/new">➕ Evento</a>
+                    <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/eventos/new">
+                        ➕ 
+                        <span class="text-extra">Evento</span>
+                    </a>
 
-                    <a class="text-extra" *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/admin">⚙️ Admin</a>
 
-                    <a class="text-extra" mat-button (click)="onLogout()">🔐 Salir</a>
+                    <a *appRole="['LECTOR', 'AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/admin">
+                        ⚙️ 
+                        <span class="text-extra">Admin</span>
+                    </a>
+
+                    <a mat-button (click)="onLogout()">
+                        🔐 
+                        <span class="text-extra">Salir</span>
+                    </a>
 
                     <a mat-button routerLink="/perfil" *ngIf="afAuth.authState | async as user">
                         <img class="avatar" [src]="user.photoURL || 'assets/default-user.svg'">
@@ -82,7 +92,7 @@
                         <span>Administración</span>
                     </a>
 
-                    <a mat-menu-item href="./eventos/new">
+                    <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-menu-item href="./eventos/new">
                         <i>➕</i>
                         <span>Crear evento</span>
                     </a>

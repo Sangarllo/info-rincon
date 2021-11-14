@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Set month-view as calendar default at home.
 - `feature` Update admin dashboard view.
 - `business` Change event-admin by event-config.
+- `business` Lector User can edit his name and image.
 
 ### Fix
 

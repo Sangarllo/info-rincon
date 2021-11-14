@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 import { Observable, Subscription } from 'rxjs';
@@ -32,6 +34,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
+    private afAuth: AngularFireAuth,
     private afStorage: AngularFireStorage,
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -73,7 +76,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.userForm.reset();
   }
 
- public onSaveForm(): void {
+  public async onSaveForm() {
 
    if (this.userForm.valid) {
 
@@ -85,8 +88,12 @@ export class UserEditComponent implements OnInit, OnDestroy {
          this.usersSrv.updateUser(userItem);
        }
 
-       this.router.navigate([ User.PATH_URL]);
-
+       const user = await this.afAuth.currentUser;
+       if ( userItem.uid === user.uid ) {
+          this.router.navigate([ `perfil` ]);
+       } else {
+        this.router.navigate([ User.PATH_URL]);
+       }
    } else {
      this.errorMessage = 'Por favor, corrige los mensajes de validación.';
    }

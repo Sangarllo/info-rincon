@@ -69,16 +69,23 @@ body {
     }
     .section-wrapper,
     .options-wrapper {
-        .intro {
+        .section-main-info {
             width: 100%;
-            margin: 1.5rem !important;
-            font-size: x-large !important;
+            margin-bottom: 1.5rem !important;
+            font-size: larger !important;
+            line-height: 1.5rem !important;
             .role {
                 color: black;
                 text-transform: capitalize;
                 font-weight: bolder;
                 font-size: smaller;
             }
+        }
+        .section-extra-info {
+            width: 100%;
+            margin-bottom: 1.3rem !important;
+            font-size: normal !important;
+            line-height: 1.3rem !important;
         }
     }
 }

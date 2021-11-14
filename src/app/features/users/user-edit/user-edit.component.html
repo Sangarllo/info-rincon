@@ -8,7 +8,7 @@
 
             <div class="row">
 
-                <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+                <div class="col-12 col-md-4 col-lg-3" style="text-align: center;">
 
                     <img [src]="userForm.get('photoURL').value" class="img-thumbnail" (click)="inputImageProfile.click()">
 
@@ -40,12 +40,12 @@
                             <input matInput type="text" formControlName="displayName" placeholder="Nombre">
                         </mat-form-field>
 
-                        <mat-form-field appearance="outline">
+                        <mat-form-field *appRole="['ADMIN', 'SUPER']" appearance="outline">
                             <mat-label>Email del usuario</mat-label>
                             <input matInput type="text" formControlName="email" placeholder="Email">
                         </mat-form-field>
 
-                        <mat-form-field appearance="outline">
+                        <mat-form-field *appRole="['ADMIN', 'SUPER']" appearance="outline">
                             <mat-label>Rol del usuario</mat-label>
 
                             <mat-select formControlName="role" [value]="userForm.get('role').value">
@@ -62,15 +62,15 @@
 
                     <mat-card-actions class="buttons">
 
-                        <button mat-fab class="btn-admin" [title]="userForm.valid ? 'Guardar con los datos introducidos' : 'Deshabilitado hasta que los datos sean válidos'" [disabled]="!userForm.valid" type="submit">
+                        <button mat-fab class="btn-1" [title]="userForm.valid ? 'Guardar con los datos introducidos' : 'Deshabilitado hasta que los datos sean válidos'" [disabled]="!userForm.valid" type="submit">
                           <mat-icon>check</mat-icon>
                         </button>
 
-                        <button mat-fab class="btn-1" (click)="gotoAdminEntities()">
+                        <button *appRole="['ADMIN', 'SUPER']" mat-fab class="btn-1" (click)="gotoAdminEntities()">
                           <mat-icon>people_alt</mat-icon>
                         </button>
 
-                        <button mat-fab class="btn-1" (click)="gotoList()">
+                        <button *appRole="['ADMIN', 'SUPER']" mat-fab class="btn-1" (click)="gotoList()">
                           <mat-icon>list</mat-icon>
                         </button>
 

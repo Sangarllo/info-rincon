@@ -2,14 +2,22 @@
 
 <div class="section-wrapper">
 
+    <div class="section-main-info">
+        Esta es la información que la Agenda Rinconera tiene sobre ti.
+    </div>
+
+    <div class="section-extra-info">
+        Pulsa el botón para cambiar tu nombre o foto de perfil.
+    </div>
+
     <mat-card *ngIf="userData$ | async as user; else noUserTemplate">
 
         <div class="row">
-            <div class="col-lg-2 col-md-3 col-12" style="text-align: center;">
+            <div class="col-12 col-lg-2 col-md-3" style="text-align: center;">
                 <img [src]="user.photoURL" class="img-thumbnail">
             </div>
 
-            <div class="col-lg-10 col-md-9 col-12">
+            <div class="col-12 col-lg-10 col-md-9">
 
                 <mat-card-content>
 
@@ -107,18 +115,10 @@
 
                 </mat-card-content>
 
-                <mat-card-actions class="text-center">
-
-                    <!--
-                    <button mat-fab class="m-1" type="button" (click)="gotoList()" color="primary">
-                      <mat-icon>list</mat-icon>
+                <mat-card-actions class="buttons buttons-center">
+                    <button mat-fab class="btn-1" (click)="gotoEdition()">
+                        <mat-icon>edit</mat-icon>
                     </button>
-
-                    <button mat-fab class="m-1" type="button" (click)="editItem()" color="primary">
-                      <mat-icon>edit</mat-icon>
-                    </button>
-                    -->
-
                 </mat-card-actions>
 
             </div>
