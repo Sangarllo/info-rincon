@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Home accordion-panels are opened by default.
 - `feature` Set month-view as calendar default at home.
+- `feature` Update admin dashboard view.
 - `business` Change event-admin by event-config.
 
 ### Fix

@@ -54,16 +54,16 @@
                             <h3>TODO: El rol a controlar es del usuario mostrado, no del logueado </h3>
 
                             <div *appRole="['ADMIN', 'SUPER']" class="alert alert-success" role="alert">
-                                Actualmente, al tener <strong>ROL {{ user.role }}</strong> puede administrar cualquier entidad
+                                Al tener <strong>ROL {{ user.role }}</strong> puede administrar cualquier entidad
                             </div>
 
                             <div *appRole="['LECTOR']" class="alert alert-danger" role="alert">
-                                Actualmente, al tener <strong>ROL {{ user.role }}</strong> no puede administrar ninguna entidad
+                                Al tener <strong>ROL {{ user.role }}</strong> no puede administrar ninguna entidad
                             </div>
 
                             <div *ngIf="user.entitiesAdmin">
 
-                                <h3 *appRole="['ADMIN', 'SUPER']">De tener ROL AUTOR, podría administrar:</h3>
+                                <h3 *appRole="['ADMIN', 'SUPER']">De tener ROL AUTOR (actualmente no lo es), podría administrar:</h3>
 
                                 <sh-base-items-table [baseItems]="user.entitiesAdmin" [baseType]="baseTypeEntity" [modeAdmin]="false"></sh-base-items-table>
 

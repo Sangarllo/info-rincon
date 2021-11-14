@@ -4,11 +4,13 @@
 
     <div *ngIf="userData$ | async as user" class="mb-3 text-center">
 
-        <h1>¿Qué vida, {{ user.displayName }}?</h1>
+        <h1 class="alert alert-primary">¿Qué vida, {{ user.displayName }}?</h1>
+
+        <h3 class="alert alert-light">Con tu rol de <span style="text-transform: lowercase;font-weight: bolder;font-size:inherit">{{ user.role }}</span> en la aplicación puedes hacer lo siguiente:</h3>
 
         <div class="options-wrapper">
 
-            <div class="option-item col-12 col-sm-4">
+            <div class="option-item col-12 col-sm-6 col-md-4">
                 <mat-card [routerLink]="'../perfil'">
                     <mat-card-title>Tu cuenta personal</mat-card-title>
                     <div class="option-image">
@@ -17,7 +19,7 @@
                 </mat-card>
             </div>
 
-            <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-12 col-sm-4">
+            <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-12 col-sm-6 col-md-4">
                 <mat-card [routerLink]="'../usuarios/' + user?.uid + '/entidades'">
                     <mat-card-title>Tus entidades</mat-card-title>
                     <div class="option-image">
@@ -26,7 +28,7 @@
                 </mat-card>
             </div>
 
-            <div *appRole="['ADMIN']" class="option-item col-12 col-sm-4">
+            <div *appRole="['ADMIN']" class="option-item col-12 col-sm-6 col-md-4">
                 <mat-card [routerLink]="'../usuarios/' + user?.uid + '/audit'">
                     <mat-card-title>Tus accesos</mat-card-title>
                     <div class="option-image">
@@ -35,7 +37,7 @@
                 </mat-card>
             </div>
 
-            <div *appRole="['SUPER']" class="option-item col-12 col-sm-4">
+            <div *appRole="['SUPER']" class="option-item col-12 col-sm-6 col-md-4">
                 <mat-card [routerLink]="'../audit'">
                     <mat-card-title>Auditoría</mat-card-title>
                     <div class="option-image">
@@ -44,12 +46,6 @@
                 </mat-card>
             </div>
 
-        </div>
-
-        <mat-divider></mat-divider>
-
-        <div class="w-100 m-3">
-            <h1>Con tu rol de <span style="text-transform: lowercase;font-weight: bolder;font-size:inherit">{{ user.role }}</span> en la aplicación puedes hacer lo siguiente:</h1>
         </div>
 
     </div>

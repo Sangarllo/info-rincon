@@ -1,6 +1,8 @@
-<div class="options-wrapper">
+<h1 class="alert alert-primary" *appRole="['AUTOR', 'ADMIN', 'SUPER']">Creación de eventos</h1>
 
-    <div class="option-item col-12 col-sm-3">
+<div class="options-wrapper mb-3">
+
+    <div class="option-item col-12 col-sm-6 col-md-3">
         <mat-card *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="gotoNewEventFromScratch()">
             <mat-card-title>Evento desde cero</mat-card-title>
             <div class="option-image">
@@ -9,7 +11,7 @@
         </mat-card>
     </div>
 
-    <div class="option-item col-12 col-sm-3">
+    <div class="option-item col-12 col-sm-6 col-md-3">
         <mat-card *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="openEntityDialog()">
             <mat-card-title>Evento de entidad</mat-card-title>
             <div class="option-image">
@@ -18,7 +20,7 @@
         </mat-card>
     </div>
 
-    <div *ngIf="currentUser?.entityDefault" class="option-item col-12 col-sm-3">
+    <div *ngIf="currentUser?.entityDefault" class="option-item col-12 col-sm-6 col-md-3">
         <mat-card class="" *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="createEventFromEntity(currentUser.entityDefault)">
             <mat-card-title>Evento de ...</mat-card-title>
             <div class="option-image">
@@ -27,7 +29,7 @@
         </mat-card>
     </div>
 
-    <div *ngIf="currentUser?.entityDefault" class="option-item col-12 col-sm-3">
+    <div *ngIf="currentUser?.entityDefault" class="option-item col-12 col-sm-6 col-md-3">
         <mat-card (click)="gotoEventsDashboard()">
             <mat-card-title>Tus Eventos</mat-card-title>
             <div class="option-image">
@@ -38,11 +40,12 @@
 
 </div>
 
-<mat-divider></mat-divider>
 
-<div class="options-wrapper" *appRole="['ADMIN', 'SUPER']">
+<h1 class="alert alert-primary">Mantenimientos</h1>
 
-    <div class="option-item col-12 col-sm-4 col-md-2">
+<div class="options-wrapper mb-3" *appRole="['ADMIN', 'SUPER']">
+
+    <div class="option-item col-12 col-sm-6 col-md-4">
         <mat-card (click)="gotoUsersDashboard()">
             <mat-card-title>Panel de Usuarios</mat-card-title>
             <div class="option-image">
@@ -51,7 +54,7 @@
         </mat-card>
     </div>
 
-    <div class="option-item col-12 col-sm-4 col-md-2">
+    <div class="option-item col-12 col-sm-6 col-md-4">
         <mat-card (click)="gotoEntitiesDashboard()">
             <mat-card-title>Panel de Entidades</mat-card-title>
             <div class="option-image">
@@ -60,7 +63,7 @@
         </mat-card>
     </div>
 
-    <div class="option-item col-12 col-sm-4 col-md-2">
+    <div class="option-item col-12 col-sm-6 col-md-4">
         <mat-card (click)="gotoPlacesDashboard()">
             <mat-card-title>Panel de Lugares</mat-card-title>
             <div class="option-image">
@@ -69,7 +72,15 @@
         </mat-card>
     </div>
 
-    <div class="option-item col-12 col-sm-4 col-md-2">
+</div>
+
+
+<h1 class="alert alert-primary">Tableros (eventos, noticias y avisos)</h1>
+
+<div class="options-wrapper mb-3" *appRole="['ADMIN', 'SUPER']">
+
+
+    <div class="option-item col-12 col-sm-6 col-md-4">
         <mat-card (click)="gotoEventsDashboard()">
             <mat-card-title>Panel de Eventos</mat-card-title>
             <div class="option-image">
@@ -78,7 +89,7 @@
         </mat-card>
     </div>
 
-    <div class="option-item col-12 col-sm-4 col-md-2">
+    <div class="option-item col-12 col-sm-6 col-md-4">
         <mat-card (click)="gotoNoticesDashboard()">
             <mat-card-title>Panel de Avisos</mat-card-title>
             <div class="option-image">
@@ -87,7 +98,7 @@
         </mat-card>
     </div>
 
-    <div class="option-item col-12 col-sm-4 col-md-2">
+    <div class="option-item col-12 col-sm-6 col-md-4">
         <mat-card (click)="gotoNewsDashboard()">
             <mat-card-title>Panel de Noticias</mat-card-title>
             <div class="option-image">
@@ -95,9 +106,12 @@
             </div>
         </mat-card>
     </div>
+
 </div>
 
-<mat-divider></mat-divider>
+
+<h1 class="alert alert-primary">Tus opciones en la web</h1>
+
 
 <div class="options-wrapper">
 
