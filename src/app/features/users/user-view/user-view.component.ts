@@ -41,13 +41,17 @@ export class UserViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getDetails(uidUser: string): void {
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
+
+  public getDetails(uidUser: string): void {
     this.logSrv.info(`uid asked ${uidUser}`);
     this.user$ = this.userSrv.getOneUser(uidUser);
   }
 
-  private getAudit(uidUser: string): void {
-    const subs1$ = this.auditSrv.getAllAuditItemsByUser(uidUser)
+  public getAudit(uidUser: string): void {
+    const subs1$ = this.auditSrv.getAllAuditItemsByUser(uidUser, 10)
       .subscribe( (auditItems: IAuditItem[]) => {
         this.auditItems = auditItems;
       });
@@ -63,7 +67,4 @@ export class UserViewComponent implements OnInit, OnDestroy {
     this.router.navigate([`/${User.PATH_URL}/${this.uidUser}/editar`]);
   }
 
-  ngOnDestroy(): void {
-    this.listOfObservers.forEach(sub => sub.unsubscribe());
-  }
 }

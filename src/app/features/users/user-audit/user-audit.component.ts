@@ -20,11 +20,11 @@ export class UserAuditComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  private listOfObservers: Array<Subscription> = [];
   public loading = true;
   public auditItems: IAuditItem[];
   public dataSource: MatTableDataSource<IAuditItem> = new MatTableDataSource();
   displayedColumns: string[] = [ 'timestamp', 'image', 'name', 'desc' ];
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +38,7 @@ export class UserAuditComponent implements OnInit, OnDestroy {
 
     const uidUser = this.route.snapshot.paramMap.get('uid');
     if ( uidUser ) {
-      const subs1$ = this.auditSrv.getAllAuditItemsByUser(uidUser)
+      const subs1$ = this.auditSrv.getAllAuditItemsByUser(uidUser, 20)
         .subscribe( (auditItems: IAuditItem[]) => {
           this.auditItems = auditItems;
           this.dataSource = new MatTableDataSource(this.auditItems);

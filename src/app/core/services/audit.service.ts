@@ -23,12 +23,22 @@ export class AuditService {
     this.auditCollection = afs.collection(AUDIT_COLLECTION);
   }
 
-  getAllAuditItemsByUser(userId: string): Observable<IAuditItem[]> {
-    this.auditCollection = this.afs.collection<IAuditItem>(
-      AUDIT_COLLECTION,
-      ref => ref.where('userId', '==', userId)
-                .orderBy('timestamp','desc')
-    );
+  getAllAuditItemsByUser(userId: string, limit?: number): Observable<IAuditItem[]> {
+
+    this.auditCollection = limit ?
+
+      this.afs.collection<IAuditItem>(
+        AUDIT_COLLECTION,
+        ref => ref.where('userId', '==', userId)
+                  .orderBy('timestamp','desc')
+                  .limit(limit)
+      ) :
+
+      this.afs.collection<IAuditItem>(
+        AUDIT_COLLECTION,
+        ref => ref.where('userId', '==', userId)
+                  .orderBy('timestamp','desc')
+      );
 
     return this.auditCollection.valueChanges();
   }

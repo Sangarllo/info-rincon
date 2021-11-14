@@ -13,8 +13,8 @@
 * {
     font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     // font-family: Roboto, "Helvetica Neue", sans-serif;
-    font-size: 14px;
     // color: $color1;
+    font-size: 16px;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -48,6 +48,37 @@ body {
             background-color: $color2;
             border-bottom: 1px dotted $color1;
             text-decoration: dotted;
+        }
+    }
+    .options-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        .option-item {
+            margin: 0px;
+            padding: 10px;
+            flex-direction: column;
+            .option-image {
+                margin-top: 12px;
+            }
+        }
+        .mat-card-title {
+            font-size: 18px;
+        }
+    }
+    .section-wrapper,
+    .options-wrapper {
+        .intro {
+            width: 100%;
+            margin: 1.5rem !important;
+            font-size: x-large !important;
+            .role {
+                color: black;
+                text-transform: capitalize;
+                font-weight: bolder;
+                font-size: smaller;
+            }
         }
     }
 }

@@ -18,13 +18,13 @@ import { IAuditItem } from '@models/audit';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
-  private listOfObservers: Array<Subscription> = [];
   public userData$: Observable<IUser>;
   public auditItems: IAuditItem[] = [];
   public createdEventItems: IBase[] = [];
   public baseTypeEntity: BaseType = BaseType.ENTITY;
   public baseTypeAudit: BaseType = BaseType.AUDIT;
   public baseTypeEvent: BaseType = BaseType.EVENT;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public auth: AngularFireAuth,
@@ -44,8 +44,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.listOfObservers.push( subs$ );
   }
 
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
+
   private getAudit(uidUser: string): void {
-    const subs$ = this.auditSrv.getAllAuditItemsByUser(uidUser)
+    const subs$ = this.auditSrv.getAllAuditItemsByUser(uidUser, 10)
       .subscribe( (auditItems: IAuditItem[]) => {
         this.auditItems = auditItems;
       });
@@ -62,7 +66,4 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.listOfObservers.push( subs$ );
   }
 
-  ngOnDestroy(): void {
-    this.listOfObservers.forEach(sub => sub.unsubscribe());
-  }
 }

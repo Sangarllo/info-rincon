@@ -1,9 +1,10 @@
+@import '../../../../base/variables';
 div {
     height: 60px;
-    background-color: #DEEEEC;
-    color: #003A59;
+    background-color: $color2;
+    color: $color1;
     font-weight: 300;
-    font-size: 20px;
+    font-size: x-large; // 20px
     text-align: left;
     padding: 23px 18px;
 }
