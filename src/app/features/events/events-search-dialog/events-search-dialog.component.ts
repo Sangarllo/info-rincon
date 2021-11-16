@@ -20,11 +20,11 @@ export class EventsSearchDialogComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  public filterValid: boolean = false;
-  private listOfObservers: Array<Subscription> = [];
+  public filterValid = false;
   public events: IEvent[];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   displayedColumns: string[] = [ 'image', 'collapsed-info', 'name', 'categories' ];
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public dialogRef: MatDialogRef<EventsSearchDialogComponent>,

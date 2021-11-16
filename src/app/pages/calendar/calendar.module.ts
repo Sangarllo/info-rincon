@@ -7,11 +7,13 @@ import { SharedModule } from '@shared/shared.module';
 import { CalendarRoutingModule } from '@pages/calendar/calendar-routing.module';
 import { CalendarComponent } from '@pages/calendar/calendar.component';
 import { CalendarHeaderComponent } from '@pages/calendar/calendar-header.component';
+import { CalendarModeDialogComponent } from '@pages/calendar/calendar-mode-dialog.component';
 
 @NgModule({
   declarations: [
     CalendarComponent,
     CalendarHeaderComponent,
+    CalendarModeDialogComponent
   ],
   imports: [
     SharedModule,

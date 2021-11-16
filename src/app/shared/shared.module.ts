@@ -36,11 +36,11 @@ const components = [
 
 const pipes = [
   StatusPipe,
-]
+];
 
 const directives = [
   RoleDirective,
-]
+];
 
 const modules = [
   CommonModule,

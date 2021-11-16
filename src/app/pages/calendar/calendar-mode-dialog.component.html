@@ -1,0 +1,20 @@
+<div class="dialog-wrapper">
+
+    <h1 mat-dialog-title>Escoge cómo prefieres ver el calendario</h1>
+
+    <div mat-dialog-content>
+        <mat-form-field class="sel-view-mode" appearance="fill">
+            <!--<mat-label>Modo {{ modeSelected }}</mat-label>-->
+            <mat-select [(value)]="modeSelected" panelClass="example-panel">
+                <mat-option value="CalendarView.Month" (click)="returnOption()">Vista Mensual</mat-option>
+                <mat-option value="CalendarView.Week" (click)="returnOption()">Vista Semanal</mat-option>
+                <mat-option value="CalendarView.Day" (click)="returnOption()">Vista de Día</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close>Salir</button>
+    </div>
+
+</div>
