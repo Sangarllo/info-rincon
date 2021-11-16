@@ -12,10 +12,32 @@ mwl-calendar-month-cell.cal-cell.cal-day-cell.cal-today.cal-in-month.ng-star-ins
     background-color: $color1;
 }
 
-.cal-month-view .cal-day-cell {
-    min-height: 80px;
-}
-
 .cal-month-view .cal-day-badge {
     display: none;
+}
+
+@media screen and (max-width: 500px) {
+    .cal-month-view .cal-header .cal-cell {
+        font-size: x-small;
+    }
+    .cal-month-view .cal-day-number {
+        font-size: 1em;
+        margin-top: 3px;
+        margin-right: 5px;
+    }
+    .cal-month-view .cal-day-cell {
+        min-height: 50px;
+    }
+    .cal-month-view .cal-cell-top {
+        min-height: 50px;
+    }
+}
+
+@media screen and (min-width: 501px) {
+    .cal-month-view .cal-day-cell {
+        min-height: 80px;
+    }
+    .cal-month-view .cal-cell-top {
+        min-height: 80px;
+    }
 }
