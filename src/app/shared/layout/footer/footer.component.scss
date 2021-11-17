@@ -21,6 +21,13 @@ footer {
     }
 }
 
+@media screen and (max-width: 500px) {
+    footer p,
+    footer p a {
+        font-size: smaller;
+    }
+}
+
 @media screen and (max-width: 700px) {
     .footer__author {
         display: none;

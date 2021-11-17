@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container header-wrapper">
     <div class="large-title">
         <span>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</span>
     </div>
@@ -25,16 +25,6 @@
 
 
         <div class="title__mode buttons">
-
-            <!-- <mat-form-field class="sel-view-mode" appearance="fill">
-                <mat-label>Modo {{ view }}</mat-label>
-                <mat-select [(value)]="view" panelClass="example-panel">
-                    <mat-option value="CalendarView.Month" (click)="viewChange.emit(CalendarView.Month)">Mes</mat-option>
-                    <mat-option value="CalendarView.Week" (click)="viewChange.emit(CalendarView.Week)">Sem</mat-option>
-                    <mat-option value="CalendarView.Day" (click)="viewChange.emit(CalendarView.Day)">Día</mat-option>
-                </mat-select>
-            </mat-form-field> -->
-
             <button mat-mini-fab class="btn-1" (click)="gotoModeConfig()">
                 <mat-icon>manage_accounts</mat-icon>
             </button>
@@ -42,7 +32,6 @@
             <button mat-mini-fab class="btn-1" (click)="gotoEventSearch()">
                 <mat-icon>search</mat-icon>
             </button>
-
         </div>
 
     </div>

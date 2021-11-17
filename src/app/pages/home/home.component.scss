@@ -20,6 +20,13 @@
             font-weight: bolder;
         }
     }
+    @media screen and (max-width: 500px) {
+        .expansion-panel {
+            .expansion-panel__text {
+                font-size: 1em;
+            }
+        }
+    }
 }
 
 app-calendar-day-header {
