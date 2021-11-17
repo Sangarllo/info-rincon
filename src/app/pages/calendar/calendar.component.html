@@ -18,6 +18,9 @@
             <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" (eventClicked)="eventClicked($event.event)">
             </mwl-calendar-day-view>
         </div>
+
+        <app-section-footer *ngIf="showFooter" [text]="'Se han cargado ' + events.length + ' eventos!'"></app-section-footer>
+
     </div>
 
 </div>

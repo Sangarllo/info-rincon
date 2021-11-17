@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Add event-mode logo in event-admin view.
 - `feature` Add url-sanitized field for events, and evento/url view.
 - `feature` Add config for selecting view-mode in calendar.
+- `feature` Add footer-section below the calendar.
 
 ### Update
 

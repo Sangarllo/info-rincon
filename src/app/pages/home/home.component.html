@@ -43,23 +43,7 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <app-calendar [showSectionHeader]="false" [showHeader]="true"></app-calendar>
-
-        <!--
-        <app-calendar-day-header [(view)]="view" [(viewDate)]="viewDate" (viewDateChange)="fetchEvents()" (viewChange)="fetchEvents()" [locale]="locale">
-        </app-calendar-day-header>
-
-        <div *ngIf="calendarEvents.length" class="alert alert-primary">
-            {{ (calendarEvents.length === 1 ) ? '' : "Hay " + calendarEvents.length + " eventos:" }}
-
-            <app-calendar-event-items-panel [calendarEvents]="calendarEvents"></app-calendar-event-items-panel>
-        </div>
-
-        <div *ngIf="calendarEvents.length; else noEventsTemplate" class="w-100">
-            <mwl-calendar-day-view [viewDate]="viewDate" [events]="calendarEvents" [dayStartHour]="8" [dayEndHour]="20" (eventClicked)="openCalendarEventClicked($event.event)">
-            </mwl-calendar-day-view>
-        </div>
-        -->
+        <app-calendar [showSectionHeader]="false" [showHeader]="true" [showFooter]="true"></app-calendar>
 
     </mat-expansion-panel>
 

@@ -9,6 +9,7 @@ import { StatusPipe } from '@pipes/status.pipe';
 import { RoleDirective } from '@shared/directives/role.directive';
 import { ShellComponent } from '@shared/layout/shell/shell.component';
 import { FooterComponent } from '@shared/layout/footer/footer.component';
+import { SectionFooterComponent } from '@shared/layout/section-footer/section-footer.component';
 import { SectionHeaderComponent } from '@shared/layout/section-header/section-header.component';
 import { BaseItemsListComponent } from '@shared/components/base-items-list/base-items-list.component';
 import { BaseItemsTableComponent } from '@shared/components/base-items-table/base-items-table.component';
@@ -23,6 +24,7 @@ const components = [
   ShellComponent,
   FooterComponent,
   SectionHeaderComponent,
+  SectionFooterComponent,
   BaseItemDetailComponent,
   BaseItemDialogComponent,
   BaseItemsListComponent,

@@ -26,6 +26,7 @@ export class CalendarComponent implements OnInit {
 
   @Input() showSectionHeader = true;
   @Input() showHeader = true;
+  @Input() showFooter = true;
 
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();

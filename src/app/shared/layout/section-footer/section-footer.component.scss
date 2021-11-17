@@ -1,0 +1,9 @@
+@import '../../../../base/variables';
+div {
+    height: 60px;
+    color: $color1;
+    font-weight: 300;
+    font-size: smaller; // 20px
+    text-align: center;
+    padding: 23px 18px;
+}
