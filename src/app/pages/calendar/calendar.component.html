@@ -2,7 +2,7 @@
 
 <div [ngClass]="{'section-wrapper' : showHeader}">
 
-    <app-calendar-header *ngIf="showHeader; else ngSimpleHeaderTemplate" [(view)]="view" [(viewDate)]="viewDate" (viewDateChange)="fetchEvents()" (viewChange)="fetchEvents()" (entitySelectedChange)="selectEntity($event)" [locale]="locale">
+    <app-calendar-header *ngIf="showHeader; else ngSimpleHeaderTemplate" [(view)]="view" [(viewDate)]="viewDate" [entityId]="entityId" (viewDateChange)="fetchEvents()" (viewChange)="fetchEvents()" (entitySelectedChange)="selectEntity($event)" [locale]="locale">
     </app-calendar-header>
 
     <ng-template #ngSimpleHeaderTemplate>

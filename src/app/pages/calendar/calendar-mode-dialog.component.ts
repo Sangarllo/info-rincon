@@ -33,15 +33,25 @@ export class CalendarModeDialogComponent {
     private baseSrv: BaseService,
     @Inject(MAT_DIALOG_DATA) public data: any, // DialogData,
   ) {
-    console.log(`opening ${JSON.stringify(data)}`);
-    this.modeSelected = this.data.view;
-    console.log(`modeSelected ${JSON.stringify(this.view)}`);
+    switch ( data.view ) {
+      case 'day':
+          this.modeSelected = 'CalendarView.Day';
+          break;
+      case 'week':
+          this.modeSelected = 'CalendarView.Week';
+          break;
+      case 'month':
+      default:
+          this.modeSelected = 'CalendarView.Month';
+          break;
+    }
 
     this.baseItems$ = this.baseSrv.getAllItemsBase(BaseType.ENTITY);
+
+    console.log(`configuring... data.entityId: ${data.entityId}`);
+    this.baseItemSelected = this.SECTION_BLANK;
     this.baseItemName = 'entidad';
     this.baseItemDesc = 'rol';
-
-    this.baseItemSelected = this.SECTION_BLANK;
 
     this.baseItemForm = this.fb.group({
       baseItem: [ this.baseItemSelected, []],
@@ -64,7 +74,6 @@ export class CalendarModeDialogComponent {
 
   onOkClick(): void {
     const result: [string, IBase] = [this.modeSelected, this.baseItemSelected];
-    console.log(`returnData1: ${JSON.stringify(result)}`);
     this.dialogRef.close(result);
   }
 }

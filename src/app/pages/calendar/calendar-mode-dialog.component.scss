@@ -2,10 +2,10 @@
 .dialog-wrapper {
     padding: 0px;
     margin: 10px;
-    // .results {
-    //     .results__first-column {
-    //         padding-left: 0px;
-    //         width: 64px;
-    //     }
-    // }
+}
+
+@media screen and (max-width: 500px) {
+    h3 {
+        font-size: smaller;
+    }
 }

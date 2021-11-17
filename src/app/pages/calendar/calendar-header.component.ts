@@ -16,6 +16,7 @@ import { SwalMessage, UtilsService } from '@services/utils.service';
 export class CalendarHeaderComponent {
 
   @Input() view: CalendarView;
+  @Input() entityId: string;
   @Input() viewDate: Date;
   @Input() locale = 'es';
 
@@ -38,7 +39,7 @@ export class CalendarHeaderComponent {
 
   gotoModeConfig() {
 
-    this.dialogConfig.data = { view: this.view };
+    this.dialogConfig.data = { view: this.view, entity: this.entityId };
     this.dialogConfig.width = '500px';
     this.dialogConfig.height = '500px';
 

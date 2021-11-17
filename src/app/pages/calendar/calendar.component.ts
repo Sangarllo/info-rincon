@@ -35,7 +35,7 @@ export class CalendarComponent implements OnInit {
   weekStartsOn = 1;
   activeDayIsOpen = false;
   infoEventsFooter = ' en toda la agenda';
-  entitySelectedId = '0';
+  entityId = '0';
 
   events$: Observable<CalendarEvent[]>;
 
@@ -49,10 +49,10 @@ export class CalendarComponent implements OnInit {
   }
 
   fetchEvents(): void {
-      console.log(`fetchEvents EntityId: ${this.entitySelectedId}`);
+      console.log(`fetchEvents EntityId: ${this.entityId}`);
       this.events$ = this.calEventsSrv.getCalendarEventsByRange(
           '','',
-          ( this.entitySelectedId === '0' ) ? null : this.entitySelectedId
+          ( this.entityId === '0' ) ? null : this.entityId
       );
   }
 
@@ -83,8 +83,8 @@ export class CalendarComponent implements OnInit {
 
     selectEntity(entityBase: IBase): void {
       console.log(`select Entity: ${JSON.stringify(entityBase)}`);
-      this.entitySelectedId = entityBase.id;
-      console.log(`select EntityId: ${this.entitySelectedId}`);
+      this.entityId = entityBase.id;
+      console.log(`select EntityId: ${this.entityId}`);
       this.infoEventsFooter = ( entityBase.id === '0' ) ?
         ` en toda la agenda` :
         ` vinculados a ${entityBase.name}`;
