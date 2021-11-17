@@ -2,7 +2,7 @@
 
 <div [ngClass]="{'section-wrapper' : showHeader}">
 
-    <app-calendar-header *ngIf="showHeader; else ngSimpleHeaderTemplate" [(view)]="view" [(viewDate)]="viewDate" (viewDateChange)="fetchEvents()" (viewChange)="fetchEvents()" [locale]="locale">
+    <app-calendar-header *ngIf="showHeader; else ngSimpleHeaderTemplate" [(view)]="view" [(viewDate)]="viewDate" (viewDateChange)="fetchEvents()" (viewChange)="fetchEvents()" (entitySelectedChange)="selectEntity($event)" [locale]="locale">
     </app-calendar-header>
 
     <ng-template #ngSimpleHeaderTemplate>
@@ -19,7 +19,7 @@
             </mwl-calendar-day-view>
         </div>
 
-        <app-section-footer *ngIf="showFooter" [text]="'Se han cargado ' + events.length + ' eventos!'"></app-section-footer>
+        <app-section-footer *ngIf="showFooter" [text]="'Se han cargado ' + events.length + ' eventos ' + infoEventsFooter"></app-section-footer>
 
     </div>
 

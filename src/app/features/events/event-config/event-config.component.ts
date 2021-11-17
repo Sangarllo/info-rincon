@@ -159,6 +159,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((newBase: IBase) => {
       if ( newBase ) {
         this.event.entityItems.push(newBase);
+        this.event.entitiesArray.push(newBase.id);
         this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Añadida entidad');
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
@@ -285,8 +286,9 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
     const entityId = base.id;
     this.event.entityItems = this.event.entityItems.filter(item => item.id !== entityId);
+    this.event.entitiesArray = this.event.entitiesArray.filter(itemId => itemId !== entityId);
 
-    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado entityItems');
+    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizadas sus entidades');
   }
 
   deletePlace(base: IBase): void {

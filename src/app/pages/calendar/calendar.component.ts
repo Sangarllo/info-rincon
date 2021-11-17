@@ -15,6 +15,7 @@ import {
   format,
 } from 'date-fns';
 import { CalendarEventsService } from '@services/calendar-events.service';
+import { IBase } from '@models/base';
 
 @Component({
   selector: 'app-calendar',
@@ -33,6 +34,8 @@ export class CalendarComponent implements OnInit {
   locale = 'es';
   weekStartsOn = 1;
   activeDayIsOpen = false;
+  infoEventsFooter = ' en toda la agenda';
+  entitySelectedId = '0';
 
   events$: Observable<CalendarEvent[]>;
 
@@ -46,7 +49,11 @@ export class CalendarComponent implements OnInit {
   }
 
   fetchEvents(): void {
-    this.events$ = this.calEventsSrv.getCalendarEventsByRange('','');
+      console.log(`fetchEvents EntityId: ${this.entitySelectedId}`);
+      this.events$ = this.calEventsSrv.getCalendarEventsByRange(
+          '','',
+          ( this.entitySelectedId === '0' ) ? null : this.entitySelectedId
+      );
   }
 
   dayClicked({
@@ -69,7 +76,17 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  eventClicked(event: CalendarEvent): void {
-    this.router.navigate([`eventos/${event.id}`]);
-  }
+    eventClicked(event: CalendarEvent): void {
+      this.router.navigate([`eventos/${event.id}`]);
+    }
+
+
+    selectEntity(entityBase: IBase): void {
+      console.log(`select Entity: ${JSON.stringify(entityBase)}`);
+      this.entitySelectedId = entityBase.id;
+      console.log(`select EntityId: ${this.entitySelectedId}`);
+      this.infoEventsFooter = ( entityBase.id === '0' ) ?
+        ` en toda la agenda` :
+        ` vinculados a ${entityBase.name}`;
+      }
 }

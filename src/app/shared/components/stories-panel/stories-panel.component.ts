@@ -19,11 +19,11 @@ import { IBase, BaseType, Base } from '@models/base';
 })
 export class StoriesPanelComponent implements OnInit {
 
-  private listOfObservers: Array<Subscription> = [];
   public links$: Observable<ILink[]>;
   public notices$: Observable<INotice[]>;
   public events$: Observable<IEvent[]>;
   public REAL_STORIES: IBase[];
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private router: Router,
@@ -37,7 +37,7 @@ export class StoriesPanelComponent implements OnInit {
 
     this.links$ = this.linksSrv.getAllLinks(true, true, 2);
     this.notices$ = this.noticesSrv.getAllNotices(true, true, 2);
-    this.events$ = this.eventsSrv.getAllEvents(true, true, 2);
+    this.events$ = this.eventsSrv.getAllEvents(true, true, 2, null);
 
     const subs1$ = combineLatest([
       this.links$,

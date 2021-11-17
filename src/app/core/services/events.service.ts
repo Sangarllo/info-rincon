@@ -41,7 +41,7 @@ export class EventService {
     this.eventCollection = afs.collection(EVENTS_COLLECTION);
   }
 
-  getAllEvents(showOnlyActive: boolean, modeDashboard: boolean, sizeDashboard?: number): Observable<IEvent[]> {
+  getAllEvents(showOnlyActive: boolean, modeDashboard: boolean, sizeDashboard?: number, entityId?: string): Observable<IEvent[]> {
 
     if ( modeDashboard ) {
       this.eventCollection = this.afs.collection<IEvent>(
@@ -54,12 +54,24 @@ export class EventService {
       );
     } else {
       if ( showOnlyActive ) {
-        this.eventCollection = this.afs.collection<IEvent>(
-          EVENTS_COLLECTION,
-          ref => ref.where('active', '==', true)
-                    .where('status', '==', 'VISIBLE')
-                    .orderBy('timestamp', 'desc')
-        );
+        if ( !entityId ) {
+          console.log(`-> No Hay entityId`);
+          this.eventCollection = this.afs.collection<IEvent>(
+            EVENTS_COLLECTION,
+            ref => ref.where('active', '==', true)
+                      .where('status', '==', 'VISIBLE')
+                      .orderBy('timestamp', 'desc')
+          );
+        } else {
+          console.log(`-> Hay entityId ${entityId}`);
+          this.eventCollection = this.afs.collection<IEvent>(
+            EVENTS_COLLECTION,
+            ref => ref.where('active', '==', true)
+                      .where('status', '==', 'VISIBLE')
+                      .where('entitiesArray', 'array-contains', entityId)
+                      .orderBy('timestamp', 'desc')
+          );
+        }
       } else {
         this.eventCollection = this.afs.collection<IEvent>(
           EVENTS_COLLECTION,
@@ -83,7 +95,7 @@ export class EventService {
   }
 
   getAllEventsWithAppointments(): Observable<IEvent[]> {
-    const events$ = this.getAllEvents(false, false, null);
+    const events$ = this.getAllEvents(false, false, null, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
 
     return combineLatest([
@@ -101,7 +113,7 @@ export class EventService {
 
   // TODO: is it senseless to get start time (for month view)
   getAllCalendarEventsAppointments(): Observable<CalendarEvent[]> {
-    const events$ = this.getAllEvents(true, false, null);
+    const events$ = this.getAllEvents(true, false, null, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
 
     return combineLatest([
@@ -252,6 +264,7 @@ export class EventService {
         scheduleType,
         placeItems: [ newPlaceItem ],
         entityItems: [ newEntityItem ],
+        entitiesArray: [ entity.id ],
         extra: '',
       }
     );

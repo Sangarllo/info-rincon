@@ -37,7 +37,7 @@ export class EventsSearchDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    const subs1$ = //this.eventSrv.getAllEvents(true, true, 2)
+    const subs1$ =
       this.eventSrv.getAllEventsWithAppointments()
         .pipe(
           map(events => events.map(event => {

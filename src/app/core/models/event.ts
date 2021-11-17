@@ -28,6 +28,7 @@ export interface IEvent {
   scheduleItems?: IBase[];
   placeItems?: IBase[];
   entityItems?: IBase[];
+  entitiesArray?: string[];
   auditItems?: IBase[];
   userId?: string;
   extra?: string; // Extra field to pass info
@@ -63,6 +64,7 @@ export class Event implements IEvent, IBase { // IAudit
 
     public placeItems?: IBase[],
     public entityItems?: IBase[],
+    public entitiesArray?: string[],
     public auditItems?: IBase[],
     public userId?: string,
     public extra?: string,
@@ -83,7 +85,7 @@ export class Event implements IEvent, IBase { // IAudit
       null, // Timestamp
       null, true, [], // Appointment, HowIsShown, scheduleItems
       [], // Place
-      [], // Entity
+      [], [], // Entity
       [],  // Audit
       null, // UserId
     );

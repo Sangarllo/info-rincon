@@ -19,9 +19,8 @@ import { EventItemDialogComponent } from '@features/events/event-item-dialog/eve
 })
 export class CalendarEventsService {
 
-  private listOfObservers: Array<Subscription> = [];
-
   public dialogConfig = new MatDialogConfig();
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public dialog: MatDialog,
@@ -29,8 +28,8 @@ export class CalendarEventsService {
     private appointmentSrv: AppointmentsService,
   ) { }
 
-  getCalendarEventsByRange(dateMinStr: string, dateMaxStr: string): Observable<CalendarEvent[]> {
-    const events$ = this.eventsSrv.getAllEvents(true, false, null);
+  getCalendarEventsByRange(dateMinStr: string, dateMaxStr: string, entityId?: string): Observable<CalendarEvent[]> {
+    const events$ = this.eventsSrv.getAllEvents(true, false, null, entityId);
     const appointments$ = this.appointmentSrv.getAppointmentsByRange(
       dateMinStr, dateMaxStr
     );
@@ -78,10 +77,7 @@ export class CalendarEventsService {
     return this.eventsSrv.getOneEvent(eventId)
       .pipe(
         take(1),
-        map(event => {
-            return this.getBaseFromEvent(event, scheduleId)
-          }
-        )
+        map(event => this.getBaseFromEvent(event, scheduleId))
       );
   }
 

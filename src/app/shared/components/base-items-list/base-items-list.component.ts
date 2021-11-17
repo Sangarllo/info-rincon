@@ -15,7 +15,7 @@ import { LogService } from '@services/log.service';
 export class BaseItemsListComponent {
 
   @Input() baseItems: IBase[];
-  @Input() order: string = 'row'
+  @Input() order = 'row';
   @Input() modeAdmin: boolean;
   @Output() deleteBase = new EventEmitter<IBase>();
 
