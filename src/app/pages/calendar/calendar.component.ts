@@ -86,7 +86,7 @@ export class CalendarComponent implements OnInit {
       this.entityId = entityBase.id;
       console.log(`select EntityId: ${this.entityId}`);
       this.infoEventsFooter = ( entityBase.id === '0' ) ?
-        ` en toda la agenda` :
+        ` en la agenda` :
         ` vinculados a ${entityBase.name}`;
       }
 }

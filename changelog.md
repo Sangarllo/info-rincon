@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Update admin dashboard view.
 - `business` Change event-admin by event-config.
 - `business` Lector User can edit his name and image.
+- `feature` Loaded events are limited to updated in the last year.
 
 ### Fix
 

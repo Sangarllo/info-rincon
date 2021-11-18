@@ -70,7 +70,7 @@ export class AppointmentsService {
     const dateTime = scheduleItem.extra.split(' ');
     this.appointmentCollection.doc(idAppointment).set({
       id: idAppointment,
-      active: active,
+      active,
       allDay: false,
       dateIni: dateTime[0],
       timeIni: dateTime[1],
@@ -83,7 +83,7 @@ export class AppointmentsService {
 
   enableAppointment(idAppointment: string, enable: boolean): void {
     this.appointmentDoc = this.afs.doc<IAppointment>(`${APPOINTMENTS_COLLECTION}/${idAppointment}`);
-    console.log(`idAppointment: ${idAppointment}, enable: ${enable}`)
+    console.log(`idAppointment: ${idAppointment}, enable: ${enable}`);
 
     this.appointmentDoc.update({ active: enable });
   }
@@ -115,8 +115,9 @@ export class AppointmentsService {
     return [year, month, day].join('-');
   }
 
-  formatDateTime(date: Date): string {
-    const year = date.getFullYear();
+  formatDateTime(date: Date, addYear?: number): string {
+
+    const year = date.getFullYear() + (addYear ? addYear : 0);
 
     let month = '' + (date.getMonth() + 1);
     if (month.length < 2) {
@@ -150,11 +151,12 @@ export class AppointmentsService {
     return `${dateStr} ${timeStr}`;
   }
 
-  public getTimestamp(): string {
-    var today = new Date();
-    return this.formatDateTime(today);
+  public getTimestamp(addYear?: number): string {
+    const today = new Date();
+    return this.formatDateTime(today, addYear);
   }
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   from_YYYYMMDD_to_DDMMYYYY(date: string): string {
     const YYYY = date.substring(6, 4);
     const MM = date.substring(3,2);

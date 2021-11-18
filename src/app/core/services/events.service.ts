@@ -54,12 +54,17 @@ export class EventService {
       );
     } else {
       if ( showOnlyActive ) {
+
+        const timestampLastYear = this.appointmentSrv.getTimestamp(-1);
+        console.log('timestampLastYear', timestampLastYear);
+
         if ( !entityId ) {
           console.log(`-> No Hay entityId`);
           this.eventCollection = this.afs.collection<IEvent>(
             EVENTS_COLLECTION,
             ref => ref.where('active', '==', true)
                       .where('status', '==', 'VISIBLE')
+                      .where('timestamp', '>', timestampLastYear)
                       .orderBy('timestamp', 'desc')
           );
         } else {
@@ -68,6 +73,7 @@ export class EventService {
             EVENTS_COLLECTION,
             ref => ref.where('active', '==', true)
                       .where('status', '==', 'VISIBLE')
+                      .where('timestamp', '>', timestampLastYear)
                       .where('entitiesArray', 'array-contains', entityId)
                       .orderBy('timestamp', 'desc')
           );
@@ -288,21 +294,6 @@ export class EventService {
     this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
 
     return this.eventDoc.set(event, { merge: true });
-
-    // const eventId = event.id;
-    // // this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${eventId}`);
-
-    // // console.log(`updatEvent1 ${JSON.stringify(event)}`);
-
-    // event = this.readyToSave(event);
-
-    // // console.log(`updatEvent2 ${JSON.stringify(event)}`);
-
-    // //return this.eventDoc.set(event, { merge: true });
-    // return this.eventCollection.doc(eventId).set({
-    //   ...event,
-    //   id: eventId,
-    // });
   }
 
   deleteEvent(event: IEvent, currentUser: IUser): void {

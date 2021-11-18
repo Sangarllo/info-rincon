@@ -233,6 +233,9 @@ button:not(.mat-button-disabled) {
     .label-for-tablet-desktop {
         display: none !important;
     }
+    .mat-expansion-panel-body {
+        padding: 4px !important;
+    }
 }
 
 @media screen and (min-width: 701px) {

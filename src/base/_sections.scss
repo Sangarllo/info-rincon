@@ -5,23 +5,38 @@ Styles for Sections
 */
 
 div.section-wrapper {
-    margin-top: 20px;
-    margin-left: 4px;
-    margin-right: 4px;
-    padding: 20px;
+    @media screen and (max-width: 700px) {
+        margin-top: 10px;
+        margin-left: 2px;
+        margin-right: 2px;
+        padding: 6px;
+        .section-title,
+        .section-text {
+            margin: 6px 0px 4px 0px;
+        }
+    }
+    @media screen and (min-width: 701px) {
+        margin-top: 20px;
+        margin-left: 4px;
+        margin-right: 4px;
+        padding: 20px;
+        .section-title,
+        .section-text {
+            margin: 20px 0px 10px 0px;
+        }
+    }
     .section-title {
         display: block;
         font-size: large;
         color: $color1;
         background-color: $color2;
-        margin: 20px 0px 10px 0px;
     }
-    .section-text {
-        display: block;
-        font-size: inherit;
-        color: $color1;
-        margin: 20px 0px 10px 0px;
-    }
+}
+
+.section-text {
+    display: block;
+    font-size: inherit;
+    color: $color1;
 }
 
 .section-subtitle {
