@@ -76,10 +76,12 @@
 
                             <span *ngIf="userLogged && !isFav" mat-fab (click)="isFavorite(true)" class="fav-button">
                                 <mat-icon svgIcon="favorite-off"></mat-icon>
+                                <span *ngIf="event.usersFavs" class="counter">{{event.usersFavs.length}}</span>
                             </span>
 
                             <span *ngIf="userLogged && isFav" mat-fab (click)="isFavorite(false)" class="fav-button">
                                 <mat-icon svgIcon="favorite-on"></mat-icon>
+                                <span *ngIf="event.usersFavs" class="counter">{{event.usersFavs.length}}</span>
                             </span>
 
                             <span mat-fab (click)="clap()" class="fav-button">
@@ -87,6 +89,7 @@
                                 <ng-template #noClapTemplate>
                                     <mat-icon svgIcon="clap-off"></mat-icon>
                                 </ng-template>
+                                <span *ngIf="event.nClaps" class="counter">{{event.nClaps}}</span>
                             </span>
 
                         </div>

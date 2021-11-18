@@ -162,11 +162,13 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.isFav = !this.isFav;
     if ( isFav ) {
       this.userLogged.favEvents.push(this.event.id);
+      this.eventSrv.addFavourite(this.event, this.userLogged.uid);
       Swal.fire({
         icon: 'success',
         title: 'Este evento se ha convertido en uno de tus favoritos',
       });
     } else {
+      this.eventSrv.removeFavourite(this.event, this.userLogged.uid);
       Swal.fire({
         icon: 'success',
         title: 'Este evento ha dejado de estar entre tus favoritos',
@@ -179,6 +181,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public clap(): void {
     console.log(`applause!`);
     this.applause = true;
+    this.eventSrv.addClaps(this.event);
     const source = timer(3000);
     const subsTimer$ = source.subscribe(val => {
       console.log(val);

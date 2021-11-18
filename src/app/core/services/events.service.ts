@@ -334,28 +334,30 @@ export class EventService {
     return of(EVENTS);
   }
 
-  // private readyToSave(event: IEvent): IEvent {
+  public async addFavourite(event: IEvent, userUid: string): Promise<void> {
+    const idEvent = event.id;
+    this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
+    if ( event.usersFavs ) {
+      event.usersFavs = event.usersFavs.filter( userId => userId !== userUid );
+      event.usersFavs.push(userUid);
+    } else {
+      event.usersFavs = [ userUid ];
+    }
+    return this.eventDoc.set(event, { merge: true });
+  }
 
-  //   // scheduleItems
-  //   if ( event.scheduleItems.length > 0 ) {
-  //     event.scheduleItems = event.scheduleItems.map((obj)=> {return Object.assign({}, obj)});
-  //   }
+  public async removeFavourite(event: IEvent, userUid: string): Promise<void> {
+    console.log(`removeFavourite`);
+    const idEvent = event.id;
+    this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
+    event.usersFavs = event.usersFavs.filter( userId => userId !== userUid );
+    return this.eventDoc.set(event, { merge: true });
+  }
 
-  //   // placeItems
-  //   if ( event.placeItems.length > 0 ) {
-  //     event.placeItems = event.placeItems.map((obj)=> {return Object.assign({}, obj)});
-  //   }
-
-  //   // entityItems
-  //   if ( event.entityItems.length > 0 ) {
-  //     event.entityItems = event.entityItems.map((obj)=> {return Object.assign({}, obj)});
-  //   }
-
-  //   // auditItems
-  //   if ( event.auditItems.length > 0 ) {
-  //     event.auditItems = event.auditItems.map((obj)=> {return Object.assign({}, obj)});
-  //   }
-
-  //   return event;
-  // }
+  public async addClaps(event: IEvent): Promise<void> {
+    const idEvent = event.id;
+    this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
+    event.nClaps = ( event.nClaps ) ? event.nClaps+1 : 1;
+    return this.eventDoc.set(event, { merge: true });
+  }
 }

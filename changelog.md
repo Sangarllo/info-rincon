@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Add config for selecting view-mode in calendar.
 - `feature` Add footer-section below the calendar.
 - `feature` Add filter-by-entity configuration in the calendar.
+- `feature` Add counter for favs and claps.
 
 ### Update
 

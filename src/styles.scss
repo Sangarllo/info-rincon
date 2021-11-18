@@ -125,22 +125,48 @@ body {
     }
 }
 
+@media screen and (max-width: 600px) {
+    .share-button,
+    .fav-button {
+        width: 45px;
+        .mat-icon {
+            width: 45px;
+            height: 45px;
+        }
+    }
+}
+
+@media screen and (min-width: 601px) {
+    .share-button,
+    .fav-button {
+        width: 55px;
+        .mat-icon {
+            width: 55px;
+            height: 55px;
+        }
+    }
+}
+
+.share-button,
+.fav-button {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+}
+
 .share-button {
     float: left;
     margin-right: 8px;
     background-color: white;
-    .mat-icon {
-        width: 55px;
-        height: 55px
-    }
 }
 
 .fav-button {
     margin-right: 8px;
     background-color: white;
-    .mat-icon {
-        width: 55px;
-        height: 55px
+    .counter {
+        display: block;
+        margin-top: 2px;
+        text-align: center;
     }
 }
 
