@@ -10,13 +10,14 @@
         display: none;
     }
     .list__item {
-        min-width: 400px;
+        margin-bottom: 4px;
+        // min-width: 400px;
         background-color: $color2;
         flex-grow: 1;
         padding: 6px;
         border-radius: 10px;
         margin: 2px;
-        padding-bottom: 20px; // <!-- TODO: comprobar
+        padding-bottom: 40px; // <!-- TODO: comprobar
         .list__item-img {
             width: 54px;
             height: 54px;

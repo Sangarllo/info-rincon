@@ -1,32 +1,30 @@
 <div *ngIf="baseItems.length > 0; else noBaseItemsTemplate" class="list">
 
-    <div *ngFor="let baseItem of baseItems">
+    <div *ngFor="let baseItem of baseItems" style="margin-bottom: 0px;">
 
-        <div *ngIf="baseItem">
+        <div *ngIf="baseItem" [ngClass]="(baseItem.active) ? 'list__item' : 'list__item--disabled'">
 
-            <div [ngClass]="(baseItem.active) ? 'list__item' : 'list__item--disabled'">
+            <img [src]="baseItem.image" class="list__item-img img-thumbnail">
 
-                <img [src]="baseItem.image" class="list__item-img img-thumbnail">
-
-                <!-- <pre>
+            <!-- <pre>
                     {{ baseItem | json }}
                 </pre> -->
 
-                <div class="list__item-info">
-                    <span class="name">{{ baseItem.name }}</span>
-                    <span *ngIf="baseItem.extra" class="extra-data">🕑 {{ baseItem.extra }}</span>
-                    <span *ngIf="baseItem.place" class="extra-data">🏠 {{ baseItem.place?.name }}</span>
-                    <span *ngIf="baseItem.description" class="extra-data">{{ baseItem.description }}</span>
-                </div>
+            <div class="list__item-info">
+                <span class="name">{{ baseItem.name }}</span>
+                <span *ngIf="baseItem.extra" class="extra-data">🕑 {{ baseItem.extra }}</span>
+                <span *ngIf="baseItem.place" class="extra-data">🏠 {{ baseItem.place?.name }}</span>
+                <span *ngIf="baseItem.description" class="extra-data">{{ baseItem.description }}</span>
+            </div>
 
-                <button *ngIf="modeAdmin === true" class="list__item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteBaseItem(baseItem)">
+            <button *ngIf="modeAdmin === true" class="list__item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteBaseItem(baseItem)">
             <mat-icon class="btn-1" aria-label="Delete">
                 remove_circle_outline
             </mat-icon>
         </button>
 
-            </div>
         </div>
+
     </div>
 
 </div>
