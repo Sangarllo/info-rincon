@@ -21,7 +21,7 @@ import { AuditItem, AuditType } from '@models/audit';
 import { IEntity } from '@models/entity';
 import { ScheduleType } from '@models/shedule-type.enum';
 import { AppointmentsService } from '@services/appointments.service';
-import { IAppointment } from '@models/appointment';
+import { EventSocialService } from '@services/events-social.service';
 
 const EVENTS_COLLECTION = 'eventos';
 
@@ -36,6 +36,7 @@ export class EventService {
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
+    private eventSocialSrv: EventSocialService,
     private appointmentSrv: AppointmentsService
   ) {
     this.eventCollection = afs.collection(EVENTS_COLLECTION);
@@ -100,19 +101,24 @@ export class EventService {
     return this.eventCollection.valueChanges();
   }
 
-  getAllEventsWithAppointments(): Observable<IEvent[]> {
+  getAllEventsWithAppointments(addSocialInfo: boolean): Observable<IEvent[]> {
     const events$ = this.getAllEvents(false, false, null, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
+    const eventsSocial$ = ( addSocialInfo ) ? this.eventSocialSrv.getAllEventsSocial() : of([]);
 
     return combineLatest([
       events$,
-      appointments$
+      appointments$,
+      eventsSocial$
     ])
       .pipe(
-        map(([events, appointments]) => events.map(event => ({
+        map(([events, appointments, eventsSocial]) => events.map(event => ({
           ...event,
           timestamp: formatDistance(new Date(event.timestamp), new Date(), {locale: es}),
           dateIni: appointments.find( a => a.id === event.id )?.dateIni,
+          extra: ( addSocialInfo ) ?
+              // eslint-disable-next-line max-len
+              `${eventsSocial.find( e => e.id === event.id )?.nClaps}|${eventsSocial.find( e => e.id === event.id )?.usersFavs?.length}` : '0|0'
         }) as IEvent)),
     );
   }

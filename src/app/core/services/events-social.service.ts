@@ -25,6 +25,13 @@ export class EventSocialService {
     this.eventSocialCollection = afs.collection(EVENTS_SOCIAL_COLLECTION);
   }
 
+  public getAllEventsSocial(): Observable<IEventSocial[]> {
+    this.eventSocialCollection = this.afs.collection<IEventSocial>(
+      EVENTS_SOCIAL_COLLECTION
+    );
+    return this.eventSocialCollection.valueChanges();
+  }
+
   public getEventSocial(eventSocialId: string): Observable<IEventSocial> {
     return this.eventSocialCollection.doc(eventSocialId).valueChanges({ idField: 'id' });
   }

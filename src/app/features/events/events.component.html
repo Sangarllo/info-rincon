@@ -89,7 +89,14 @@
                         <mat-icon class="btn-1" aria-label="Delete">
                             delete
                         </mat-icon>
-                </button>
+                    </button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="social">
+                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Social</th>
+                <td mat-cell class="td-extra-lg" *matCellDef="let event">
+                    {{ event.extra }}
                 </td>
             </ng-container>
 

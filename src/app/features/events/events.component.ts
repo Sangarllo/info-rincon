@@ -28,7 +28,11 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   public events: IEvent[];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
-  displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'image', 'collapsed-info', 'name', 'categories', 'dateIni', 'actions3'];
+  displayedColumns: string[] = [
+      'status', 'id', 'timestamp',
+      'image', 'collapsed-info', 'name', 'categories', 'dateIni',
+      'actions3', 'social'
+];
   private listOfObservers: Array<Subscription> = [];
   private currentUser: IUser;
 
@@ -50,12 +54,13 @@ export class EventsComponent implements OnInit, OnDestroy {
         });
     this.listOfObservers.push(subs1$);
 
-    const subs2$ = this.eventSrv.getAllEventsWithAppointments()
+    const subs2$ = this.eventSrv.getAllEventsWithAppointments(true)
         .pipe(
           map(events => events.map(event => {
             const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
 
             event.description = ( event.categories ) ? event.categories.reduce(reducer, '') : '';
+            event.extra = this.formatSocialInfo(event.extra);
             return { ...event };
           }))
         )
@@ -114,5 +119,12 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
+
+  private formatSocialInfo(info: string): string {
+    let [ nClaps, usersFavs ] = info.split('|');
+    nClaps = ( nClaps === 'undefined' ) ? '0' : nClaps;
+    usersFavs = ( usersFavs === 'undefined' ) ? '0' : usersFavs;
+    return `${nClaps} 👏  ${usersFavs} ❤️`;
   }
 }
