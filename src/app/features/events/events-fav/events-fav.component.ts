@@ -27,11 +27,11 @@ export class EventsFavComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  private listOfObservers: Array<Subscription> = [];
   public events: IEvent[] = [];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
-  displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'image', 'collapsed-info', 'name', 'categories', 'actions1'];
+  public displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'image', 'collapsed-info', 'name', 'categories', 'actions1'];
   private currentUser: IUser;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private router: Router,
@@ -52,9 +52,7 @@ export class EventsFavComponent implements OnInit, OnDestroy {
       this.userSrv.getOneUser(uidUser)
       .subscribe( (user: IUser) => {
         this.currentUser = user;
-        console.log(`currentUser: ${JSON.stringify(this.currentUser)}`);
         const favEvents = this.currentUser.favEvents;
-        console.log(`favEvents: ${JSON.stringify(favEvents)}`);
         this.events = [];
 
         if ( favEvents?.length > 0 ) {
@@ -73,14 +71,14 @@ export class EventsFavComponent implements OnInit, OnDestroy {
               this.spinnerSvc.hide();
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
-            })
+            });
         } else {
           this.dataSource = new MatTableDataSource(this.events);
           this.spinnerSvc.hide();
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         }
-      })
+      });
     });
 
     this.listOfObservers.push(subs1$);

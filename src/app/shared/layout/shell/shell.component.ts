@@ -118,7 +118,7 @@ export class ShellComponent {
         this.theAlertedNotice$ = this.noticeSrv
         .getTheAlertedNotice()
         .pipe(
-          map( notices => { return notices[0] })
+          map( notices => notices[0] )
         );
   }
 

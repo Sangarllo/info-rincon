@@ -7,7 +7,7 @@ import {
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import { Observable, combineLatest, of } from 'rxjs';
-import { first, map, tap } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { CalendarEvent } from 'angular-calendar';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -332,32 +332,5 @@ export class EventService {
     ];
 
     return of(EVENTS);
-  }
-
-  public async addFavourite(event: IEvent, userUid: string): Promise<void> {
-    const idEvent = event.id;
-    this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
-    if ( event.usersFavs ) {
-      event.usersFavs = event.usersFavs.filter( userId => userId !== userUid );
-      event.usersFavs.push(userUid);
-    } else {
-      event.usersFavs = [ userUid ];
-    }
-    return this.eventDoc.set(event, { merge: true });
-  }
-
-  public async removeFavourite(event: IEvent, userUid: string): Promise<void> {
-    console.log(`removeFavourite`);
-    const idEvent = event.id;
-    this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
-    event.usersFavs = event.usersFavs.filter( userId => userId !== userUid );
-    return this.eventDoc.set(event, { merge: true });
-  }
-
-  public async addClaps(event: IEvent): Promise<void> {
-    const idEvent = event.id;
-    this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
-    event.nClaps = ( event.nClaps ) ? event.nClaps+1 : 1;
-    return this.eventDoc.set(event, { merge: true });
   }
 }

@@ -9,15 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Enabled url https//www.agendarinconera.es.
 
+## [0.2.2] - Improvements in social features
 
-## [0.2.2] - xxx
+### Add
+
+- `feature` Add counter for favs and claps.
 
 ### Update
 
 - `style` Set logo-background as color2 instead of transparent.
 
+### Fix
 
-## [0.2.1] - Improves with betatesters
+- `feature` Number of claps are showed even without logged user.
+
+## [0.2.1] - Improvements with betatesters
 
 ### Add
 
@@ -27,7 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Add config for selecting view-mode in calendar.
 - `feature` Add footer-section below the calendar.
 - `feature` Add filter-by-entity configuration in the calendar.
-- `feature` Add counter for favs and claps.
 
 ### Update
 

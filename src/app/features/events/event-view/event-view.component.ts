@@ -10,10 +10,12 @@ import { environment } from '@environments/environment';
 import { AuthService } from '@auth/auth.service';
 import { Base } from '@models/base';
 import { IEvent, Event } from '@models/event';
+import { IEventSocial } from '@models/event-social';
 import { IUser } from '@models/user';
 import { IAppointment } from '@models/appointment';
 import { UserRole } from '@models/user-role.enum';
 import { EventService } from '@services/events.service';
+import { EventSocialService } from '@services/events-social.service';
 import { UserService } from '@services/users.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { SeoService } from '@services/seo.service';
@@ -28,6 +30,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public userLogged: IUser;
   public configAllowed: boolean;
   public event: IEvent;
+  public eventSocial: IEventSocial;
   public isFav = false;
   public applause = false;
   public idEvent: string;
@@ -45,6 +48,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     private userSrv: UserService,
     private appointmentSrv: AppointmentsService,
     private eventSrv: EventService,
+    private eventSocialSrv: EventSocialService,
   ) {
     this.configAllowed = false;
 
@@ -114,8 +118,12 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
   getDetails(idEvent: string): void {
     const subs2$ = this.eventSrv.getOneEvent(idEvent)
-      .subscribe((event: IEvent) => {
+      .subscribe(async (event: IEvent) => {
           this.event = event;
+          this.eventSocialSrv.getEventSocial(idEvent)
+              .subscribe( (eventSocial: IEventSocial) => {
+                  this.eventSocial = eventSocial;
+              });
           this.seo.generateTags({
             title: `${event.name} | Rincón de Soto`,
             description: event.description,
@@ -162,13 +170,13 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.isFav = !this.isFav;
     if ( isFav ) {
       this.userLogged.favEvents.push(this.event.id);
-      this.eventSrv.addFavourite(this.event, this.userLogged.uid);
+      this.eventSocialSrv.addFavourite(this.eventSocial, this.userLogged.uid);
       Swal.fire({
         icon: 'success',
         title: 'Este evento se ha convertido en uno de tus favoritos',
       });
     } else {
-      this.eventSrv.removeFavourite(this.event, this.userLogged.uid);
+      this.eventSocialSrv.removeFavourite(this.eventSocial, this.userLogged.uid);
       Swal.fire({
         icon: 'success',
         title: 'Este evento ha dejado de estar entre tus favoritos',
@@ -181,7 +189,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public clap(): void {
     console.log(`applause!`);
     this.applause = true;
-    this.eventSrv.addClaps(this.event);
+    this.eventSocialSrv.addClaps(this.eventSocial);
     const source = timer(3000);
     const subsTimer$ = source.subscribe(val => {
       console.log(val);
