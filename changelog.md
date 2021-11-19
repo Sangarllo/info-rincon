@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Enabled url https//www.agendarinconera.es.
 
+
+## [0.2.2] - xxx
+
+### Update
+
+- `style` Set logo-background as color2 instead of transparent.
+
+
 ## [0.2.1] - Improves with betatesters
 
 ### Add
