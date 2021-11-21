@@ -1,6 +1,9 @@
 @import '../../../base/variables';
 .mat-accordion {
     margin: 10px;
+    .mat-expansion-panel-header.mat-expanded {
+        height: 45px;
+    }
     .headers-align .mat-expansion-panel-header-title,
     .headers-align .mat-expansion-panel-header-description {
         flex-basis: 0;
@@ -20,10 +23,10 @@
             font-weight: bolder;
         }
     }
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: $maxMobileWidth) {
         .expansion-panel {
             .expansion-panel__text {
-                font-size: 1em;
+                font-size: 0.9em;
             }
         }
     }

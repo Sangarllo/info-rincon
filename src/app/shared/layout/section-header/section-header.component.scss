@@ -1,10 +1,24 @@
 @import '../../../../base/variables';
 div {
-    height: 60px;
     background-color: $color2;
     color: $color1;
-    font-weight: 300;
-    font-size: x-large; // 20px
     text-align: left;
-    padding: 23px 18px;
+}
+
+@media screen and (max-width: $maxMobileWidth) {
+    div {
+        height: 48px;
+        font-weight: 240;
+        font-size: large;
+        padding: 18px 12px;
+    }
+}
+
+@media screen and (min-width: $minTabletWidth) {
+    div {
+        height: 60px;
+        font-weight: 300;
+        font-size: x-large;
+        padding: 23px 18px;
+    }
 }

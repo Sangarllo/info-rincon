@@ -1,7 +1,21 @@
+@import '../../../../base/variables';
 .title {
-    font-size: xx-large;
     font-weight: bolder;
     line-height: 1.2em;
+}
+
+@media screen and (max-width: $maxMobileWidth) {
+    .title {
+        font-size: x-large;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (min-width: $minTabletWidth) {
+    .title {
+        font-size: xx-large;
+    }
 }
 
 .description {

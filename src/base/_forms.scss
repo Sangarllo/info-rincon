@@ -15,8 +15,10 @@ Styles for Forms
 }
 
 mat-card.item-view {
-    .mat-standard-chip {
-        margin: 10px;
+    @media screen and (min-width: $minTabletWidth) {
+        .mat-standard-chip {
+            margin: 10px;
+        }
     }
 }
 

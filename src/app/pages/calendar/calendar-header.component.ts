@@ -75,7 +75,7 @@ export class CalendarHeaderComponent {
           }
 
         } else {
-          this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
+          // this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
         }
       });
     }
