@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Add counter for favs and claps.
 - `feature` Show counter for favs and claps in event panel.
+- `feature` Add button to zoom-in image.
 
 ### Update
 
