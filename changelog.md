@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fix
 
 - `feature` Number of claps are showed even without logged user.
+- `feature` Avoid clapping if a clap is in course.
 
 ## [0.2.1] - Improvements with betatesters
 
@@ -90,7 +91,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `style` Start MatDatepicker on monday.
 - `style` Center image at event-dialog.
-
 
 ### Remove
 

@@ -125,7 +125,7 @@ body {
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: $maxMobileWidth) {
     .share-button,
     .fav-button {
         width: 45px;
@@ -136,7 +136,7 @@ body {
     }
 }
 
-@media screen and (min-width: 601px) {
+@media screen and (min-width: $minTabletWidth) {
     .share-button,
     .fav-button {
         width: 55px;

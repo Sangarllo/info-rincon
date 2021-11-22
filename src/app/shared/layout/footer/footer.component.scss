@@ -1,6 +1,5 @@
 @import '../../../../base/variables';
 footer {
-    margin-top: 8px;
     padding-top: 8px;
     display: flex;
     flex-direction: column;
@@ -21,15 +20,27 @@ footer {
     }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: $maxMobileWidth) {
+    footer {
+        line-height: 0.5em;
+        margin-top: 0px;
+    }
     footer p,
     footer p a {
         font-size: smaller;
     }
 }
 
-@media screen and (max-width: 700px) {
-    .footer__author {
-        display: none;
+@media screen and (min-width: $minTabletWidth) and (max-width: $maxTabletWidth) {
+    footer {
+        margin-top: 8px;
+    }
+}
+
+@media screen and (max-width: $maxTabletWidth) {
+    footer {
+        .footer__author {
+            display: none;
+        }
     }
 }

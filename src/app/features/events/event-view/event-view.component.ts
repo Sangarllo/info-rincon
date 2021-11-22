@@ -186,16 +186,18 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.userSrv.updateUser(this.userLogged);
   }
 
-  public clap(): void {
-    console.log(`applause!`);
-    this.applause = true;
-    this.eventSocialSrv.addClaps(this.eventSocial);
-    const source = timer(3000);
-    const subsTimer$ = source.subscribe(val => {
-      console.log(val);
-      this.applause = false;
-    });
-    this.listOfObservers.push( subsTimer$ );
+  public clap(applause: boolean): void {
+    if ( !applause ) {
+      console.log(`applause!`);
+      this.applause = true;
+      this.eventSocialSrv.addClaps(this.eventSocial);
+      const source = timer(3000);
+      const subsTimer$ = source.subscribe(val => {
+        console.log(val);
+        this.applause = false;
+      });
+      this.listOfObservers.push( subsTimer$ );
+    }
   }
 
   private canConfig(userLogged: IUser): boolean {

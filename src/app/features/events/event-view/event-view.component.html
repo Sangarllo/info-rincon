@@ -85,7 +85,7 @@
                                 <span *ngIf="eventSocial.usersFavs" class="counter">{{eventSocial.usersFavs.length}}</span>
                             </span>
 
-                            <span mat-fab (click)="clap()" class="fav-button">
+                            <span mat-fab (click)="clap(applause)" class="fav-button">
                                 <mat-icon *ngIf="applause; else noClapTemplate" svgIcon="clap-on"></mat-icon>
                                 <ng-template #noClapTemplate>
                                     <mat-icon svgIcon="clap-off"></mat-icon>
