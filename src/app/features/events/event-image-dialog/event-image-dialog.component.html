@@ -1,17 +1,22 @@
 <h1 mat-dialog-title>{{ title }}</h1>
 
+<div *ngIf="imagesBackup" style="font-size: smaller;margin:0px">
+    <pre *ngFor="let image of imagesBackup">
+    {{ image }}
+  </pre>
+</div>
+
 <mat-dialog-content class="mat-typography" [formGroup]="imageForm">
 
     <div class="main-image" *ngIf="imageSelected; else noImageTemplate">
         <img class="main-image" [src]="imageSelected">
-        <div class="add-image">
-            <button mat-fab type="button" color="accent" (click)="inputMainImage.click()">
-            <mat-icon>add_photo_alternate</mat-icon>
-          </button> &nbsp;&nbsp;
-            <button mat-fab type="button" color="accent" (click)="deleteImage()" [disabled]="imageSelected === IMAGE_BLANK">
-            <mat-icon>delete</mat-icon>
-          </button>
-
+        <div class="buttons buttons-center">
+            <button mat-mini-fab class="btn-1" (click)="inputMainImage.click()">
+                <mat-icon>add_photo_alternate</mat-icon>
+            </button> &nbsp;&nbsp;
+            <button mat-mini-fab class="btn-1" (click)="deleteImage()" [disabled]="imageSelected === IMAGE_BLANK">
+                <mat-icon>delete</mat-icon>
+            </button>
         </div>
         <input hidden type="file" #inputMainImage (change)="uploadImage($event)">
     </div>
@@ -33,7 +38,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions class="buttons buttons-center">
-    <button mat-fab class="btn-admin" (click)="save()" cdkFocusInitial>
+    <button mat-fab class="btn-1" (click)="save()" cdkFocusInitial>
         <mat-icon>done</mat-icon>
     </button>
     <button mat-fab class="btn-1" (click)="onNoClick()">

@@ -127,7 +127,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
           this.seo.generateTags({
             title: `${event.name} | Rincón de Soto`,
             description: event.description,
-            image: event.image,
+            image: event.thumbnailImg ?? event.image,
           });
       });
 

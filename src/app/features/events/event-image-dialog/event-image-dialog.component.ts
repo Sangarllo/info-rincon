@@ -24,6 +24,8 @@ export class EventImageDialogComponent implements OnInit {
   title = 'Selecciona la imagen del evento';
   imageForm: FormGroup;
   imageSelected: string; // TODO: image must be IImage
+  imagesBackup: string[] = [];
+  thumbnailBackup: string;
   uploadPercent: Observable<number>;
 
   // entities$: Observable<Base[]>;
@@ -55,6 +57,8 @@ export class EventImageDialogComponent implements OnInit {
               this.imageSelected = imageUrl;
               this.data.image = imageUrl;
               this.data.images.push(imageUrl);
+              this.imagesBackup = this.imagesBackup.filter(itemId => itemId !== imageUrl);
+
           });
         })
      )
@@ -69,18 +73,22 @@ export class EventImageDialogComponent implements OnInit {
 
   deleteImage(): void {
     this.data.images = this.data.images.filter( (image: string) => image !== this.imageSelected );
+    this.imagesBackup = this.imagesBackup.filter( (image: string) => image !== this.imageSelected );
     this.imageSelected = this.IMAGE_BLANK;
     this.data.image = this.IMAGE_BLANK;
+    this.data.thumbnailImg = this.IMAGE_BLANK;
   }
 
   ngOnInit(): void {
 
-    this.imageSelected = this.data.image ??
-    this.IMAGE_BLANK;
+    this.imageSelected = this.data.image ?? this.IMAGE_BLANK;
+    this.imagesBackup = this.data.images; // Backup
+    this.thumbnailBackup = this.data.thumbnailImg; // Backup
 
     this.imageForm = this.fb.group({
       image: [ this.imageSelected, []],
       images: [ this.data.images, []],
+      thumbnailImg: [ this.data.thumbnailImg, []],
   });
   }
 
@@ -101,6 +109,24 @@ export class EventImageDialogComponent implements OnInit {
     });
     this.imageForm.controls.image.setValue(this.imageSelected);
     this.imageForm.controls.images.setValue(this.data.images);
+
+    let thumbnailImg = this.thumbnailBackup;
+    console.log(`index Of: ${this.imagesBackup.indexOf(this.imageSelected)}`);
+    console.log(`images ${this.imagesBackup.length}`);
+    console.log(`this.imageSelecte ${this.imageSelected}`);
+    if ( this.imagesBackup.indexOf(this.imageSelected) === -1 ) {
+      // New image
+      console.log(`resizedName --> ${this.imageSelected}`);
+      thumbnailImg = this.resizedName(this.imageSelected);
+      console.log(`resizedName <-- ${thumbnailImg}`);
+    }
+    this.imageForm.controls.thumbnailImg.setValue(thumbnailImg);
     this.dialogRef.close(this.imageForm.value);
+  }
+
+  private resizedName(fileName, dimensions = '200x200'): string {
+    const extIndex = fileName.lastIndexOf('.');
+    const ext = fileName.substring(extIndex);
+    return `${fileName.substring(0, extIndex)}_${dimensions}${ext}`;
   }
 }

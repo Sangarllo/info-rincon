@@ -245,6 +245,7 @@ export class EventService {
     if ( newImage ) {
       event.image = newImage;
       event.images.push(newImage);
+      event.thumbnailImg = newImage;
     }
 
     this.appointmentSrv.addAppointment(eventId);

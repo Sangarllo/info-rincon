@@ -115,6 +115,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       if ( eventDialog ) {
         this.event.image = eventDialog.image;
         this.event.images = eventDialog.images;
+        this.event.thumbnailImg = eventDialog.thumbnailImg;
         this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Modificada imagen');
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
