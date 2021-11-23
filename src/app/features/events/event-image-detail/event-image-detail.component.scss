@@ -1,6 +1,21 @@
+@import '../../../../base/variables';
 .event__image {
     position: relative;
+    .event__image-img {
+        @media screen and (max-width: $maxMobileWidth) {
+            border: 4px solid $color1;
+            border-radius: 1em;
+        }
+        @media screen and (min-width: $minTabletWidth) and (max-width: $maxTabletWidth) {
+            border: 9px solid $color1;
+            border-radius: 1em;
+        }
+        @media screen and (min-width: $minComputerWidth) {
+            border: 15px solid $color1;
+            border-radius: 1em;
+        }
+    }
     .event__image-zoom {
-        top: -20px;
+        top: -24px;
     }
 }

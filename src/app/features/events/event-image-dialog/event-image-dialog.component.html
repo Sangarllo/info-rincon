@@ -1,11 +1,5 @@
 <h1 mat-dialog-title>{{ title }}</h1>
 
-<div *ngIf="imagesBackup" style="font-size: smaller;margin:0px">
-    <pre *ngFor="let image of imagesBackup">
-    {{ image }}
-  </pre>
-</div>
-
 <mat-dialog-content class="mat-typography" [formGroup]="imageForm">
 
     <div class="main-image" *ngIf="imageSelected; else noImageTemplate">
@@ -23,7 +17,7 @@
 
     <ng-template #noImageTemplate>
         <div>
-            <img class="main-image" alt="Sin imagen definida" [src]="IMAGE_BLANK"> hola
+            <img class="main-image" alt="Sin imagen definida" [src]="IMAGE_BLANK"> no-image
         </div>
     </ng-template>
 

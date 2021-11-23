@@ -79,3 +79,13 @@ mat-button-toggle-group {
 span.text__when-intro {}
 
 span.text__when-info {}
+
+.centered-and-cropped {
+    width: 160px;
+    height: 160px;
+    border-radius: 5%;
+    object-fit: cover;
+    background-color: white;
+    padding: 4px;
+    border: 4px solid $color1;
+}
