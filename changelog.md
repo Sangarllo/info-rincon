@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Show counter for favs and claps in event panel.
 - `feature` Add button to zoom-in image.
 - `feature` Add `storage-resize-images` extension to get 200x200 thumbnails.
+- `feature` Add button for updlading-pwa in faq section.
 
 ### Update
 

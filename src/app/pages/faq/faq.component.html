@@ -23,6 +23,28 @@
 
     <span class="section-title">
         <button mat-mini-fab class="btn-1">
+            <mat-icon>refresh</mat-icon>
+        </button> Actualizar la aplicación
+    </span>
+
+    <div class="section-text">
+        Actualmente estás usando la versión {{ appVersion }} desplegada el {{ releaseDate }} con {{ angularVersion }}
+    </div>
+
+    <div class="buttons buttons-center">
+        <button mat-fab class="btn-extra" (click)="updatePwa()">
+            <mat-icon>update</mat-icon>
+        </button>
+    </div>
+
+    <div class="section-text">
+        Para forzar la actualización de la aplicación, haz click en este botón de arriba.
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <span class="section-title">
+        <button mat-mini-fab class="btn-1">
             <mat-icon>call</mat-icon>
         </button> Cómo puedo contactar con la web
     </span>
