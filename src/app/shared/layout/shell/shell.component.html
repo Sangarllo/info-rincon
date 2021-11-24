@@ -35,7 +35,7 @@
 
             <span class="fill-space"></span>
 
-            <div *ngIf="(isHandset$ | async)">
+            <div *ngIf="!(isHandset$ | async)">
                 <div *ngIf="(afAuth.authState | async);else login2Template">
 
                     <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/eventos/new">

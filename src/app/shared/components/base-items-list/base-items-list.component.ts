@@ -17,6 +17,7 @@ export class BaseItemsListComponent {
   @Input() baseItems: IBase[];
   @Input() order = 'row';
   @Input() modeAdmin: boolean;
+  @Input() baseItemSelected: string;
   @Output() deleteBase = new EventEmitter<IBase>();
 
 

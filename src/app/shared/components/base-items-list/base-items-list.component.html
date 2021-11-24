@@ -1,20 +1,26 @@
 <div *ngIf="baseItems.length > 0; else noBaseItemsTemplate" class="list">
 
-    <div *ngFor="let baseItem of baseItems" style="margin-bottom: 0px;">
+    <div *ngFor="let baseItem of baseItems" style="margin-bottom: 0px;flex-grow: 1;">
 
-        <div *ngIf="baseItem" [ngClass]="(baseItem.active) ? 'list__item' : 'list__item--disabled'">
+        <div [ngClass]="{
+            'list__item': (baseItem.active),
+            'list__item--disabled' : !(baseItem.active),
+            'list__item--selected' : (baseItem.id === baseItemSelected)
+          }">
 
             <img [src]="baseItem.image" class="list__item-img img-thumbnail">
 
-            <!-- <pre>
-                    {{ baseItem | json }}
-                </pre> -->
+            <!--
+              <pre>
+                {{ baseItem | json }}
+              </pre>
+            -->
 
             <div class="list__item-info">
                 <span class="name">{{ baseItem.name }}</span>
                 <span *ngIf="baseItem.extra" class="extra-data">🕑 {{ baseItem.extra }}</span>
                 <span *ngIf="baseItem.place" class="extra-data">🏠 {{ baseItem.place?.name }}</span>
-                <span *ngIf="baseItem.description" class="extra-data">{{ baseItem.description }}</span>
+                <span *ngIf="baseItem.description" class="extra-data" [innerHtml]="baseItem.description"></span>
             </div>
 
             <button *ngIf="modeAdmin === true" class="list__item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteBaseItem(baseItem)">

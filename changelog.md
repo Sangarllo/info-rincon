@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Next improvements]
+
+- Panel de eventos filtrado por asociación o usuario.
+- Mejorar la visibilidad de la cabecera
+- `bug` No se borra un evento al pulsar el botón trash.
+
 ## [Unreleased]
 
 - `feature` Enabled url https//www.agendarinconera.es.
@@ -23,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `style` Set logo-background as color2 instead of transparent.
 - `style` Change image-config for events.
+- `style` Improve selected base-item in event.
 
 ### Fix
 

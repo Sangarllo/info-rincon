@@ -2,6 +2,12 @@
 
     <mat-card class="item-view" *ngIf="event; else loadingTemplate">
 
+        <!--
+        <pre> event.id: {{ event.id }}</pre>
+        <pre> IdEvent: {{ idEvent }}</pre>
+        <pre> idSubevent: {{ idSubevent }}</pre>
+        -->
+
         <div *ngIf="event.status === 'VISIBLE'; else noVisibleTemplate" class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
                 <app-event-image-detail [event]="event"></app-event-image-detail>
@@ -33,7 +39,7 @@
 
                         <legend>¿Cómo?</legend>
 
-                        <sh-base-items-list [baseItems]="event.scheduleItems"></sh-base-items-list>
+                        <sh-base-items-list [baseItems]="event.scheduleItems" [baseItemSelected]="idEventUrl"></sh-base-items-list>
 
                     </fieldset>
 

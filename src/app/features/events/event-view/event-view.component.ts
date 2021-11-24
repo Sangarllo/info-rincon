@@ -33,7 +33,9 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public eventSocial: IEventSocial;
   public isFav = false;
   public applause = false;
+  public idEventUrl: string;
   public idEvent: string;
+  public idSubevent: string;
   public appointment$: Observable<IAppointment>;
   readonly SECTION_BLANK: Base = Base.InitDefault();
   private listOfObservers: Array<Subscription> = [];
@@ -105,7 +107,10 @@ export class EventViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.idEvent = this.route.snapshot.paramMap.get('id');
+    this.idEventUrl = this.route.snapshot.paramMap.get('id');
+    this.idEvent = this.idEventUrl.split('_')[0];
+    this.idSubevent = this.idEventUrl.split('_')[1];
+
     this.appointment$ = this.appointmentSrv.getOneAppointment(this.idEvent);
     if ( this.idEvent ) {
       this.getDetails(this.idEvent);

@@ -9,10 +9,10 @@
     .list__item--disabled {
         display: none;
     }
+    .list__item--selected,
     .list__item {
         margin-bottom: 4px;
         // min-width: 400px;
-        background-color: $color2;
         flex-grow: 1;
         padding: 6px;
         border-radius: 10px;
@@ -44,6 +44,23 @@
             color: $color1;
         }
     }
+}
+
+.list__item--selected {
+    background-color: $color2 !important;
+    border: 5px solid $color1;
+    .list__item-img {
+        border: 3px solid $color1;
+    }
+    .list__item-info {
+        .name {
+            font-size: larger;
+        }
+    }
+}
+
+.list__item {
+    background-color: $color2;
 }
 
 @media screen and (max-width: 450px) {
