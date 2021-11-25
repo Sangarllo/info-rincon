@@ -47,7 +47,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
 
           const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
 
-          notice.description = ( notice.categories ) ? notice.categories.reduce(reducer, '') : '';
+          notice.extra = ( notice.categories ) ? notice.categories.reduce(reducer, '') : '';
 
           notice.timestamp = this.utilSrv.getDistanceTimestamp(notice.timestamp);
 

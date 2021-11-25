@@ -22,6 +22,7 @@ import { IEntity } from '@models/entity';
 import { ScheduleType } from '@models/shedule-type.enum';
 import { AppointmentsService } from '@services/appointments.service';
 import { EventSocialService } from '@services/events-social.service';
+import { Status } from '@models/status.enum';
 
 const EVENTS_COLLECTION = 'eventos';
 
@@ -101,8 +102,8 @@ export class EventService {
     return this.eventCollection.valueChanges();
   }
 
-  getAllEventsWithAppointments(addSocialInfo: boolean): Observable<IEvent[]> {
-    const events$ = this.getAllEvents(false, false, null, null);
+  getAllEventsWithAppointments(showOnlyActive: boolean,  addSocialInfo: boolean): Observable<IEvent[]> {
+    const events$ = this.getAllEvents(showOnlyActive, false, null, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
     const eventsSocial$ = ( addSocialInfo ) ? this.eventSocialSrv.getAllEventsSocial() : of([]);
 
@@ -315,6 +316,7 @@ export class EventService {
 
     const idEvent = event.id;
     event.active = false;
+    event.status = Status.Deleted;
     this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
     this.eventDoc.update(event);
   }

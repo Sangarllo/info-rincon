@@ -54,12 +54,12 @@ export class EventsComponent implements OnInit, OnDestroy {
         });
     this.listOfObservers.push(subs1$);
 
-    const subs2$ = this.eventSrv.getAllEventsWithAppointments(true)
+    const subs2$ = this.eventSrv.getAllEventsWithAppointments(false, true)
         .pipe(
           map(events => events.map(event => {
             const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
 
-            event.description = ( event.categories ) ? event.categories.reduce(reducer, '') : '';
+            event.extra2 = ( event.categories ) ? event.categories.reduce(reducer, '') : '';
             event.extra = this.formatSocialInfo(event.extra);
             return { ...event };
           }))

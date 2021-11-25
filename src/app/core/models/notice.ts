@@ -15,6 +15,7 @@ export interface INotice {
   categories?: Category[];
   description?: string;
   timestamp?: string;
+  extra?: string;
 }
 
 export class Notice implements INotice, IBase {
@@ -36,7 +37,8 @@ export class Notice implements INotice, IBase {
     public categories?: Category[],
     public description?: string,
     public timestamp?: string,
-     ) {
+    public extra?: string,
+  ) {
   }
 
   static InitDefault(): Notice {
@@ -50,6 +52,7 @@ export class Notice implements INotice, IBase {
       [Category.Aviso],
       '',
       null, // Timestamp
+      '', // Extra
     );
   }
 

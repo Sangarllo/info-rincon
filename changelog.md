@@ -9,8 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Panel de eventos filtrado por asociación o usuario.
 - Mejorar la visibilidad de la cabecera
-- `bug` No se borra un evento al pulsar el botón trash.
-- mejorar la búsqueda de eventos
 
 ## [Unreleased]
 
@@ -63,6 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `code` Fix problem in user-entities with roles.
 - `feature` Enable register with email.
+- `feature` Fix problem overriden description with categories.
 
 ### Delete
 
