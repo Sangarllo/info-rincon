@@ -21,7 +21,6 @@ import { PlaceService } from '@services/places.service';
 })
 export class EventScheduleDialogComponent implements OnInit, OnDestroy {
 
-  private listOfObservers: Array<Subscription> = [];
   title = 'Configura un nuevo acto para este evento';
   appointment: IAppointment;
   scheduleItemForm: FormGroup;
@@ -33,6 +32,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
   readonly IMAGE_BLANK: string = Base.IMAGE_DEFAULT;
   readonly SECTION_BLANK: Base = Place.InitDefault();
   places$: Observable<IBase[]>;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private fb: FormBuilder,

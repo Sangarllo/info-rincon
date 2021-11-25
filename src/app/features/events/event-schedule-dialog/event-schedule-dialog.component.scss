@@ -48,3 +48,13 @@ div.base-container {
 .description-wrapper {
     flex-direction: column;
 }
+
+.option-img {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+[dir='rtl'] .option-img {
+    margin-right: 0;
+    margin-left: 8px;
+}

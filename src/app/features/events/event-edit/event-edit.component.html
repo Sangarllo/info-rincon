@@ -50,7 +50,7 @@
                                 <input matInput type="text" formControlName="name" placeholder="Nombre">
                             </mat-form-field>
 
-                            <mat-form-field appearance="outline">
+                            <mat-form-field appearance="outline" *appRole="['ADMIN', 'SUPER']">
                                 <mat-label>URL Sanitizada</mat-label>
                                 <input matInput type="text" disabled formControlName="sanitizedUrl" placeholder="URL Sanitizada">
                             </mat-form-field>
