@@ -24,11 +24,11 @@ export class NoticesComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  private listOfObservers: Array<Subscription> = [];
   public loading = true;
   public notices: INotice[];
   public dataSource: MatTableDataSource<INotice> = new MatTableDataSource();
   displayedColumns: string[] =  [ 'status', 'id', 'timestamp', 'image', 'collapsed-info', 'name', 'categories', 'actions4'];
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private router: Router,

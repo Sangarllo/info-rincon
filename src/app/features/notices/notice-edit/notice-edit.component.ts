@@ -26,10 +26,10 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
   errorMessage = '';
   uploadPercent: Observable<number>;
 
-  private listOfObservers: Array<Subscription> = [];
   public notice!: INotice | undefined;
   public STATUS: Status[] = Notice.STATUS;
   public CATEGORIES: Category[] = NOTICE_CATEGORIES;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private afStorage: AngularFireStorage,
@@ -58,10 +58,15 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
         Validators.minLength(3),
         Validators.maxLength(50)]],
       image: Notice.IMAGE_DEFAULT,
+      thumbnailImg: Notice.IMAGE_DEFAULT,
       categories: null,
       description: '',
       timestamp: null
     });
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 
   public onResetForm(): void {
@@ -119,10 +124,12 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
             ( imageUrl: string ) => {
 
               this.notice.image = imageUrl;
+              this.notice.thumbnailImg = this.resizedName(imageUrl);
 
               // Update the data on the form
               this.noticeForm.patchValue({
-                image: this.notice.image
+                image: this.notice.image,
+                thumbnailImg: this.notice.thumbnailImg,
               });
           });
         })
@@ -174,6 +181,7 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
       alerted: this.notice.alerted,
       name: this.notice.name,
       image: this.notice.image ?? Notice.IMAGE_DEFAULT,
+      thumbnailImg: this.notice.thumbnailImg ?? Notice.IMAGE_DEFAULT,
       categories: this.notice.categories ?? [],
       description: this.notice.description ?? '',
       timestamp: this.notice.timestamp ?? '',
@@ -183,7 +191,9 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
     this.noticeForm.controls['id'].setValue(this.notice.id);
   }
 
-  ngOnDestroy(): void {
-    this.listOfObservers.forEach(sub => sub.unsubscribe());
+  private resizedName(fileName, dimensions = '200x200'): string {
+    const extIndex = fileName.lastIndexOf('.');
+    const ext = fileName.substring(extIndex);
+    return `${fileName.substring(0, extIndex)}_${dimensions}${ext}`;
   }
 }

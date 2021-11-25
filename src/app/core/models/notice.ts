@@ -7,6 +7,7 @@ export interface INotice {
   active: boolean;
   name: string;
   image: string;
+  thumbnailImg: string;
   baseType: BaseType;
   status: Status;
   focused: boolean;
@@ -27,6 +28,7 @@ export class Notice implements INotice, IBase {
     public active: boolean,
     public name: string,
     public image: string,
+    public thumbnailImg: string,
     public baseType: BaseType,
     public status: Status,
     public focused: boolean,
@@ -37,13 +39,11 @@ export class Notice implements INotice, IBase {
      ) {
   }
 
-  getUrl(): string {
-    return `${Notice.PATH_URL}/${this.id}`;
-  }
-
   static InitDefault(): Notice {
     return new Notice(
-      '0', true, '', Notice.IMAGE_DEFAULT, BaseType.NOTICE, // Base
+      '0', true, '',
+      Notice.IMAGE_DEFAULT, Notice.IMAGE_DEFAULT, // Images
+      BaseType.NOTICE, // Base
       Status.Visible,
       true,
       false,
@@ -51,5 +51,9 @@ export class Notice implements INotice, IBase {
       '',
       null, // Timestamp
     );
+  }
+
+  getUrl(): string {
+    return `${Notice.PATH_URL}/${this.id}`;
   }
 }

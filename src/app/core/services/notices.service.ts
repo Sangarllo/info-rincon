@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { IBase, BaseType } from '@models/base';
 import { INotice } from '@models/notice';
 import { AppointmentsService } from '@services/appointments.service';
+import { Status } from '@models/status.enum';
 
 const NOTICES_COLLECTION = 'avisos';
 
@@ -70,6 +71,7 @@ export class NoticeService {
             active: notice.active,
             name: notice.name,
             image: notice.image,
+            thumbnailImg: notice.thumbnailImg,
             baseType: BaseType.NOTICE,
             description: notice.description
           };
@@ -98,6 +100,7 @@ export class NoticeService {
   deleteNotice(notice: INotice): void {
     const idNotice = notice.id;
     notice.active = false;
+    notice.status = Status.Deleted;
     notice.timestamp = this.appointmentSvc.getTimestamp();
     this.noticeDoc = this.afs.doc<INotice>(`${NOTICES_COLLECTION}/${idNotice}`);
     this.noticeDoc.update(notice);

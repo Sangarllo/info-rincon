@@ -94,7 +94,7 @@
                         </mat-icon>
                     </button>
 
-                    <button mat-icon-button matTooltip="Click to Alerted" class="iconbutton" [color]="(notice.alerted) ? 'accent' : 'yellow'" (click)="alertItem(notice)">
+                    <button [disabled]="notice.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to Alerted" class="iconbutton" [color]="(notice.alerted) ? 'accent' : 'yellow'" (click)="alertItem(notice)">
                         <mat-icon aria-label="Activar como alerta">
                             lightbulb
                         </mat-icon>

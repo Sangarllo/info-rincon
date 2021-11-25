@@ -1,15 +1,20 @@
+/* eslint-disable max-len */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DomSanitizer } from "@angular/platform-browser";
+import { DomSanitizer } from '@angular/platform-browser';
 
-import { MatIconRegistry } from "@angular/material/icon";
+import { MatIconRegistry } from '@angular/material/icon';
 import { Observable, Subscription } from 'rxjs';
 
 import { environment } from '@environments/environment';
+import { AuthService } from '@auth/auth.service';
 import { INotice, Notice } from '@models/notice';
+import { IUser } from '@models/user';
+import { UserRole } from '@models/user-role.enum';
 import { NoticeService } from '@services/notices.service';
 import { LogService } from '@services/log.service';
 import { SeoService } from '@services/seo.service';
+import { UserService } from '@services/users.service';
 
 @Component({
   selector: 'app-notice-view',
@@ -18,34 +23,54 @@ import { SeoService } from '@services/seo.service';
 })
 export class NoticeViewComponent implements OnInit, OnDestroy {
 
-  private listOfObservers: Array<Subscription> = [];
+  public userLogged: IUser;
   public idNotice: string;
+  public configAllowed: boolean;
   public notice: INotice;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
+    public authSvc: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private seo: SeoService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private logSrv: LogService,
+    private userSrv: UserService,
     private noticeSrv: NoticeService,
     ) {
+      this.configAllowed = false;
+
       this.matIconRegistry.addSvgIcon(
         `whatsapp`,
-        this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/whatsapp.svg")
+        this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/whatsapp.svg')
       );
 
       this.matIconRegistry.addSvgIcon(
         `facebook`,
-        this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/facebook.svg")
+        this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/facebook.svg')
       );
 
       this.matIconRegistry.addSvgIcon(
         `twitter`,
-        this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/twitter.svg")
+        this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/twitter.svg')
       );
-    }
+
+      const subs1$ = this.authSvc.afAuth.user
+      .subscribe( (user: any) => {
+          if ( user?.uid ) {
+            this.userSrv.getOneUser(user.uid).subscribe( (userLogged: any ) => {
+              this.userLogged = userLogged;
+
+              this.configAllowed = this.canConfig(this.userLogged);
+          });
+          }
+      });
+
+    this.listOfObservers.push( subs1$ );
+  }
+
 
   ngOnInit(): void {
     this.idNotice = this.route.snapshot.paramMap.get('id');
@@ -53,6 +78,10 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
       this.logSrv.info(`id asked ${this.idNotice}`);
       this.getDetails(this.idNotice);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 
   getDetails(idNotice: string): void {
@@ -100,7 +129,15 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.listOfObservers.forEach(sub => sub.unsubscribe());
+  public viewImage(): void {
+    window.open(this.notice.image, '_blank');
   }
+
+  private canConfig(userLogged: IUser): boolean {
+      if ( userLogged.role === UserRole.Admin || userLogged.role === UserRole.Super ) {
+          return true;
+      }
+      return false;
+  }
+
 }

@@ -1,7 +1,7 @@
 @import '../../../../base/variables';
-.event__image {
+.item__image {
     position: relative;
-    .event__image-img {
+    .item__image-img {
         @media screen and (max-width: $maxMobileWidth) {
             border: 4px solid $color1;
             border-radius: 1em;
@@ -15,7 +15,7 @@
             border-radius: 1em;
         }
     }
-    .event__image-zoom {
+    .item__image-zoom {
         top: -24px;
     }
 }
