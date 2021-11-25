@@ -218,6 +218,7 @@ export class EventService {
       auditItems: (environment.setAudit) ? [{...auditItem}] : [],
       userId: currentUser.uid,
       extra: '',
+      extra2: '',
     });
   }
 
@@ -280,6 +281,7 @@ export class EventService {
         entityItems: [ newEntityItem ],
         entitiesArray: [ entity.id ],
         extra: '',
+        extra2: '',
       }
     );
 

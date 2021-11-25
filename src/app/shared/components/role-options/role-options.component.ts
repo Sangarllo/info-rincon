@@ -82,8 +82,8 @@ export class RoleOptionsComponent implements OnDestroy {
     this.router.navigate([`avisos`]);
   }
 
-  gotoNewsDashboard(): void {
-    this.router.navigate([`noticias`]);
+  gotoLinksDashboard(): void {
+    this.router.navigate([`enlaces`]);
   }
 
   openEntityDialog(): void {

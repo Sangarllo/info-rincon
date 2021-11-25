@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `style` Set logo-background as color2 instead of transparent.
 - `style` Change image-config for events.
 - `style` Improve selected base-item in event.
+- `feature` Change news by links as item for stories.
 
 ### Fix
 

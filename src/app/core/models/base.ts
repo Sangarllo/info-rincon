@@ -67,6 +67,8 @@ export class Base implements IBase {
         return `entidades/${base.id}`;
       case BaseType.EVENT:
         return `eventos/${base.id}`;
+      case BaseType.LINK:
+        return `enlaces/${base.id}`;
       case BaseType.NOTICE:
           return `avisos/${base.id}`;
       default:
