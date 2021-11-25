@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Panel de eventos filtrado por asociación o usuario.
 - Mejorar la visibilidad de la cabecera
 - `bug` No se borra un evento al pulsar el botón trash.
+- mejorar la búsqueda de eventos
 
 ## [Unreleased]
 
@@ -33,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fix
 
+- `feature` Improve design for event-image dialog.
 - `feature` Number of claps are showed even without logged user.
 - `feature` Avoid clapping if a clap is in course.
 

@@ -5,10 +5,10 @@
     <div class="main-image" *ngIf="imageSelected; else noImageTemplate">
         <img class="main-image" [src]="imageSelected">
         <div class="buttons buttons-center">
-            <button mat-mini-fab class="btn-1" (click)="inputMainImage.click()">
+            <button mat-mini-fab class="btn-extra" (click)="inputMainImage.click()">
                 <mat-icon>add_photo_alternate</mat-icon>
             </button> &nbsp;&nbsp;
-            <button mat-mini-fab class="btn-1" (click)="deleteImage()" [disabled]="imageSelected === IMAGE_BLANK">
+            <button mat-mini-fab class="btn-extra" (click)="deleteImage()" [disabled]="imageSelected === IMAGE_BLANK">
                 <mat-icon>delete</mat-icon>
             </button>
         </div>
@@ -21,6 +21,9 @@
         </div>
     </ng-template>
 
+    <div class="images-container-text">
+        <span>Imágenes Disponibles ({{data.images?.length}}):</span>
+    </div>
 
     <div class="images-container">
         <img alt="Sin imagen" (click)="onSelectedImage(IMAGE_BLANK)" [src]="IMAGE_BLANK" [ngClass]="{'selected-image' : (imageSelected == IMAGE_BLANK)}" />

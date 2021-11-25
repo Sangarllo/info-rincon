@@ -2,7 +2,7 @@
 
     <div *ngFor="let baseItem of baseItems" style="margin-bottom: 0px;flex-grow: 1;">
 
-        <div [ngClass]="{
+        <div *ngIf="baseItem" [ngClass]="{
             'list__item': (baseItem.active),
             'list__item--disabled' : !(baseItem.active),
             'list__item--selected' : (baseItem.id === baseItemSelected)

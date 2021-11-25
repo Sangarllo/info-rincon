@@ -60,7 +60,7 @@ export class EventService {
         console.log('timestampLastYear', timestampLastYear);
 
         if ( !entityId ) {
-          console.log(`-> No Hay entityId`);
+          // console.log(`-> No Hay entityId`);
           this.eventCollection = this.afs.collection<IEvent>(
             EVENTS_COLLECTION,
             ref => ref.where('active', '==', true)
@@ -69,7 +69,7 @@ export class EventService {
                       .orderBy('timestamp', 'desc')
           );
         } else {
-          console.log(`-> Hay entityId ${entityId}`);
+          // console.log(`-> Hay entityId ${entityId}`);
           this.eventCollection = this.afs.collection<IEvent>(
             EVENTS_COLLECTION,
             ref => ref.where('active', '==', true)

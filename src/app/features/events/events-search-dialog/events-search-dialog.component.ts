@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -18,6 +19,7 @@ import { SpinnerService } from '@services/spinner.service';
 })
 export class EventsSearchDialogComponent implements OnInit, OnDestroy {
 
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   public filterValid = false;
@@ -52,6 +54,7 @@ export class EventsSearchDialogComponent implements OnInit, OnDestroy {
         this.dataSource = new MatTableDataSource(this.events);
         this.spinnerSvc.hide();
 
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
     });
     this.listOfObservers.push(subs1$);
@@ -62,6 +65,10 @@ export class EventsSearchDialogComponent implements OnInit, OnDestroy {
     if ( filterValue.length >= 3 ) {
       this.filterValid = true;
       this.dataSource.filter = filterValue.trim().toLowerCase();
+
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
     } else {
       this.filterValid = false;
     }

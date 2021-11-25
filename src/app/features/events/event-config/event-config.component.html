@@ -75,7 +75,7 @@
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="openAppointmentDialog()">
-                                <mat-icon>book_online</mat-icon>
+                                <mat-icon>edit_calendar</mat-icon>
                             </button>
                         </div>
 
@@ -153,6 +153,11 @@
                     </button>
 
                 </mat-card-actions>
+
+                <div class="help-container alert alert-danger" *ngIf="event.status !== 'VISIBLE'">
+                    💡 El botón VER está deshabilitado porque el evento no está en estado
+                    <B>VISIBLE</B>.
+                </div>
 
             </div>
         </div>
