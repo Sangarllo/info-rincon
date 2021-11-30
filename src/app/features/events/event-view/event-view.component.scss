@@ -15,7 +15,6 @@ fieldset {
         background-color: white;
     }
     &.type-social {
-        border: 1px solid darkgray;
         @media screen and (max-width: $maxMobileWidth) {
             margin-top: -20px;
         }

@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `style` Small sizes for social icons in mobile devices.
 
+### Fix
+
+- `feature` Fav icon enabled after login.
+
 
 ## [0.2.2] - Improvements in social features
 
