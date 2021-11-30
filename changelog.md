@@ -14,6 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Enabled url https//www.agendarinconera.es.
 
+## [0.2.3] - Changes after review with partners
+
+### Update
+
+- `style` Small sizes for social icons in mobile devices.
+
+
 ## [0.2.2] - Improvements in social features
 
 ### Add

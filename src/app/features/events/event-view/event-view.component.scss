@@ -14,6 +14,20 @@ fieldset {
         border: 1px solid lightgrey;
         background-color: white;
     }
+    &.type-social {
+        border: 1px solid darkgray;
+        @media screen and (max-width: $maxMobileWidth) {
+            margin-top: -20px;
+        }
+        div {
+            margin-bottom: 0px;
+            @media screen and (max-width: $maxMobileWidth) {
+                .mat-icon {
+                    height: 30px;
+                }
+            }
+        }
+    }
     &.EDITING {
         border: 1px solid #856404;
         background-color: #fff3cd;

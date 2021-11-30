@@ -17,49 +17,7 @@
 
                 <mat-card-content class="item-view">
 
-                    <fieldset>
-
-                        <!--
-                        <legend>¿Qué?</legend>
-                        -->
-
-                        <app-event-basic-detail [event]="event"></app-event-basic-detail>
-
-                    </fieldset>
-
-                    <fieldset class="type-other">
-
-                        <legend>¿Cuándo?</legend>
-
-                        <app-event-appointment-detail *ngIf="appointment$ | async as appointment" [showImage]="true" [appointment]="appointment"></app-event-appointment-detail>
-
-                    </fieldset>
-
-                    <fieldset class="type-other" *ngIf="event.scheduleItems?.length > 0">
-
-                        <legend>¿Cómo?</legend>
-
-                        <sh-base-items-list [baseItems]="event.scheduleItems" [baseItemSelected]="idEventUrl"></sh-base-items-list>
-
-                    </fieldset>
-
-                    <fieldset class="type-other" *ngIf="event.entityItems?.length > 0">
-
-                        <legend>¿Quiénes?</legend>
-
-                        <sh-base-items-list [baseItems]="event.entityItems"></sh-base-items-list>
-
-                    </fieldset>
-
-                    <fieldset class="type-other" *ngIf="event.placeItems?.length > 0">
-
-                        <legend>¿Dónde?</legend>
-
-                        <sh-base-items-list [baseItems]="event.placeItems"></sh-base-items-list>
-
-                    </fieldset>
-
-                    <fieldset class="type-other">
+                    <fieldset class="type-social">
 
                         <legend>¡Comparte!</legend>
 
@@ -100,6 +58,48 @@
                             </span>
 
                         </div>
+
+                    </fieldset>
+
+                    <fieldset>
+
+                        <!--
+                        <legend>¿Qué?</legend>
+                        -->
+
+                        <app-event-basic-detail [event]="event"></app-event-basic-detail>
+
+                    </fieldset>
+
+                    <fieldset class="type-other">
+
+                        <legend>¿Cuándo?</legend>
+
+                        <app-event-appointment-detail *ngIf="appointment$ | async as appointment" [showImage]="true" [appointment]="appointment"></app-event-appointment-detail>
+
+                    </fieldset>
+
+                    <fieldset class="type-other" *ngIf="event.scheduleItems?.length > 0">
+
+                        <legend>¿Cómo?</legend>
+
+                        <sh-base-items-list [baseItems]="event.scheduleItems" [baseItemSelected]="idEventUrl"></sh-base-items-list>
+
+                    </fieldset>
+
+                    <fieldset class="type-other" *ngIf="event.entityItems?.length > 0">
+
+                        <legend>¿Quiénes?</legend>
+
+                        <sh-base-items-list [baseItems]="event.entityItems"></sh-base-items-list>
+
+                    </fieldset>
+
+                    <fieldset class="type-other" *ngIf="event.placeItems?.length > 0">
+
+                        <legend>¿Dónde?</legend>
+
+                        <sh-base-items-list [baseItems]="event.placeItems"></sh-base-items-list>
 
                     </fieldset>
 
