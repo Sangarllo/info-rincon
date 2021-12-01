@@ -45,7 +45,7 @@
 
 <div class="options-wrapper mb-3" *appRole="['ADMIN', 'SUPER']">
 
-    <div class="option-item col-12 col-sm-6 col-md-4">
+    <div class="option-item col-12 col-sm-6 col-md-3">
         <mat-card (click)="gotoUsersDashboard()">
             <mat-card-title>Panel de Usuarios</mat-card-title>
             <div class="option-image">
@@ -54,7 +54,7 @@
         </mat-card>
     </div>
 
-    <div class="option-item col-12 col-sm-6 col-md-4">
+    <div class="option-item col-12 col-sm-6 col-md-3">
         <mat-card (click)="gotoEntitiesDashboard()">
             <mat-card-title>Panel de Entidades</mat-card-title>
             <div class="option-image">
@@ -63,11 +63,20 @@
         </mat-card>
     </div>
 
-    <div class="option-item col-12 col-sm-6 col-md-4">
+    <div class="option-item col-12 col-sm-6 col-md-3">
         <mat-card (click)="gotoPlacesDashboard()">
             <mat-card-title>Panel de Lugares</mat-card-title>
             <div class="option-image">
                 <img alt="'Panel de Lugares'" [src]="'assets/images/goto/goto-places.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="option-item col-12 col-sm-6 col-md-3">
+        <mat-card (click)="gotoPicturesDashboard()">
+            <mat-card-title>Panel de Imágenes</mat-card-title>
+            <div class="option-image">
+                <img alt="'Panel de Imágenes'" [src]="'assets/images/goto/goto-pictures.png'" style="width:200px" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>

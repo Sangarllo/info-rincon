@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { Base } from '@models/base';
-import { IEvent } from '@models/event';
-import { EntityService } from '@services/entities.service';
+import { IPicture, Picture } from '@models/picture';
+import { PictureService } from '@services/pictures.service';
 import { LogService } from '@services/log.service';
 
 @Component({
@@ -20,26 +20,54 @@ import { LogService } from '@services/log.service';
 export class EventImageDialogComponent implements OnInit {
 
   readonly IMAGE_BLANK: string = Base.IMAGE_DEFAULT;
+  readonly PICTURE_BLANK: IPicture = Picture.InitDefault();
 
-  title = 'Selecciona la imagen del evento';
-  imageForm: FormGroup;
-  imageSelected: string; // TODO: image must be IImage
-  imagesBackup: string[] = [];
-  thumbnailBackup: string;
+  title = 'Configura la imagen del evento';
+  pictureForm: FormGroup;
+
+  pictureId: string;
+  picturesIds: string[];
+
+  pictureSelected: IPicture;
+  pictures: IPicture[];
+
   uploadPercent: Observable<number>;
-
-  // entities$: Observable<Base[]>;
 
   constructor(
     public dialogRef: MatDialogRef<EventImageDialogComponent>,
     private afStorage: AngularFireStorage,
     private fb: FormBuilder,
     private logSrv: LogService,
-    private entitySrv: EntityService,
-    @Inject(MAT_DIALOG_DATA) public data: IEvent) {
+    private pictureSrv: PictureService,
+    @Inject(MAT_DIALOG_DATA) public data: [string, string[]]) {
   }
 
-  uploadImage(event): void {
+  ngOnInit(): void {
+    this.pictureId = this.data[0];
+    this.picturesIds = this.data[1];
+
+    console.log(`pictureId: ${JSON.stringify(this.pictureId)}`);
+    console.log(`picturesIds: ${JSON.stringify(this.picturesIds.length)}`);
+
+
+    if ( this.pictureId ) {
+      this.getPictures();
+    }
+  }
+
+  getPictures(): void {
+    this.pictureSrv.getPictureFromImage(this.pictureId)
+      .subscribe((picture: IPicture) => {
+        this.pictureSelected = picture;
+      });
+
+    this.pictureSrv.getSeveralPicturesFromImages(this.picturesIds)
+      .subscribe((pictures: IPicture[]) => {
+        this.pictures = pictures;
+      });
+  }
+
+  async uploadImage(event): Promise<void> {
 
     this.logSrv.info(`adding other image`);
     const file = event.target.files[0];
@@ -53,12 +81,13 @@ export class EventImageDialogComponent implements OnInit {
     task.snapshotChanges().pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe(
-            ( imageUrl: string ) => {
-              this.imageSelected = imageUrl;
-              this.data.image = imageUrl;
-              this.data.images.push(imageUrl);
-              this.imagesBackup = this.imagesBackup.filter(itemId => itemId !== imageUrl);
+            async ( imageUrl: string ) => {
 
+              const thePicture = Picture.GeneratedByPath(imageUrl);
+              this.pictureSelected = await this.pictureSrv.addPicture(thePicture);
+              console.log(`new picture: ${JSON.stringify(this.pictureSelected)}`);
+
+              this.pictures.push(this.pictureSelected);
           });
         })
      )
@@ -66,30 +95,13 @@ export class EventImageDialogComponent implements OnInit {
   }
 
 
-  onSelectedImage(path: string): void {
-    this.imageSelected = path;
-    this.data.image = path;
+  onSelectedImage(picture: IPicture): void {
+    this.pictureSelected = picture;
   }
 
   deleteImage(): void {
-    this.data.images = this.data.images.filter( (image: string) => image !== this.imageSelected );
-    this.imagesBackup = this.imagesBackup.filter( (image: string) => image !== this.imageSelected );
-    this.imageSelected = this.IMAGE_BLANK;
-    this.data.image = this.IMAGE_BLANK;
-    this.data.thumbnailImg = this.IMAGE_BLANK;
-  }
-
-  ngOnInit(): void {
-
-    this.imageSelected = this.data.image ?? this.IMAGE_BLANK;
-    this.imagesBackup = this.data.images; // Backup
-    this.thumbnailBackup = this.data.thumbnailImg; // Backup
-
-    this.imageForm = this.fb.group({
-      image: [ this.imageSelected, []],
-      images: [ this.data.images, []],
-      thumbnailImg: [ this.data.thumbnailImg, []],
-  });
+    this.pictures = this.pictures.filter( (picture: IPicture) => picture.id !== this.pictureSelected.id );
+    this.pictureSelected = this.pictures[0];
   }
 
   onNoClick(): void {
@@ -107,26 +119,13 @@ export class EventImageDialogComponent implements OnInit {
       title: 'Datos guardados con éxito',
       text: `La imagen ha sido cambiada correctamente`,
     });
-    this.imageForm.controls.image.setValue(this.imageSelected);
-    this.imageForm.controls.images.setValue(this.data.images);
 
-    let thumbnailImg = this.thumbnailBackup;
-    console.log(`index Of: ${this.imagesBackup.indexOf(this.imageSelected)}`);
-    console.log(`images ${this.imagesBackup.length}`);
-    console.log(`this.imageSelecte ${this.imageSelected}`);
-    if ( this.imagesBackup.indexOf(this.imageSelected) === -1 ) {
-      // New image
-      console.log(`resizedName --> ${this.imageSelected}`);
-      thumbnailImg = this.resizedName(this.imageSelected);
-      console.log(`resizedName <-- ${thumbnailImg}`);
-    }
-    this.imageForm.controls.thumbnailImg.setValue(thumbnailImg);
-    this.dialogRef.close(this.imageForm.value);
+    const result: [IPicture, IPicture[]] = [
+      this.pictureSelected,
+      this.pictures
+    ];
+
+    this.dialogRef.close(result);
   }
 
-  private resizedName(fileName, dimensions = '200x200'): string {
-    const extIndex = fileName.lastIndexOf('.');
-    const ext = fileName.substring(extIndex);
-    return `${fileName.substring(0, extIndex)}_${dimensions}${ext}`;
-  }
 }

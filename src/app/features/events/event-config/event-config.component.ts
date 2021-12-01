@@ -11,11 +11,12 @@ import { IAppointment, Appointment } from '@models/appointment';
 import { IEvent, Event } from '@models/event';
 import { IUser } from '@models/user';
 import { AuditType } from '@models/audit';
+import { IPicture } from '@models/picture';
 import { EventService } from '@services/events.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 import { LogService } from '@services/log.service';
-
+import { PictureService } from '@services/pictures.service';
 
 import { EventBasicDialogComponent } from '@features/events/event-basic-dialog/event-basic-dialog.component';
 import { EventStatusDialogComponent } from '@features/events/event-status-dialog/event-status-dialog.component';
@@ -35,6 +36,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   shownAsAWholeControl = new FormControl();
   public event: IEvent;
   public idEvent: string;
+  public eventPicture: IPicture;
   public appointment$: Observable<IAppointment>;
   readonly SECTION_BLANK: Base = Base.InitDefault();
   public dialogConfig = new MatDialogConfig();
@@ -50,6 +52,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     private logSrv: LogService,
     private utilsSrv: UtilsService,
     private eventSrv: EventService,
+    private pictureSrv: PictureService,
     private appointmentSrv: AppointmentsService
   ) {
     this.dialogConfig.disableClose = true;
@@ -76,6 +79,11 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     this.eventSrv.getOneEvent(idEvent)
     .subscribe((event: IEvent) => {
       this.event = event;
+
+      this.pictureSrv.getPictureFromImage(this.event.image)
+      .subscribe((picture: IPicture) => {
+          this.eventPicture = picture;
+      });
 
       this.shownAsAWholeControl.setValue(String(this.event.shownAsAWhole));
     });
@@ -108,14 +116,19 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   }
 
   openEventImageDialog(): void {
-    this.dialogConfig.data = this.event;
+    this.dialogConfig.data = [this.event.image, this.event.images];
     const dialogRef = this.dialog.open(EventImageDialogComponent, this.dialogConfig);
 
-    dialogRef.afterClosed().subscribe((eventDialog: IEvent) => {
-      if ( eventDialog ) {
-        this.event.image = eventDialog.image;
-        this.event.images = eventDialog.images;
-        this.event.thumbnailImg = eventDialog.thumbnailImg;
+    dialogRef.afterClosed().subscribe((imagesDialog: [IPicture, IPicture[]]) => {
+      if ( imagesDialog ) {
+
+        this.eventPicture = imagesDialog[0];
+        console.log(`eventPicture: ${JSON.stringify(this.eventPicture)}`);
+        this.event.image = this.eventPicture.id;
+
+        const pictures: IPicture[] = imagesDialog[1];
+        this.event.images = this.pictureSrv.getImagesFromPictures(pictures);
+
         this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Modificada imagen');
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);

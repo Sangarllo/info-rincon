@@ -247,7 +247,6 @@ export class EventService {
     if ( newImage ) {
       event.image = newImage;
       event.images.push(newImage);
-      event.thumbnailImg = newImage;
     }
 
     this.appointmentSrv.addAppointment(eventId);
@@ -323,25 +322,25 @@ export class EventService {
     this.eventDoc.update(event);
   }
 
-  public getEventCalendar(): Observable<CalendarEvent[]> {
+  // public getEventCalendar(): Observable<CalendarEvent[]> {
 
-    const EVENTS: CalendarEvent[] = [
-      {
-        title: 'Título 1',
-        start: new Date(),
-        color: colors.indigo,
-        allDay: false,
-        meta: ''
-      },
-      {
-        title: 'Título 2',
-        start: new Date(),
-        color: colors.yellow,
-        allDay: false,
-        meta: ''
-      },
-    ];
+  //   const EVENTS: CalendarEvent[] = [
+  //     {
+  //       title: 'Título 1',
+  //       start: new Date(),
+  //       color: colors.indigo,
+  //       allDay: false,
+  //       meta: ''
+  //     },
+  //     {
+  //       title: 'Título 2',
+  //       start: new Date(),
+  //       color: colors.yellow,
+  //       allDay: false,
+  //       meta: ''
+  //     },
+  //   ];
 
-    return of(EVENTS);
-  }
+  //   return of(EVENTS);
+  // }
 }

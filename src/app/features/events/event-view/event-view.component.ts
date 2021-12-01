@@ -13,12 +13,14 @@ import { IEvent, Event } from '@models/event';
 import { IEventSocial } from '@models/event-social';
 import { IUser } from '@models/user';
 import { IAppointment } from '@models/appointment';
+import { IPicture } from '@models/picture';
 import { UserRole } from '@models/user-role.enum';
 import { EventService } from '@services/events.service';
 import { EventSocialService } from '@services/events-social.service';
 import { UserService } from '@services/users.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { SeoService } from '@services/seo.service';
+import { PictureService } from '@services/pictures.service';
 
 @Component({
   selector: 'app-event-view',
@@ -36,6 +38,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public idEventUrl: string;
   public idEvent: string;
   public idSubevent: string;
+  public eventPicture: IPicture;
   public appointment$: Observable<IAppointment>;
   readonly SECTION_BLANK: Base = Base.InitDefault();
   private listOfObservers: Array<Subscription> = [];
@@ -51,6 +54,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     private appointmentSrv: AppointmentsService,
     private eventSrv: EventService,
     private eventSocialSrv: EventSocialService,
+    private pictureSrv: PictureService,
   ) {
     this.configAllowed = false;
 
@@ -94,7 +98,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
           if ( user?.uid ) {
             this.userSrv.getOneUser(user.uid).subscribe( (userLogged: any ) => {
               this.userLogged = userLogged;
-              if ( this.userLogged.favEvents?.includes(this.event.id) ) {
+              if ( this.userLogged.favEvents?.includes(this.event?.id) ) {
                   this.isFav = true;
               }
 
@@ -129,11 +133,15 @@ export class EventViewComponent implements OnInit, OnDestroy {
               .subscribe( (eventSocial: IEventSocial) => {
                   this.eventSocial = eventSocial;
               });
-          this.seo.generateTags({
-            title: `${event.name} | Rincón de Soto`,
-            description: event.description,
-            image: event.thumbnailImg ?? event.image,
-          });
+          this.pictureSrv.getPictureFromImage(this.event.image)
+              .subscribe((picture: IPicture) => {
+                  this.eventPicture = picture;
+                  this.seo.generateTags({
+                    title: `${event.name} | Rincón de Soto`,
+                    description: event.description,
+                    image: this.eventPicture.pathThumb,
+                  });
+              });
       });
 
     this.listOfObservers.push( subs2$ );

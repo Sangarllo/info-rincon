@@ -9,8 +9,8 @@
         -->
 
         <div *ngIf="event.status === 'VISIBLE'; else noVisibleTemplate" class="row">
-            <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
-                <app-event-image-detail [event]="event"></app-event-image-detail>
+            <div *ngIf="eventPicture" class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+                <app-event-image-detail [eventPicture]="eventPicture"></app-event-image-detail>
             </div>
 
             <div class="col-lg-9 col-md-8 col-12">
@@ -19,7 +19,9 @@
 
                     <fieldset class="type-social">
 
+                        <!--
                         <legend>¡Comparte!</legend>
+                        -->
 
                         <div class="buttons" *ngIf="eventSocial">
 
@@ -41,7 +43,7 @@
 
                             <div *ngIf="userLogged" style="display: inline;">
 
-                                <span *ngIf="eventSocial.usersFavs.indexOf(userLogged.uid) !== -1; else noFavTemplate" mat-fab (click)="isFavorite(false)" class="fav-button">
+                                <span *ngIf="eventSocial.usersFavs && (eventSocial.usersFavs?.indexOf(userLogged.uid) !== -1); else noFavTemplate" mat-fab (click)="isFavorite(false)" class="fav-button">
                                   <mat-icon svgIcon="favorite-on"></mat-icon>
                                   <span *ngIf="eventSocial.usersFavs" class="counter">{{eventSocial.usersFavs.length}}</span>
                                 </span>

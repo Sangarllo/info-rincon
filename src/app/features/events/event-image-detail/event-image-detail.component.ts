@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IEvent } from '@models/event';
+import { IPicture } from '@models/picture';
 
 @Component({
   selector: 'app-event-image-detail',
@@ -8,11 +9,12 @@ import { IEvent } from '@models/event';
 })
 export class EventImageDetailComponent {
 
-  @Input() event: IEvent;
+  // @Input() event: IEvent;
+  @Input() eventPicture: IPicture;
 
   constructor() { }
 
   public viewImage(): void {
-    window.open(this.event.image, '_blank');
+    window.open(this.eventPicture.pathLarge, '_blank');
   }
 }

@@ -1,10 +1,10 @@
+import { CalendarEvent } from 'angular-calendar';
+
 import { IBase, BaseType } from '@models/base';
 import { Status, STATUS_MODES } from '@models/status.enum';
 import { Category } from '@models/category.enum';
+
 import { ScheduleType, SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
-
-
-import { CalendarEvent } from 'angular-calendar';
 
 export interface CalendarEventExtended extends CalendarEvent {
   active: boolean;
@@ -15,7 +15,6 @@ export interface IEvent {
   name: string;
   image: string;
   images: string[];
-  thumbnailImg: string;
   baseType: BaseType;
   status: Status;
   focused: boolean;
@@ -52,28 +51,23 @@ export class Event implements IEvent, IBase { // IAudit
     public name: string,
     public image: string,
     public images: string[],
-    public thumbnailImg: string,
     public baseType: BaseType,
-
-    public sanitizedUrl?: string,
-    public categories?: Category[],
-    public description?: string,
-    public scheduleType?: ScheduleType,
-    public timestamp?: string,
-
-    public appointmentId?: string,
-    public shownAsAWhole?: boolean,
-    public scheduleItems?: IBase[],
-
-    public placeItems?: IBase[],
-    public entityItems?: IBase[],
-    public entitiesArray?: string[],
-    public auditItems?: IBase[],
-    public userId?: string,
-
-    public extra?: string,
-    public extra2?: string,
-     ) {
+    public sanitizedUrl: string,
+    public categories: Category[],
+    public description: string,
+    public scheduleType: ScheduleType,
+    public timestamp: string,
+    public appointmentId: string,
+    public shownAsAWhole: boolean,
+    public scheduleItems: IBase[],
+    public placeItems: IBase[],
+    public entityItems: IBase[],
+    public entitiesArray: string[],
+    public auditItems: IBase[],
+    public userId: string,
+    public extra: string,
+    public extra2: string,
+  ) {
   }
 
   static InitDefault(): Event {
@@ -81,7 +75,7 @@ export class Event implements IEvent, IBase { // IAudit
       '0',
       true, Status.Editing, true, // Status
       '', // Name
-      Event.IMAGE_DEFAULT, [ Event.IMAGE_DEFAULT ], Event.IMAGE_DEFAULT, // Image
+      Event.IMAGE_DEFAULT, [ Event.IMAGE_DEFAULT ], // Image
       BaseType.EVENT, // BaseType
       '', // SanitizedUrl
       [], // Categories
@@ -92,7 +86,8 @@ export class Event implements IEvent, IBase { // IAudit
       [], // Place
       [], [], // Entity
       [],  // Audit
-      null, // UserId
+      null, // UserId,
+      null, null, // Extra, Extra2
     );
   }
 

@@ -74,6 +74,10 @@ export class RoleOptionsComponent implements OnDestroy {
     this.router.navigate([`lugares`]);
   }
 
+  gotoPicturesDashboard(): void {
+    this.router.navigate([`imagenes`]);
+  }
+
   gotoEventsDashboard(): void {
     this.router.navigate([`eventos`]);
   }
