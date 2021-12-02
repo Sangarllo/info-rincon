@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Add
 
 - `feature` Create IPicture model, used for managing event images.
+- `feature` Add component dialog for removing pictures.
 
 ### Update
 

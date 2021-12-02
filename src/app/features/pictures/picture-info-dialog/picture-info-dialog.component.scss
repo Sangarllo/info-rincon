@@ -1,0 +1,58 @@
+@import '../../../../base/variables';
+div.main-image {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    img.main-image {
+        padding: 3px;
+        @media screen and (max-width: $maxMobileWidth) {
+            width: 180px;
+            border: 3px solid $colorExtra;
+            border-radius: 1em;
+        }
+        @media screen and (min-width: $minTabletWidth) and (max-width: $maxTabletWidth) {
+            width: 240px;
+            border: 6px solid $colorExtra;
+            border-radius: 1em;
+        }
+        @media screen and (min-width: $minComputerWidth) {
+            width: 300px;
+            border: 9px solid $colorExtra;
+            border-radius: 1em;
+        }
+    }
+}
+
+div.images-container-text {
+    span {
+        color: darkgray;
+        text-transform: uppercase;
+        font-size: smaller;
+    }
+}
+
+div.images-container {
+    border: 1px dotted lightgray;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    img {
+        margin: 10px;
+        border: 1px solid darkgray;
+        width: 100px;
+        height: 100px; // TODO center, no resize
+    }
+}
+
+img.selected-image {
+    padding: 3px;
+    border: 3px solid $colorExtra !important;
+    border-radius: 1em;
+}
+
+.mat-dialog-actions {
+    background-color: $color2;
+    border: $color1;
+}

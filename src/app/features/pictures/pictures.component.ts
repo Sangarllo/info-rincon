@@ -1,16 +1,17 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { Subscription } from 'rxjs';
 
 import { IPicture } from '@models/picture';
 import { PictureService } from '@services/pictures.service';
-import { UtilsService } from '@services/utils.service';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 import { LogService } from '@services/log.service';
 import { SpinnerService } from '@services/spinner.service';
+import { PictureInfoDialogComponent } from '@features/pictures/picture-info-dialog/picture-info-dialog.component';
 
 @Component({
   selector: 'app-pictures',
@@ -23,14 +24,15 @@ export class PicturesComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   public loading = true;
+  public dialogConfig = new MatDialogConfig();
   public pictures: IPicture[];
   public dataSource: MatTableDataSource<IPicture> = new MatTableDataSource();
-  displayedColumns: string[] =  [ 'id', 'timestamp', 'image' ];
+  displayedColumns: string[] =  [ 'id', 'timestamp', 'image', 'actions'];
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
-    private router: Router,
-    private utilSrv: UtilsService,
+    public dialog: MatDialog,
+    private utilsSrv: UtilsService,
     private logSrv: LogService,
     private spinnerSvc: SpinnerService,
     private pictureSrv: PictureService,
@@ -54,5 +56,24 @@ export class PicturesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
+
+  openPictureDialog(picture: IPicture): void {
+    this.dialogConfig.data = picture;
+    const dialogRef = this.dialog.open(PictureInfoDialogComponent, this.dialogConfig);
+
+    dialogRef.afterClosed().subscribe((message: string) => {
+      if ( message ) {
+          this.utilsSrv.swalFire(
+              SwalMessage.OTHER_CHANGES,
+              `La imagen ha sido borrada: ${message}`
+          );
+      } else {
+          this.utilsSrv.swalFire(
+              SwalMessage.OTHER_CHANGES,
+              'La imagen no ha sido borrada'
+          );
+      }
+    });
   }
 }

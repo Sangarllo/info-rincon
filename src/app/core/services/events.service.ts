@@ -102,6 +102,16 @@ export class EventService {
     return this.eventCollection.valueChanges();
   }
 
+  getAllEventsByImage(imageId: string): Observable<IEvent[]> {
+      this.eventCollection = this.afs.collection<IEvent>(
+          EVENTS_COLLECTION,
+          ref => ref.where('images', 'array-contains', imageId)
+                    .orderBy('timestamp', 'desc')
+      );
+
+      return this.eventCollection.valueChanges();
+  }
+
   getAllEventsWithAppointments(showOnlyActive: boolean,  addSocialInfo: boolean): Observable<IEvent[]> {
     const events$ = this.getAllEvents(showOnlyActive, false, null, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();

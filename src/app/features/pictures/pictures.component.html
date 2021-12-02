@@ -18,9 +18,21 @@
             <ng-container matColumnDef="image">
                 <th mat-header-cell *matHeaderCellDef> </th>
                 <td mat-cell *matCellDef="let element">
-                    <img (click)="gotoItem(element)" [src]="element.path" class="img-thumbnail" alt="element.path">
+                    <img (click)="openPictureDialog(element)" [src]="element.path" class="img-thumbnail" alt="element.pathThumb">
                 </td>
             </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button matTooltip="Click to view image" class="iconbutton" (click)="openPictureDialog(element)">
+                      <mat-icon class="btn-1" aria-label="View">
+                          open_in_new
+                      </mat-icon>
+                  </button>
+                </td>
+            </ng-container>
+
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'marked-row': row.alerted }"></tr>

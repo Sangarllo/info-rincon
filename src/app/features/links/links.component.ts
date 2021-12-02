@@ -26,10 +26,10 @@ export class LinksComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  private listOfObservers: Array<Subscription> = [];
   public newsItems: ILink[];
   public dataSource: MatTableDataSource<ILink> = new MatTableDataSource();
   displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'sourceImage', 'sourceName', 'collapsed-info', 'name', 'categories', 'actions4'];
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private router: Router,

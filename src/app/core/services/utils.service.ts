@@ -9,6 +9,7 @@ import { IBase } from '@models/base';
 export enum SwalMessage {
   NO_CHANGES = 'NO_CHANGES',
   OK_CHANGES = 'OK_CHANGES',
+  OTHER_CHANGES = 'OTHER_CHANGES'
 }
 
 @Injectable({
@@ -35,6 +36,13 @@ export class UtilsService {
             text: `La información sobre ${extraInfo} ha sido guarda correctamente`
         });
         break;
+
+        case SwalMessage.OTHER_CHANGES:
+          Swal.fire({
+              icon: 'success',
+              title: extraInfo,
+          });
+          break;
 
       default:
         break;

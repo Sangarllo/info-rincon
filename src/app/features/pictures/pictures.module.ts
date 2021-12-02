@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '@shared/shared.module';
 
-import { PicturesRoutingModule } from './pictures-routing.module';
+import { PicturesRoutingModule } from '@features/pictures/pictures-routing.module';
 import { PicturesComponent } from '@features/pictures/pictures.component';
-
-
+import { PictureInfoDialogComponent } from '@features/pictures/picture-info-dialog/picture-info-dialog.component';
 
 @NgModule({
   declarations: [
-    PicturesComponent
+    PicturesComponent,
+    PictureInfoDialogComponent
   ],
   imports: [
     SharedModule,
