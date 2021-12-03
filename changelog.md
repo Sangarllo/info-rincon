@@ -22,7 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Update
 
-- `architect` Update @nguniversal/builders@13
+- `architect` Update @nguniversal/builders@13.
+- `architect` Update @angular-devkit/architect@0.1300.
 
 ## [0.2.3] - Changes after review with partners
 
