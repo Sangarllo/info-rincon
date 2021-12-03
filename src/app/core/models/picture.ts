@@ -6,7 +6,6 @@ export interface IPicture {
   pathMedium: string;
   pathLarge: string;
   timestamp: string;
-  items: string[];
   userId: string;
 }
 
@@ -27,7 +26,6 @@ export class Picture implements IPicture {
     public pathMedium: string,
     public pathLarge: string,
     public timestamp: string,
-    public items: string[],
     public userId: string,
   ) { }
 
@@ -40,7 +38,6 @@ export class Picture implements IPicture {
       Picture.IMAGE_DEFAULT, // Path
       Picture.IMAGE_DEFAULT, // Path
       null, // Timestamp
-      [], // Items
       null, // UserId
     );
   }
@@ -54,7 +51,6 @@ export class Picture implements IPicture {
       path,
       path,
       null, // Timestamp
-      [], // Items
       null, // UserId
     );
   }
@@ -68,7 +64,6 @@ export class Picture implements IPicture {
       Picture.resizedName(path, Picture.MEDIUM_SIZE),
       path,
       null, // Timestamp
-      [], // Items
       null, // UserId
     );
   }
