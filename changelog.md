@@ -14,6 +14,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Enabled url https//www.agendarinconera.es.
 
+## [0.2.4] - Update to Angular 13
+
+### Add
+
+- `devops` Install `angular-css-shrink` to reduce css bundle.
+
+### Update
+
+- `architect` Update @nguniversal/builders@13
+
 ## [0.2.3] - Changes after review with partners
 
 ### Add
