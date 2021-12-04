@@ -21,7 +21,7 @@
         </ng-container>
 
         <ng-container matColumnDef="collapsed-info">
-            <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef>Info</th>
+            <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef>Infos</th>
             <td mat-cell class="td-collapsed-info" [class]="element.name" *matCellDef="let element" (click)="editElement(element)">
                 <!-- TODO Not admin can't edit, just view -->
                 <div class="inside"></div>
@@ -35,7 +35,7 @@
                 <span class="name">{{ element.name }}</span>
                 <span *ngIf="element.extra" class="extra-data">🕑 {{ element.extra }}</span>
                 <span *ngIf="element.place" class="extra-data">🏠 {{ element.place?.name }}</span>
-                <span *ngIf="element.description" class="extra-data">{{ element.description }}</span>
+                <!-- <span *ngIf="element.description" class="extra-data">{{ element.description }}</span> -->
 
             </td>
         </ng-container>

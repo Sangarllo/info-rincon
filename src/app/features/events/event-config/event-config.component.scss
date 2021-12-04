@@ -42,11 +42,9 @@ fieldset {
     }
     .buttons {
         margin: -20px;
-        // button {
-        //     position: absolute;
-        //     right: -5px;
-        //     bottom: -5px;
-        // }
+        button {
+            margin: 10px !important;
+        }
     }
     .mat-accordion {
         float: left;

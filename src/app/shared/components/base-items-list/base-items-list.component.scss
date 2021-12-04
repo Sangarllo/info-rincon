@@ -12,30 +12,50 @@
     .list__item--selected,
     .list__item {
         margin-bottom: 4px;
-        // min-width: 400px;
         flex-grow: 1;
         padding: 6px;
         border-radius: 10px;
         margin: 2px;
-        padding-bottom: 40px; // <!-- TODO: comprobar
-        .list__item-img {
-            width: 54px;
-            height: 54px;
-        }
-        .list__item-info {
+        .list__item-header {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: start;
+            align-items: flex-start;
             margin-bottom: 0px;
-            .extra-data,
-            .name {
-                display: block;
-                text-transform: uppercase;
+            padding-bottom: 10px;
+            .list__item-img {
+                order: 1;
+                width: 54px;
+                height: 54px;
             }
-            .extra-data {
-                color: $colorExtraData;
+            .list__item-info-main {
+                order: 2;
+                margin-bottom: 0px;
+                .extra-data,
+                .name {
+                    display: block;
+                    text-transform: uppercase;
+                }
+                .extra-data {
+                    color: $colorExtraData;
+                    font-size: smaller;
+                }
+                .name {
+                    color: $colorTitleData;
+                    font-weight: bolder;
+                }
+            }
+        }
+        .list__item-description {
+            margin-top: 0px;
+            padding-top: 10px;
+            border-top: 1px dotted lightgray;
+            font-size: smaller;
+            margin-bottom: 0px;
+            span * {
                 font-size: smaller;
-            }
-            .name {
-                color: $colorTitleData;
-                font-weight: bolder;
+                color: $colorExtraData;
             }
         }
         .list__item-button-delete {
@@ -52,7 +72,8 @@
     .list__item-img {
         border: 3px solid $color1;
     }
-    .list__item-info {
+    .list__item-info-main,
+    .list__item-description {
         .name {
             font-size: larger;
         }
