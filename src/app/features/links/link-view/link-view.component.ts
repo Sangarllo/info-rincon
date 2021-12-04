@@ -1,8 +1,9 @@
+/* eslint-disable max-len */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DomSanitizer } from "@angular/platform-browser";
+import { DomSanitizer } from '@angular/platform-browser';
 
-import { MatIconRegistry } from "@angular/material/icon";
+import { MatIconRegistry } from '@angular/material/icon';
 import { Subscription } from 'rxjs';
 
 import { environment } from '@environments/environment';
@@ -18,10 +19,10 @@ import { SeoService } from '@services/seo.service';
 })
 export class LinkViewComponent implements OnInit, OnDestroy {
 
-  private listOfObservers: Array<Subscription> = [];
   public idLink: string;
   public link: ILink;
   public urlLink: string;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -34,17 +35,17 @@ export class LinkViewComponent implements OnInit, OnDestroy {
   ) {
     this.matIconRegistry.addSvgIcon(
       `whatsapp`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/whatsapp.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/whatsapp.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `facebook`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/facebook.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/facebook.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `twitter`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/svg/twitter.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/twitter.svg')
     );
   }
 
@@ -62,7 +63,7 @@ export class LinkViewComponent implements OnInit, OnDestroy {
         this.urlLink = link.sourceUrl;
         this.link = link;
         this.seo.generateTags({
-          title: `${link.name} | ${link.source}`,
+          title: `${link.name} | Enlace desde la Agenda Rinconera`,
           description: link.description,
           image: link.image,
         });

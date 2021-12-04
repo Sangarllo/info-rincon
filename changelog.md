@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `devops` Install `angular-css-shrink` to reduce css bundle.
 - `feature` Home: add entity-button when someone is filtered.
 
+### Fix
+
+- `code` Refactor main-item styles (events, links and notices).
+
 ### Update
 
 - `architect` Update @nguniversal/builders@13.
