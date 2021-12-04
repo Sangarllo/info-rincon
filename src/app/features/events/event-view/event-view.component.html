@@ -2,12 +2,6 @@
 
     <mat-card class="item-view" *ngIf="event; else loadingTemplate">
 
-        <!--
-        <pre> event.id: {{ event.id }}</pre>
-        <pre> IdEvent: {{ idEvent }}</pre>
-        <pre> idSubevent: {{ idSubevent }}</pre>
-        -->
-
         <div *ngIf="event.status === 'VISIBLE'; else noVisibleTemplate" class="row">
             <div *ngIf="eventPicture" class="col-lg-3 col-md-4 col-12" style="text-align: center;">
                 <app-event-image-detail [eventPicture]="eventPicture"></app-event-image-detail>
