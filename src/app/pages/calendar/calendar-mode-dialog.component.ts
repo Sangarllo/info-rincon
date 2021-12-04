@@ -48,8 +48,8 @@ export class CalendarModeDialogComponent {
 
     this.baseItems$ = this.baseSrv.getAllItemsBase(BaseType.ENTITY);
 
-    console.log(`configuring... data.entityId: ${data.entityId}`);
-    this.baseItemSelected = this.SECTION_BLANK;
+    console.log(`configuring... data.entityId: ${data.entity?.id}`);
+    this.baseItemSelected = data.entity; // this.SECTION_BLANK;
     this.baseItemName = 'entidad';
     this.baseItemDesc = 'rol';
 

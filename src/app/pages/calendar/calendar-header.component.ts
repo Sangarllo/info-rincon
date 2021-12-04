@@ -40,10 +40,10 @@ export class CalendarHeaderComponent {
 
   gotoModeConfig() {
 
-    console.log('gotoModeConfig this.entityId: ', JSON.stringify(this.entityId));
+    console.log('gotoModeConfig this.entityId: ', JSON.stringify(this.entityFiltered));
 
 
-    this.dialogConfig.data = { view: this.view, entity: this.entityId };
+    this.dialogConfig.data = { view: this.view, entity: this.entityFiltered };
     this.dialogConfig.width = '500px';
     this.dialogConfig.height = '500px';
 
@@ -87,8 +87,6 @@ export class CalendarHeaderComponent {
     public applyEntityFilteredStyles() {
         const styles = {
           background: `url('${this.entityFiltered.image}') center no-repeat`,
-          'background-size': 'cover',
-          border: '2px solid #003A59',
         };
         return styles;
     }

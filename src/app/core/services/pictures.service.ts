@@ -78,7 +78,6 @@ export class PictureService {
   }
 
   getPictureFromImage(image: string): Observable<IPicture> {
-    console.log(`getPictureFromImage(${image})`);
     if ( image === null || image === undefined || image === '' ) {
       return of(Picture.InitDefault());
     } else if ( image.length === 20 ) {

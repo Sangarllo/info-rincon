@@ -26,12 +26,14 @@
 
         <div class="title__mode buttons">
 
-            <button *ngIf="entityFiltered" mat-mini-fab [ngStyle]="applyEntityFilteredStyles()" (click)="gotoModeConfig()">
+            <button *ngIf="entityFiltered; else ngAllEntitiesTemplate" mat-mini-fab class="btn-entity" [ngStyle]="applyEntityFilteredStyles()" (click)="gotoModeConfig()">
             </button>
 
-            <button mat-mini-fab class="btn-1" (click)="gotoModeConfig()">
-                <mat-icon>manage_accounts</mat-icon>
-            </button>
+            <ng-template #ngAllEntitiesTemplate>
+                <button mat-mini-fab class="btn-1" (click)="gotoModeConfig()">
+                    <mat-icon>manage_accounts</mat-icon>
+                </button>
+            </ng-template>
 
             <button mat-mini-fab class="btn-1" (click)="gotoEventSearch()">
                 <mat-icon>search</mat-icon>
