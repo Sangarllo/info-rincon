@@ -25,6 +25,10 @@
 
 
         <div class="title__mode buttons">
+
+            <button *ngIf="entityFiltered" mat-mini-fab [ngStyle]="applyEntityFilteredStyles()" (click)="gotoModeConfig()">
+            </button>
+
             <button mat-mini-fab class="btn-1" (click)="gotoModeConfig()">
                 <mat-icon>manage_accounts</mat-icon>
             </button>

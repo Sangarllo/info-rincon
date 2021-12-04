@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CalendarView } from 'angular-calendar';
 
 import { EventsSearchDialogComponent } from '@features/events/events-search-dialog/events-search-dialog.component';
-import { IBase } from '@models/base';
+import { Base, IBase } from '@models/base';
 import { CalendarModeDialogComponent } from '@pages/calendar/calendar-mode-dialog.component';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 
@@ -27,6 +27,7 @@ export class CalendarHeaderComponent {
   public dialogConfig = new MatDialogConfig();
   CalendarView = CalendarView;
   modeSelected: string;
+  entityFiltered: IBase;
 
   constructor(
     public dialog: MatDialog,
@@ -39,6 +40,9 @@ export class CalendarHeaderComponent {
 
   gotoModeConfig() {
 
+    console.log('gotoModeConfig this.entityId: ', JSON.stringify(this.entityId));
+
+
     this.dialogConfig.data = { view: this.view, entity: this.entityId };
     this.dialogConfig.width = '500px';
     this.dialogConfig.height = '500px';
@@ -47,14 +51,14 @@ export class CalendarHeaderComponent {
 
     dialogRef2.afterClosed().subscribe(([modeSelected, entitySelected]: [string, IBase]) => {
 
-        console.log('afterClose');
-        console.log('modeSelected', modeSelected);
-        console.log('entitySelected', JSON.stringify(entitySelected));
+        this.entityFiltered = entitySelected.id !== '0' ? entitySelected : null;
+        // console.log('modeSelected', modeSelected);
+        // console.log('entitySelected', JSON.stringify(entitySelected));
 
-        if ( modeSelected || entitySelected ) {
+        if ( modeSelected || this.entityFiltered ) {
 
             if ( entitySelected) {
-              console.log('entitySelected', JSON.stringify(entitySelected));
+              this.entityId = entitySelected.id;
               this.entitySelectedChange.emit(entitySelected);
             }
 
@@ -78,5 +82,14 @@ export class CalendarHeaderComponent {
           // this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
         }
       });
+    }
+
+    public applyEntityFilteredStyles() {
+        const styles = {
+          background: `url('${this.entityFiltered.image}') center no-repeat`,
+          'background-size': 'cover',
+          border: '2px solid #003A59',
+        };
+        return styles;
     }
 }
