@@ -331,26 +331,4 @@ export class EventService {
     this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
     this.eventDoc.update(event);
   }
-
-  // public getEventCalendar(): Observable<CalendarEvent[]> {
-
-  //   const EVENTS: CalendarEvent[] = [
-  //     {
-  //       title: 'Título 1',
-  //       start: new Date(),
-  //       color: colors.indigo,
-  //       allDay: false,
-  //       meta: ''
-  //     },
-  //     {
-  //       title: 'Título 2',
-  //       start: new Date(),
-  //       color: colors.yellow,
-  //       allDay: false,
-  //       meta: ''
-  //     },
-  //   ];
-
-  //   return of(EVENTS);
-  // }
 }

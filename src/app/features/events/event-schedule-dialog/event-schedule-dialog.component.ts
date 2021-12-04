@@ -84,7 +84,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
     let name = '';
     let description = '';
 
-    this.orderId = this.event.scheduleItems.length + 1;
+    this.orderId = this.event.linkItems.length + 1;
     if ( this.event.extra === '' ) {
       const GUID = this.utilsSrv.getGUID();
       console.log(`GUID: ${GUID}`);
@@ -95,7 +95,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       this.imageSelected = this.event.image;
     } else {
       this.thisScheduleId = this.event.extra;
-      const scheduleEdited = this.event.scheduleItems.find( item => item.id === this.thisScheduleId );
+      const scheduleEdited = this.event.linkItems.find( item => item.id === this.thisScheduleId );
       name = scheduleEdited.name;
       this.title = `Edita los datos de ${name}`;
       description = scheduleEdited.description;

@@ -40,8 +40,8 @@ export class CalendarEventsService {
     ])
       .pipe(
         tap(([appointments, events ]) => {
-          console.log(`Nº appointments: ${appointments.length}`);
-          console.log(`Nº events: ${events.length}`);
+          // console.log(`Nº appointments: ${appointments.length}`);
+          // console.log(`Nº events: ${events.length}`);
           // appointments.forEach(item => console.warn(item.id));
         }),
         map(([appointments, events ]) => appointments

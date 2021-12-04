@@ -36,6 +36,7 @@ export class Place implements IPlace, IBase {
     return `${Place.PATH_URL}/${this.id}`;
   }
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   static InitDefault(): Place {
     return new Place(
       '0', true, Place.NAME_DEFAULT, Place.IMAGE_DEFAULT, BaseType.PLACE, // Base

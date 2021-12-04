@@ -24,6 +24,7 @@ import { EventAppointmentDialogComponent } from '@features/events/event-appointm
 import { EventImageDialogComponent } from '@features/events/event-image-dialog/event-image-dialog.component';
 import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dialog/event-new-base-dialog.component';
 import { EventScheduleDialogComponent } from '@features/events/event-schedule-dialog/event-schedule-dialog.component';
+import { EventLinkDialogComponent } from '@features/events/event-link-dialog/event-link-dialog.component';
 
 @Component({
   selector: 'app-event-config',
@@ -210,15 +211,15 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
       if ( scheduleItem ) {
 
-        const index = this.event.scheduleItems.findIndex(item => item.id === scheduleItem.id);
+        const index = this.event.linkItems.findIndex(item => item.id === scheduleItem.id);
         if ( index < 0 ) { // Adding new ScheduleItem and appointment
-          this.event.scheduleItems.push(scheduleItem);
+          this.event.linkItems.push(scheduleItem);
           this.appointmentSrv.addScheduleAppointment(
             scheduleItem,
             !this.event.shownAsAWhole
           );
         } else {
-          this.event.scheduleItems[index] = scheduleItem;
+          this.event.linkItems[index] = scheduleItem;
           const scheduleAppointment = Appointment.InitFromSchedule(scheduleItem, !this.event.shownAsAWhole);
           this.appointmentSrv.updateAppointment(scheduleAppointment);
         }
@@ -231,68 +232,188 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     });
   }
 
-  changeOrderScheduleItem(base: IBase): void {
+  openLinkDialog(linkItemId: string): void {
+
+    console.log(`openLinkDialog ${linkItemId}`);
+
+    this.dialogConfig.width = '500px';
+    this.dialogConfig.height = '500px';
+    this.dialogConfig.data = {
+      event: this.event,
+      linkItemBase: this.event.linkItems.find(item => item.id === linkItemId)
+    };
+
+    const dialogRef = this.dialog.open(EventLinkDialogComponent, this.dialogConfig);
+
+    dialogRef.afterClosed().subscribe((linkItem: IBase) => {
+
+      if ( linkItem ) {
+
+        const index = this.event.linkItems.findIndex(item => item.id === linkItem.id);
+        if ( index < 0 ) { // Adding new LinkItem
+          this.event.linkItems.push(linkItem);
+        } else {
+          this.event.linkItems[index] = linkItem;
+        }
+
+        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado enlace');
+
+      } else {
+        this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
+      }
+    });
+  }
+
+  changeOrderBaseItemFromTable(base: IBase): void {
     this.logSrv.info(`changeOrderScheduleItem ${base.id}`);
     const baseId =  base.id;
     const input = baseId.split('|');
     const id1 = input[0];
     const change = +input[1];
-    const order1 = this.event.scheduleItems.find(item => item.id === baseId).order;
-    const order2 = order1 + change;
-    const id2 = this.event.scheduleItems.find(item => item.order === order2).id;
 
-    // Reestablish
-    this.event.scheduleItems.find(item => item.id === baseId).id = id1;
+    let order1: number;
+    let order2: number;
+    let id2: string;
 
-    // Exchange
-    this.event.scheduleItems.find(item => item.id === id1).order = order2;
-    this.event.scheduleItems.find(item => item.id === id2).order = order1;
+    switch ( base.baseType ) {
 
-    // Order
-    this.event.scheduleItems = this.event.scheduleItems.sort((item1: IBase, item2: IBase) => {
-      if (item1.order > item2.order) { return 1; }
-      if (item1.order < item2.order) { return -1; }
-      return 0;
-    });
+      case BaseType.EVENT:
 
-    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
-  }
+          order1 = this.event.scheduleItems.find(item => item.id === baseId).order;
+          order2 = order1 + change;
+          id2 = this.event.scheduleItems.find(item => item.order === order2).id;
 
-  addScheduleItem(base: IBase): void {
-    this.logSrv.info(`addScheduleItem: ${JSON.stringify(base)}`);
-    this.event.scheduleItems.find(item => item.id === base.id).active = true;
-    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
-    this.appointmentSrv.enableAppointment(base.id, true);
-  }
+          // Reestablish
+          this.event.scheduleItems.find(item => item.id === baseId).id = id1;
 
-  deleteScheduleItem(base: IBase): void {
-    this.logSrv.info(`deleteScheduleItem: ${JSON.stringify(base)}`);
-    this.event.scheduleItems.find(item => item.id === base.id).active = false;
-    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
-    this.appointmentSrv.enableAppointment(base.id, false);
-  }
+          // Exchange
+          this.event.scheduleItems.find(item => item.id === id1).order = order2;
+          this.event.scheduleItems.find(item => item.id === id2).order = order1;
 
-  editScheduleItem(base: IBase): void {
-    this.logSrv.info(`editScheduleItem: ${JSON.stringify(base)}`);
-    this.openScheduleDialog(base.id);
-  }
+          // Order
+          this.event.scheduleItems = this.event.scheduleItems.sort((item1: IBase, item2: IBase) => {
+            if (item1.order > item2.order) { return 1; }
+            if (item1.order < item2.order) { return -1; }
+            return 0;
+          });
 
-  deleteForeverScheduleItem(base: IBase): void {
-    const scheduleDeletedId = base.id;
-    this.event.scheduleItems = this.event.scheduleItems.filter(item => item.id !== scheduleDeletedId);
+          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
+          break;
 
-    if ( this.event.scheduleItems.length === 0 ) {
-      this.onValShownAsAWholeChange('true');
-    } else {
-      this.event.scheduleItems.forEach( item => {
-        if ( +item.id > +scheduleDeletedId ) {
-          item.id = String(+item.id - 1);
-        };
-      });
+      case BaseType.LINK:
+
+          order1 = this.event.linkItems.find(item => item.id === baseId).order;
+          order2 = order1 + change;
+          id2 = this.event.linkItems.find(item => item.order === order2).id;
+
+          // Reestablish
+          this.event.linkItems.find(item => item.id === baseId).id = id1;
+
+          // Exchange
+          this.event.linkItems.find(item => item.id === id1).order = order2;
+          this.event.linkItems.find(item => item.id === id2).order = order1;
+
+          // Order
+          this.event.linkItems = this.event.linkItems.sort((item1: IBase, item2: IBase) => {
+            if (item1.order > item2.order) { return 1; }
+            if (item1.order < item2.order) { return -1; }
+            return 0;
+          });
+
+          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
     }
+  }
 
-    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
-    this.appointmentSrv.deleteAppointment(scheduleDeletedId);
+  addBaseItemFromTable(base: IBase): void {
+    this.logSrv.info(`addScheduleItem: ${JSON.stringify(base)}`);
+
+    switch ( base.baseType ){
+
+      case BaseType.EVENT:
+
+          this.event.scheduleItems.find(item => item.id === base.id).active = true;
+          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
+          this.appointmentSrv.enableAppointment(base.id, true);
+          break;
+
+      case BaseType.LINK:
+
+          this.event.linkItems.find(item => item.id === base.id).active = true;
+          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado enlace');
+          break;
+
+    }
+  }
+
+  deleteBaseItemFromTable(base: IBase): void {
+    this.logSrv.info(`deleteScheduleItem: ${JSON.stringify(base)}`);
+    switch ( base.baseType ){
+
+      case BaseType.EVENT:
+          this.event.scheduleItems.find(item => item.id === base.id).active = false;
+          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
+          this.appointmentSrv.enableAppointment(base.id, false);
+          break;
+
+      case BaseType.LINK:
+          this.event.linkItems.find(item => item.id === base.id).active = false;
+          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado links');
+          break;
+    }
+  }
+
+  editBaseItemFromTable(base: IBase): void {
+    switch ( base.baseType ){
+
+        case BaseType.EVENT:
+            this.logSrv.info(`editBaseItemFromTable: ${JSON.stringify(base.baseType)}`);
+            this.openScheduleDialog(base.id);
+            break;
+
+        case BaseType.LINK:
+            this.logSrv.info(`editBaseItemFromTable: ${JSON.stringify(base.baseType)}`);
+            this.openLinkDialog(base.id);
+            break;
+
+    }
+  }
+
+  deleteForeverBaseItemFromTable(base: IBase): void {
+
+    const baseItemId = base.id;
+    switch ( base.baseType ){
+
+      case BaseType.EVENT:
+
+          this.event.scheduleItems = this.event.scheduleItems.filter(item => item.id !== baseItemId);
+
+          if ( this.event.scheduleItems.length === 0 ) {
+            this.onValShownAsAWholeChange('true');
+          } else {
+            this.event.scheduleItems.forEach( item => {
+              if ( +item.id > +baseItemId ) {
+                item.id = String(+item.id - 1);
+              };
+            });
+          }
+
+          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
+          this.appointmentSrv.deleteAppointment(baseItemId);
+          break;
+
+      case BaseType.LINK:
+
+            this.event.linkItems = this.event.linkItems.filter(item => item.id !== baseItemId);
+
+            this.event.linkItems.forEach( item => {
+                if ( +item.id > +baseItemId ) {
+                    item.id = String(+item.id - 1);
+                };
+            });
+
+            this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Eliminado enlace');
+            break;
+      }
   }
 
   deleteEntity(base: IBase): void {
@@ -321,7 +442,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   onValShownAsAWholeChange(shownAsAWhole: string){
     this.event.shownAsAWhole = ( shownAsAWhole === 'true' ) ? true : false;
     this.appointmentSrv.enableAppointment(this.event.id, this.event.shownAsAWhole);
-    this.event.scheduleItems.forEach(item => {
+    this.event.linkItems.forEach(item => {
       this.appointmentSrv.enableAppointment(item.id, !this.event.shownAsAWhole);
     });
     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado ShownAsAWhole');

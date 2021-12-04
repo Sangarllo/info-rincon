@@ -38,6 +38,7 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
 
       case BaseType.EVENT:
         if ( this.modeAdmin ) {
+          // eslint-disable-next-line max-len
           this.displayedColumns = ['baseId', 'baseSmallImage', 'baseBigName', 'placeSmallImage', 'baseDescHorario',  'baseActions5', 'collapsed-info' ]; // 'active',
         } else {
           this.displayedColumns = ['baseSmallImage', 'baseBigName', 'baseTimestamp', 'status', 'baseActions1', 'collapsed-info' ];
@@ -52,6 +53,11 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
       case BaseType.ENTITY:
         this.displayedColumns = [ 'baseSmallImage', 'baseBigName', 'collapsed-info' ];
         break;
+
+      case BaseType.LINK:
+        this.displayedColumns = [ 'baseSmallImage', 'baseLink' ];
+        break;
+
     }
   }
 

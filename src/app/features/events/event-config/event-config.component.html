@@ -85,8 +85,9 @@
 
                         <legend>¿Cómo?</legend>
 
-                        <sh-base-items-table [baseItems]="event.scheduleItems" [baseType]="baseType" [modeAdmin]="true" (changeOrderBase)="changeOrderScheduleItem($event)" (addBase)="addScheduleItem($event)" (deleteBase)="deleteScheduleItem($event)" (editBase)="editScheduleItem($event)"
-                            (deleteForeverBase)="deleteForeverScheduleItem($event)"></sh-base-items-table>
+                        <sh-base-items-table [baseItems]="event.scheduleItems" [baseType]="baseType" [modeAdmin]="true" (changeOrderBase)="changeOrderBaseItemFromTable($event)" (addBase)="addBaseItemFromTable($event)" (deleteBase)="deleteBaseItemFromTable($event)" (editBase)="editBaseItemFromTable($event)"
+                            (deleteForeverBase)="deleteForeverBaseItemFromTable($event)">
+                        </sh-base-items-table>
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="openScheduleDialog('')" color="accent">
@@ -123,6 +124,23 @@
                         </div>
 
                     </fieldset>
+
+                    <fieldset class="event-item-detail type-other">
+
+                        <legend>¿Más info?</legend>
+
+                        <sh-base-items-table [baseItems]="event.linkItems" [baseType]="baseType" [modeAdmin]="true" (changeOrderBase)="changeOrderBaseItemFromTable($event)" (addBase)="addBaseItemFromTable($event)" (deleteBase)="deleteBaseItemFromTable($event)" (editBase)="editBaseItemFromTable($event)"
+                            (deleteForeverBase)="deleteForeverBaseItemFromTable($event)">
+                        </sh-base-items-table>
+
+                        <div class="buttons">
+                            <button mat-fab class="btn-1" (click)="openLinkDialog('')" color="accent">
+                              <mat-icon>playlist_add</mat-icon>
+                          </button>
+                        </div>
+
+                    </fieldset>
+
 
                     <fieldset class="event-audit-detail type-other">
 

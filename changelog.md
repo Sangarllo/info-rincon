@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `devops` Install `angular-css-shrink` to reduce css bundle.
 - `feature` Home: add entity-button when someone is filtered.
+- `feature` Add linkItems to event model.
+- `feature` Add linkItems config panel to event view and config.
 
 ### Fix
 
