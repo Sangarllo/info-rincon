@@ -5,8 +5,12 @@
 <mat-dialog-content [formGroup]="scheduleItemForm">
 
     <div class="images-container">
-        <div *ngFor="let image of event.images">
+        <!-- <div *ngFor="let image of event.images">
             <img [alt]="image" [src]="image" (click)="onSelectedImage(image)" [ngClass]="{'selected-image' : (imageSelected == image)}" class="container__image" />
+        </div> -->
+
+        <div *ngFor="let picture of pictures">
+            <img [alt]="picture.path" [src]="picture.path" (click)="onSelectedImage(picture)" [ngClass]="{'selected-image' : (pictureSelected.path == picture.path)}" />
         </div>
     </div>
 

@@ -7,7 +7,7 @@ import {
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import { Observable, combineLatest, of } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { first, map, tap } from 'rxjs/operators';
 import { CalendarEvent } from 'angular-calendar';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -20,9 +20,10 @@ import { IUser } from '@models/user';
 import { AuditItem, AuditType } from '@models/audit';
 import { IEntity } from '@models/entity';
 import { ScheduleType } from '@models/shedule-type.enum';
+import { Status } from '@models/status.enum';
 import { AppointmentsService } from '@services/appointments.service';
 import { EventSocialService } from '@services/events-social.service';
-import { Status } from '@models/status.enum';
+import { PictureService } from '@services/pictures.service';
 
 const EVENTS_COLLECTION = 'eventos';
 
@@ -38,7 +39,8 @@ export class EventService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private eventSocialSrv: EventSocialService,
-    private appointmentSrv: AppointmentsService
+    private appointmentSrv: AppointmentsService,
+    private pictureSrv: PictureService,
   ) {
     this.eventCollection = afs.collection(EVENTS_COLLECTION);
   }
@@ -116,21 +118,26 @@ export class EventService {
     const events$ = this.getAllEvents(showOnlyActive, false, null, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
     const eventsSocial$ = ( addSocialInfo ) ? this.eventSocialSrv.getAllEventsSocial() : of([]);
+    const pictures$ = this.pictureSrv.getAllPictures();
 
     return combineLatest([
       events$,
       appointments$,
-      eventsSocial$
+      eventsSocial$,
+      pictures$
     ])
       .pipe(
-        map(([events, appointments, eventsSocial]) => events.map(event => ({
+        map(([events, appointments, eventsSocial, pictures]) => events.map(event => ({
           ...event,
           timestamp: formatDistance(new Date(event.timestamp), new Date(), {locale: es}),
           dateIni: appointments.find( a => a.id === event.id )?.dateIni,
+          image: (pictures.find( p => p.id === event.image )?.path) ?? event.image,
+          auditItems: ( environment.setAudit ) ? event.auditItems : [],
           extra: ( addSocialInfo ) ?
               // eslint-disable-next-line max-len
               `${eventsSocial.find( e => e.id === event.id )?.nClaps}|${eventsSocial.find( e => e.id === event.id )?.usersFavs?.length}` : '0|0'
         }) as IEvent)),
+        // tap(datas => datas.forEach(data => console.log(` -> event: ${data.id} | ${data.name} | ${data.image}`))),
     );
   }
 
@@ -151,7 +158,7 @@ export class EventService {
           allDay: appointments.find(a => a.id === event.id)?.allDay,
           start: new Date(appointments.find(a => a.id === event.id)?.timeIni)
         }) as CalendarEvent)),
-        // tap(data => this.logSrv.info('event:  ', JSON.stringify(data))),
+        // tap(data => console.log('event:  ', JSON.stringify(data))),
     );
   }
 

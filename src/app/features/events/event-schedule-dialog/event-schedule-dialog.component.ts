@@ -9,10 +9,12 @@ import { IBase, Base, BaseType } from '@models/base';
 import { IEvent } from '@models/event';
 import { Appointment, IAppointment } from '@models/appointment';
 import { Place } from '@models/place';
+import { IPicture } from '@models/picture';
 import { SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
 import { UtilsService, SwalMessage } from '@services/utils.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { PlaceService } from '@services/places.service';
+import { PictureService } from '@services/pictures.service';
 
 @Component({
   selector: 'app-event-schedule-dialog',
@@ -20,6 +22,9 @@ import { PlaceService } from '@services/places.service';
   styleUrls: ['./event-schedule-dialog.component.scss']
 })
 export class EventScheduleDialogComponent implements OnInit, OnDestroy {
+
+  pictureSelected: IPicture;
+  pictures: IPicture[];
 
   title = 'Configura un nuevo acto para este evento';
   appointment: IAppointment;
@@ -38,6 +43,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private utilsSrv: UtilsService,
     private appointmentSrv: AppointmentsService,
+    private pictureSrv: PictureService,
     private placeSrv: PlaceService,
     public dialogRef: MatDialogRef<EventScheduleDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public event: IEvent) {
@@ -50,21 +56,36 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
   //  'X' -> EDIT SCHEDULE X
 
   ngOnInit(): void {
-    const eventId = this.event.id;
-    if ( eventId ) {
-      this.getDetails(eventId);
-    }
 
-    this.scheduleItemForm = this.fb.group({
-      id: [ {value: '', disabled: true}, []],
-      order: [ {value: '', disabled: true}, []],
-      image: [ '', []],
-      name: [ '', []],
-      description: [ '', []],
-      dateIni: [ '', []],
-      timeIni: [ Appointment.HOUR_DEFAULT, []],
-      place: [this.SECTION_BLANK, [Validators.required]],
-  });
+      const eventId = this.event.id;
+      if ( eventId ) {
+        this.getDetails(eventId);
+      }
+
+      this.getPictures();
+
+      this.scheduleItemForm = this.fb.group({
+          id: [ {value: '', disabled: true}, []],
+          order: [ {value: '', disabled: true}, []],
+          image: [ '', []],
+          name: [ '', []],
+          description: [ '', []],
+          dateIni: [ '', []],
+          timeIni: [ Appointment.HOUR_DEFAULT, []],
+          place: [this.SECTION_BLANK, [Validators.required]],
+      });
+  }
+
+  getPictures(): void {
+    this.pictureSrv.getPictureFromImage(this.event.image)
+      .subscribe((picture: IPicture) => {
+        this.pictureSelected = picture;
+      });
+
+    this.pictureSrv.getSeveralPicturesFromImages(this.event.images)
+      .subscribe((pictures: IPicture[]) => {
+        this.pictures = pictures;
+      });
   }
 
   getDetails(eventId: string): void {
@@ -84,7 +105,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
     let name = '';
     let description = '';
 
-    this.orderId = this.event.linkItems.length + 1;
+    this.orderId = this.event.scheduleItems.length + 1;
     if ( this.event.extra === '' ) {
       const GUID = this.utilsSrv.getGUID();
       console.log(`GUID: ${GUID}`);
@@ -95,7 +116,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       this.imageSelected = this.event.image;
     } else {
       this.thisScheduleId = this.event.extra;
-      const scheduleEdited = this.event.linkItems.find( item => item.id === this.thisScheduleId );
+      const scheduleEdited = this.event.scheduleItems.find( item => item.id === this.thisScheduleId );
       name = scheduleEdited.name;
       this.title = `Edita los datos de ${name}`;
       description = scheduleEdited.description;
@@ -123,16 +144,20 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSelectedImage(path: string): void {
-    this.imageSelected = path;
+  onSelectedImage(picture: IPicture): void {
+    this.pictureSelected = picture;
   }
 
   onSelectionChanged(event: any): void {
     this.placeBaseSelected = event.value;
   }
 
-  compareFunction(o1: any, o2: any): boolean {
-    return (o1.name === o2.name && o1.id === o2.id);
+  compareFunction(o1: IBase, o2: IBase): boolean {
+    return (o1.id === o2.id && o1.name === o2.name);
+  }
+
+  comparePictureFunction(o1: any, o2: any): boolean {
+    return (o1.id === o2.id);
   }
 
   onDateIniChange(type: string, event: MatDatepickerInputEvent<Date>): void {
@@ -155,7 +180,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       order: this.orderId,
       active: true,
       name: this.scheduleItemForm.controls.name.value,
-      image: this.imageSelected,
+      image: this.pictureSelected.id,
       baseType: BaseType.EVENT,
       description: this.scheduleItemForm.controls.description.value,
       extra: dateIniStr,

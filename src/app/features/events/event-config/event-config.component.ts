@@ -213,15 +213,15 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
       if ( scheduleItem ) {
 
-        const index = this.event.linkItems.findIndex(item => item.id === scheduleItem.id);
+        const index = this.event.scheduleItems.findIndex(item => item.id === scheduleItem.id);
         if ( index < 0 ) { // Adding new ScheduleItem and appointment
-          this.event.linkItems.push(scheduleItem);
+          this.event.scheduleItems.push(scheduleItem);
           this.appointmentSrv.addScheduleAppointment(
             scheduleItem,
             !this.event.shownAsAWhole
           );
         } else {
-          this.event.linkItems[index] = scheduleItem;
+          this.event.scheduleItems[index] = scheduleItem;
           const scheduleAppointment = Appointment.InitFromSchedule(scheduleItem, !this.event.shownAsAWhole);
           this.appointmentSrv.updateAppointment(scheduleAppointment);
         }

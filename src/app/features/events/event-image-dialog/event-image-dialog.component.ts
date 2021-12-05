@@ -49,7 +49,6 @@ export class EventImageDialogComponent implements OnInit {
     console.log(`pictureId: ${JSON.stringify(this.pictureId)}`);
     console.log(`picturesIds: ${JSON.stringify(this.picturesIds.length)}`);
 
-
     if ( this.pictureId ) {
       this.getPictures();
     }
