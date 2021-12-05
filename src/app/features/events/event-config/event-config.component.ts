@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 
 import { Observable, Subscription } from 'rxjs';
 
+import { environment } from '@environments/environment';
 import { AuthService } from '@auth/auth.service';
 import { Base, IBase, BaseType } from '@models/base';
 import { IAppointment, Appointment } from '@models/appointment';
@@ -42,6 +43,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   readonly SECTION_BLANK: Base = Base.InitDefault();
   public dialogConfig = new MatDialogConfig();
   public baseType = BaseType.EVENT;
+  public audit = environment.setAudit;
   private currentUser: IUser;
   private listOfObservers: Array<Subscription> = [];
 

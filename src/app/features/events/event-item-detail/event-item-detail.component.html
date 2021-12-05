@@ -22,8 +22,8 @@
 
         <div class="container-event__texts">
             <span class="title">{{ eventItem?.name }}</span>
-            <div class="data">{{ eventItem?.timestamp | date:'EEEE, d \'de\' MMMM hh:mm' }} 🕑</div>
-            <div class="data" *ngIf="eventItem?.place">{{ eventItem.place?.name }} 🏠</div>
+            <div class="data">🕑 {{ eventItem?.timestamp | date:'EEEE, d \'de\' MMMM hh:mm' }}</div>
+            <div class="data" *ngIf="eventItem?.place">📍 {{ eventItem.place?.name }}</div>
 
             <div class="desc" [innerHTML]="eventItem?.description">
             </div>
