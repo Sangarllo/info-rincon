@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `code` Refactor dialog header styles.
 - `style` Improve style in event-view.
 - `audit` Hide audit logs in develop-environment.
+- `code` Split image field into two fields (imageId and imagePath).
 
 ### Update
 

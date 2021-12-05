@@ -4,7 +4,7 @@
 
         <mat-toolbar class="mat-elevation-z8" color="primary" (click)="gotoExtraItem()">
             <span class="logo">
-                <img [src]="extraBase.image" [alt]="extraBase.name" class="rounded-circle" />
+                <img [src]="extraBase.imagePath" [alt]="extraBase.name" class="rounded-circle" />
             </span>
 
             <span class="logo-title">
@@ -17,7 +17,7 @@
     <div class="row">
 
         <div class="col-3 col-md-4 col-sm-12" style="text-align: center;">
-            <img [src]="baseItem.image" class="img-thumbnail">
+            <img [src]="baseItem.imagePath" class="img-thumbnail">
         </div>
 
         <div class="col-9 col-md-8 col-sm-12">
@@ -42,8 +42,3 @@
     </div>
 
 </div>
-
-
-<!-- <pre class="content">
-  {{ baseItem | json }}
-</pre> -->

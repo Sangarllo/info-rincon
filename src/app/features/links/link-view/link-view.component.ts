@@ -65,7 +65,7 @@ export class LinkViewComponent implements OnInit, OnDestroy {
         this.seo.generateTags({
           title: `${link.name} | Enlace desde la Agenda Rinconera`,
           description: link.description,
-          image: link.image,
+          image: link.imagePath,
         });
       });
 

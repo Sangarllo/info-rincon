@@ -131,7 +131,8 @@ export class EventService {
           ...event,
           timestamp: formatDistance(new Date(event.timestamp), new Date(), {locale: es}),
           dateIni: appointments.find( a => a.id === event.id )?.dateIni,
-          image: (pictures.find( p => p.id === event.image )?.path) ?? event.image,
+          imageId: pictures.find( p => p.id === event.imageId )?.id ?? event.imageId,
+          imagePath: (pictures.find( p => p.path === event.imagePath )?.path) ?? event.imagePath,
           auditItems: ( environment.setAudit ) ? event.auditItems : [],
           extra: ( addSocialInfo ) ?
               // eslint-disable-next-line max-len
@@ -179,7 +180,8 @@ export class EventService {
             id: event.id,
             active: event.active,
             name: event.name,
-            image: event.image,
+            imageId: event.imageId,
+            imagePath: event.imagePath,
             baseType: BaseType.EVENT,
             description: event.description
           };
@@ -254,15 +256,16 @@ export class EventService {
       id: entity.id,
       active: true,
       name: entity.name,
-      image: entity.image,
+      imageId: entity.imageId,
+      imagePath: entity.imagePath,
       baseType: BaseType.ENTITY,
       description: role,
     };
 
     event.images = [];
-    const newImage = entity.image;
+    const newImage = entity.imageId;
     if ( newImage ) {
-      event.image = newImage;
+      event.imageId = newImage;
       event.images.push(newImage);
     }
 
@@ -273,13 +276,14 @@ export class EventService {
         id: place.id,
         active: true,
         name: place.name,
-        image: place.image,
+        imageId: place.imageId,
+        imagePath: place.imagePath,
         baseType: BaseType.PLACE,
         description: place.roleDefault ?? '',
       } : null;
 
     if ( place ) {
-      event.images.push(place.image);
+      event.images.push(place.imageId);
     }
 
     const categories = entity.categories;

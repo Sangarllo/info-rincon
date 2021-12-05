@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col-4 col-sm-3 col-md-2 col-lg-1" style="text-align: center;">
-                <img [src]="baseItem.image" class="img-thumbnail">
+                <img [src]="baseItem.imagePath" class="img-thumbnail">
             </div>
 
             <div class="col-8 col-sm-9 col-md-10 col-lg-11">
@@ -26,6 +26,6 @@
 
 <ng-template #ngTemplateList>
     <div class="items-wrapper">
-        <img *ngFor="let item of baseItems" (click)="gotoItem(item)" [alt]="item.name" [src]="item.image" [ngClass]="item.baseType" />
+        <img *ngFor="let item of baseItems" (click)="gotoItem(item)" [alt]="item.name" [src]="item.imagePath" [ngClass]="item.baseType" />
     </div>
 </ng-template>

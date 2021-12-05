@@ -49,7 +49,8 @@ export class EntityService {
             id: entity.id,
             active: entity.active,
             name: entity.name,
-            image: entity.image,
+            imageId: entity.imageId,
+            imagePath: entity.imagePath,
             baseType: BaseType.ENTITY,
             description: entity.roleDefault
           };

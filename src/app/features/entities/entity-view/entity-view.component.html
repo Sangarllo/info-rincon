@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
-                <img [src]="entity.image" class="img-thumbnail">
+                <img [src]="entity.imagePath" class="img-thumbnail">
             </div>
 
             <div class="col-lg-9 col-md-8 col-12">
@@ -54,7 +54,7 @@
                             </mat-form-field>
 
                             <div *ngIf="entity.place" class="card-detail-block">
-                                <img [src]="entity.place.image" class="img-thumbnail" [alt]="entity.place.name" />
+                                <img [src]="entity.place.imagePath" class="img-thumbnail" [alt]="entity.place.name" />
                                 <div>
                                     <span class="desc">Lugar por defecto</span>
                                     <br/>

@@ -68,7 +68,7 @@
                         <span>todas</span>
                     </div>
                     <div *ngIf="user.role==='AUTOR'">
-                        <img *ngFor="let entity of user.entitiesAdmin" [src]="entity.image" class="img-thumbnail" alt="entity.name">
+                        <img *ngFor="let entity of user.entitiesAdmin" [src]="entity.imagePath" class="img-thumbnail" alt="entity.name">
                     </div>
                     <div *ngIf="user.role==='LECTOR'">
                         <mat-icon>grid_off</mat-icon>

@@ -11,7 +11,7 @@
 
         <div *ngIf="event.status === 'VISIBLE'; else noVisibleTemplate" class="row">
 
-            <img [src]="event.image" [alt]="event.name" />
+            <img [src]="event.imagePath" [alt]="event.name" />
             <h1>{{ event.name }}</h1>
 
         </div>

@@ -6,7 +6,8 @@ export interface INotice {
   id: string;
   active: boolean;
   name: string;
-  image: string;
+  imageId: string;
+  imagePath: string;
   thumbnailImg: string;
   baseType: BaseType;
   status: Status;
@@ -28,7 +29,8 @@ export class Notice implements INotice, IBase {
     public id: string,
     public active: boolean,
     public name: string,
-    public image: string,
+    public imageId: string,
+    public imagePath: string,
     public thumbnailImg: string,
     public baseType: BaseType,
     public status: Status,
@@ -44,7 +46,7 @@ export class Notice implements INotice, IBase {
   static InitDefault(): Notice {
     return new Notice(
       '0', true, '',
-      Notice.IMAGE_DEFAULT, Notice.IMAGE_DEFAULT, // Images
+      Notice.IMAGE_DEFAULT, Notice.IMAGE_DEFAULT, Notice.IMAGE_DEFAULT, // Images
       BaseType.NOTICE, // Base
       Status.Visible,
       true,

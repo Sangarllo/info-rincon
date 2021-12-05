@@ -85,7 +85,7 @@ export class CalendarHeaderComponent {
 
     public applyEntityFilteredStyles() {
         const styles = {
-          background: `url('${this.entityFiltered.image}') center no-repeat`,
+          background: `url('${this.entityFiltered.imagePath}') center no-repeat`,
         };
         return styles;
     }

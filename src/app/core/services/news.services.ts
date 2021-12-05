@@ -69,7 +69,8 @@ export class NewsService {
             id: newsItem.id,
             active: newsItem.active,
             name: newsItem.name,
-            image: newsItem.image,
+            imageId: newsItem.imageId,
+            imagePath: newsItem.imagePath,
             baseType: BaseType.NEWS_ITEM,
             description: newsItem.description
           };

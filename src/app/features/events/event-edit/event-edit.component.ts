@@ -63,7 +63,8 @@ export class EventEditComponent implements OnInit, OnDestroy {
       name: ['', [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)]],
-      image: Event.IMAGE_DEFAULT,
+      imageId: Event.IMAGE_DEFAULT,
+      imagePath: Event.IMAGE_DEFAULT,
       sanitizedUrl: '',
       categories: null,
       description: ''
@@ -117,7 +118,8 @@ export class EventEditComponent implements OnInit, OnDestroy {
       status: this.event.status,
       focused: this.event.focused,
       name: this.event.name,
-      image: this.event.image ?? Event.IMAGE_DEFAULT,
+      imageId: this.event.imageId ?? Event.IMAGE_DEFAULT,
+      imagePath: this.event.imagePath ?? Event.IMAGE_DEFAULT,
       sanitizedUrl: this.event.sanitizedUrl,
       categories: this.event.categories ?? [],
       description: ''
@@ -183,11 +185,13 @@ export class EventEditComponent implements OnInit, OnDestroy {
           fileRef.getDownloadURL().subscribe(
             ( imageUrl: string ) => {
 
-              this.event.image = imageUrl;
+              this.event.imageId = imageUrl;
+              this.event.imagePath = imageUrl;
 
               // Update the data on the form
               this.eventForm.patchValue({
-                image: this.event.image
+                imageId: this.event.imageId,
+                imagePath: this.event.imagePath,
               });
           });
         })

@@ -31,7 +31,8 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
   scheduleItemForm: FormGroup;
   thisScheduleId: string;
   orderId: number;
-  imageSelected: string;
+  imageIdSelected: string;
+  imagePathSelected: string;
   dateIni: string;
   placeBaseSelected: Base;
   readonly IMAGE_BLANK: string = Base.IMAGE_DEFAULT;
@@ -67,7 +68,8 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       this.scheduleItemForm = this.fb.group({
           id: [ {value: '', disabled: true}, []],
           order: [ {value: '', disabled: true}, []],
-          image: [ '', []],
+          imageId: [ '', []],
+          imagePath: [ '', []],
           name: [ '', []],
           description: [ '', []],
           dateIni: [ '', []],
@@ -77,7 +79,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
   }
 
   getPictures(): void {
-    this.pictureSrv.getPictureFromImage(this.event.image)
+    this.pictureSrv.getPictureFromImage(this.event.imageId)
       .subscribe((picture: IPicture) => {
         this.pictureSelected = picture;
       });
@@ -113,14 +115,16 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       this.title = `Configura un nuevo ${scheduleType} para este evento`;
       name = `${scheduleType} ${this.orderId}`;
       description = '';
-      this.imageSelected = this.event.image;
+      this.imageIdSelected = this.event.imageId;
+      this.imagePathSelected = this.event.imagePath;
     } else {
       this.thisScheduleId = this.event.extra;
       const scheduleEdited = this.event.scheduleItems.find( item => item.id === this.thisScheduleId );
       name = scheduleEdited.name;
       this.title = `Edita los datos de ${name}`;
       description = scheduleEdited.description;
-      this.imageSelected = scheduleEdited.image;
+      this.imageIdSelected = scheduleEdited.imageId;
+      this.imagePathSelected = scheduleEdited.imagePath;
       const datetimeIni = scheduleEdited.extra.split(' ');
       this.appointment.dateIni = datetimeIni[0];
       this.appointment.timeIni = datetimeIni[1];
@@ -135,7 +139,8 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
     this.scheduleItemForm.patchValue({
       id: this.thisScheduleId,
       order: this.orderId,
-      image: this.imageSelected,
+      imageId: this.imageIdSelected,
+      imagePath: this.imagePathSelected,
       name,
       description,
       dateIni: this.appointment.dateIni,
@@ -180,7 +185,8 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       order: this.orderId,
       active: true,
       name: this.scheduleItemForm.controls.name.value,
-      image: this.pictureSelected.id,
+      imageId: this.pictureSelected.id,
+      imagePath: this.pictureSelected.path,
       baseType: BaseType.EVENT,
       description: this.scheduleItemForm.controls.description.value,
       extra: dateIniStr,

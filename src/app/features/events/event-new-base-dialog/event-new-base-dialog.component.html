@@ -4,13 +4,13 @@
 
 <mat-dialog-content class="dialog-wrapper" [formGroup]="baseItemForm">
 
-    <div *ngIf="baseItemSelected.image; else noBaseItemTemplate">
-        <img class="container__image" [src]="baseItemSelected.image">
+    <div *ngIf="baseItemSelected.imagePath; else noBaseItemTemplate">
+        <img class="container__image" [src]="baseItemSelected.imagePath">
     </div>
 
     <ng-template #noBaseItemTemplate>
         <div>
-            <img class="container__image" [src]="SECTION_BLANK.image">
+            <img class="container__image" [src]="SECTION_BLANK.imagePath">
         </div>
     </ng-template>
 
@@ -22,7 +22,7 @@
             </mat-option>
             <mat-option *ngFor="let baseItem of baseItems$ | async as baseItems" [value]="baseItem">
 
-                <img class="option-img" aria-hidden [src]="baseItem.image" height="25">
+                <img class="option-img" aria-hidden [src]="baseItem.imagePath" height="25">
                 <span>{{baseItem.name}}</span>
                 <!-- | <small>Tipo: {{baseItem?.roleDefault}}</small>-->
 

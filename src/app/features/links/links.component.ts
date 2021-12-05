@@ -85,7 +85,7 @@ export class LinksComponent implements OnInit, OnDestroy {
     Swal.fire({
       title: '¿Estás seguro?',
       html: `Si pulsas OK saldrás de la aplicación para ir a una dirección externa:<br/><br/><a href='${externalUrl}' style='color:red'>${externalUrl}</a>`,
-      imageUrl: link.source.image,
+      imageUrl: link.source.imagePath,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',

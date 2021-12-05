@@ -75,7 +75,8 @@ export class PictureInfoDialogComponent implements OnInit {
 
   removePicture(event: IEvent): void {
     event.images = event.images.filter(imageId => imageId !== this.picture.id);
-    event.image = ( this.picture.id === event.image ) ? Picture.IMAGE_DEFAULT : event.image;
+    event.imageId = ( this.picture.id === event.imageId ) ? Picture.IMAGE_DEFAULT : event.imageId;
+    event.imagePath = ( this.picture.path === event.imagePath ) ? Picture.IMAGE_DEFAULT : event.imagePath;
 
     this.eventSrv.updateEvent(event, AuditType.UPDATED_STATUS );
   }

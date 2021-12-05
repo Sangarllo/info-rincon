@@ -44,7 +44,7 @@
                     SIN ESPECIFICAR
                 </mat-option>
                 <mat-option *ngFor="let place of places$ | async as places" [value]="place">
-                    <img class="option-img" aria-hidden [src]="place.image" height="25">
+                    <img class="option-img" aria-hidden [src]="place.imagePath" height="25">
                     <span>{{place.name}}</span>
                 </mat-option>
             </mat-select>

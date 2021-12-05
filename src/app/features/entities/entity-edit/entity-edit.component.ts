@@ -28,7 +28,6 @@ export class EntityEditComponent implements OnInit, OnDestroy {
   errorMessage = '';
   uploadPercent: Observable<number>;
 
-  private listOfObservers: Array<Subscription> = [];
   public entity!: IEntity | undefined;
   public CATEGORIES: Category[] = EVENT_CATEGORIES;
   public ROLES: EntityRole[] = Entity.ROLES;
@@ -37,6 +36,8 @@ export class EntityEditComponent implements OnInit, OnDestroy {
   placeBaseSelected: Base;
   readonly SECTION_BLANK: Base = Base.InitDefault();
   places$: Observable<IBase[]>;
+
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private afStorage: AngularFireStorage,
@@ -59,7 +60,8 @@ export class EntityEditComponent implements OnInit, OnDestroy {
         name: ['', [Validators.required,
           Validators.minLength(3),
           Validators.maxLength(50)]],
-        image: Entity.IMAGE_DEFAULT,
+        imageId: Entity.IMAGE_DEFAULT,
+        imagePath: Entity.IMAGE_DEFAULT,
         categories: [],
         place: [this.SECTION_BLANK, [Validators.required]],
         roleDefault: [EntityRole.Default],
@@ -111,12 +113,13 @@ export class EntityEditComponent implements OnInit, OnDestroy {
       id: this.entity.id,
       active: this.entity.active,
       name: this.entity.name,
-      image: this.entity.image ?? Entity.IMAGE_DEFAULT,
+      imageId: this.entity.imageId ?? Entity.IMAGE_DEFAULT,
+      imagePath: this.entity.imagePath ?? Entity.IMAGE_DEFAULT,
       categories: this.entity.categories ?? [],
       place: ( this.entity.place ) ? {
         id: this.entity.place.id,
         name: this.entity.place.name,
-        image: this.entity.place.image
+        image: this.entity.place.imageId
       } : this.SECTION_BLANK,
       roleDefault: this.entity.roleDefault,
       scheduleTypeDefault: this.entity.scheduleTypeDefault,
@@ -191,11 +194,13 @@ export class EntityEditComponent implements OnInit, OnDestroy {
           fileRef.getDownloadURL().subscribe(
             ( imageUrl: string ) => {
 
-              this.entity.image = imageUrl;
+              this.entity.imageId = imageUrl;
+              this.entity.imagePath = imageUrl;
 
               // Update the data on the form
               this.entityForm.patchValue({
-                image: this.entity.image
+                imageId: this.entity.imageId,
+                imagePath: this.entity.imagePath,
               });
           });
         })

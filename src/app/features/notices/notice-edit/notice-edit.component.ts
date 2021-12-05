@@ -57,7 +57,8 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
       name: ['', [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)]],
-      image: Notice.IMAGE_DEFAULT,
+      imageId: Notice.IMAGE_DEFAULT,
+      imagePath: Notice.IMAGE_DEFAULT,
       thumbnailImg: Notice.IMAGE_DEFAULT,
       categories: null,
       description: '',
@@ -123,12 +124,14 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
           fileRef.getDownloadURL().subscribe(
             ( imageUrl: string ) => {
 
-              this.notice.image = imageUrl;
+              this.notice.imageId = imageUrl;
+              this.notice.imagePath = imageUrl;
               this.notice.thumbnailImg = this.resizedName(imageUrl);
 
               // Update the data on the form
               this.noticeForm.patchValue({
-                image: this.notice.image,
+                imageId: this.notice.imageId,
+                imagePath: this.notice.imagePath,
                 thumbnailImg: this.notice.thumbnailImg,
               });
           });
@@ -180,7 +183,8 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
       focused: this.notice.focused,
       alerted: this.notice.alerted,
       name: this.notice.name,
-      image: this.notice.image ?? Notice.IMAGE_DEFAULT,
+      imageId: this.notice.imageId ?? Notice.IMAGE_DEFAULT,
+      imagePath: this.notice.imagePath ?? Notice.IMAGE_DEFAULT,
       thumbnailImg: this.notice.thumbnailImg ?? Notice.IMAGE_DEFAULT,
       categories: this.notice.categories ?? [],
       description: this.notice.description ?? '',

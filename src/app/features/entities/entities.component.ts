@@ -24,11 +24,11 @@ export class EntitiesComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  private listOfObservers: Array<Subscription> = [];
   public loading = true;
   public entities: IEntity[];
   public dataSource: MatTableDataSource<IEntity> = new MatTableDataSource();
   displayedColumns: string[] = [ 'roleDefault', 'id', 'image', 'collapsed-info', 'name', 'categories', 'placeImage', 'placeName', 'actions3'];
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private router: Router,

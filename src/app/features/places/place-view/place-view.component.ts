@@ -43,7 +43,7 @@ export class PlaceViewComponent implements OnInit {
           this.seo.generateTags({
             title: `${place.name} | Lugar de Rincón de Soto`,
             description: place.description,
-            image: place.image,
+            image: place.imagePath,
           })
         )
       );

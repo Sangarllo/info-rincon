@@ -7,7 +7,8 @@ export interface INewsItem {
   id: string;
   active: boolean;
   name: string;
-  image: string;
+  imageId: string;
+  imagePath: string;
   baseType: BaseType;
   status: Status;
   focused: boolean;
@@ -28,7 +29,8 @@ export class NewsItem implements INewsItem, IBase {
     public id: string,
     public active: boolean,
     public name: string,
-    public image: string,
+    public imageId: string,
+    public imagePath: string,
     public baseType: BaseType,
     public status: Status,
     public focused: boolean,
@@ -44,9 +46,12 @@ export class NewsItem implements INewsItem, IBase {
     return `${NewsItem.PATH_URL}/${this.id}`;
   }
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   static InitDefault(): NewsItem {
     return new NewsItem(
-      '0', true, '', NewsItem.IMAGE_DEFAULT, BaseType.NEWS_ITEM, // Base
+      '0', true, '',
+      NewsItem.IMAGE_DEFAULT, NewsItem.IMAGE_DEFAULT,
+      BaseType.NEWS_ITEM, // Base
       Status.Visible,
       true,
       [],

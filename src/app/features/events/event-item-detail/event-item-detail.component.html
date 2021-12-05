@@ -4,7 +4,7 @@
 
         <mat-toolbar class="mat-elevation-z8 cointainer__superevent" color="primary" (click)="gotoSuperEvent()">
             <span class="logo">
-                <img [src]="superEventBase.image" [alt]="superEventBase.name" class="rounded-circle" />
+                <img [src]="superEventBase.imagePath" [alt]="superEventBase.name" class="rounded-circle" />
             </span>
 
             <span class="logo-title">
@@ -17,7 +17,7 @@
     <div class="container-event">
 
         <figure class="container-event__figure" style="text-align: center;">
-            <img [src]="eventItem?.image" class="img-thumbnail">
+            <img [src]="eventItem?.imagePath" class="img-thumbnail">
         </figure>
 
         <div class="container-event__texts">

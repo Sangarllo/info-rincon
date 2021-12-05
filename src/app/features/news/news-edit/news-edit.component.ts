@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -28,12 +29,12 @@ export class NewsEditComponent implements OnInit, OnDestroy {
   sourceSelected: ISource;
   uploadPercent: Observable<number>;
 
-  private listOfObservers: Array<Subscription> = [];
   public newsItem!: INewsItem | undefined;
   public STATUS: Status[] = NewsItem.STATUS;
   public CATEGORIES: Category[] = NEWS_CATEGORIES;
   public SOURCES: ISource[] = NEWS_SOURCES;
   public urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private afStorage: AngularFireStorage,
@@ -115,7 +116,8 @@ export class NewsEditComponent implements OnInit, OnDestroy {
       status: this.newsItem.status,
       focused: this.newsItem.focused,
       name: this.newsItem.name,
-      image: this.newsItem.image ?? NewsItem.IMAGE_DEFAULT,
+      imageId: this.newsItem.imageId ?? NewsItem.IMAGE_DEFAULT,
+      imagePath: this.newsItem.imagePath ?? NewsItem.IMAGE_DEFAULT,
       categories: this.newsItem.categories ?? [],
       description: this.newsItem.description ?? '',
       timestamp: this.newsItem.timestamp ?? '',
@@ -145,7 +147,8 @@ export class NewsEditComponent implements OnInit, OnDestroy {
 
       this.newsItem.timestamp = this.appointmentSrv.getTimestamp();
       this.newsItem.source = this.sourceSelected;
-      this.newsItem.image = this.sourceSelected.image;
+      this.newsItem.imageId = this.sourceSelected.imageId;
+      this.newsItem.imagePath = this.sourceSelected.imagePath;
       const newsItem = { ...this.newsItem, ...this.newsItemForm.value };
 
       this.logSrv.info(`newsItem: ${JSON.stringify(this.newsItem)}`);
@@ -194,11 +197,13 @@ export class NewsEditComponent implements OnInit, OnDestroy {
           fileRef.getDownloadURL().subscribe(
             ( imageUrl: string ) => {
 
-              this.newsItem.image = imageUrl;
+              this.newsItem.imageId = imageUrl;
+              this.newsItem.imagePath = imageUrl;
 
               // Update the data on the form
               this.newsItemForm.patchValue({
-                image: this.newsItem.image
+                imageId: this.newsItem.imageId,
+                imagePath: this.newsItem.imagePath
               });
           });
         })

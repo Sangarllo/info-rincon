@@ -7,7 +7,8 @@ export interface ILink {
   id: string;
   active: boolean;
   name: string;
-  image: string;
+  imageId: string;
+  imagePath: string;
   baseType: BaseType;
   status: Status;
   focused: boolean;
@@ -28,7 +29,8 @@ export class Link implements ILink, IBase {
     public id: string,
     public active: boolean,
     public name: string,
-    public image: string,
+    public imageId: string,
+    public imagePath: string,
     public baseType: BaseType,
     public status: Status,
     public focused: boolean,
@@ -42,7 +44,9 @@ export class Link implements ILink, IBase {
 
   static InitDefault(): Link {
     return new Link(
-      '0', true, '', Link.IMAGE_DEFAULT, BaseType.LINK, // Base
+      '0', true, '',
+      Link.IMAGE_DEFAULT, Link.IMAGE_DEFAULT,
+      BaseType.LINK, // Base
       Status.Visible,
       true,
       [],

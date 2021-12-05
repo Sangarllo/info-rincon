@@ -133,13 +133,13 @@ export class EventViewComponent implements OnInit, OnDestroy {
               .subscribe( (eventSocial: IEventSocial) => {
                   this.eventSocial = eventSocial;
               });
-          this.pictureSrv.getPictureFromImage(this.event.image)
+          this.pictureSrv.getPictureFromImage(this.event.imageId)
               .subscribe((picture: IPicture) => {
                   this.eventPicture = picture;
                   this.seo.generateTags({
                     title: `${event.name} | Rincón de Soto`,
                     description: event.description,
-                    image: this.eventPicture.pathThumb,
+                    image: this.eventPicture.path,
                   });
               });
       });

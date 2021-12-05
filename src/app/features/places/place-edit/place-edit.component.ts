@@ -25,9 +25,9 @@ export class PlaceEditComponent implements OnInit, OnDestroy {
   errorMessage = '';
   uploadPercent: Observable<number>;
 
-  private listOfObservers: Array<Subscription> = [];
   public place!: IPlace | undefined;
   public TYPES: PlaceType[] = PLACE_TYPES;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private afStorage: AngularFireStorage,
@@ -51,7 +51,8 @@ export class PlaceEditComponent implements OnInit, OnDestroy {
       name: ['', [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)]],
-      image: Place.IMAGE_DEFAULT,
+      imageId: Place.IMAGE_DEFAULT,
+      imagePath: Place.IMAGE_DEFAULT,
       types: [],
       locality: Place.LOCALITY_DEFAULT
     });
@@ -99,7 +100,8 @@ export class PlaceEditComponent implements OnInit, OnDestroy {
       id: this.place.id,
       active: this.place.active,
       name: this.place.name,
-      image: this.place.image ?? Place.IMAGE_DEFAULT,
+      imageId: this.place.imageId ?? Place.IMAGE_DEFAULT,
+      imagePath: this.place.imagePath ?? Place.IMAGE_DEFAULT,
       types: this.place.types ?? [],
       locality: this.place.locality
     });
@@ -161,11 +163,13 @@ export class PlaceEditComponent implements OnInit, OnDestroy {
           fileRef.getDownloadURL().subscribe(
             ( imageUrl: string ) => {
 
-              this.place.image = imageUrl;
+              this.place.imageId = imageUrl;
+              this.place.imagePath = imageUrl;
 
               // Update the data on the form
               this.placeForm.patchValue({
-                image: this.place.image
+                imageId: this.place.imageId,
+                imagePath: this.place.imagePath,
               });
           });
         })
@@ -174,6 +178,7 @@ export class PlaceEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // eslint-disable-next-line no-shadow
     this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

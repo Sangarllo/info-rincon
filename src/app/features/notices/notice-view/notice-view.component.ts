@@ -92,7 +92,7 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
         this.seo.generateTags({
           title: `${notice.name} | Rincón de Soto`,
           description: notice.description,
-          image: notice.thumbnailImg ?? notice.image,
+          image: notice.thumbnailImg ?? notice.imagePath,
         });
       });
 
@@ -130,7 +130,7 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
   }
 
   public viewImage(): void {
-    window.open(this.notice.image, '_blank');
+    window.open(this.notice.imagePath, '_blank');
   }
 
   private canConfig(userLogged: IUser): boolean {

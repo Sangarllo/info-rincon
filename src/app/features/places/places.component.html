@@ -28,7 +28,7 @@
             <ng-container matColumnDef="image">
                 <th mat-header-cell *matHeaderCellDef> </th>
                 <td mat-cell *matCellDef="let element">
-                    <img (click)="gotoItem(element)" [src]="element.image" class="img-thumbnail" alt="element.name">
+                    <img (click)="gotoItem(element)" [src]="element.imagePath" class="img-thumbnail" alt="element.name">
                 </td>
             </ng-container>
 

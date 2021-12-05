@@ -69,7 +69,8 @@ export class LinksService {
             id: link.id,
             active: link.active,
             name: link.name,
-            image: link.image,
+            imageId: link.imageId,
+            imagePath: link.imagePath,
             baseType: BaseType.LINK,
             description: link.description
           };

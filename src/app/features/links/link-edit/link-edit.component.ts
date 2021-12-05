@@ -115,7 +115,8 @@ export class LinkEditComponent implements OnInit, OnDestroy {
       status: this.link.status,
       focused: this.link.focused,
       name: this.link.name,
-      image: this.link.image ?? Link.IMAGE_DEFAULT,
+      imageId: this.link.imageId ?? Link.IMAGE_DEFAULT,
+      imagePath: this.link.imagePath ?? Link.IMAGE_DEFAULT,
       categories: this.link.categories ?? [],
       description: this.link.description ?? '',
       timestamp: this.link.timestamp ?? '',
@@ -145,7 +146,8 @@ export class LinkEditComponent implements OnInit, OnDestroy {
 
       this.link.timestamp = this.appointmentSrv.getTimestamp();
       this.link.source = this.sourceSelected;
-      this.link.image = this.sourceSelected.image;
+      this.link.imageId = this.sourceSelected.imageId;
+      this.link.imagePath = this.sourceSelected.imagePath;
       const link = { ...this.link, ...this.linkForm.value };
 
       this.logSrv.info(`link: ${JSON.stringify(this.link)}`);
@@ -194,11 +196,13 @@ export class LinkEditComponent implements OnInit, OnDestroy {
           fileRef.getDownloadURL().subscribe(
             ( imageUrl: string ) => {
 
-              this.link.image = imageUrl;
+              this.link.imageId = imageUrl;
+              this.link.imagePath = imageUrl;
 
               // Update the data on the form
               this.linkForm.patchValue({
-                image: this.link.image
+                imageId: this.link.imageId,
+                imagePath: this.link.imagePath,
               });
           });
         })

@@ -26,10 +26,10 @@ export class NewsComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  private listOfObservers: Array<Subscription> = [];
   public newsItems: INewsItem[];
   public dataSource: MatTableDataSource<INewsItem> = new MatTableDataSource();
   displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'sourceImage', 'sourceName', 'collapsed-info', 'name', 'categories', 'actions4'];
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private router: Router,
@@ -85,7 +85,7 @@ export class NewsComponent implements OnInit, OnDestroy {
     Swal.fire({
       title: '¿Estás seguro?',
       html: `Si pulsas OK saldrás de la aplicación para ir a una dirección externa:<br/><br/><a href='${externalUrl}' style='color:red'>${externalUrl}</a>`,
-      imageUrl: newsItem.source.image,
+      imageUrl: newsItem.source.imagePath,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',

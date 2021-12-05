@@ -79,7 +79,7 @@
     <div *ngIf="events.length" class="alert alert-primary">
         Hay {{ (events.length === 1 ) ? 'un evento:' : "varios eventos:" }}
         <div class="images">
-            <img class="img-thumbnail" *ngFor="let event of events" [src]="event.image" (click)="openEventClicked(event)" />
+            <img class="img-thumbnail" *ngFor="let event of events" [src]="event.imagePath" (click)="openEventClicked(event)" />
         </div>
     </div>
 

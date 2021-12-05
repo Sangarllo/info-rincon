@@ -4,7 +4,8 @@ export interface IPlace {
   id: string;
   active: boolean;
   name: string;
-  image: string;
+  imageId: string;
+  imagePath: string;
   baseType: BaseType;
   types?: PlaceType[];
   description?: string;
@@ -23,7 +24,8 @@ export class Place implements IPlace, IBase {
     public id: string,
     public active: boolean,
     public name: string,
-    public image: string,
+    public imageId: string,
+    public imagePath: string,
     public baseType: BaseType,
     public types?: PlaceType[],
     public description?: string,
@@ -39,7 +41,9 @@ export class Place implements IPlace, IBase {
   // eslint-disable-next-line @typescript-eslint/member-ordering
   static InitDefault(): Place {
     return new Place(
-      '0', true, Place.NAME_DEFAULT, Place.IMAGE_DEFAULT, BaseType.PLACE, // Base
+      '0', true, Place.NAME_DEFAULT,
+      Place.IMAGE_DEFAULT, Place.IMAGE_DEFAULT,
+      BaseType.PLACE, // Base
       [],
       '',
       Place.LOCALITY_DEFAULT,

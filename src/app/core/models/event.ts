@@ -13,7 +13,8 @@ export interface IEvent {
   id: string;
   active: boolean;
   name: string;
-  image: string;
+  imageId: string;
+  imagePath: string;
   images: string[];
   baseType: BaseType;
   status: Status;
@@ -50,7 +51,8 @@ export class Event implements IEvent, IBase { // IAudit
     public focused: boolean,
 
     public name: string,
-    public image: string,
+    public imageId: string,
+    public imagePath: string,
     public images: string[],
     public baseType: BaseType,
     public sanitizedUrl: string,
@@ -77,7 +79,7 @@ export class Event implements IEvent, IBase { // IAudit
       '0',
       true, Status.Editing, true, // Status
       '', // Name
-      Event.IMAGE_DEFAULT, [ Event.IMAGE_DEFAULT ], // Image
+      Event.IMAGE_DEFAULT, Event.IMAGE_DEFAULT, [ Event.IMAGE_DEFAULT ], // Image
       BaseType.EVENT, // BaseType
       '', // SanitizedUrl
       [], // Categories

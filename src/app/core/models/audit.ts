@@ -1,6 +1,6 @@
-import { IUser } from '@models/user';
 import { BaseType, IBase } from '@models/base';
 
+// eslint-disable-next-line no-shadow
 export enum AuditType {
   CREATED = 'CREATED',
   UPDATED_INFO = 'UPDATED_INFO',
@@ -15,7 +15,8 @@ export interface IAuditItem {
   id: string;
   active: boolean;
   name: string;
-  image: string;
+  imageId: string;
+  imagePath: string;
   baseType: BaseType;
   auditType: AuditType;
   description: string;
@@ -37,7 +38,8 @@ export class AuditItem implements IAuditItem, IBase {
     public id: string,
     public active: boolean,
     public name: string,
-    public image: string,
+    public imageId: string,
+    public imagePath: string,
     public baseType: BaseType,
     public auditType: AuditType,
     public description: string,
@@ -49,27 +51,32 @@ export class AuditItem implements IAuditItem, IBase {
   static InitDefault(auditType: AuditType, user: any, timestamp: string, descExtra?: string): IAuditItem {
 
     let name = '';
-    let image = AuditItem.IMAGE_DEFAULT;
+    let imageId = AuditItem.IMAGE_DEFAULT;
+    let imagePath = AuditItem.IMAGE_DEFAULT;
     switch (auditType) {
 
       case AuditType.CREATED:
         name = `Creado en ${timestamp}`;
-        image = AuditItem.IMAGE_CREATED;
+        imageId = AuditItem.IMAGE_CREATED;
+        imagePath = AuditItem.IMAGE_CREATED;
         break;
 
       case AuditType.UPDATED_STATUS:
         name = `Modificada la visualización en ${timestamp}`;
-        image = AuditItem.IMAGE_UPDATED_STATUS;
+        imageId = AuditItem.IMAGE_UPDATED_STATUS;
+        imagePath = AuditItem.IMAGE_UPDATED_STATUS;
         break;
 
       case AuditType.UPDATED_INFO:
         name = `Modificada la información en ${timestamp}`;
-        image = AuditItem.IMAGE_UPDATED_INFO;
+        imageId = AuditItem.IMAGE_UPDATED_INFO;
+        imagePath = AuditItem.IMAGE_UPDATED_INFO;
         break;
 
       case AuditType.DELETED:
         name = `Borrado en ${timestamp}`;
-        image = AuditItem.IMAGE_DELETED;
+        imageId = AuditItem.IMAGE_DELETED;
+        imagePath = AuditItem.IMAGE_DELETED;
         break;
 
       case AuditType.LOGIN_PROVIDER:
@@ -77,17 +84,20 @@ export class AuditItem implements IAuditItem, IBase {
         const provider: string = ( user?.providerData ) ?
           user.providerData[0]?.providerId : '';
         name = `Acceso con ${provider ?? ''} en ${timestamp}`;
-        image = AuditItem.IMAGE_LOGIN;
+        imageId = AuditItem.IMAGE_DELETED;
+        imagePath = AuditItem.IMAGE_LOGIN;
         break;
 
       case AuditType.LOGIN_EMAIL:
         name = `Acceso con email en ${timestamp}`;
-        image = AuditItem.IMAGE_LOGIN;
+        imageId = AuditItem.IMAGE_LOGIN;
+        imagePath = AuditItem.IMAGE_LOGIN;
         break;
 
       case AuditType.LOGOUT:
         name = `Cerró sesión en ${timestamp}`;
-        image = AuditItem.IMAGE_LOGOUT;
+        imageId = AuditItem.IMAGE_LOGOUT;
+        imagePath = AuditItem.IMAGE_LOGOUT;
         break;
 
       default:
@@ -98,7 +108,7 @@ export class AuditItem implements IAuditItem, IBase {
       '0',
       true,
       name,
-      image,
+      imageId, imagePath,
       BaseType.AUDIT,
       auditType,
       descExtra ?? null,

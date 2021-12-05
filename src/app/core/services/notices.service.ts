@@ -70,7 +70,8 @@ export class NoticeService {
             id: notice.id,
             active: notice.active,
             name: notice.name,
-            image: notice.image,
+            imageId: notice.imageId,
+            imagePath: notice.imagePath,
             thumbnailImg: notice.thumbnailImg,
             baseType: BaseType.NOTICE,
             description: notice.description

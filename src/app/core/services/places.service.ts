@@ -45,7 +45,8 @@ export class PlaceService {
             id: place.id,
             active: place.active,
             name: place.name,
-            image: place.image,
+            imageId: place.imageId,
+            imagePath: place.imagePath,
             baseType: BaseType.PLACE,
             description: place.locality
           };

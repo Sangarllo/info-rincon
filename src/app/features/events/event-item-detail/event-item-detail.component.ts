@@ -15,7 +15,9 @@ export class EventItemDetailComponent implements OnInit {
   @Input() btnView: boolean;
   @Input() btnClose: boolean;
 
+  // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onCloseClicked = new EventEmitter<void>();
+  // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onViewClicked = new EventEmitter<void>();
 
   public superEventBase: IBase;
@@ -32,7 +34,7 @@ export class EventItemDetailComponent implements OnInit {
       this.superEventBase = Base.InitDefault();
       this.superEventBase.id = data[0];
       this.superEventBase.name = data[1];
-      this.superEventBase.image = data[2];
+      this.superEventBase.imageId = data[2];
       this.superEventBase.baseType = BaseType.EVENT;
     }
   }

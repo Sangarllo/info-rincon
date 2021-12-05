@@ -9,14 +9,14 @@
         <ng-container matColumnDef="baseSmallImage">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <img [src]="element.image" class="img-thumbnail" alt="element.name">
+                <img [src]="element.imagePath" class="img-thumbnail" alt="element.name">
             </td>
         </ng-container>
 
         <ng-container matColumnDef="baseBigImage">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <img [src]="element.image" class="img-thumbnail" alt="element.name">
+                <img [src]="element.imagePath" class="img-thumbnail" alt="element.name">
             </td>
         </ng-container>
 
@@ -58,7 +58,7 @@
         <ng-container matColumnDef="placeSmallImage">
             <th mat-header-cell class="td-extra-lg" *matHeaderCellDef> Lugar </th>
             <td mat-cell class="td-extra-lg" *matCellDef="let element">
-                <img *ngIf="element.place" [src]="element.place?.image" class="img-thumbnail" [alt]="element.place?.name">
+                <img *ngIf="element.place" [src]="element.place?.imagePath" class="img-thumbnail" [alt]="element.place?.name">
             </td>
         </ng-container>
 

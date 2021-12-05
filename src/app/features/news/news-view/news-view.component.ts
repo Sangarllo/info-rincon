@@ -44,7 +44,7 @@ export class NewsViewComponent implements OnInit, OnDestroy {
         this.seo.generateTags({
           title: `${newsItem.name} | ${newsItem.source}`,
           description: newsItem.description,
-          image: newsItem.image,
+          image: newsItem.imagePath,
         });
       });
 

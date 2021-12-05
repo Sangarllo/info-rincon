@@ -39,7 +39,7 @@ export class EntityViewComponent implements OnInit {
           this.seo.generateTags({
             title: `${entity.name} | Entidad de Rincón de Soto`,
             description: entity.description,
-            image: entity.image,
+            image: entity.imagePath,
           })
         )
       );

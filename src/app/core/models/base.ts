@@ -19,7 +19,8 @@ export interface IBase {
   id: string;
   active: boolean;
   name: string;
-  image: string;
+  imageId: string;
+  imagePath: string;
   baseType: BaseType;
   description?: string;
   timestamp?: string;
@@ -39,7 +40,8 @@ export class Base implements IBase {
     public id: string,
     public active: boolean,
     public name: string,
-    public image: string,
+    public imageId: string,
+    public imagePath: string,
     public baseType: BaseType,
     public description?: string,
     public timestamp?: string,
@@ -81,7 +83,7 @@ export class Base implements IBase {
       Base.ID_DEFAULT,
       true,
       Base.NAME_DEFAULT,
-      Base.IMAGE_DEFAULT,
+      Base.IMAGE_DEFAULT, Base.IMAGE_DEFAULT,
       BaseType.DEFAULT,
       null,
       null,

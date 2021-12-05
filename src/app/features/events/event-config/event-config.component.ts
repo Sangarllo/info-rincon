@@ -83,7 +83,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     .subscribe((event: IEvent) => {
       this.event = event;
 
-      this.pictureSrv.getPictureFromImage(this.event.image)
+      this.pictureSrv.getPictureFromImage(this.event.imageId)
       .subscribe((picture: IPicture) => {
           this.eventPicture = picture;
       });
@@ -119,7 +119,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   }
 
   openEventImageDialog(): void {
-    this.dialogConfig.data = [this.event.image, this.event.images];
+    this.dialogConfig.data = [this.event.imageId, this.event.images];
     const dialogRef = this.dialog.open(EventImageDialogComponent, this.dialogConfig);
 
     dialogRef.afterClosed().subscribe((imagesDialog: [IPicture, IPicture[]]) => {
@@ -127,7 +127,8 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
         this.eventPicture = imagesDialog[0];
         console.log(`eventPicture: ${JSON.stringify(this.eventPicture)}`);
-        this.event.image = this.eventPicture.id;
+        this.event.imageId = this.eventPicture.id;
+        this.event.imagePath = this.eventPicture.path;
 
         const pictures: IPicture[] = imagesDialog[1];
         this.event.images = this.pictureSrv.getImagesFromPictures(pictures);

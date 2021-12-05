@@ -17,7 +17,7 @@
                 <div *ngIf="selectedEntity; else noSelectedEntityTemplate">
 
                     <img [src]="user.photoURL" class="img-thumbnail mx-1">
-                    <img [src]="selectedEntity.image" class="img-thumbnail mx-1">
+                    <img [src]="selectedEntity.imagePath" class="img-thumbnail mx-1">
 
                     <div class="buttons buttons-center">
                         <button mat-mini-fab class="btn-1" (click)="addUserEntity()">
@@ -44,7 +44,7 @@
                         <ng-container matColumnDef="image">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
                             <td mat-cell *matCellDef="let element">
-                                <img (click)="gotoEntity(element)" [src]="element.image" class="img-thumbnail" alt="element.name">
+                                <img (click)="gotoEntity(element)" [src]="element.imagePath" class="img-thumbnail" alt="element.name">
                             </td>
                         </ng-container>
 
@@ -113,7 +113,7 @@
                 <input matInput placeholder="Entidad" aria-label="Entity" [matAutocomplete]="auto" [formControl]="entityCtrl">
                 <mat-autocomplete #auto="matAutocomplete">
                     <mat-option *ngFor="let entity of filteredEntities | async as ENTITIES" [value]="entity.name" (onSelectionChange)="onSelectedOption(entity)">
-                        <img class="option-img" aria-hidden [src]="entity.image" height="25">
+                        <img class="option-img" aria-hidden [src]="entity.imagePath" height="25">
                         <span>{{entity.name}}</span> |
                         <small>Tipo: {{entity.roleDefault}}</small>
                     </mat-option>

@@ -27,7 +27,7 @@
                         TODAS LAS ENTIDADES
                     </mat-option>
                     <mat-option *ngFor="let baseItem of baseItems$ | async as baseItems" [value]="baseItem">
-                        <img class="option-img" aria-hidden [src]="baseItem.image" height="25">
+                        <img class="option-img" aria-hidden [src]="baseItem.imagePath" height="25">
                         <span>{{baseItem.name}}</span>
                     </mat-option>
                 </mat-select>

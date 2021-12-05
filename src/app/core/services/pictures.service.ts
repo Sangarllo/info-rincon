@@ -77,20 +77,20 @@ export class PictureService {
     this.pictureDoc.update(picture);
   }
 
-  getPictureFromImage(image: string): Observable<IPicture> {
-    if ( image === null || image === undefined || image === '' ) {
+  getPictureFromImage(imageId: string): Observable<IPicture> {
+    if ( imageId === null || imageId === undefined || imageId === '' ) {
       return of(Picture.InitDefault());
-    } else if ( image.length === 20 ) {
-      return this.getOnePicture(image);
+    } else if ( imageId.length === 20 ) {
+      return this.getOnePicture(imageId);
     } else {
-      return of(Picture.InitByPath(image));
+      return of(Picture.InitByPath(imageId));
     }
   }
 
   getSeveralPicturesFromImages(images: string[]): Observable<IPicture[]>{
     const eventsObs: Observable<IPicture>[] = [];
-    images.forEach(image => {
-      eventsObs.push(this.getPictureFromImage(image));
+    images.forEach(imageId => {
+      eventsObs.push(this.getPictureFromImage(imageId));
     });
     return combineLatest(eventsObs);
   }

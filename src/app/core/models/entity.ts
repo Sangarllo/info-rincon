@@ -1,6 +1,6 @@
 import { IBase, BaseType } from '@models/base';
 import { Category } from '@models/category.enum';
-import { Place } from '@models/place';
+import { IPlace } from '@models/place';
 import { EntityRole, ENTITY_ROLES } from '@models/entity-role.enum';
 import { ScheduleType, SCHEDULE_TYPES, SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
 
@@ -8,11 +8,12 @@ export interface IEntity {
   id: string;
   active: boolean;
   name: string;
-  image: string;
+  imageId: string;
+  imagePath: string;
   baseType: BaseType;
   categories?: Category[];
   description?: string;
-  place?: Place;
+  place?: IPlace;
   roleDefault?: EntityRole;
   scheduleTypeDefault?: ScheduleType;
 }
@@ -29,11 +30,12 @@ export class Entity implements IEntity, IBase {
     public id: string,
     public active: boolean,
     public name: string,
-    public image: string,
+    public imageId: string,
+    public imagePath: string,
     public baseType: BaseType,
     public categories?: Category[],
     public description?: string,
-    public place?: Place,
+    public place?: IPlace,
     public roleDefault?: EntityRole,
     public scheduleTypeDefault?: ScheduleType,
      ) {
@@ -43,9 +45,12 @@ export class Entity implements IEntity, IBase {
     return `${Entity.PATH_URL}/${this.id}`;
   }
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   static InitDefault(): Entity {
     return new Entity(
-      '0', true, Entity.NAME_DEFAULT, Entity.IMAGE_DEFAULT, BaseType.ENTITY, // Base
+      '0', true, Entity.NAME_DEFAULT,
+      Entity.IMAGE_DEFAULT, Entity.IMAGE_DEFAULT,
+      BaseType.ENTITY, // Base
       [],
       null,
       null,

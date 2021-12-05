@@ -41,7 +41,7 @@ export class EventResolverComponent implements OnInit {
           this.seo.generateTags({
             title: `${this.event.name} | Rincón de Soto`,
             description: this.event.description,
-            image: this.event.image,
+            image: this.event.imagePath,
           });
       });
 

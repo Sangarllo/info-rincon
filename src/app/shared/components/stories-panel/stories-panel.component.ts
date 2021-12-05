@@ -3,14 +3,14 @@ import { Router } from '@angular/router';
 
 import { Observable, combineLatest, Subscription } from 'rxjs';
 
-import { EventService } from '@services/events.service';
-import { LinksService } from '@services/links.services';
-import { NoticeService } from '@services/notices.service';
-import { LogService } from '@services/log.service';
 import { ILink } from '@models/link';
 import { INotice } from '@models/notice';
 import { IEvent } from '@models/event';
 import { IBase, BaseType, Base } from '@models/base';
+import { EventService } from '@services/events.service';
+import { LinksService } from '@services/links.services';
+import { NoticeService } from '@services/notices.service';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-stories-panel',
@@ -51,9 +51,7 @@ export class StoriesPanelComponent implements OnInit {
       links.forEach(link => {
         this.REAL_STORIES.push({
           ...link,
-          image: link.source.image,
           baseType: BaseType.LINK,
-          // url: `../${Link.PATH_URL}/${link.id}`
         });
         // this.logSrv.info(`news item story! ${JSON.stringify(newsItem)}`);
       });
@@ -62,7 +60,6 @@ export class StoriesPanelComponent implements OnInit {
         this.REAL_STORIES.push({
           ...notice,
           baseType: BaseType.NOTICE,
-          // url: `../${Notice.PATH_URL}/${notice.id}`
         });
         // this.logSrv.info(`notice story! ${JSON.stringify(notice)}`);
       });
@@ -71,7 +68,6 @@ export class StoriesPanelComponent implements OnInit {
         this.REAL_STORIES.push({
           ...event,
           baseType: BaseType.EVENT,
-          // url: `../${Event.PATH_URL}/${event.id}`
         });
         // this.logSrv.info(`event story! ${JSON.stringify(event)}`);
       });

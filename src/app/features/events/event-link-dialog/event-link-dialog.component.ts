@@ -8,6 +8,7 @@ import { IBase, Base, BaseType } from '@models/base';
 import { IEvent } from '@models/event';
 import { UtilsService, SwalMessage } from '@services/utils.service';
 import { LinkType, LINK_TYPE_DEFAULT } from '@models/link-type.enum';
+import { IPicture } from '@models/picture';
 
 @Component({
   selector: 'app-event-link-dialog',
@@ -25,7 +26,8 @@ export class EventLinkDialogComponent implements OnInit, OnDestroy {
   thisLinkId: string;
   orderId: number;
   linkType: LinkType;
-  imageSelected: string;
+  imageIdSelected: string;
+  imagePathSelected: string;
   // public urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   public urlRegex = '^(https?://)(.*)';
   readonly IMAGE_BLANK: string = Base.IMAGE_DEFAULT;
@@ -55,7 +57,8 @@ export class EventLinkDialogComponent implements OnInit, OnDestroy {
         order: [ {value: '', disabled: true}, []],
         name: [ '', []],
         linkType: [ this.LINK_TYPE_URL, []],
-        image: [ '', []],
+        imageId: [ '', []],
+        imagePath: [ '', []],
         sourceUrl: ['', [Validators.required, Validators.pattern(this.urlRegex)]]
     });
 
@@ -70,7 +73,8 @@ export class EventLinkDialogComponent implements OnInit, OnDestroy {
       this.thisLinkId = this.linkItemBase.id;
       name = this.linkItemBase.name;
       description = this.linkItemBase.description;
-      this.imageSelected = this.linkItemBase.image;
+      this.imageIdSelected = this.linkItemBase.imageId;
+      this.imagePathSelected = this.linkItemBase.imagePath;
     } else {
 
       this.title = `Configura un nuevo enlace para este evento`;
@@ -80,23 +84,26 @@ export class EventLinkDialogComponent implements OnInit, OnDestroy {
       this.thisLinkId = `${GUID}`;
       name = `Enlace ${this.orderId}`;
       description = '';
-      this.imageSelected = this.event.image;
+      this.imageIdSelected = this.event.imageId;
+      this.imagePathSelected = this.event.imagePath;
     }
 
     this.linkItemForm.patchValue({
       id: this.thisLinkId,
       order: this.orderId,
-      image: this.imageSelected,
+      imageId: this.imageIdSelected,
+      imagePath: this.imagePathSelected,
       name,
       sourceUrl: this.linkItemBase?.description,
     });
   }
 
-  onSelectedImage(path: string): void {
-    console.log(`onSelectedImage: ${JSON.stringify(path)}`);
-    this.imageSelected = path;
+  onSelectedImage(picture: IPicture): void {
+    console.log(`onSelectedImage: ${JSON.stringify(JSON.stringify(picture))}`);
+    this.imageIdSelected = picture.id;
+    this.imagePathSelected = picture.path;
     this.linkItemForm.patchValue({
-      sourceUrl: path
+      sourceUrl: picture.path
     });
   }
 
@@ -117,7 +124,8 @@ export class EventLinkDialogComponent implements OnInit, OnDestroy {
       active: true,
       name: this.linkItemForm.controls.name.value,
       description: this.linkItemForm.controls.sourceUrl.value,
-      image: this.imageSelected,
+      imageId: this.imageIdSelected,
+      imagePath: this.imagePathSelected,
       baseType: BaseType.LINK,
     };
 

@@ -7,7 +7,7 @@
         <div class="row">
 
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
-                <img [src]="entityForm.get('image').value" class="img-thumbnail" (click)="inputImageProfile.click()">
+                <img [src]="entityForm.get('imagePath').value" class="img-thumbnail" (click)="inputImageProfile.click()">
                 <input hidden type="file" #inputImageProfile (change)="uploadImage($event)">
                 <hr>
                 <span (click)="inputImageProfile.click()" class="small">Clica en la imagen para cambiar la foto</span>

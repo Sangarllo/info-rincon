@@ -87,12 +87,12 @@ export class CalendarEventsService {
 
     if ( scheduleId ) {
 
-      event.extra = `${event.id}|${event.name}|${event.image}`;
+      event.extra = `${event.id}|${event.name}|${event.imageId}`;
 
       const schedule = event.scheduleItems.find( item => item.id === scheduleId );
               // console.log(`schedule: ${JSON.stringify(schedule)}`);
       event.name = schedule.name;
-      event.image = schedule.image;
+      event.imageId = schedule.imageId;
       event.description = schedule.description;
       event.timestamp = schedule.extra;
       eventPlace = schedule.place ?? eventPlace;
@@ -145,7 +145,7 @@ export class CalendarEventsService {
         title: isSchedule ? scheduleItem?.name : event?.name,
         color: colors.color1,
         allDay: appointment.allDay,
-        image: isSchedule ? scheduleItem?.image : event?.image,
+        image: isSchedule ? scheduleItem?.imageId : event?.imageId,
         start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
         end: isSchedule ?
           new Date(`${appointment.dateIni}T${appointment.timeIni}`) :
