@@ -1,3 +1,14 @@
+@import './variables';
+div.dialog__header {
+    span.mat-dialog-title {
+        font-size: larger;
+        line-height: 1.2em;
+        color: $color2;
+        background-color: $color1;
+        padding: 10px;
+    }
+}
+
 .backdrop-dialog {
     background-color: rgba(0, 0, 0, 0.8);
 }

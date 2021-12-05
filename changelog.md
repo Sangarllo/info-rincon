@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fix
 
 - `code` Refactor main-item styles (events, links and notices).
+- `code` Refactor dialog header styles.
 - `style` Improve style in event-view.
 - `audit` Hide audit logs in develop-environment.
 

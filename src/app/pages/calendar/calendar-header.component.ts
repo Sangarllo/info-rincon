@@ -50,7 +50,7 @@ export class CalendarHeaderComponent {
 
     dialogRef2.afterClosed().subscribe(([modeSelected, entitySelected]: [string, IBase]) => {
 
-        this.entityFiltered = entitySelected.id !== '0' ? entitySelected : null;
+        this.entityFiltered = entitySelected?.id !== '0' ? entitySelected : null;
         // console.log('modeSelected', modeSelected);
         // console.log('entitySelected', JSON.stringify(entitySelected));
 
