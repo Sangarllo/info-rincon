@@ -40,8 +40,7 @@ export class HomeComponent implements OnInit {
   locale = 'es';
   showHeader = true;
 
-  calendarEvents$: Observable<CalendarEvent[]>;
-  // calendarEvents: CalendarEvent[];
+  // calendarEvents$: Observable<CalendarEvent[]>;
 
   constructor(
     private router: Router,
@@ -60,14 +59,14 @@ export class HomeComponent implements OnInit {
         map( notices => notices[0] )
       );
 
-    this.fetchEvents();
+    // this.fetchEvents();
   }
 
-  fetchEvents(): void {
-    this.calendarEvents$ = this.calEventsSrv.getCalendarEventsByRange(
-      this.viewDate.toISOString().substr(0, 10),
-      this.viewDate.toISOString().substr(0, 10));
-  }
+  // fetchEvents(): void {
+  //   this.calendarEvents$ = this.calEventsSrv.getCalendarEventsByRange(
+  //     this.viewDate.toISOString().substr(0, 10),
+  //     this.viewDate.toISOString().substr(0, 10));
+  // }
 
   eventClicked(event: CalendarEvent): void {
     this.router.navigate([`eventos/${event.id}`]);

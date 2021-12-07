@@ -42,11 +42,11 @@ export class CalendarComponent implements OnInit {
   readonly DATE_MIN = new Date(
       this.today.getFullYear()-1,
       this.today.getMonth(),
-      this.today.getDay()).toISOString();
+      this.today.getDay()).toISOString().substr(0, 10);
   readonly DATE_MAX = new Date(
       this.today.getFullYear()+1,
       this.today.getMonth(),
-      this.today.getDay()).toISOString();
+      this.today.getDay()).toISOString().substr(0, 10);
 
   constructor(
     private router: Router,

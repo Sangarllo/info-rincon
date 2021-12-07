@@ -24,27 +24,21 @@ export class AppointmentsService {
     return this.appointmentCollection.valueChanges();
   }
 
+
   getAppointmentsByRange( dateMin: string, dateMax: string, includeSlices: boolean ): Observable<IAppointment[]> {
 
-    // console.log(`getAppointmentsByRange( ${dateMin} - ${dateMax} ): including slices!`);
-    if ( dateMin === '' && dateMax === '' ) {
-      this.appointmentCollection = this.afs.collection<IAppointment>(
-        APPOINTMENTS_COLLECTION,
-        ref => ref.where('active', '==', true)
-      );
+      console.log(`getAppointmentsByRange( ${dateMin}, ${dateMax}, ${includeSlices}`);
 
-    } else {
-
-        if ( includeSlices ) {
-            this.appointmentCollection = this.afs.collection<IAppointment>(
+      if ( includeSlices ) {
+          this.appointmentCollection = this.afs.collection<IAppointment>(
               APPOINTMENTS_COLLECTION,
               ref => ref.where('dateIni', '>=', dateMin)
                         .where('dateIni', '<=', dateMax)
                         .where('active', '==', true)
                         .orderBy('dateIni', 'asc')
             );
-        } else {
-            this.appointmentCollection = this.afs.collection<IAppointment>(
+      } else {
+          this.appointmentCollection = this.afs.collection<IAppointment>(
               APPOINTMENTS_COLLECTION,
               ref => ref.where('dateIni', '>=', dateMin)
                         .where('dateIni', '<=', dateMax)
@@ -52,16 +46,16 @@ export class AppointmentsService {
                         .where('isSlice', '==', false)
                         .orderBy('dateIni', 'asc')
             );
-        }
-    }
+      }
 
-    return this.appointmentCollection.valueChanges();
+      return this.appointmentCollection.valueChanges();
   }
 
 
   getOneAppointment(idAppointment: string): Observable<IAppointment | undefined> {
     return this.appointmentCollection.doc(idAppointment).valueChanges({ idField: 'id' });
   }
+
 
   addAppointment(idAppointment: string): void {
     const newAppointment = Appointment.InitDefault(idAppointment);

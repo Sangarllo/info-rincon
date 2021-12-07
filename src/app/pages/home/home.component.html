@@ -35,7 +35,9 @@
     </mat-expansion-panel>
 
     <!-- Events Panel -->
-    <mat-expansion-panel class="expansion-panel" *ngIf="calendarEvents$ | async as calendarEvents; else loading" [expanded]="true" hideToggle>
+    <mat-expansion-panel class="expansion-panel" [expanded]="true" hideToggle>
+
+        <!--*ngIf="calendarEvents$ | async as calendarEvents; else loading" -->
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <span class="expansion-panel__text">📆</span>&nbsp;&nbsp;
