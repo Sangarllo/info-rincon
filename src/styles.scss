@@ -36,59 +36,6 @@ body {
             text-decoration: none;
         }
     }
-    .section-wrapper {
-        a,
-        a:visited,
-        a:active {
-            color: $color1;
-            border-bottom: 1px dotted $color2;
-            text-decoration: none;
-        }
-        a:hover {
-            color: $color1;
-            background-color: $color2;
-            border-bottom: 1px dotted $color1;
-            text-decoration: dotted;
-        }
-    }
-    .options-wrapper {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        .option-item {
-            margin: 0px;
-            padding: 10px;
-            flex-direction: column;
-            .option-image {
-                margin-top: 12px;
-            }
-        }
-        .mat-card-title {
-            font-size: 18px;
-        }
-    }
-    .section-wrapper,
-    .options-wrapper {
-        .section-main-info {
-            width: 100%;
-            margin-bottom: 1.5rem !important;
-            font-size: larger !important;
-            line-height: 1.5rem !important;
-            .role {
-                color: black;
-                text-transform: capitalize;
-                font-weight: bolder;
-                font-size: smaller;
-            }
-        }
-        .section-extra-info {
-            width: 100%;
-            margin-bottom: 1.3rem !important;
-            font-size: normal !important;
-            line-height: 1.3rem !important;
-        }
-    }
 }
 
 .preview {
