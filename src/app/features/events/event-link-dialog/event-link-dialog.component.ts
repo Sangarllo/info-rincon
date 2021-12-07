@@ -6,9 +6,10 @@ import { Observable, Subscription } from 'rxjs';
 
 import { IBase, Base, BaseType } from '@models/base';
 import { IEvent } from '@models/event';
-import { UtilsService, SwalMessage } from '@services/utils.service';
 import { LinkType, LINK_TYPE_DEFAULT } from '@models/link-type.enum';
 import { IPicture } from '@models/picture';
+import { UtilsService, SwalMessage } from '@services/utils.service';
+import { PictureService } from '@services/pictures.service';
 
 @Component({
   selector: 'app-event-link-dialog',
@@ -17,11 +18,12 @@ import { IPicture } from '@models/picture';
 })
 export class EventLinkDialogComponent implements OnInit, OnDestroy {
 
-  title = 'Crea un enlace para este evento';
+  pictureSelected: IPicture;
+  pictures: IPicture[];
 
+  title = 'Crea un enlace para este evento';
   event: IEvent;
   linkItemBase: IBase;
-
   linkItemForm: FormGroup;
   thisLinkId: string;
   orderId: number;
@@ -38,6 +40,7 @@ export class EventLinkDialogComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private utilsSrv: UtilsService,
+    private pictureSrv: PictureService,
     public dialogRef: MatDialogRef<EventLinkDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
@@ -51,6 +54,8 @@ export class EventLinkDialogComponent implements OnInit, OnDestroy {
 
     this.event = this.data.event;
     this.linkItemBase = this.data.linkItemBase;
+
+    this.getPictures();
 
     this.linkItemForm = this.fb.group({
         id: [ {value: '', disabled: true}, []],
@@ -98,17 +103,31 @@ export class EventLinkDialogComponent implements OnInit, OnDestroy {
     });
   }
 
+  getPictures(): void {
+    this.pictureSrv.getPictureFromImage(this.event.imageId)
+      .subscribe((picture: IPicture) => {
+        this.pictureSelected = picture;
+      });
+
+    this.pictureSrv.getSeveralPicturesFromImages(this.event.images)
+      .subscribe((pictures: IPicture[]) => {
+        this.pictures = pictures;
+      });
+  }
+
   onSelectedImage(picture: IPicture): void {
-    console.log(`onSelectedImage: ${JSON.stringify(JSON.stringify(picture))}`);
-    this.imageIdSelected = picture.id;
-    this.imagePathSelected = picture.path;
+    this.pictureSelected = picture;
     this.linkItemForm.patchValue({
-      sourceUrl: picture.path
+        sourceUrl: this.pictureSelected.path
     });
   }
 
   compareFunction(o1: any, o2: any): boolean {
     return (o1.name === o2.name && o1.id === o2.id);
+  }
+
+  comparePictureFunction(o1: any, o2: any): boolean {
+    return (o1.id === o2.id);
   }
 
   onNoClick(): void {
@@ -124,8 +143,8 @@ export class EventLinkDialogComponent implements OnInit, OnDestroy {
       active: true,
       name: this.linkItemForm.controls.name.value,
       description: this.linkItemForm.controls.sourceUrl.value,
-      imageId: this.imageIdSelected,
-      imagePath: this.imagePathSelected,
+      imageId: this.pictureSelected.id,
+      imagePath: this.pictureSelected.path,
       baseType: BaseType.LINK,
     };
 
