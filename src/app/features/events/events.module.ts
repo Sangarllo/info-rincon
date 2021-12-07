@@ -9,6 +9,7 @@ import { SharedModule } from '@shared/shared.module';
 import { EventsRoutingModule } from '@features/events/events-routing.module';
 import { EventsComponent } from '@features/events/events.component';
 import { EventsFavComponent } from '@features/events/events-fav/events-fav.component';
+import { EventsOwnComponent } from '@features/events/events-own/events-own.component';
 import { EventViewComponent } from '@features/events/event-view/event-view.component';
 import { EventConfigComponent } from '@features/events/event-config/event-config.component';
 import { EventEditComponent } from '@features/events/event-edit/event-edit.component';
@@ -34,6 +35,7 @@ import { EventLinkDialogComponent } from '@features/events/event-link-dialog/eve
   declarations: [
     EventsComponent,
     EventsFavComponent,
+    EventsOwnComponent,
     EventViewComponent,
     EventConfigComponent,
     EventEditComponent,

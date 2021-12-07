@@ -5,6 +5,7 @@ import { AuthGuard } from '@pages/login/auth.guard';
 
 import { EventsComponent } from '@features/events/events.component';
 import { EventsFavComponent } from '@features/events/events-fav/events-fav.component';
+import { EventsOwnComponent } from '@features/events/events-own/events-own.component';
 import { EventViewComponent } from '@features/events/event-view/event-view.component';
 import { EventConfigComponent } from '@features/events/event-config/event-config.component';
 import { EventEditComponent } from '@features/events/event-edit/event-edit.component';
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'favoritos',
     component: EventsFavComponent
+  },
+  {
+    path: 'propios',
+    component: EventsOwnComponent
   },
   {
     path: ':id',

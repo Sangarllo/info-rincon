@@ -15,18 +15,20 @@ import { Status } from '@models/status.enum';
 import { LogService } from '@services/log.service';
 import { EventService } from '@services/events.service';
 import { SpinnerService } from '@services/spinner.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
-  selector: 'app-events',
-  templateUrl: './events.component.html',
-  styleUrls: ['./events.component.css']
+  selector: 'app-events-own',
+  templateUrl: './events-own.component.html',
+  styleUrls: ['./events-own.component.scss']
 })
-export class EventsComponent implements OnInit, OnDestroy {
+export class EventsOwnComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  public events: IEvent[];
+  public uidUser: string;
+  public events: IEvent[] = [];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   displayedColumns: string[] = [
       'status', 'id', 'timestamp',
@@ -37,6 +39,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   private currentUser: IUser;
 
   constructor(
+    public auth: AngularFireAuth,
     private router: Router,
     private authSrv: AuthService,
     private logSrv: LogService,
@@ -48,31 +51,30 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    const subs1$ = this.authSrv.currentUser$
-        .subscribe( (currentUser: IUser) => {
-            this.currentUser = currentUser;
-        });
-    this.listOfObservers.push(subs1$);
+    const subs1$ = this.auth.user
+        .subscribe((usr) => {
+            this.uidUser = usr?.uid;
+            const subs2$ = this.eventSrv.getAllEventsWithAppointments(false, true, this.uidUser)
+                .pipe(
+                  map(events => events.map(event => {
+                    const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
 
-    const subs2$ = this.eventSrv.getAllEventsWithAppointments(false, true, null)
-        .pipe(
-          map(events => events.map(event => {
-            const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
+                    event.extra2 = ( event.categories ) ? event.categories.reduce(reducer, '') : '';
+                    event.extra = this.formatSocialInfo(event.extra);
+                    return { ...event };
+                  }))
+                )
+            .subscribe( (events: IEvent[]) => {
+                this.events = events;
+                this.dataSource = new MatTableDataSource(this.events);
+                this.spinnerSvc.hide();
 
-            event.extra2 = ( event.categories ) ? event.categories.reduce(reducer, '') : '';
-            event.extra = this.formatSocialInfo(event.extra);
-            return { ...event };
-          }))
-        )
-        .subscribe( (events: IEvent[]) => {
-        this.events = events;
-        this.dataSource = new MatTableDataSource(this.events);
-        this.spinnerSvc.hide();
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+            });
 
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-    });
-    this.listOfObservers.push(subs2$);
+            this.listOfObservers.push(subs1$, subs2$);
+      });
   }
 
   applyFilter(filterValue: string): void {

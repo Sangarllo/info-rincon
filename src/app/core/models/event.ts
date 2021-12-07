@@ -33,6 +33,7 @@ export interface IEvent {
   linkItems?: IBase[];
   auditItems?: IBase[];
   userId?: string;
+  usersArray?: string[];
   extra?: string; // Extra field to pass info
   extra2?: string; // Extra field to pass info
 }
@@ -69,6 +70,7 @@ export class Event implements IEvent, IBase { // IAudit
     public linkItems: IBase[],
     public auditItems: IBase[],
     public userId: string,
+    public usersArray: string[],
     public extra: string,
     public extra2: string,
   ) {
@@ -91,7 +93,7 @@ export class Event implements IEvent, IBase { // IAudit
       [], [], // Entity
       [], // Links
       [],  // Audit
-      null, // UserId,
+      null, [], // UserId,
       null, null, // Extra, Extra2
     );
   }

@@ -1,12 +1,6 @@
 @import '../../../../base/variables';
 table {
     width: 100%;
-    tr.mat-header-row {
-        height: 16px;
-        font-size: smaller;
-        background-color: $color2;
-    }
-    // background-color: lightgray;
     .table__row--disabled {
         background-color: $colorRowDisabledBg;
         td {

@@ -58,6 +58,10 @@ export class RoleOptionsComponent implements OnDestroy {
     this.router.navigate([`eventos/favoritos`]);
   }
 
+  gotoEventsOwnDashboard(): void {
+    this.router.navigate([`eventos/propios`]);
+  }
+
   gotoNewEventFromScratch(): void {
     this.router.navigate([`eventos/0/editar`]);
   }

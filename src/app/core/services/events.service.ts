@@ -104,6 +104,16 @@ export class EventService {
     return this.eventCollection.valueChanges();
   }
 
+  getAllEventsByAuthUser(userId: string): Observable<IEvent[]> {
+      this.eventCollection = this.afs.collection<IEvent>(
+        EVENTS_COLLECTION,
+        ref => ref.where('usersArray', 'array-contains', userId)
+                  .orderBy('timestamp', 'desc')
+      );
+
+      return this.eventCollection.valueChanges();
+  }
+
   getAllEventsByImage(imageId: string): Observable<IEvent[]> {
       this.eventCollection = this.afs.collection<IEvent>(
           EVENTS_COLLECTION,
@@ -114,8 +124,10 @@ export class EventService {
       return this.eventCollection.valueChanges();
   }
 
-  getAllEventsWithAppointments(showOnlyActive: boolean,  addSocialInfo: boolean): Observable<IEvent[]> {
-    const events$ = this.getAllEvents(showOnlyActive, false, null, null);
+  getAllEventsWithAppointments(showOnlyActive: boolean,  addSocialInfo: boolean, userUid?: string): Observable<IEvent[]> {
+    const events$ = ( userUid ) ?
+        this.getAllEventsByAuthUser(userUid) :
+        this.getAllEvents(showOnlyActive, false, null, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
     const eventsSocial$ = ( addSocialInfo ) ? this.eventSocialSrv.getAllEventsSocial() : of([]);
     const pictures$ = this.pictureSrv.getAllPictures();
@@ -236,6 +248,7 @@ export class EventService {
       timestamp,
       auditItems: (environment.setAudit) ? [{...auditItem}] : [],
       userId: currentUser.uid,
+      usersArray: [currentUser.uid],
       extra: '',
       extra2: '',
     });
@@ -300,6 +313,8 @@ export class EventService {
         placeItems: newPlaceItem ? [newPlaceItem] : [],
         entityItems: [newEntityItem],
         entitiesArray: [ entity.id ],
+        userId: currentUser.uid,
+        usersArray: [currentUser.uid],
         extra: '',
         extra2: '',
       }
@@ -320,6 +335,10 @@ export class EventService {
       event.auditItems.push({...auditItem});
     }
 
+    if ( !event.usersArray.includes(currentUser.uid) ) {
+      event.usersArray.push(currentUser.uid);
+    }
+
     const idEvent = event.id;
     this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
 
@@ -334,6 +353,10 @@ export class EventService {
     if ( environment.setAudit ) {
       const auditItem = AuditItem.InitDefault(AuditType.DELETED, currentUser, timeStamp);
       event.auditItems.push({...auditItem});
+    }
+
+    if ( !event.usersArray.includes(currentUser.uid) ) {
+      event.usersArray.push(currentUser.uid);
     }
 
     const idEvent = event.id;
