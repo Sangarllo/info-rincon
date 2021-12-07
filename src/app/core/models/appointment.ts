@@ -4,6 +4,7 @@ export interface IAppointment {
   id: string;
   active: boolean;
   allDay: boolean;
+  isSlice: boolean;
   dateIni: string;
   timeIni?: string;
   withEnd?: boolean;
@@ -22,6 +23,7 @@ export class Appointment implements IAppointment {
     public id: string,
     public active: boolean,
     public allDay: boolean,
+    public isSlice: boolean,
     public dateIni: string,
     public timeIni?: string,
     public withEnd?: boolean,
@@ -40,6 +42,7 @@ export class Appointment implements IAppointment {
       id,
       true,
       true,
+      false, // <- isSlice
       todayStr,
       Appointment.HOUR_DEFAULT,
       false,
@@ -60,6 +63,7 @@ export class Appointment implements IAppointment {
       scheduleItem.id,
       enable,
       false,
+      true, // <- isSlice
       dateTime[0],
       dateTime[1],
       false,
@@ -108,6 +112,7 @@ export class Appointment implements IAppointment {
   }
 
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   static from_YYYYMMDD_to_DDMMYYYY(date: string): string {
     const YYYY = date.substr(0, 4);
     const MM = date.substr(5,2);

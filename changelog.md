@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `architect` Update @angular-devkit/architect@0.1300.
 - `architect` Update @angular/core@13 @angular/cli@13.
 - `architect` Update @angular/cli@13 update @angular/material@13.
+- `feature` Add story service, but only show events.
 
 ## [0.2.3] - Changes after review with partners
 

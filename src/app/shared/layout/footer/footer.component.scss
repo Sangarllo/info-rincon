@@ -31,8 +31,9 @@ footer {
     }
 }
 
-@media screen and (min-width: $minTabletWidth) and (max-width: $maxTabletWidth) {
+@media screen and (min-width: $minTabletWidth) {
     footer {
+        line-height: 0.7em;
         margin-top: 8px;
     }
 }

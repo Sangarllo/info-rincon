@@ -60,7 +60,7 @@ export class EventService {
       if ( showOnlyActive ) {
 
         const timestampLastYear = this.appointmentSrv.getTimestamp(-1);
-        console.log('timestampLastYear', timestampLastYear);
+        // console.log('timestampLastYear', timestampLastYear);
 
         if ( !entityId ) {
           // console.log(`-> No Hay entityId`);
@@ -206,7 +206,7 @@ export class EventService {
     return this.eventCollection.valueChanges()
       .pipe(
         first()
-      );//.subscribe(console.log, err => console.log('Error', err));
+      );
   }
 
   getSeveralEvent(events: string[]): Observable<IEvent[]>{

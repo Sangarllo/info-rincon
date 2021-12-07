@@ -17,13 +17,10 @@ import { NoticeAlertedDialogComponent } from '@pages/dashboard/notice-alerted-di
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  private listOfObservers: Array<Subscription> = [];
   public alertedNotice: INotice;
-
-  public realStories$: Observable<IBase[]>;
   public REAL_STORIES: IBase[];
-
   public dialogConfig = new MatDialogConfig();
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public dialog: MatDialog,

@@ -38,6 +38,15 @@ export class CalendarComponent implements OnInit {
   entityId = '0';
 
   events$: Observable<CalendarEvent[]>;
+  readonly today = new Date();
+  readonly DATE_MIN = new Date(
+      this.today.getFullYear()-1,
+      this.today.getMonth(),
+      this.today.getDay()).toISOString();
+  readonly DATE_MAX = new Date(
+      this.today.getFullYear()+1,
+      this.today.getMonth(),
+      this.today.getDay()).toISOString();
 
   constructor(
     private router: Router,
@@ -49,9 +58,8 @@ export class CalendarComponent implements OnInit {
   }
 
   fetchEvents(): void {
-      console.log(`fetchEvents EntityId: ${this.entityId}`);
       this.events$ = this.calEventsSrv.getCalendarEventsByRange(
-          '','',
+          this.DATE_MIN, this.DATE_MAX,
           ( this.entityId === '0' ) ? null : this.entityId
       );
   }
@@ -76,17 +84,16 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-    eventClicked(event: CalendarEvent): void {
+  eventClicked(event: CalendarEvent): void {
       this.router.navigate([`eventos/${event.id}`]);
-    }
+  }
 
-
-    selectEntity(entityBase: IBase): void {
-      console.log(`select Entity: ${JSON.stringify(entityBase)}`);
+  selectEntity(entityBase: IBase): void {
+      // console.log(`select Entity: ${JSON.stringify(entityBase)}`);
       this.entityId = entityBase.id;
-      console.log(`select EntityId: ${this.entityId}`);
+      // console.log(`select EntityId: ${this.entityId}`);
       this.infoEventsFooter = ( entityBase.id === '0' ) ?
         ` en la agenda` :
         ` vinculados a ${entityBase.name}`;
-      }
+  }
 }

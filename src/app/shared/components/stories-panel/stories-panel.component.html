@@ -1,3 +1,7 @@
-<div class="stories-wrapper" *ngIf="REAL_STORIES">
+<!-- <div class="stories-wrapper" *ngIf="REAL_STORIES">
     <img *ngFor="let story of REAL_STORIES" (click)="gotoItem(story)" [alt]="story.name" [src]="story.imagePath" [ngClass]="story.baseType" />
+</div> -->
+
+<div class="stories-wrapper" *ngIf="stories$ | async as stories">
+    <img *ngFor="let story of stories" (click)="gotoItem(story)" [alt]="story.name" [src]="story.imagePath" [ngClass]="story.baseType" />
 </div>

@@ -24,9 +24,9 @@ export class AppointmentsService {
     return this.appointmentCollection.valueChanges();
   }
 
-  getAppointmentsByRange( dateMin: string, dateMax: string ): Observable<IAppointment[]> {
+  getAppointmentsByRange( dateMin: string, dateMax: string, includeSlices: boolean ): Observable<IAppointment[]> {
 
-    console.log(`getAppointmentsByRange( ${dateMin} - ${dateMax} )`);
+    // console.log(`getAppointmentsByRange( ${dateMin} - ${dateMax} ): including slices!`);
     if ( dateMin === '' && dateMax === '' ) {
       this.appointmentCollection = this.afs.collection<IAppointment>(
         APPOINTMENTS_COLLECTION,
@@ -34,12 +34,25 @@ export class AppointmentsService {
       );
 
     } else {
-      this.appointmentCollection = this.afs.collection<IAppointment>(
-        APPOINTMENTS_COLLECTION,
-        ref => ref.where('dateIni', '>=', dateMin)
-                  .where('dateIni', '<=', dateMax)
-                  .where('active', '==', true)
-      );
+
+        if ( includeSlices ) {
+            this.appointmentCollection = this.afs.collection<IAppointment>(
+              APPOINTMENTS_COLLECTION,
+              ref => ref.where('dateIni', '>=', dateMin)
+                        .where('dateIni', '<=', dateMax)
+                        .where('active', '==', true)
+                        .orderBy('dateIni', 'asc')
+            );
+        } else {
+            this.appointmentCollection = this.afs.collection<IAppointment>(
+              APPOINTMENTS_COLLECTION,
+              ref => ref.where('dateIni', '>=', dateMin)
+                        .where('dateIni', '<=', dateMax)
+                        .where('active', '==', true)
+                        .where('isSlice', '==', false)
+                        .orderBy('dateIni', 'asc')
+            );
+        }
     }
 
     return this.appointmentCollection.valueChanges();
@@ -56,6 +69,7 @@ export class AppointmentsService {
       id: idAppointment,
       active: newAppointment.active,
       allDay: newAppointment.allDay,
+      isSlice: newAppointment.isSlice,
       dateIni: newAppointment.dateIni,
       timeIni: newAppointment.timeIni,
       withEnd: newAppointment.withEnd,
@@ -72,6 +86,7 @@ export class AppointmentsService {
       id: idAppointment,
       active,
       allDay: false,
+      isSlice: true,
       dateIni: dateTime[0],
       timeIni: dateTime[1],
       withEnd: false,

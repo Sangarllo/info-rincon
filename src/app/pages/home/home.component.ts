@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   showHeader = true;
 
   calendarEvents$: Observable<CalendarEvent[]>;
-  calendarEvents: CalendarEvent[];
+  // calendarEvents: CalendarEvent[];
 
   constructor(
     private router: Router,
