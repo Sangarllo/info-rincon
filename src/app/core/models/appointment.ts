@@ -1,10 +1,20 @@
 import { IBase } from '@models/base';
 
+// eslint-disable-next-line no-shadow
+export enum ShowMode {
+  NOPE = 'NOPE',
+  SHOWED_AS_WHOLE = 'SHOWED_AS_WHOLE',
+  SHOWED_AS_SLICE = 'SHOWED_AS_SLICE',
+  OVERSHADOWED_BY_WHOLE = 'OVERSHADOWED_BY_WHOLE',
+  OVERSHADOWED_BY_SLICE = 'OVERSHADOWED_BY_SLICE',
+}
+
 export interface IAppointment {
   id: string;
   active: boolean;
   allDay: boolean;
   isSlice: boolean;
+  showMode: ShowMode;
   dateIni: string;
   timeIni?: string;
   withEnd?: boolean;
@@ -23,7 +33,8 @@ export class Appointment implements IAppointment {
     public id: string,
     public active: boolean,
     public allDay: boolean,
-    public isSlice: boolean,
+    public isSlice: boolean, // <-- TODO delete
+    public showMode: ShowMode,
     public dateIni: string,
     public timeIni?: string,
     public withEnd?: boolean,
@@ -43,6 +54,7 @@ export class Appointment implements IAppointment {
       true,
       true,
       false, // <- isSlice
+      ShowMode.SHOWED_AS_WHOLE,
       todayStr,
       Appointment.HOUR_DEFAULT,
       false,
@@ -64,6 +76,7 @@ export class Appointment implements IAppointment {
       enable,
       false,
       true, // <- isSlice
+      ShowMode.SHOWED_AS_SLICE,
       dateTime[0],
       dateTime[1],
       false,

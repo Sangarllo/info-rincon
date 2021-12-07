@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 
 import { Observable } from 'rxjs';
 
-import { IAppointment, Appointment } from '@models/appointment';
+import { IAppointment, Appointment, ShowMode } from '@models/appointment';
 import { IBase } from '@models/base';
 
 const APPOINTMENTS_COLLECTION = 'appointments';
@@ -28,25 +28,17 @@ export class AppointmentsService {
   getAppointmentsByRange( dateMin: string, dateMax: string, includeSlices: boolean ): Observable<IAppointment[]> {
 
       console.log(`getAppointmentsByRange( ${dateMin}, ${dateMax}, ${includeSlices}`);
-
-      if ( includeSlices ) {
-          this.appointmentCollection = this.afs.collection<IAppointment>(
-              APPOINTMENTS_COLLECTION,
-              ref => ref.where('dateIni', '>=', dateMin)
-                        .where('dateIni', '<=', dateMax)
-                        .where('active', '==', true)
-                        .orderBy('dateIni', 'asc')
-            );
-      } else {
-          this.appointmentCollection = this.afs.collection<IAppointment>(
-              APPOINTMENTS_COLLECTION,
-              ref => ref.where('dateIni', '>=', dateMin)
-                        .where('dateIni', '<=', dateMax)
-                        .where('active', '==', true)
-                        .where('isSlice', '==', false)
-                        .orderBy('dateIni', 'asc')
-            );
-      }
+      this.appointmentCollection = this.afs.collection<IAppointment>(
+          APPOINTMENTS_COLLECTION,
+          ref => ref.where('dateIni', '>=', dateMin)
+                    .where('dateIni', '<=', dateMax)
+                    .where('active', '==', true)
+                    .where('showMode', 'in', ( includeSlices ?
+                        [ShowMode.SHOWED_AS_WHOLE, ShowMode.SHOWED_AS_SLICE] :
+                        [ShowMode.SHOWED_AS_WHOLE, ShowMode.OVERSHADOWED_BY_SLICE]
+                    ))
+                    .orderBy('dateIni', 'asc')
+      );
 
       return this.appointmentCollection.valueChanges();
   }
@@ -64,6 +56,7 @@ export class AppointmentsService {
       active: newAppointment.active,
       allDay: newAppointment.allDay,
       isSlice: newAppointment.isSlice,
+      showMode: newAppointment.showMode,
       dateIni: newAppointment.dateIni,
       timeIni: newAppointment.timeIni,
       withEnd: newAppointment.withEnd,
@@ -81,6 +74,7 @@ export class AppointmentsService {
       active,
       allDay: false,
       isSlice: true,
+      showMode: ShowMode.SHOWED_AS_SLICE,
       dateIni: dateTime[0],
       timeIni: dateTime[1],
       withEnd: false,
@@ -95,6 +89,14 @@ export class AppointmentsService {
     console.log(`idAppointment: ${idAppointment}, enable: ${enable}`);
 
     this.appointmentDoc.update({ active: enable });
+  }
+
+  updateShowModeAppointment(idAppointment: string, active: boolean, showMode: ShowMode): void {
+    this.appointmentDoc = this.afs.doc<IAppointment>(`${APPOINTMENTS_COLLECTION}/${idAppointment}`);
+    this.appointmentDoc.update({
+      active,
+      showMode
+    });
   }
 
   updateAppointment(appointment: IAppointment): void {

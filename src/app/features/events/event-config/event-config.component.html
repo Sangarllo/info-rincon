@@ -64,12 +64,11 @@
                         <app-event-appointment-detail *ngIf="appointment$ | async as appointment" [showImage]="true" [appointment]="appointment"></app-event-appointment-detail>
                         -->
 
-                        <span class="text__when-intro">El evento se celebra...</span>
                         <mat-button-toggle-group *ngIf="appointment$ | async as appointment" [formControl]="shownAsAWholeControl" aria-label="Mostrado como un todo">
                             <mat-button-toggle class="button__when-description" value="true" (change)="onValShownAsAWholeChange($event.value)">{{appointment.description}}</mat-button-toggle>
                             <mat-button-toggle class="button__when-description" *ngIf="event.scheduleItems?.length > 0" value="false" (change)="onValShownAsAWholeChange($event.value)">A partir de la información de sus actos (actualmente {{ event.scheduleItems?.length }})</mat-button-toggle>
                         </mat-button-toggle-group>
-                        <span class="text__when-info">(así será mostrado en la agenda)</span>
+                        <span class="text__when-intro">Así se mostrará en el calendario</span>
 
 
                         <div class="buttons">

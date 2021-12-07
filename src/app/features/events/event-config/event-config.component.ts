@@ -8,7 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 import { environment } from '@environments/environment';
 import { AuthService } from '@auth/auth.service';
 import { Base, IBase, BaseType } from '@models/base';
-import { IAppointment, Appointment } from '@models/appointment';
+import { IAppointment, Appointment, ShowMode } from '@models/appointment';
 import { IEvent, Event } from '@models/event';
 import { IUser } from '@models/user';
 import { AuditType } from '@models/audit';
@@ -336,7 +336,13 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
           this.event.scheduleItems.find(item => item.id === base.id).active = true;
           this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
-          this.appointmentSrv.enableAppointment(base.id, true);
+          this.appointmentSrv.updateShowModeAppointment(
+              base.id,
+              this.event.active,
+              ( this.event.shownAsAWhole ) ?
+                  ShowMode.OVERSHADOWED_BY_WHOLE :
+                  ShowMode.SHOWED_AS_SLICE
+          );
           break;
 
       case BaseType.LINK:
@@ -444,10 +450,21 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
   onValShownAsAWholeChange(shownAsAWhole: string){
     this.event.shownAsAWhole = ( shownAsAWhole === 'true' ) ? true : false;
-    this.appointmentSrv.enableAppointment(this.event.id, this.event.shownAsAWhole);
-    this.event.linkItems.forEach(item => {
-      this.appointmentSrv.enableAppointment(item.id, !this.event.shownAsAWhole);
+
+    this.appointmentSrv.updateShowModeAppointment(
+      this.event.id,
+      this.event.active,
+      ( shownAsAWhole === 'true' ) ? ShowMode.SHOWED_AS_WHOLE : ShowMode.OVERSHADOWED_BY_SLICE
+    );
+
+    this.event.scheduleItems.forEach(scheduleItem => {
+        this.appointmentSrv.updateShowModeAppointment(
+            scheduleItem.id,
+            this.event.active,
+            ( shownAsAWhole === 'true' ) ? ShowMode.OVERSHADOWED_BY_WHOLE : ShowMode.SHOWED_AS_SLICE
+        );
     });
+
     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado ShownAsAWhole');
   }
 }
