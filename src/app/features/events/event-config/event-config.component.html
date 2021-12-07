@@ -25,7 +25,31 @@
 
                 <mat-card-content class="item-view">
 
-                    <fieldset id="event-item-title" class="event-item-detail type-what">
+                    <fieldset class="event-item-detail" [ngClass]="event.status">
+
+                        <legend>¿Estado?</legend>
+
+                        <app-event-status-detail [event]="event"></app-event-status-detail>
+
+                        <div class="buttons">
+                            <button [disabled]="event.status !== 'VISIBLE'" mat-fab class="btn-1" (click)="gotoItemView()">
+                                VER
+                            </button>
+
+                            <button mat-fab class="btn-1" (click)="openEventStatusDialog()">
+                                <mat-icon>settings</mat-icon>
+                            </button>
+                        </div>
+
+                        <div class="help-container alert alert-danger" *ngIf="event.status !== 'VISIBLE'">
+                            💡 El botón VER está deshabilitado porque el evento no está en estado
+                            <B>VISIBLE</B>.
+                        </div>
+
+                    </fieldset>
+
+
+                    <fieldset id="event-item-title" class="event-item-detail type-what" [ngClass]="event.status">
 
                         <img src="assets/images/events/config-mode-banner.png" class="ribbon" />
 
@@ -37,20 +61,6 @@
                             <button mat-fab class="btn-1" (click)="openEventBasicDialog()">
                               <mat-icon>edit</mat-icon>
                           </button>
-                        </div>
-
-                    </fieldset>
-
-                    <fieldset class="event-item-detail" [ngClass]="event.status">
-
-                        <legend>¿Estado?</legend>
-
-                        <app-event-status-detail [event]="event"></app-event-status-detail>
-
-                        <div class="buttons">
-                            <button mat-fab class="btn-1" (click)="openEventStatusDialog()">
-                                <mat-icon>settings</mat-icon>
-                            </button>
                         </div>
 
                     </fieldset>
@@ -161,19 +171,6 @@
                     </fieldset>
 
                 </mat-card-content>
-
-                <mat-card-actions class="buttons">
-
-                    <button [disabled]="event.status !== 'VISIBLE'" mat-fab class="btn-1" (click)="gotoItemView()">
-                        VER
-                    </button>
-
-                </mat-card-actions>
-
-                <div class="help-container alert alert-danger" *ngIf="event.status !== 'VISIBLE'">
-                    💡 El botón VER está deshabilitado porque el evento no está en estado
-                    <B>VISIBLE</B>.
-                </div>
 
             </div>
         </div>

@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `architect` Update @angular/cli@13 update @angular/material@13.
 - `feature` Add story service, but only show events.
 - `feature` Events and SchedulesItems are shown depending on ShowModes.
+- `style` Place StatusBox and ViewButton in the top on event-config component.
 
 ## [0.2.3] - Changes after review with partners
 
