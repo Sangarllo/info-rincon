@@ -4,6 +4,7 @@ export const environment = {
   releaseDate: '2021-12-07 21:30',
   baseUrl: 'http://localhost:4200/',
   setAudit: false,
+  storiesNDaysAhead: 3,
   firebase: {
     apiKey: 'AIzaSyChFHMB9Kj4sEBdPKLRWu-JFVMg7gketuM',
     authDomain: 'info-rincon.firebaseapp.com',

@@ -34,11 +34,14 @@
         }
         .desc {
             margin-top: 20px;
+            @media screen and (min-width: $minTabletWidth) {
+                margin-left: 10px;
+            }
         }
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: $maxMobileWidth) {
     .container-event {
         flex-direction: column;
         justify-content: center;
@@ -57,7 +60,7 @@
     }
 }
 
-@media screen and (min-width: 601px) and (max-width: 900px) {
+@media screen and (min-width: $minTabletWidth) and (max-width: $maxComputerWidth) {
     .container-event {
         flex-direction: row;
         justify-content: center;
@@ -80,7 +83,7 @@
     }
 }
 
-@media screen and (min-width: 901px) {
+@media screen and (min-width: $minLargeComputerWidth) {
     .container-event {
         flex-direction: row;
         justify-content: center;

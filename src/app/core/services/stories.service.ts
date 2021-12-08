@@ -8,6 +8,7 @@ import { AppointmentsService } from '@services/appointments.service';
 import { IBase, BaseType } from '@models/base';
 import { IAppointment } from '@models/appointment';
 import { IEvent } from '@models/event';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ import { IEvent } from '@models/event';
 export class StoriesService {
 
   public stories$: Observable<IEvent[]>;
-  private readonly STORIES_N_DAYS = 7;
+  private readonly N_DAYS_AHEAD = environment.storiesNDaysAhead;
 
   constructor(
     private eventSrv: EventService,
@@ -28,7 +29,7 @@ export class StoriesService {
     const dateTodayStr = dateToday.toISOString().substr(0, 10);
 
     const dateMax = new Date();
-    dateMax.setDate(dateMax.getDate() + this.STORIES_N_DAYS);
+    dateMax.setDate(dateMax.getDate() + this.N_DAYS_AHEAD);
     const dateMaxStr = dateMax.toISOString().substr(0, 10);
 
     const appointments$ = this.appointmentSrv.getAppointmentsByRange(dateTodayStr, dateMaxStr, false);
