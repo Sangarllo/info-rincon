@@ -1,17 +1,16 @@
-@import '../../../base/variables';
-.title {
-    font-size: xx-large;
-    font-weight: bolder;
-    line-height: 1.8rem;
-}
-
-@media screen and (max-width: $maxMobileWidth) {
-    .section-text {
-        margin-top: 16px !important;
-        margin-bottom: 16px !important;
-        font-size: small;
-        * {
-            font-size: small;
-        }
-    }
-}
+// @import '../../../base/variables';
+// .title {
+//     font-size: xx-large;
+//     font-weight: bolder;
+//     line-height: 1.8rem;
+// }
+// @media screen and (max-width: $maxMobileWidth) {
+//     .section-text {
+//         margin-top: 16px !important;
+//         margin-bottom: 16px !important;
+//         font-size: small;
+//         * {
+//             font-size: small;
+//         }
+//     }
+// }

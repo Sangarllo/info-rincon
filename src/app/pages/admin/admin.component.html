@@ -4,7 +4,7 @@
 
     <div *ngIf="userData$ | async as user" class="mb-3 text-center">
 
-        <span class="subsection-title">¿Qué vida, {{ user.displayName }}?</span>
+        <span class="section-title">¿Qué vida, {{ user.displayName }}?</span>
 
         <h3 *ngIf="!user.emailVerified" class="alert alert-warning">
             Te hemos enviado un correo electrónico para verificar tu cuenta ({{ user.email }}). Si no lo has recibido, por favor, revisa tu bandeja de correo no deseado o en la carpeta de spam, o haz clic <a href="{{ user.emailVerifiedLink }}">aquí</a>            para reenviar el correo electrónico.
