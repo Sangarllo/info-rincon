@@ -94,3 +94,10 @@ i {
     border-radius: 50%;
     margin: 0 10px 5px;
 }
+
+a.mat-menu-item:hover {
+    text-decoration: none;
+    font-size: larger;
+    color: $color2;
+    background-color: $color1;
+}

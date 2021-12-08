@@ -278,7 +278,8 @@ export class EventService {
     event.images = [];
     const newImage = entity.imageId;
     if ( newImage ) {
-      event.imageId = newImage;
+      event.imageId = entity.imageId;
+      event.imagePath = entity.imagePath;
       event.images.push(newImage);
     }
 

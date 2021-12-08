@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `audit` Hide audit logs in develop-environment.
 - `code` Split image field into two fields (imageId and imagePath).
 - `code` Avoid loading events in home component.
+- `config` Add stories constant NDaysAhead to config.
+- `nav` Fix problem with links from navbar.
 
 ### Update
 

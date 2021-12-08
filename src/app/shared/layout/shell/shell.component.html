@@ -87,12 +87,12 @@
 
                 <div *ngIf="afAuth.authState | async; else loginTemplate">
 
-                    <a mat-menu-item href="./admin">
+                    <a mat-menu-item [routerLink]="'/admin'">
                         <i>⚙️</i>
                         <span>Administración</span>
                     </a>
 
-                    <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-menu-item href="./eventos/new">
+                    <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-menu-item [routerLink]="'/eventos/new'">
                         <i>➕</i>
                         <span>Crear evento</span>
                     </a>
