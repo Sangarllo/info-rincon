@@ -32,7 +32,6 @@
                             </span>
 
                             <span class="share-button">
-
                             </span>
 
                             <div *ngIf="userLogged" style="display: inline;">
@@ -41,6 +40,10 @@
                                     <mat-icon svgIcon="config"></mat-icon>
                                 </span>
 
+                                <span *ngIf="eventComments$ | async as eventComments" class="fav-button" (click)="viewComments()">
+                                    <mat-icon svgIcon="comments"></mat-icon>
+                                    <span class="counter">{{eventComments.length}}</span>
+                                </span>
 
                                 <span *ngIf="eventSocial.usersFavs && (eventSocial.usersFavs?.indexOf(userLogged.uid) !== -1); else noFavTemplate" mat-fab (click)="isFavorite(false)" class="fav-button">
                                   <mat-icon svgIcon="favorite-on"></mat-icon>

@@ -14,9 +14,11 @@ import { IEventSocial } from '@models/event-social';
 import { IUser } from '@models/user';
 import { IAppointment } from '@models/appointment';
 import { IPicture } from '@models/picture';
+import { IEventComment } from '@models/event-comment';
 import { UserRole } from '@models/user-role.enum';
 import { EventService } from '@services/events.service';
 import { EventSocialService } from '@services/events-social.service';
+import { EventsCommentsService } from '@services/events-comments.service';
 import { UserService } from '@services/users.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { SeoService } from '@services/seo.service';
@@ -39,6 +41,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public idEvent: string;
   public idSubevent: string;
   public eventPicture: IPicture;
+  public eventComments$: Observable<IEventComment[]>;
   public appointment$: Observable<IAppointment>;
   readonly SECTION_BLANK: Base = Base.InitDefault();
   private listOfObservers: Array<Subscription> = [];
@@ -54,6 +57,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     private appointmentSrv: AppointmentsService,
     private eventSrv: EventService,
     private eventSocialSrv: EventSocialService,
+    private eventsCommentSrv: EventsCommentsService,
     private pictureSrv: PictureService,
   ) {
     this.configAllowed = false;
@@ -98,6 +102,11 @@ export class EventViewComponent implements OnInit, OnDestroy {
       this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/favorite-off.svg')
     );
 
+    this.matIconRegistry.addSvgIcon(
+      `comments`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/comments.svg')
+    );
+
     const subs1$ = this.authSvc.afAuth.user
       .subscribe( (user: any) => {
           if ( user?.uid ) {
@@ -121,6 +130,8 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.idSubevent = this.idEventUrl.split('_')[1];
 
     this.appointment$ = this.appointmentSrv.getOneAppointment(this.idEvent);
+    this.eventComments$ = this.eventsCommentSrv.getAllEventComments(this.idEvent);
+
     if ( this.idEvent ) {
       this.getDetails(this.idEvent);
     }
@@ -154,6 +165,10 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
   public configItem(): void {
     this.router.navigate([`/${Event.PATH_URL}/${this.idEvent}/config`]);
+  }
+
+  public viewComments(): void {
+    // this.router.navigate([`/${Event.PATH_URL}/${this.idEvent}/config`]);
   }
 
   public shareLink(social: string) {

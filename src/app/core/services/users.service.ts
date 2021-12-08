@@ -140,8 +140,6 @@ export class UserService {
       role: UserRole.Lector,
     };
 
-    // this.logSrv.info(`updateUserData 2: ${JSON.stringify(data)}`);
-
     return userRef.set(data, { merge: true });
   }
 
