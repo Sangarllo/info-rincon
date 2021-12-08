@@ -134,10 +134,6 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
   }
 
   private canConfig(userLogged: IUser): boolean {
-      if ( userLogged.role === UserRole.Admin || userLogged.role === UserRole.Super ) {
-          return true;
-      }
-      return false;
+    return this.userSrv.canConfig(userLogged, null);
   }
-
 }

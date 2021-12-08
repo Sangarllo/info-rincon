@@ -74,6 +74,11 @@ export class EventViewComponent implements OnInit, OnDestroy {
     );
 
     this.matIconRegistry.addSvgIcon(
+      `config`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/config.svg')
+    );
+
+    this.matIconRegistry.addSvgIcon(
       `clap-on`,
       this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/clap-on.svg')
     );
@@ -214,9 +219,6 @@ export class EventViewComponent implements OnInit, OnDestroy {
   }
 
   private canConfig(userLogged: IUser): boolean {
-    if ( userLogged.role !== UserRole.Lector) {
-      return true;
-    }
-    return false;
+    return this.userSrv.canConfig(userLogged, this.event.usersArray);
   }
 }

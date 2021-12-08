@@ -145,4 +145,24 @@ export class UserService {
     return userRef.set(data, { merge: true });
   }
 
+  canConfig( userLogged: IUser, usersArray: string[]): boolean {
+
+    // console.log(`userLogged: ${userLogged.uid}|${userLogged.displayName}|${userLogged.role}`);
+    // console.log(`event: ${usersArray}`);
+
+    if (
+        ( userLogged.role === UserRole.Super ) ||
+        ( userLogged.role === UserRole.Admin ) ){
+      return true;
+    }
+
+    if ( usersArray &&
+        (userLogged.role === UserRole.Autor ) &&
+        (usersArray?.includes(userLogged.uid))
+    ) {
+      return true;
+    }
+
+    return false;
+  }
 }

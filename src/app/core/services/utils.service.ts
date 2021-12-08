@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { Injectable } from '@angular/core';
 
 import Swal from 'sweetalert2';
@@ -6,6 +7,7 @@ import { es } from 'date-fns/locale';
 
 import { IBase } from '@models/base';
 
+// eslint-disable-next-line no-shadow
 export enum SwalMessage {
   NO_CHANGES = 'NO_CHANGES',
   OK_CHANGES = 'OK_CHANGES',

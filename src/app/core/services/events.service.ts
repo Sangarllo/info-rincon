@@ -24,6 +24,7 @@ import { Status } from '@models/status.enum';
 import { AppointmentsService } from '@services/appointments.service';
 import { EventSocialService } from '@services/events-social.service';
 import { PictureService } from '@services/pictures.service';
+import { UserRole } from '@models/user-role.enum';
 
 const EVENTS_COLLECTION = 'eventos';
 

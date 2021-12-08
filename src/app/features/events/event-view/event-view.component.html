@@ -37,6 +37,11 @@
 
                             <div *ngIf="userLogged" style="display: inline;">
 
+                                <span class="fav-button" *ngIf="configAllowed" (click)="configItem()">
+                                    <mat-icon svgIcon="config"></mat-icon>
+                                </span>
+
+
                                 <span *ngIf="eventSocial.usersFavs && (eventSocial.usersFavs?.indexOf(userLogged.uid) !== -1); else noFavTemplate" mat-fab (click)="isFavorite(false)" class="fav-button">
                                   <mat-icon svgIcon="favorite-on"></mat-icon>
                                   <span *ngIf="eventSocial.usersFavs" class="counter">{{eventSocial.usersFavs.length}}</span>

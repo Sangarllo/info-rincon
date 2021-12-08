@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `code` Avoid loading events in home component.
 - `config` Add stories constant NDaysAhead to config.
 - `nav` Fix problem with links from navbar.
+- `admin` Improve canConfig function for events and notices.
 
 ### Update
 
