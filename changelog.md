@@ -14,6 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Enabled url https//www.agendarinconera.es.
 
+## [0.2.5] - Add comments feature
+
+
+### Add
+
+- `feature` Add comments feature.
+
 ## [0.2.4] - Update to Angular 13
 
 ### Add
