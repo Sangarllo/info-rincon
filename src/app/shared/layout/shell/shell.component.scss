@@ -1,49 +1,86 @@
 @import '../../../../base/variables';
 .sidenav-container {
     height: 100%;
-}
-
-.logo {
-    font-size: 1.2em;
-    cursor: pointer;
-    outline: none;
-    img {
-        height: 84px;
-        background-color: $color2;
-        border: 1px solid $color1;
-        padding: 4px;
-        margin-right: 10px
-    }
-    img.alerted-logo {
-        background-color: $colorAlert;
-    }
-}
-
-.logo-title {
-    color: white;
-}
-
-@media screen and (max-width: 500px) {
-    .logo-title {
-        font-size: 0.8em;
-    }
-    .text-extra {
-        display: none !important;
-    }
-}
-
-@media screen and (min-width: 501px) and (max-width: 700px) {
-    .logo-title {
-        font-size: 1.0em;
-    }
-    .text-extra {
-        display: none !important;
-    }
-}
-
-@media screen and (min-width: 701px) {
-    .logo-title {
+    .logo {
         font-size: 1.2em;
+        cursor: pointer;
+        outline: none;
+        img {
+            height: 84px;
+            background-color: $color2;
+            border: 1px solid $color1;
+            padding: 4px;
+            margin-right: 10px
+        }
+        img.alerted-logo {
+            background-color: $colorAlert;
+        }
+    }
+    .logo-title {
+        color: white;
+    }
+    .header__button {
+        display: inline-block;
+    }
+    @media screen and (max-width: $maxMobileWidth) {
+        .logo-title {
+            font-size: 0.8em;
+        }
+        .header__button-profile {
+            padding-left: 30px;
+            padding-right: 0px;
+        }
+        .header__button-plus,
+        .header__button-admin,
+        .header__button-logout,
+        .text-extra {
+            display: none !important;
+        }
+    }
+    @media screen and (min-width: $minTabletWidth) and (max-width: $maxTabletWidth) {
+        .logo-title {
+            font-size: 0.9em;
+        }
+        .header__button-profile {
+            display: inline-block;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        .header__button-admin,
+        .header__button-plus,
+        .header__button-logout {
+            display: none !important;
+        }
+    }
+    @media screen and (min-width: $minComputerWidth) and (max-width: $maxComputerWidth) {
+        .logo-title {
+            font-size: 1.0em;
+        }
+        .header__button-profile,
+        .header__button-admin,
+        .header__button-plus {
+            display: inline-block;
+        }
+        .header__button-logout {
+            display: none !important;
+        }
+    }
+    @media screen and (min-width: $minLargeComputerWidth) {
+        .logo-title {
+            font-size: 1.1em;
+        }
+        .header__button-profile,
+        .header__button-admin,
+        .header__button-plus,
+        .header__button-logout {
+            display: inline-block;
+        }
+    }
+    .avatar {
+        width: 3em;
+        border-radius: 50%;
+        margin: 0 10px;
+        border: 2px solid $color2;
     }
 }
 
@@ -87,12 +124,6 @@ i {
     font-style: normal;
     font-size: 1.25em;
     margin-right: 16px;
-}
-
-.avatar {
-    width: 1.75em;
-    border-radius: 50%;
-    margin: 0 10px 5px;
 }
 
 a.mat-menu-item:hover {

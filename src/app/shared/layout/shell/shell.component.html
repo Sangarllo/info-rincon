@@ -1,6 +1,6 @@
 <mat-sidenav-container class="sidenav-container">
 
-    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="false">
+    <!-- <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="false">
 
         <mat-toolbar>Menu</mat-toolbar>
 
@@ -16,7 +16,7 @@
             </div>
         </mat-nav-list>
 
-    </mat-sidenav>
+    </mat-sidenav> -->
 
     <mat-sidenav-content>
         <mat-toolbar class="mat-elevation-z8" color="primary">
@@ -25,9 +25,11 @@
               <img [src]="'assets/icons/logo.png'" [ngClass]="{'alerted-logo' : (theAlertedNotice$ | async)}" alt='inicio' class="rounded-circle" />
             </span>
 
+            <!--
             <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async) && (afAuth.authState | async)">
-              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
+            -->
 
             <span class="logo-title">
               Agenda Rinconera
@@ -35,6 +37,37 @@
 
             <span class="fill-space"></span>
 
+            <div *ngIf="(afAuth.authState | async);else login2Template">
+
+                <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="header__button header__button-plus" mat-button routerLink="/eventos/new">
+                      ➕
+                      <span class="text-extra">Evento</span>
+                  </a>
+
+
+                <a *appRole="['LECTOR', 'AUTOR', 'ADMIN', 'SUPER']" class="header__button header__button-admin" mat-button routerLink="/admin">
+                      ⚙️
+                      <span class="text-extra">Admin</span>
+                  </a>
+
+                <a mat-button class="header__button header__button-logout" (click)="onLogout()">
+                      🔐
+                      <span class="text-extra">Salir</span>
+                  </a>
+
+                <a mat-button class="header__button header__button-profile" routerLink="/perfil" *ngIf="afAuth.authState | async as user">
+                    <img class="avatar" [src]="user.photoURL || 'assets/default-user.svg'">
+                    <span class="text-extra">Perfil</span>
+                </a>
+
+            </div>
+
+            <ng-template #login2Template>
+                <a mat-button routerLink="/login">🔑 Login</a>
+            </ng-template>
+
+
+            <!--
             <div *ngIf="!(isHandset$ | async)">
                 <div *ngIf="(afAuth.authState | async);else login2Template">
 
@@ -66,6 +99,7 @@
                 </ng-template>
 
             </div>
+            -->
 
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
               <mat-icon>more_vert</mat-icon>
