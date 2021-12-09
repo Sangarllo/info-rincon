@@ -23,6 +23,7 @@ import { EventImageDialogComponent } from '@features/events/event-image-dialog/e
 import { EventImageDetailComponent } from '@features/events/event-image-detail/event-image-detail.component';
 import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dialog/event-new-base-dialog.component';
 import { EventScheduleDialogComponent } from '@features/events/event-schedule-dialog/event-schedule-dialog.component';
+import { EventCommentsDialogComponent } from '@features/events/event-comments-dialog/event-comments-dialog.component';
 import { EventCreationComponent } from '@features/events/event-creation/event-creation.component';
 import { EventItemDetailComponent } from '@features/events/event-item-detail/event-item-detail.component';
 import { EventItemDialogComponent } from '@features/events/event-item-dialog/event-item-dialog.component';
@@ -51,6 +52,7 @@ import { EventLinkDialogComponent } from '@features/events/event-link-dialog/eve
     EventScheduleDialogComponent,
     EventLinkDialogComponent,
     EventCreationComponent,
+    EventCommentsDialogComponent,
     EventItemDetailComponent,
     EventItemDialogComponent,
     EventsSearchDialogComponent,

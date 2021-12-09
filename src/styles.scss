@@ -76,6 +76,18 @@ body {
 @media screen and (max-width: $maxMobileWidth) {
     .share-button,
     .fav-button {
+        width: 40px;
+        .mat-icon {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+
+@media screen and (min-width: $minTabletWidth) and (max-width: $maxTabletWidth) {
+    .share-button,
+    .fav-button {
+        margin-right: 8px;
         width: 45px;
         .mat-icon {
             width: 45px;
@@ -84,13 +96,14 @@ body {
     }
 }
 
-@media screen and (min-width: $minTabletWidth) {
+@media screen and (min-width: $minComputerWidth) {
     .share-button,
     .fav-button {
-        width: 55px;
+        margin-right: 12px;
+        width: 50px;
         .mat-icon {
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
         }
     }
 }
@@ -105,12 +118,10 @@ body {
 
 .share-button {
     float: left;
-    margin-right: 8px;
     background-color: white;
 }
 
 .fav-button {
-    margin-right: 8px;
     background-color: white;
     .counter {
         display: block;

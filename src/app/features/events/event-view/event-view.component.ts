@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { MatIconRegistry } from '@angular/material/icon';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable, Subscription, timer } from 'rxjs';
 import Swal from 'sweetalert2';
 
@@ -24,6 +25,8 @@ import { AppointmentsService } from '@services/appointments.service';
 import { SeoService } from '@services/seo.service';
 import { PictureService } from '@services/pictures.service';
 
+import { EventCommentsDialogComponent } from '@features/events/event-comments-dialog/event-comments-dialog.component';
+
 @Component({
   selector: 'app-event-view',
   templateUrl: './event-view.component.html',
@@ -43,11 +46,13 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public eventPicture: IPicture;
   public eventComments$: Observable<IEventComment[]>;
   public appointment$: Observable<IAppointment>;
+  public dialogConfig = new MatDialogConfig();
   readonly SECTION_BLANK: Base = Base.InitDefault();
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public authSvc: AuthService,
+    public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
     private seo: SeoService,
@@ -61,6 +66,9 @@ export class EventViewComponent implements OnInit, OnDestroy {
     private pictureSrv: PictureService,
   ) {
     this.configAllowed = false;
+    this.dialogConfig.disableClose = true;
+    this.dialogConfig.autoFocus = true;
+    this.dialogConfig.width = '600px';
 
     this.matIconRegistry.addSvgIcon(
       `whatsapp`,
@@ -168,7 +176,33 @@ export class EventViewComponent implements OnInit, OnDestroy {
   }
 
   public viewComments(): void {
-    // this.router.navigate([`/${Event.PATH_URL}/${this.idEvent}/config`]);
+
+    console.log(`viewComments!`);
+
+    this.dialogConfig.width = '600px';
+    this.dialogConfig.height = '600px';
+    this.dialogConfig.data = this.event.id;
+
+    const dialogRef = this.dialog.open(EventCommentsDialogComponent, this.dialogConfig);
+
+    // dialogRef.afterClosed().subscribe((linkItem: IBase) => {
+
+    //   if ( linkItem ) {
+
+    //     const index = this.event.linkItems.findIndex(item => item.id === linkItem.id);
+    //     if ( index < 0 ) { // Adding new LinkItem
+    //       this.event.linkItems.push(linkItem);
+    //     } else {
+    //       this.event.linkItems[index] = linkItem;
+    //     }
+
+    //     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado enlace');
+
+    //   } else {
+    //     this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
+    //   }
+    // });
+
   }
 
   public shareLink(social: string) {
@@ -234,6 +268,6 @@ export class EventViewComponent implements OnInit, OnDestroy {
   }
 
   private canConfig(userLogged: IUser): boolean {
-    return this.userSrv.canConfig(userLogged, this.event.usersArray);
+    return this.userSrv.canConfig(userLogged, this.event?.usersArray);
   }
 }

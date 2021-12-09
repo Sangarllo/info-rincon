@@ -41,7 +41,7 @@ export class EventsCommentsService {
     return this.eventCommentsCollection.valueChanges();
   }
 
-  async addEventComment(eventId: string, text: string): Promise<any> {
+  async addEventComment(eventId: string, message: string): Promise<any> {
 
     const currentUser = await this.afAuth.currentUser;
     const id: string = this.afs.createId();
@@ -51,8 +51,10 @@ export class EventsCommentsService {
       id,
       eventId,
       timestamp,
-      userId: currentUser.uid,
-      text
+      userUid: currentUser.uid,
+      userName: currentUser.displayName,
+      userImage: currentUser.photoURL,
+      message,
     });
   }
 
