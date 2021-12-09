@@ -24,6 +24,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `style` Adapt toolbar based on bootstrap breakpoints.
 
+### Update
+
+- `style` Delete config button into the top bar.
+
 ## [0.2.4] - Update to Angular 13
 
 ### Add

@@ -36,9 +36,11 @@
 
                             <div *ngIf="userLogged" style="display: inline;">
 
+                                <!--
                                 <span class="fav-button" *ngIf="configAllowed" (click)="configItem()">
                                     <mat-icon svgIcon="config"></mat-icon>
                                 </span>
+                                -->
 
                                 <span *ngIf="eventComments$ | async as eventComments" class="fav-button" (click)="viewComments()">
                                     <mat-icon svgIcon="comments"></mat-icon>
