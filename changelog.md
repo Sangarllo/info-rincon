@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fix
 
 - `style` Adapt toolbar based on bootstrap breakpoints.
+- `style` Fix mobile visualization in event dialogs.
 
 ### Update
 

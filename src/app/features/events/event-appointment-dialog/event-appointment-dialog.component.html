@@ -5,39 +5,39 @@
 <mat-dialog-content class="cointainer" [formGroup]="appointmentForm">
 
     <div class="row">
-        <div class="col-6" style="color:1px solid red">
+        <div class="col-12 col-md-6" style="color:1px solid red">
             <mat-slide-toggle (change)="onInputChange('allDay')" formControlName="allDay">
                 Evento de día completo
             </mat-slide-toggle>
         </div>
 
-        <div class="col-6" style="color:1px solid red">
+        <div class="col-12 col-md-6" style="color:1px solid red">
             <mat-slide-toggle (change)="onInputChange('withEnd')" formControlName="withEnd">
                 Indicar fin del evento
             </mat-slide-toggle>
         </div>
     </div>
 
-    <mat-form-field class="col-6" appearance="outline">
+    <mat-form-field class="col-12 col-md-6" appearance="outline">
         <mat-label>Fecha Inicio</mat-label>
         <input matInput [matDatepicker]="picker1" placeholder="Fecha de Inicio" formControlName="dateIni" (dateChange)="onDateIniChange('change', $event)">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field class="col-6" *ngIf="( !appointmentForm.controls.allDay.value )" appearance="outline">
+    <mat-form-field class="col-12 col-md-6" *ngIf="( !appointmentForm.controls.allDay.value )" appearance="outline">
         <mat-label>Hora Inicio</mat-label>
         <input matInput type="time" (change)="onInputChange('timeIni')" formControlName="timeIni" placeholder="Hora de Inicio">
     </mat-form-field>
 
-    <mat-form-field class="col-6" appearance="outline" *ngIf="( appointmentForm.controls.withEnd.value )">
+    <mat-form-field class="col-12 col-md-6" appearance="outline" *ngIf="( appointmentForm.controls.withEnd.value )">
         <mat-label>Fecha Fin</mat-label>
         <input matInput [matDatepicker]="picker2" placeholder="Fecha Fin" formControlName="dateEnd" (dateChange)="onDateEndChange('change', $event)">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field class="col-6" appearance="outline" *ngIf="( !appointmentForm.controls.allDay.value && appointmentForm.controls.withEnd.value )">
+    <mat-form-field class="col-12 col-md-6" appearance="outline" *ngIf="( !appointmentForm.controls.allDay.value && appointmentForm.controls.withEnd.value )">
         <mat-label>Hora Fin</mat-label>
         <input matInput type="time" (change)="onInputChange('timeEnd')" name="timeEnd" formControlName="timeEnd" placeholder="Hora de Fin">
     </mat-form-field>

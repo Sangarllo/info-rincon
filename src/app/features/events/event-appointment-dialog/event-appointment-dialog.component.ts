@@ -16,13 +16,12 @@ import { AppointmentsService } from '@services/appointments.service';
   templateUrl: './event-appointment-dialog.component.html'
 })
 export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
-
-  private listOfObservers: Array<Subscription> = [];
   title = 'Indica el horario de este evento';
   errorMessage = '';
   appointment: IAppointment;
   appointmentForm: FormGroup;
   readonly SECTION_BLANK: Base = Base.InitDefault();
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private fb: FormBuilder,
