@@ -88,14 +88,44 @@ body {
         justify-content: center;
         .option-item {
             margin: 0px;
-            padding: 10px;
+            padding: 10px 5px;
             flex-direction: column;
+            .mat-card {
+                background-color: $color2;
+            }
+            .mat-card-title {
+                color: $color1;
+            }
             .option-image {
                 margin-top: 12px;
             }
-        }
-        .mat-card-title {
-            font-size: 18px;
+            @media screen and (max-width: $maxMobileWidth) {
+                .mat-card {
+                    padding: 4px;
+                }
+                .mat-card-title {
+                    font-size: 0.8rem;
+                    min-height: 30px;
+                    line-height: 1rem;
+                }
+            }
+            @media screen and (min-width: $minTabletWidth) and (max-width: $maxTabletWidth) {
+                .mat-card {
+                    padding: 8px;
+                }
+                .mat-card-title {
+                    font-size: 1rem;
+                    min-height: 38px;
+                }
+            }
+            @media screen and (min-width: $minComputerWidth) {
+                .mat-card {
+                    padding: 12px;
+                }
+                .mat-card-title {
+                    font-size: 1.2rem;
+                }
+            }
         }
     }
 }

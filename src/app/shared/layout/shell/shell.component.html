@@ -40,30 +40,34 @@
             <div *ngIf="(afAuth.authState | async);else login2Template">
 
                 <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="header__button header__button-plus" mat-button routerLink="/eventos/new">
-                      ➕
-                      <span class="text-extra">Evento</span>
-                  </a>
+                    ➕
+                    <span class="text-extra">Evento</span>
+                </a>
 
-
-                <a *appRole="['LECTOR', 'AUTOR', 'ADMIN', 'SUPER']" class="header__button header__button-admin" mat-button routerLink="/admin">
+                <!--
+                  <a *appRole="['LECTOR', 'AUTOR', 'ADMIN', 'SUPER']" class="header__button header__button-admin" mat-button routerLink="/admin">
                       ⚙️
                       <span class="text-extra">Admin</span>
                   </a>
+                  -->
 
                 <a mat-button class="header__button header__button-logout" (click)="onLogout()">
                       🔐
                       <span class="text-extra">Salir</span>
                   </a>
 
-                <a mat-button class="header__button header__button-profile" routerLink="/perfil" *ngIf="afAuth.authState | async as user">
+                <a mat-button class="header__button header__button-profile" routerLink="/admin" *ngIf="afAuth.authState | async as user">
                     <img class="avatar" [src]="user.photoURL || 'assets/default-user.svg'">
-                    <span class="text-extra">Perfil</span>
+                    <span class="text-extra">Menú Personal</span>
                 </a>
 
             </div>
 
             <ng-template #login2Template>
-                <a mat-button routerLink="/login">🔑 Login</a>
+                <a mat-button routerLink="/login">
+                    🔑
+                    <span class="text-extra">Identifícate</span>
+                </a>
             </ng-template>
 
 

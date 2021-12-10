@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,13 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class LoginComponent {
 
-  constructor(public afAuth: AngularFireAuth) { }
+  constructor(
+    public afAuth: AngularFireAuth,
+    private router: Router,
+  ) { }
+
+  gotoHome(): void {
+    this.router.navigate(['/home']);
+  }
 
 }

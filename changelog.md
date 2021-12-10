@@ -24,10 +24,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `style` Adapt toolbar based on bootstrap breakpoints.
 - `style` Fix mobile visualization in event dialogs.
+- `style` Improve admin-menu for mobile devices.
 
 ### Update
 
 - `style` Delete config button into the top bar.
+- `routing` Route to home page after login.
+- `routing` Route to admin page when avatar is clicked.
 
 ## [0.2.4] - Update to Angular 13
 
@@ -48,7 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `code` Split image field into two fields (imageId and imagePath).
 - `code` Avoid loading events in home component.
 - `config` Add stories constant NDaysAhead to config.
-- `nav` Fix problem with links from navbar.
+- `routing` Fix problem with links from navbar.
 - `admin` Improve canConfig function for events and notices.
 
 ### Update

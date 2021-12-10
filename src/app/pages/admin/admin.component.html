@@ -14,36 +14,36 @@
 
         <div class="options-wrapper">
 
-            <div class="option-item col-12 col-sm-6 col-md-4">
+            <div class="option-item col-4">
                 <mat-card [routerLink]="'../perfil'">
-                    <mat-card-title>Tu cuenta personal</mat-card-title>
+                    <mat-card-title>Cuenta<br/>Personal</mat-card-title>
                     <div class="option-image">
                         <img alt="'Tu cuenta personal'" style="width:200px" [src]="user.photoURL" class="img-thumbnail" />
                     </div>
                 </mat-card>
             </div>
 
-            <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-12 col-sm-6 col-md-4">
+            <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-4">
                 <mat-card [routerLink]="'../usuarios/' + user?.uid + '/entidades'">
-                    <mat-card-title>Tus entidades</mat-card-title>
+                    <mat-card-title>Tus<br/>entidades</mat-card-title>
                     <div class="option-image">
                         <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" style="width:200px" class="img-thumbnail" />
                     </div>
                 </mat-card>
             </div>
 
-            <div *appRole="['ADMIN']" class="option-item col-12 col-sm-6 col-md-4">
+            <div *appRole="['ADMIN']" class="option-item col-4">
                 <mat-card [routerLink]="'../usuarios/' + user?.uid + '/audit'">
-                    <mat-card-title>Tus accesos</mat-card-title>
+                    <mat-card-title>Tus<br/>accesos</mat-card-title>
                     <div class="option-image">
                         <img alt="'Tus accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />
                     </div>
                 </mat-card>
             </div>
 
-            <div *appRole="['SUPER']" class="option-item col-12 col-sm-6 col-md-4">
+            <div *appRole="['SUPER']" class="option-item col-4">
                 <mat-card [routerLink]="'../audit'">
-                    <mat-card-title>Auditoría</mat-card-title>
+                    <mat-card-title>Auditoría<br/>General</mat-card-title>
                     <div class="option-image">
                         <img alt="'Auditoría de accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />
                     </div>

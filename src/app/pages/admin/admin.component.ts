@@ -13,8 +13,8 @@ import { IUser } from '@models/user';
 })
 export class AdminComponent implements OnInit, OnDestroy {
 
-  private listOfObservers: Array<Subscription> = [];
   public userData$: Observable<IUser>;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public auth: AngularFireAuth,

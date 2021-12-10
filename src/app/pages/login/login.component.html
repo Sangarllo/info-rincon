@@ -1,19 +1,52 @@
-<app-section-header [title]="'Acceder'"></app-section-header>
+<app-section-header [title]="'Página de Acceso'"></app-section-header>
 
-<div *ngIf="afAuth.authState | async as user; else noAuthTemplate" class="logout">
-    <p>
-        Has accedido como <strong>{{ user.email }}</strong>
-    </p>
+<div class="section-wrapper">
 
-    <button mat-stroked-button (click)="afAuth.signOut()">Salir</button>
+    <div *ngIf="afAuth.authState | async as user; else noAuthTemplate">
+
+        <div class="text-center m-3">
+
+            <div class="section-title">
+                ¡Hola, {{ user.displayName }}!
+            </div>
+
+            <div class="section-main-info">
+                Has accedido con tu email <strong>{{ user.email }}</strong>
+            </div>
+
+            <div class="section-text">
+                Disfruta de la AppWeb navegando por las diferentes secciones.
+            </div>
+
+            <div mat-dialog-actions class="buttons buttons-center">
+                <button mat-fab class="btn-1" (click)="gotoHome()">
+                    <mat-icon>home</mat-icon>
+                </button>
+                <button mat-fab class="btn-1" (click)="gotoAdmin()">
+                    <mat-icon>settings</mat-icon>
+                </button>
+                <button mat-fab class="btn-1" (click)="afAuth.signOut()">
+                    <mat-icon>logout</mat-icon>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 <ng-template #noAuthTemplate>
-    <div *ngIf="!(afAuth.authState | async)" class="section-wrapper">
+
+    <div *ngIf="!(afAuth.authState | async)" class="text-center m-3">
         <button mat-raised-button appGoogleSignin>
-        <img src="/assets/google-logo.svg" /> Acceso con Google
-      </button>
-        <h5>o</h5>
+            <img src="/assets/google-logo.svg" /> Acceso con Google
+        </button>
+
+        <br/><br/>o<br/><br/>
+
         <app-email-login></app-email-login>
+
     </div>
+
 </ng-template>

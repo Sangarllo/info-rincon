@@ -27,7 +27,7 @@ export class GoogleSigninDirective {
       const description = `${currentUser.displayName} (${currentUser.email})`;
       this.auditSrv.addAuditItem(AuditType.LOGIN_PROVIDER, currentUser, description);
       this.usersSrv.updateUserData(currentUser);
-      this.router.navigate([`admin`]);
+      this.router.navigate([`home`]);
     }
   }
 }
