@@ -23,7 +23,7 @@
 
                             <div class="row">
 
-                                <mat-form-field class="col-4" appearance="outline">
+                                <mat-form-field class="col-12" appearance="outline">
                                     <mat-label>Estado</mat-label>
 
                                     <mat-select formControlName="status" [value]="eventForm.get('status')">
@@ -34,9 +34,9 @@
 
                                 </mat-form-field>
 
-                                <mat-slide-toggle *appRole="['SUPER']" class="col-3 mb-3 ml-2" formControlName="active">Evento activo</mat-slide-toggle>
+                                <mat-slide-toggle *appRole="['SUPER']" class="col-12 col-md-4" formControlName="active">Evento activo</mat-slide-toggle>
 
-                                <mat-slide-toggle class="col-3 mb-3 ml-2" formControlName="focused">Evento de portada</mat-slide-toggle>
+                                <mat-slide-toggle class="col-12 col-md-6" formControlName="focused">Evento de portada</mat-slide-toggle>
                             </div>
 
                         </fieldset>
@@ -82,7 +82,7 @@
                             <mat-icon>check</mat-icon>
                         </button>
 
-                        <button mat-fab class="btn-1" (click)="gotoList()">
+                        <button mat-fab class="btn-1" (click)="gotoEventsOwn()">
                             <mat-icon>list</mat-icon>
                         </button>
 

@@ -19,7 +19,7 @@ import { LogService } from '@services/log.service';
 })
 export class UserAdminEntitiesComponent implements OnInit, OnDestroy {
 
-  public pageTitle = 'Administración de entides del nuevo usuario';
+  public pageTitle = 'Administración de tus entidades';
   public user: IUser;
   public filteredEntities: Observable<IEntity[]>;
   entities: IEntity[];
@@ -68,8 +68,6 @@ export class UserAdminEntitiesComponent implements OnInit, OnDestroy {
     const subs2$ = this.userSrv.getOneUser(uidUser)
         .subscribe( (user: IUser) => {
           this.user = user;
-          this.pageTitle = `Administración de entidades de ${this.user.displayName}`;
-          this.logSrv.info(`title: ${this.pageTitle}`);
           this.user.entitiesAdmin = this.user.entitiesAdmin ?? [];
       });
 

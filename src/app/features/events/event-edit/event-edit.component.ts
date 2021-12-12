@@ -166,9 +166,9 @@ export class EventEditComponent implements OnInit, OnDestroy {
     this.router.navigate([`/${Event.PATH_URL}`]);
   }
 
-  private gotoList(): void {
+  private gotoEventsOwn(): void {
     this.eventForm.reset();
-    this.router.navigate([`/${Event.PATH_URL}`]);
+    this.router.navigate([`/${Event.PATH_URL}/propios`]);
   }
 
   private uploadImage(event): void {

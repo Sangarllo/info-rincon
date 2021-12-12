@@ -92,9 +92,9 @@ table {
     width: 80px;
     border: 2px solid transparent;
     .img-thumbnail {
-        min-width: 50px;
+        max-width: 50px;
         width: 50px !important;
-        min-height: 50px;
+        max-height: 50px;
         height: 50px;
     }
 }

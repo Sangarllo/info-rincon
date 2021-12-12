@@ -20,11 +20,11 @@ body {
             text-decoration: dotted;
         }
         @media screen and (max-width: $maxTabletWidth) {
-            margin: 0px 2px;
+            margin: 10px 2px;
             padding: 0px 6px;
         }
         @media screen and (min-width: $minComputerWidth) {
-            margin: 0px 4px;
+            margin: 20px 4px;
             padding: 0px 20px;
         }
         .section-title {
@@ -49,8 +49,8 @@ body {
             display: block;
             font-size: medium;
             line-height: 1.1em;
-            color: $color2 !important;
-            background-color: $color1;
+            color: $color1 !important;
+            background-color: $color2;
             padding: 6px;
             margin-bottom: 6px;
         }

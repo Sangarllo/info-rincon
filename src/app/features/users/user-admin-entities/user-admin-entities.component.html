@@ -3,17 +3,20 @@
 <div class="section-wrapper">
     <mat-card class="item-edit" *ngIf="user; else noUserTemplate">
 
-        <h2 *ngIf="(user.role === 'ADMIN') || (user.role === 'SUPER') " class="alert alert-success" role="alert">
-            Al tener <strong>ROL {{ user.role }}</strong> puede administrar cualquier entidad
-        </h2>
+        <div *ngIf="(user.role === 'ADMIN') || (user.role === 'SUPER') " class="section-main-info">
+            Al tener rol <span class="role">{{ user.role }}</span> puede administrar cualquier entidad.
+        </div>
 
-        <h2 *ngIf="(user.role === 'LECTOR')" class="alert alert-danger" role="alert">
-            Al tener <strong>ROL {{ user.role }}</strong> no puede administrar ninguna entidad
-        </h2>
+        <div *ngIf="(user.role === 'LECTOR')" class="section-main-info">
+            Al tener rol <span class="role">{{ user.role }}</span> no puede administrar ninguna entidad.
+        </div>
 
         <div class="row">
 
             <div *appRole="['ADMIN', 'SUPER']" class="col-lg-4 col-md-6 col-12" style="text-align: center;">
+
+                <div class="section-title">Asocia una nueva entidad</div>
+
                 <div *ngIf="selectedEntity; else noSelectedEntityTemplate">
 
                     <img [src]="user.photoURL" class="img-thumbnail mx-1">
@@ -33,7 +36,7 @@
 
             <div class="col-lg-8 col-md-6 col-12">
 
-                <span *ngIf="(user.role === 'SUPER') || (user.role === 'ADMIN')" class="section-subtitle">De tener ROL AUTOR, podría administrar:</span>
+                <span *ngIf="(user.role === 'SUPER') || (user.role === 'ADMIN')" class="section-subtitle">De tener <strong>rol AUTOR</strong> podría administrar:</span>
 
                 <span *ngIf="(user.role === 'AUTOR')" class="section-subtitle">Es AUTOR de estas entidades. Selecciona una como predeterminada:</span>
 
@@ -42,7 +45,7 @@
                     <table mat-table class="mat-elevation-z8" matSort *ngIf="user.entitiesAdmin?.length > 0; else noEntitiesTemplate" [dataSource]="user.entitiesAdmin">
 
                         <ng-container matColumnDef="image">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                            <th mat-header-cell *matHeaderCellDef> </th>
                             <td mat-cell *matCellDef="let element">
                                 <img (click)="gotoEntity(element)" [src]="element.imagePath" class="img-thumbnail" alt="element.name">
                             </td>
