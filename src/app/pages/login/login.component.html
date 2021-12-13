@@ -39,7 +39,7 @@
 <ng-template #noAuthTemplate>
 
     <div *ngIf="!(afAuth.authState | async)" class="text-center m-3">
-        <button mat-raised-button appGoogleSignin>
+        <button style="width: 100%;max-width: 460px;" mat-raised-button appGoogleSignin>
             <img src="/assets/google-logo.svg" /> Acceso con Google
         </button>
 

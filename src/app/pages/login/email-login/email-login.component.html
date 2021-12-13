@@ -1,32 +1,18 @@
-<mat-card>
-    <div *ngIf="isSignup">
-        <div class="section-title">
+<mat-card class="login-container">
+
+    <div class="section-title login-container__title">
+        <div *ngIf="isSignup">
             Crea una cuenta con tu email
         </div>
-        <button mat-stroked-button (click)="changeType('login')">
-          ¿Eres un usuario ya registrado?
-        </button>
-    </div>
-
-    <div *ngIf="isLogin">
-        <div class="section-title">
+        <div *ngIf="isLogin">
             Accede con tu email
         </div>
-        <button size="small" mat-stroked-button (click)="changeType('signup')">
-          ¿Quieres registrarte con tu email?
-        </button>
-    </div>
-
-    <div class="section-title" *ngIf="isPasswordReset">
-        <div class="section-title">
+        <div *ngIf="isPasswordReset">
             Reiniciar contraseña
         </div>
-        <button size="small" mat-button (click)="changeType('login')">
-          Volver
-        </button>
     </div>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-container__form">
         <mat-form-field [color]="email.valid && 'accent'">
             <input matInput formControlName="email" type="email" placeholder="Email" autocomplete="off" />
 
@@ -36,7 +22,7 @@
         </mat-form-field>
 
         <mat-form-field [color]="email.valid && 'accent'" *ngIf="!isPasswordReset">
-            <input matInput formControlName="password" type="password" placeholder="Password" autocomplete="off" />
+            <input matInput formControlName="password" type="password" placeholder="Contraseña" autocomplete="off" />
 
             <mat-error *ngIf="password.invalid && password.dirty">
                 La contraseña debe tener al menos 6 caracteres
@@ -44,7 +30,7 @@
         </mat-form-field>
 
         <mat-form-field [color]="passwordDoesMatch ? 'accent' : 'warn'" *ngIf="isSignup">
-            <input matInput formControlName="passwordConfirm" type="password" placeholder="Confirm password" autocomplete="off" />
+            <input matInput formControlName="passwordConfirm" type="password" placeholder="Confirma contraseña" autocomplete="off" />
 
             <mat-error *ngIf="passwordConfirm.dirty && !passwordDoesMatch">
                 Las contraseñas no coinciden
@@ -58,13 +44,31 @@
                 Reestablecer correo electrónico
             </button>
 
-            <button *ngIf="!isPasswordReset" mat-mini-fab class="btn-1" type="submit" [disabled]="form.invalid || !passwordDoesMatch || loading">
+            <button *ngIf="!isPasswordReset" mat-fab class="btn-1" type="submit" [disabled]="form.invalid || !passwordDoesMatch || loading">
                 <mat-icon>done</mat-icon>
             </button>
         </div>
     </form>
 
-    <button mat-button *ngIf="isLogin && !isPasswordReset" (click)="changeType('reset')">
-      ¿Olvidaste tu contraseña?
-    </button>
+
+    <div class="login-container__button text-center">
+
+        <button *ngIf="isSignup" class="section-subtitle" mat-button (click)="changeType('login')">
+            ¿Eres un usuario ya registrado?
+        </button>
+
+        <button *ngIf="isLogin" class="section-subtitle" mat-button (click)="changeType('signup')">
+            ¿Quieres registrarte con tu email?
+        </button>
+
+        <button *ngIf="isPasswordReset" class="section-subtitle" mat-button (click)="changeType('login')">
+            Volver
+        </button>
+
+        <button class="section-subtitle" mat-button *ngIf="isLogin && !isPasswordReset" (click)="changeType('reset')">
+            ¿Olvidaste tu contraseña?
+        </button>
+
+    </div>
+
 </mat-card>
