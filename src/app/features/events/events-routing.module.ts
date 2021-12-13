@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from '@pages/login/auth.guard';
+import { AuthGuard } from '@guards/auth.guard';
 
 import { EventsComponent } from '@features/events/events.component';
 import { EventsFavComponent } from '@features/events/events-fav/events-fav.component';

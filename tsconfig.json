@@ -13,6 +13,7 @@
       "@models/*": ["src/app/core/models/*"],
       "@interceptors/*": ["src/app/core/interceptors/*"],
       "@auth/*": ["src/app/core/auth/*"],
+      "@guards/*": ["src/app/core/guards/*"],
       "@pipes/*": ["src/app/core/pipes/*"],
       "@shared/*": ["./src/app/shared/*"],
       "@environments/*": ["./src/environments/*"],

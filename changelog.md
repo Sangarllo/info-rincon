@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Add
 
 - `feature` Add comments feature.
+- `admin` Add angularFire auth admin.
 
 ### Fix
 

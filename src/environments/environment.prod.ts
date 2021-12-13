@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   appVersion: '0.2.5',
-  releaseDate: '2021-12-10 19:30',
+  releaseDate: '2021-12-13 23:20',
   baseUrl: 'https://info-rincon.web.app/',
   setAudit: true,
   storiesNDaysAhead: 7,

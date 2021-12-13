@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from '@pages/login/auth.guard';
+// import { AuthGuard } from '@guards/auth.guard';
+import {
+  AngularFireAuthGuard,
+  redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { HomeComponent } from '@pages/home/home.component';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
 const routes: Routes = [
   {
@@ -13,7 +18,6 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    // loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
     path: 'login',
@@ -30,12 +34,14 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),
-    canActivate: [AuthGuard]
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'perfil',
     loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule),
-    canActivate: [AuthGuard]
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'calendario',
@@ -43,32 +49,45 @@ const routes: Routes = [
   },
   {
     path: 'usuarios',
-    loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule)
+    loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'entidades',
-    loadChildren: () => import('./features/entities/entities.module').then(m => m.EntitiesModule)
+    loadChildren: () => import('./features/entities/entities.module').then(m => m.EntitiesModule),
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'lugares',
     loadChildren: () => import('./features/places/places.module').then(m => m.PlacesModule),
-    // canActivate: [AuthGuard]
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'avisos',
-    loadChildren: () => import('./features/notices/notices.module').then(m => m.NoticesModule)
+    loadChildren: () => import('./features/notices/notices.module').then(m => m.NoticesModule),
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'enlaces',
-    loadChildren: () => import('./features/links/links.module').then(m => m.LinksModule)
+    loadChildren: () => import('./features/links/links.module').then(m => m.LinksModule),
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'noticias',
-    loadChildren: () => import('./features/news/news.module').then(m => m.NewsModule)
+    loadChildren: () => import('./features/news/news.module').then(m => m.NewsModule),
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'imagenes',
-    loadChildren: () => import('./features/pictures/pictures.module').then(m => m.PicturesModule)
+    loadChildren: () => import('./features/pictures/pictures.module').then(m => m.PicturesModule),
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'evento',
@@ -80,7 +99,9 @@ const routes: Routes = [
   },
   {
     path: 'audit',
-    loadChildren: () => import('./features/audit/audit.module').then(m => m.AuditModule)
+    loadChildren: () => import('./features/audit/audit.module').then(m => m.AuditModule),
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'faq',
