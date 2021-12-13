@@ -19,4 +19,7 @@ export class LoginComponent {
     this.router.navigate(['/home']);
   }
 
+  gotoAdmin(): void {
+    this.router.navigate(['/admin']);
+  }
 }
