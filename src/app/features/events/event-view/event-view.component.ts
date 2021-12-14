@@ -177,32 +177,15 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
   public viewComments(): void {
 
-    console.log(`viewComments!`);
-
     this.dialogConfig.width = '600px';
     this.dialogConfig.height = '600px';
-    this.dialogConfig.data = this.event.id;
+    this.dialogConfig.data = {
+      eventId: this.event.id,
+      UserUid: this.userLogged?.uid ?? '',
+      UserRole: this.userLogged?.role ?? '',
+    };
 
     const dialogRef = this.dialog.open(EventCommentsDialogComponent, this.dialogConfig);
-
-    // dialogRef.afterClosed().subscribe((linkItem: IBase) => {
-
-    //   if ( linkItem ) {
-
-    //     const index = this.event.linkItems.findIndex(item => item.id === linkItem.id);
-    //     if ( index < 0 ) { // Adding new LinkItem
-    //       this.event.linkItems.push(linkItem);
-    //     } else {
-    //       this.event.linkItems[index] = linkItem;
-    //     }
-
-    //     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado enlace');
-
-    //   } else {
-    //     this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
-    //   }
-    // });
-
   }
 
   public shareLink(social: string) {

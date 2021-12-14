@@ -27,7 +27,7 @@
                 <img [src]="comment.userImage" alt="">
             </div>
             <div class="comment-body">
-                <button class="comment-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteComment(comment)">
+                <button *ngIf="canDelete(comment)" class="comment-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteComment(comment)">
                     <mat-icon class="btn-1" aria-label="Delete">
                         remove_circle_outline
                     </mat-icon>

@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import { IEvent } from '@models/event';
 import { IEventComment } from '@models/event-comment';
 import { EventsCommentsService } from '@services/events-comments.service';
+import { User } from '../../../core/models/user';
+import { UserRole } from '@models/user-role.enum';
 
 @Component({
   selector: 'app-event-comments-dialog',
@@ -18,8 +20,11 @@ export class EventCommentsDialogComponent implements OnInit, OnDestroy {
 
   title = 'Últimos comentarios';
   errorMessage = '';
+  public eventId: string;
   eventComment: IEventComment;
   eventCommentForm: FormGroup;
+  public userUid: string;
+  public userRole: string;
   public eventComments$: Observable<IEventComment[]>;
   private listOfObservers: Array<Subscription> = [];
 
@@ -27,12 +32,13 @@ export class EventCommentsDialogComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private eventsCommentsSrv: EventsCommentsService,
     public dialogRef: MatDialogRef<EventCommentsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public eventId: string) {
+    @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit(): void {
-
-    console.log(`eventId: ${JSON.stringify(this.eventId)}`);
+    this.eventId = this.data.eventId;
+    this.userUid = this.data.UserUid;
+    this.userRole = this.data.UserRole;
     this.eventComments$ = this.eventsCommentsSrv.getAllEventComments(this.eventId);
 
       this.eventCommentForm = this.fb.group({
@@ -66,6 +72,12 @@ export class EventCommentsDialogComponent implements OnInit, OnDestroy {
             text: error.message
           });
         });
+  }
+
+  canDelete(eventComment: IEventComment): boolean {
+    return this.userRole === UserRole.Admin ||
+    this.userRole === UserRole.Super ||
+    this.userUid === eventComment.userUid;
   }
 
   deleteComment(eventComment: IEventComment): void {
