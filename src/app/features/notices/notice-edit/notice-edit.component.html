@@ -19,8 +19,8 @@
 
                     <mat-card-content>
 
-                        <fieldset *ngIf="noticeForm.controls.alerted.value" class="marked-row text-center">
-                            <h3>Este aviso actualmente se muestra como alerta</h3>
+                        <fieldset *ngIf="noticeForm.controls.alerted.value" class="alert marked-row text-center mt-3">
+                            <span>Este aviso actualmente se muestra como alerta</span>
                         </fieldset>
 
                         <fieldset class="form-status-fields" [ngClass]="noticeForm.controls.status.value">

@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Update
 
 - `style` Delete config button into the top bar.
+- `style` Improve alert-notice.
 - `routing` Route to home page after login.
 - `routing` Route to admin page when avatar is clicked.
 

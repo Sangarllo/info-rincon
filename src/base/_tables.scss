@@ -323,6 +323,7 @@ td.mat-column-collapsed-info {
 
 .marked-row {
     background-color: $colorAlert;
+    border: 1px solid $colorAlertBorder;
     .btn-icon-1 {
         color: $colorAlert;
     }
