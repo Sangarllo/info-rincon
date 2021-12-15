@@ -27,6 +27,7 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
   uploadPercent: Observable<number>;
 
   public notice!: INotice | undefined;
+  public noticeId: string;
   public STATUS: Status[] = Notice.STATUS;
   public CATEGORIES: Category[] = NOTICE_CATEGORIES;
   private listOfObservers: Array<Subscription> = [];
@@ -42,10 +43,10 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
 
-    const idNotice = this.route.snapshot.paramMap.get('id');
-    if ( idNotice ) {
-      this.logSrv.info(`id asked ${idNotice}`);
-      this.getDetails(idNotice);
+    this.noticeId = this.route.snapshot.paramMap.get('id');
+    if ( this.noticeId ) {
+      this.logSrv.info(`id asked ${this.noticeId}`);
+      this.getDetails(this.noticeId);
     }
 
     this.noticeForm = this.fb.group({
@@ -108,6 +109,10 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
   public gotoList(): void {
     this.noticeForm.reset();
     this.router.navigate([`/${Notice.PATH_URL}`]);
+  }
+
+  public gotoItem(): void {
+    this.router.navigate([`/${Notice.PATH_URL}/${this.noticeId}`]);
   }
 
   public uploadImage(event): void {

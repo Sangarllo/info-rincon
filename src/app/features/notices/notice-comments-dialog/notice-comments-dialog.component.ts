@@ -5,43 +5,43 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
-import { IEvent } from '@models/event';
-import { IEventComment } from '@models/comment';
+import { INotice } from '@models/notice';
+import { INoticeComment } from '@models/comment';
 import { CommentsService } from '@services/comments.service';
 import { User } from '../../../core/models/user';
 import { UserRole } from '@models/user-role.enum';
 
 @Component({
-  selector: 'app-event-comments-dialog',
-  templateUrl: './event-comments-dialog.component.html',
-  styleUrls: ['./event-comments-dialog.component.scss']
+  selector: 'app-notice-comments-dialog',
+  templateUrl: './notice-comments-dialog.component.html',
+  styleUrls: ['./notice-comments-dialog.component.scss']
 })
-export class EventCommentsDialogComponent implements OnInit, OnDestroy {
+export class NoticeCommentsDialogComponent implements OnInit, OnDestroy {
 
   title = 'Últimos comentarios';
   errorMessage = '';
-  public eventId: string;
-  eventComment: IEventComment;
-  eventCommentForm: FormGroup;
+  public noticeId: string;
+  noticeComment: INoticeComment;
+  commentForm: FormGroup;
   public userUid: string;
   public userRole: string;
-  public eventComments$: Observable<IEventComment[]>;
+  public noticeComments$: Observable<INoticeComment[]>;
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private fb: FormBuilder,
-    private eventsCommentsSrv: CommentsService,
-    public dialogRef: MatDialogRef<EventCommentsDialogComponent>,
+    private commentsSrv: CommentsService,
+    public dialogRef: MatDialogRef<NoticeCommentsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit(): void {
-    this.eventId = this.data.eventId;
+    this.noticeId = this.data.noticeId;
     this.userUid = this.data.UserUid;
     this.userRole = this.data.UserRole;
-    this.eventComments$ = this.eventsCommentsSrv.getAllEventComments(this.eventId);
+    this.noticeComments$ = this.commentsSrv.getAllNoticeComments(this.noticeId);
 
-      this.eventCommentForm = this.fb.group({
+      this.commentForm = this.fb.group({
         message: [ '', []],
       });
   }
@@ -51,18 +51,18 @@ export class EventCommentsDialogComponent implements OnInit, OnDestroy {
   }
 
   sendComment(): void {
-    this.eventsCommentsSrv.addEventComment(
-        this.eventId,
-        this.eventCommentForm.controls.message.value
+    this.commentsSrv.addNoticeComment(
+        this.noticeId,
+        this.commentForm.controls.message.value
     ).then(
-      (eventComment: IEventComment) => {
+      (comment: INoticeComment) => {
 
           Swal.fire({
             icon: 'success',
             title: 'Comentario enviado con éxito',
           });
 
-          this.eventCommentForm.reset();
+          this.commentForm.reset();
         })
       .catch(
         (error) => {
@@ -74,14 +74,14 @@ export class EventCommentsDialogComponent implements OnInit, OnDestroy {
         });
   }
 
-  canDelete(eventComment: IEventComment): boolean {
+  canDelete(comment: INoticeComment): boolean {
     return this.userRole === UserRole.Admin ||
     this.userRole === UserRole.Super ||
-    this.userUid === eventComment.userUid;
+    this.userUid === comment.userUid;
   }
 
-  deleteComment(eventComment: IEventComment): void {
-    this.eventsCommentsSrv.deleteEventComment(eventComment.id);
+  deleteComment(comment: INoticeComment): void {
+    this.commentsSrv.deleteNoticeComment(comment.id);
   }
 
   ngOnDestroy(): void {

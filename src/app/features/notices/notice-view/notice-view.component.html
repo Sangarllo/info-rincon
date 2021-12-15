@@ -37,7 +37,11 @@
                             </span>
 
                             <span class="share-button">
+                            </span>
 
+                            <span *ngIf="noticeComments$ | async as noticeComments" class="fav-button" (click)="viewComments()">
+                              <mat-icon svgIcon="comments"></mat-icon>
+                              <span class="counter">{{noticeComments.length}}</span>
                             </span>
 
                         </div>

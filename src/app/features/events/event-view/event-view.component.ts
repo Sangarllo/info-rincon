@@ -15,11 +15,11 @@ import { IEventSocial } from '@models/event-social';
 import { IUser } from '@models/user';
 import { IAppointment } from '@models/appointment';
 import { IPicture } from '@models/picture';
-import { IEventComment } from '@models/event-comment';
+import { IEventComment } from '@models/comment';
 import { UserRole } from '@models/user-role.enum';
 import { EventService } from '@services/events.service';
 import { EventSocialService } from '@services/events-social.service';
-import { EventsCommentsService } from '@services/events-comments.service';
+import { CommentsService } from '@services/comments.service';
 import { UserService } from '@services/users.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { SeoService } from '@services/seo.service';
@@ -62,7 +62,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     private appointmentSrv: AppointmentsService,
     private eventSrv: EventService,
     private eventSocialSrv: EventSocialService,
-    private eventsCommentSrv: EventsCommentsService,
+    private eventsCommentSrv: CommentsService,
     private pictureSrv: PictureService,
   ) {
     this.configAllowed = false;

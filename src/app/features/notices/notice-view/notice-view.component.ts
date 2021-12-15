@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { MatIconRegistry } from '@angular/material/icon';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 
 import { environment } from '@environments/environment';
@@ -11,10 +12,14 @@ import { AuthService } from '@auth/auth.service';
 import { INotice, Notice } from '@models/notice';
 import { IUser } from '@models/user';
 import { UserRole } from '@models/user-role.enum';
+import { INoticeComment } from '@models/comment';
 import { NoticeService } from '@services/notices.service';
 import { LogService } from '@services/log.service';
 import { SeoService } from '@services/seo.service';
 import { UserService } from '@services/users.service';
+import { CommentsService } from '@services/comments.service';
+
+import { NoticeCommentsDialogComponent } from '@features/notices/notice-comments-dialog/notice-comments-dialog.component';
 
 @Component({
   selector: 'app-notice-view',
@@ -27,10 +32,13 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
   public idNotice: string;
   public configAllowed: boolean;
   public notice: INotice;
+  public noticeComments$: Observable<INoticeComment[]>;
+  public dialogConfig = new MatDialogConfig();
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public authSvc: AuthService,
+    public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
     private seo: SeoService,
@@ -39,8 +47,12 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
     private logSrv: LogService,
     private userSrv: UserService,
     private noticeSrv: NoticeService,
+    private commentsSrv: CommentsService,
     ) {
       this.configAllowed = false;
+      this.dialogConfig.disableClose = true;
+      this.dialogConfig.autoFocus = true;
+      this.dialogConfig.width = '600px';
 
       this.matIconRegistry.addSvgIcon(
         `whatsapp`,
@@ -55,6 +67,11 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
       this.matIconRegistry.addSvgIcon(
         `twitter`,
         this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/twitter.svg')
+      );
+
+      this.matIconRegistry.addSvgIcon(
+        `comments`,
+        this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/comments.svg')
       );
 
       const subs1$ = this.authSvc.afAuth.user
@@ -74,6 +91,7 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.idNotice = this.route.snapshot.paramMap.get('id');
+    this.noticeComments$ = this.commentsSrv.getAllNoticeComments(this.idNotice);
     if ( this.idNotice ) {
       this.logSrv.info(`id asked ${this.idNotice}`);
       this.getDetails(this.idNotice);
@@ -105,6 +123,19 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
 
   public editItem(): void {
     this.router.navigate([`/${Notice.PATH_URL}/${this.idNotice}/editar`]);
+  }
+
+  public viewComments(): void {
+
+    this.dialogConfig.width = '600px';
+    this.dialogConfig.height = '600px';
+    this.dialogConfig.data = {
+      noticeId: this.notice.id,
+      UserUid: this.userLogged?.uid ?? '',
+      UserRole: this.userLogged?.role ?? '',
+    };
+
+    const dialogRef = this.dialog.open(NoticeCommentsDialogComponent, this.dialogConfig);
   }
 
   public shareLink(social: string) {
