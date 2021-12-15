@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable, combineLatest, Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { IBase, BaseType, Base } from '@models/base';
 import { EventService } from '@services/events.service';
 import { LinksService } from '@services/links.services';
 import { NoticeService } from '@services/notices.service';
-import { StoriesService } from '@services/stories.service';
+// import { StoriesService } from '@services/stories.service';
 import { LogService } from '@services/log.service';
 
 @Component({
@@ -20,25 +20,22 @@ import { LogService } from '@services/log.service';
 })
 export class StoriesPanelComponent implements OnInit {
 
+  @Input() stories: IBase[];
   public links$: Observable<ILink[]>;
   public notices$: Observable<INotice[]>;
   public events$: Observable<IEvent[]>;
   public REAL_STORIES: IBase[];
-  public stories$: Observable<IBase[]>;
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private router: Router,
     private logSrv: LogService,
-    private storiesSrv: StoriesService,
     private noticesSrv: NoticeService,
     private linksSrv: LinksService,
     private eventsSrv: EventService,
   ) { }
 
   ngOnInit(): void {
-
-    this.stories$ = this.storiesSrv.getStories();
 
     // this.links$ = this.linksSrv.getAllLinks(true, true, 2);
     // this.notices$ = this.noticesSrv.getAllNotices(true, true, 2);

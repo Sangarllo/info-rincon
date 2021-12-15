@@ -22,17 +22,20 @@
     </mat-expansion-panel>
 
     <!-- Stories Panel -->
-    <mat-expansion-panel class="expansion-panel" [expanded]="true" hideToggle>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <span class="expansion-panel__text">📡</span>&nbsp;&nbsp;
-                <span class="expansion-panel__text">Hoy destacamos en portada...</span>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
+    <div *ngIf="stories$ | async as stories">
+        <mat-expansion-panel *ngIf="stories.length > 0" class="expansion-panel" [expanded]="true" hideToggle>
 
-        <app-stories-panel></app-stories-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <span class="expansion-panel__text">📡</span>&nbsp;&nbsp;
+                    <span class="expansion-panel__text">Hoy destacamos en portada...</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
 
-    </mat-expansion-panel>
+            <app-stories-panel [stories]="stories"></app-stories-panel>
+
+        </mat-expansion-panel>
+    </div>
 
     <!-- Events Panel -->
     <mat-expansion-panel class="expansion-panel" [expanded]="true" hideToggle>

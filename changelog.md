@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `style` Improve alert-notice.
 - `routing` Route to home page after login.
 - `routing` Route to admin page when avatar is clicked.
+- `feature` Only show stories expansion-panel if exists stories.
 
 ## [0.2.4] - Update to Angular 13
 

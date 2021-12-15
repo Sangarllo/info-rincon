@@ -20,9 +20,8 @@ export class CalendarEventItemsPanelComponent implements OnInit {
   public onlyEvent: IBase;
   public eventPlace: IPlace;
   public eventStart: string;
-
-  private listOfObservers: Array<Subscription> = [];
   public dialogConfig = new MatDialogConfig();
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public dialog: MatDialog,

@@ -19,7 +19,9 @@ import {
 
 import { CalendarEventsService } from '@services/calendar-events.service';
 import { NoticeService } from '@services/notices.service';
+import { StoriesService } from '@services/stories.service';
 import { INotice } from '@models/notice';
+import { IBase } from '@models/base';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +35,7 @@ export class HomeComponent implements OnInit {
 
   public alertedNotice: INotice;
   public theAlertedNotice$: Observable<INotice>;
+  public stories$: Observable<IBase[]>;
 
   view: CalendarView = CalendarView.Day;
   viewDate: Date = new Date();
@@ -46,6 +49,7 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private calEventsSrv: CalendarEventsService,
     private noticesSrv: NoticeService,
+    private storiesSrv: StoriesService,
     ) {
     }
 
@@ -58,6 +62,8 @@ export class HomeComponent implements OnInit {
       .pipe(
         map( notices => notices[0] )
       );
+
+    this.stories$ = this.storiesSrv.getStories();
 
     // this.fetchEvents();
   }
