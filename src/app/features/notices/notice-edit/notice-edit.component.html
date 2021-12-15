@@ -41,7 +41,18 @@
 
                                 <mat-slide-toggle class="col-12 col-md-4" formControlName="active">Aviso activo</mat-slide-toggle>
 
-                                <mat-slide-toggle class="col-12 col-md-6" formControlName="focused">Aviso en portada</mat-slide-toggle>
+                                <mat-slide-toggle class="col-12 col-md-4" formControlName="focused">Aviso en portada</mat-slide-toggle>
+
+                                <div class="buttons col-12 col-md-2">
+                                    <button [disabled]="notice.status !== 'VISIBLE'" mat-fab class="btn-1" (click)="gotoItemView()">
+                                      VER
+                                    </button>
+                                </div>
+
+                                <div class="help-container alert alert-danger col-12" *ngIf="notice.status !== 'VISIBLE'">
+                                    💡 El botón VER está deshabilitado porque el aviso no está guardado como estado
+                                    <B>VISIBLE</B>.
+                                </div>
 
                             </div>
 

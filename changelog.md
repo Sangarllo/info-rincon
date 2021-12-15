@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Add comments feature.
 - `admin` Add angularFire auth admin.
 - `admin` Set control about who can delete comments.
+- `style` Improve notice edition style.
 
 ### Fix
 

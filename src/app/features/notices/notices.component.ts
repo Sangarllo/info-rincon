@@ -77,7 +77,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
     this.router.navigate([`avisos/${notice.id}`]);
   }
 
-  public editItem(notice: INotice): void {
+  public gotoItemConfig(notice: INotice): void {
     this.router.navigate([`avisos/${notice.id}/editar`]);
   }
 

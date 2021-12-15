@@ -18,4 +18,8 @@ export class NoticeExpansionPanelComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  openNoticeClicked(notice: INotice): void {
+    this.router.navigate([`/avisos/${notice.id}`]);
+  }
 }
