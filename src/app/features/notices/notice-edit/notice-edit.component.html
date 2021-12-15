@@ -26,16 +26,9 @@
                         <fieldset class="form-status-fields" [ngClass]="noticeForm.controls.status.value">
                             <legend>Estado del Aviso</legend>
 
-                            <!--
-                            <mat-form-field appearance="outline">
-                                <mat-label>Id</mat-label>
-                                <input matInput type="text" formControlName="id" placeholder="Id">
-                            </mat-form-field>
-                            -->
-
                             <div class="row">
 
-                                <mat-form-field class="col-3" appearance="outline">
+                                <mat-form-field class="col-12" appearance="outline">
                                     <mat-label>Estado</mat-label>
 
                                     <mat-select formControlName="status" [value]="noticeForm.get('status')">
@@ -46,9 +39,9 @@
 
                                 </mat-form-field>
 
-                                <mat-slide-toggle class="col-2 mb-3 ml-2" formControlName="active">Aviso activo</mat-slide-toggle>
+                                <mat-slide-toggle class="col-12 col-md-4" formControlName="active">Aviso activo</mat-slide-toggle>
 
-                                <mat-slide-toggle class="col-2 mb-3 ml-2" formControlName="focused">Aviso en portada</mat-slide-toggle>
+                                <mat-slide-toggle class="col-12 col-md-6" formControlName="focused">Aviso en portada</mat-slide-toggle>
 
                             </div>
 
