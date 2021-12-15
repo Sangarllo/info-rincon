@@ -73,9 +73,7 @@ const routes: Routes = [
   },
   {
     path: 'noticias',
-    loadChildren: () => import('./features/news/news.module').then(m => m.NewsModule),
-    canActivate: [ AngularFireAuthGuard ],
-    data: { authGuardPipe: redirectUnauthorizedToLogin },
+    loadChildren: () => import('./features/news/news.module').then(m => m.NewsModule)
   },
   {
     path: 'imagenes',
