@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Add
 
 - `feature` Add comments feature to events and notices.
-- `admin` Add angularFire auth admin.
+- `admin` Add angularFire guards to get admin access.
 - `admin` Set control about who can delete comments.
 - `style` Improve notice edition style.
 

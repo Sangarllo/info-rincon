@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// import { AuthGuard } from '@guards/auth.guard';
-import {
-  AngularFireAuthGuard,
-  redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+
 import { HomeComponent } from '@pages/home/home.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
@@ -68,8 +66,6 @@ const routes: Routes = [
   {
     path: 'avisos',
     loadChildren: () => import('./features/notices/notices.module').then(m => m.NoticesModule),
-    canActivate: [ AngularFireAuthGuard ],
-    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'enlaces',
