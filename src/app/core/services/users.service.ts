@@ -73,6 +73,11 @@ export class UserService {
       );
   }
 
+  async getUserRole(userUid): Promise<UserRole> {
+    const user = await this.getOneUser(userUid).toPromise();
+    return user.role;
+  }
+
   // TODO When creating, perhaps existing as authenticated (check email)
   addUser(user: IUser): void {
     const uidUser = this.afs.createId();
