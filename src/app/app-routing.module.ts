@@ -70,8 +70,6 @@ const routes: Routes = [
   {
     path: 'enlaces',
     loadChildren: () => import('./features/links/links.module').then(m => m.LinksModule),
-    canActivate: [ AngularFireAuthGuard ],
-    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'noticias',
