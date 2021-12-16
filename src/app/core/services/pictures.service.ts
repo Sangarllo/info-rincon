@@ -98,4 +98,24 @@ export class PictureService {
   getImagesFromPictures(pictures: IPicture[]): string[] {
     return pictures.map(picture => Picture.getImageIdFromPicture(picture));
   }
+
+  getThumbnail(fileName): string {
+    return this.getResizedName(fileName, Picture.THUMB_SIZE);
+  }
+
+  private getResizedName(fileName, dimensions): string {
+    const index1 = fileName.lastIndexOf('/o/');
+    const path1 = fileName.substring(0, index1 + 3);
+    // console.log(`image2: ${path1}`);
+    const path1Rem = fileName.substring(index1 + 3);
+    const index2 = path1Rem.lastIndexOf('.');
+    const path2 = path1Rem.substring(0, index2);
+    const path2Rem = path1Rem.substring(index2);
+    // console.log(`image3: ${path2}`);
+    const fileNameResized = `${path1}thumbnails%2F${path2}_${dimensions}${path2Rem}`;
+    const index3 = fileNameResized.lastIndexOf('&token');
+
+    //console.log(`image:: ${fileNameResized.substring(0, index3)}`);
+    return `${fileNameResized.substring(0, index3)}`;
+  }
 }

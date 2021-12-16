@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 
 import { IEntity } from '@models/entity';
 import { EntityService } from '@services/entities.service';
+import { PictureService } from '@services/pictures.service';
 import { LogService } from '@services/log.service';
 import { SpinnerService } from '@services/spinner.service';
 
@@ -34,6 +35,7 @@ export class EntitiesComponent implements OnInit, OnDestroy {
     private router: Router,
     private logSrv: LogService,
     private entitySrv: EntityService,
+    private pictureSrv: PictureService,
     private spinnerSvc: SpinnerService
   ) {
     this.spinnerSvc.show();
@@ -60,12 +62,16 @@ export class EntitiesComponent implements OnInit, OnDestroy {
     this.listOfObservers.push(subs1$);
   }
 
-    applyFilter(filterValue: string): void {
+  applyFilter(filterValue: string): void {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getThumbnail(image: string): string {
+    return this.pictureSrv.getThumbnail(image);
   }
 
   public gotoItem(entity: IEntity): void {

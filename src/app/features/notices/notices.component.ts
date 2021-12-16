@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 
 import { INotice } from '@models/notice';
 import { NoticeService } from '@services/notices.service';
+import { PictureService } from '@services/pictures.service';
 import { UtilsService } from '@services/utils.service';
 import { LogService } from '@services/log.service';
 import { SpinnerService } from '@services/spinner.service';
@@ -36,6 +37,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
     private logSrv: LogService,
     private spinnerSvc: SpinnerService,
     private noticeSrv: NoticeService,
+    private pictureSrv: PictureService,
   ) {
     this.spinnerSvc.show();
   }
@@ -71,6 +73,10 @@ export class NoticesComponent implements OnInit, OnDestroy {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getThumbnail(image: string): string {
+    return this.pictureSrv.getThumbnail(image);
   }
 
   public gotoItem(notice: INotice): void {

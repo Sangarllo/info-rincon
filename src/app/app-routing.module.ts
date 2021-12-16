@@ -50,8 +50,6 @@ const routes: Routes = [
     path: 'usuarios',
     loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
     canActivate: [ AdminGuard ],
-    // canActivate: [ AngularFireAuthGuard ],
-    // data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'entidades',
@@ -80,8 +78,7 @@ const routes: Routes = [
   {
     path: 'imagenes',
     loadChildren: () => import('./features/pictures/pictures.module').then(m => m.PicturesModule),
-    canActivate: [ AngularFireAuthGuard ],
-    data: { authGuardPipe: redirectUnauthorizedToLogin },
+    canActivate: [ AdminGuard ],
   },
   {
     path: 'evento',

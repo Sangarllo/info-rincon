@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 import { PlaceService } from '@services/places.service';
+import { PictureService } from '@services/pictures.service';
 import { SpinnerService } from '@services/spinner.service';
 import { IPlace } from '@models/place';
 
@@ -22,16 +23,18 @@ export class PlacesComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  private listOfObservers: Array<Subscription> = [];
   public loading = true;
   public places: IPlace[];
   public dataSource: MatTableDataSource<IPlace> = new MatTableDataSource();
   displayedColumns: string[] = [ 'id', 'image', 'collapsed-info', 'name', 'types', 'locality',  'actions3'];
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private router: Router,
     private spinnerSvc: SpinnerService,
     private placeSrv: PlaceService,
+    private pictureSrv: PictureService,
+
   ) {
     this.spinnerSvc.show();
   }
@@ -63,6 +66,10 @@ export class PlacesComponent implements OnInit, OnDestroy {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getThumbnail(image: string): string {
+    return this.pictureSrv.getThumbnail(image);
   }
 
   public gotoItem(place: IPlace): void {

@@ -14,6 +14,7 @@ import { IUser } from '@models/user';
 import { Status } from '@models/status.enum';
 import { LogService } from '@services/log.service';
 import { EventService } from '@services/events.service';
+import { PictureService } from '@services/pictures.service';
 import { SpinnerService } from '@services/spinner.service';
 
 @Component({
@@ -42,6 +43,7 @@ export class EventsComponent implements OnInit, OnDestroy {
     private logSrv: LogService,
     private spinnerSvc: SpinnerService,
     private eventSrv: EventService,
+    private pictureSrv: PictureService,
   ) {
     this.spinnerSvc.show();
   }
@@ -81,6 +83,10 @@ export class EventsComponent implements OnInit, OnDestroy {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getThumbnail(image: string): string {
+    return this.pictureSrv.getThumbnail(image);
   }
 
   public gotoItem(event: IEvent): void {

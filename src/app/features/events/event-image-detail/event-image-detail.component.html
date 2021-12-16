@@ -1,5 +1,5 @@
 <div *ngIf="eventPicture" class="main-item__image">
-    <img [src]="eventPicture.path" class="img-thumbnail main-item__image-img">
+    <img [src]="eventPicture.pathThumb" class="img-thumbnail main-item__image-img">
     <div class="buttons buttons-center">
         <button *ngIf="eventPicture.pathThumb" class="main-item__image-zoom btn-1" mat-mini-fab aria-label="Ampliar imagen del cartel" (click)="viewImage()">
           <mat-icon>open_in_new</mat-icon>
