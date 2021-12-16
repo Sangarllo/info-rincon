@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
+import { AdminGuard } from '@guards/admin.guard';
 import { HomeComponent } from '@pages/home/home.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
@@ -48,8 +49,9 @@ const routes: Routes = [
   {
     path: 'usuarios',
     loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
-    canActivate: [ AngularFireAuthGuard ],
-    data: { authGuardPipe: redirectUnauthorizedToLogin },
+    canActivate: [ AdminGuard ],
+    // canActivate: [ AngularFireAuthGuard ],
+    // data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'entidades',

@@ -12,6 +12,8 @@
 
             <div class="section-main-info">
                 Has accedido con tu email <strong>{{ user.email }}</strong>
+                <br/><br/>
+                <span *ngIf="userRole">Actualmente tienes el rol de <strong>{{ userRole }}</strong></span>
             </div>
 
             <div class="section-text">
