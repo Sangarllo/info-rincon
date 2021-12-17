@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AdminGuard } from '@guards/admin.guard';
+
 import { PlacesComponent } from '@features/places/places.component';
 import { PlaceViewComponent } from '@features/places/place-view/place-view.component';
 import { PlaceEditComponent } from '@features/places/place-edit/place-edit.component';
@@ -8,7 +10,8 @@ import { PlaceEditComponent } from '@features/places/place-edit/place-edit.compo
 const routes: Routes = [
   {
     path: '',
-    component: PlacesComponent
+    component: PlacesComponent,
+    canActivate: [ AdminGuard ],
   },
   {
     path: ':id',
@@ -17,6 +20,7 @@ const routes: Routes = [
   {
     path: ':id/editar',
     component: PlaceEditComponent,
+    canActivate: [ AdminGuard ],
   },
 ];
 

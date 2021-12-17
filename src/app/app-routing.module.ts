@@ -58,8 +58,6 @@ const routes: Routes = [
   {
     path: 'lugares',
     loadChildren: () => import('./features/places/places.module').then(m => m.PlacesModule),
-    canActivate: [ AngularFireAuthGuard ],
-    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'avisos',
