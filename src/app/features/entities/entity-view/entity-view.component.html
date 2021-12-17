@@ -1,4 +1,4 @@
-<app-section-header *ngIf="entity$ | async as entity" [title]="entity.name + ' | Entidad de Rincón de Soto'"></app-section-header>
+<app-section-header *ngIf="entity$ | async as entity" [title]="entity.name + ' | Rincón de Soto'"></app-section-header>
 
 <div class="section-wrapper">
 
@@ -15,9 +15,9 @@
 
                     <mat-tab-group>
 
-                        <mat-tab class="tab-card-detail" label="Datos de entidad">
+                        <mat-tab class="tab-card-detail" label="Info">
 
-                            <mat-form-field class="card-detail">
+                            <mat-form-field *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="entity.active" placeholder="Activo" />
                                 <mat-icon matSuffix>check_circle_outline</mat-icon>
                             </mat-form-field>
@@ -27,7 +27,7 @@
                                 <mat-icon matSuffix>assignment_ind</mat-icon>
                             </mat-form-field>
 
-                            <mat-form-field class="card-detail">
+                            <mat-form-field *ngIf="entity.description" class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="entity.description" placeholder="Descripción" />
                                 <mat-icon matSuffix>info</mat-icon>
                             </mat-form-field>
@@ -41,7 +41,7 @@
 
                         </mat-tab>
 
-                        <mat-tab class="tab-card-detail" label="Más info">
+                        <mat-tab *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="tab-card-detail" label="Más info">
 
                             <mat-form-field class="card-detail">
                                 <input matInput type="text" disabled="true" [value]="entity.roleDefault" placeholder="Rol por defecto" />
@@ -71,18 +71,9 @@
 
                 <mat-card-actions class="buttons buttons-center">
 
-                    <button mat-fab class="btn-1" (click)="gotoList()">
-                        <mat-icon>list</mat-icon>
-                    </button>
-
-                    <button mat-fab class="btn-extra" (click)="editItem()">
+                    <button *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-fab class="btn-1" (click)="editItem()">
                         <mat-icon>edit</mat-icon>
                     </button>
-
-                    <a mat-fab class="btn-extra" href="https://cards-dev.twitter.com/validator" target="blank">
-                        <mat-icon>verified</mat-icon>
-                        <!--Twitter Card Validator-->
-                    </a>
 
                 </mat-card-actions>
 

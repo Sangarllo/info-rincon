@@ -54,8 +54,6 @@ const routes: Routes = [
   {
     path: 'entidades',
     loadChildren: () => import('./features/entities/entities.module').then(m => m.EntitiesModule),
-    canActivate: [ AngularFireAuthGuard ],
-    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'lugares',

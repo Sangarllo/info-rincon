@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `style` Improve admin-menu for mobile devices.
 - `style` Improve login page for mobile devices.
 - `style` Fix getResizedImage method, and use it for dashboards.
+- `style` Limit access to controls in entity components based on roles.
 
 ### Update
 

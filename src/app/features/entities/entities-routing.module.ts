@@ -1,22 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { EntitiesComponent } from './entities.component';
-import { EntityViewComponent } from './entity-view/entity-view.component';
-import { EntityEditComponent } from './entity-edit/entity-edit.component';
+import { AdminGuard } from '@guards/admin.guard';
+
+import { EntitiesComponent } from '@features/entities/entities.component';
+import { EntityViewComponent } from '@features/entities/entity-view/entity-view.component';
+import { EntityEditComponent } from '@features/entities/entity-edit/entity-edit.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: EntitiesComponent
+    component: EntitiesComponent,
+    canActivate: [ AdminGuard ],
   },
   {
     path: ':id',
-    component: EntityViewComponent,
+    component: EntityViewComponent
   },
   {
     path: ':id/editar',
     component: EntityEditComponent,
+    canActivate: [ AdminGuard ],
   },
 ];
 
