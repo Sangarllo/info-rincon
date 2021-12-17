@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `admin` Add admin guards to get admin access.
 - `admin` Set control about who can delete comments.
 - `style` Improve notice edition style.
+- `style` Render medium-size image in event detail.
 
 ### Fix
 
@@ -31,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `style` Improve admin-menu for mobile devices.
 - `style` Improve login page for mobile devices.
 - `style` Fix getResizedImage method, and use it for dashboards.
-- `style` Limit access to controls in entity and places components based on roles.
+- `style` Limit access in entity and place module based on roles.
 
 ### Update
 

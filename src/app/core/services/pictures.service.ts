@@ -103,6 +103,10 @@ export class PictureService {
     return this.getResizedName(fileName, Picture.THUMB_SIZE);
   }
 
+  getMediumImage(fileName): string {
+    return this.getResizedName(fileName, Picture.MEDIUM_SIZE);
+  }
+
   private getResizedName(fileName, dimensions): string {
     const index1 = fileName.lastIndexOf('/o/');
     const path1 = fileName.substring(0, index1 + 3);

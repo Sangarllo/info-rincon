@@ -163,7 +163,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
                   this.seo.generateTags({
                     title: `${event.name} | Rincón de Soto`,
                     description: event.description,
-                    image: this.eventPicture.path,
+                    image: this.pictureSrv.getMediumImage(this.event.imagePath),
                   });
               });
       });
