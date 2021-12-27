@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Enable url https://agendarinconera.es/
 
+### Fix
+
+- `Style` Extract event default-image from assets.
+
 ### Update
 
 - `feature` Reduce picture model.

@@ -101,6 +101,10 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     this.router.navigate([`/${Event.PATH_URL}/${this.idEvent}`]);
   }
 
+  getMediumImage(image: string): string {
+    return this.pictureSrv.getMediumImage(image);
+  }
+
   openEventBasicDialog(): void {
     this.dialogConfig.data = this.event;
     const dialogRef = this.dialog.open(EventBasicDialogComponent, this.dialogConfig);

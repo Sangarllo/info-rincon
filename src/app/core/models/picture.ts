@@ -9,7 +9,8 @@ export interface IPicture {
 export class Picture implements IPicture {
 
   public static PATH_URL = 'pictures';
-  public static IMAGE_DEFAULT = 'assets/images/events/default.png';
+  // eslint-disable-next-line max-len
+  public static IMAGE_DEFAULT = 'https://firebasestorage.googleapis.com/v0/b/info-rincon.appspot.com/o/thumbnails%2Fdefault.png?alt=media&token=8a8dfc31-8c43-43ff-8c7e-a965b377fe41';
 
   static THUMB_SIZE = '200x200';
   static MEDIUM_SIZE = '600x600';

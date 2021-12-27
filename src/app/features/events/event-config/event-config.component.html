@@ -3,13 +3,13 @@
     <mat-card class="item-view" *ngIf="event; else loadingEventTemplate">
 
         <div class="row">
-            <div *ngIf="eventPicture" class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+            <div *ngIf="event.imagePath" class="col-lg-3 col-md-4 col-12" style="text-align: center;">
 
                 <fieldset class="event-item-detail type-other">
 
                     <legend>Imágenes ({{ event?.images?.length }})</legend>
 
-                    <img [src]="eventPicture.path" class="centered-and-cropped">
+                    <img [src]="getMediumImage(event.imagePath)" class="centered-and-cropped">
 
                     <div class="buttons">
                         <button mat-fab class="btn-1" (click)="openEventImageDialog()" color="accent">
