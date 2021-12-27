@@ -100,11 +100,13 @@ export class PictureService {
   }
 
   getThumbnail(fileName): string {
-    return this.getResizedName(fileName, Picture.THUMB_SIZE);
+    const newUrl = this.getResizedName(fileName, Picture.THUMB_SIZE);
+    return newUrl;
   }
 
   getMediumImage(fileName): string {
-    return this.getResizedName(fileName, Picture.MEDIUM_SIZE);
+    const newUrl = this.getResizedName(fileName, Picture.MEDIUM_SIZE);
+    return newUrl;
   }
 
   private getResizedName(fileName, dimensions): string {

@@ -14,6 +14,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Enabled url https//www.agendarinconera.es.
 
+## [0.2.6] - Enable url https://agendarinconera.es/
+
+### Add
+
+- `feature` Enable url https://agendarinconera.es/
+
+### Temp
+
+- `feature` Enable resize images getUrl.
+
 ## [0.2.5] - Add comments feature
 
 ### Add

@@ -18,6 +18,7 @@ import { LogService } from '@services/log.service';
 import { SeoService } from '@services/seo.service';
 import { UserService } from '@services/users.service';
 import { CommentsService } from '@services/comments.service';
+import { PictureService } from '@services/pictures.service';
 
 import { NoticeCommentsDialogComponent } from '@features/notices/notice-comments-dialog/notice-comments-dialog.component';
 
@@ -47,6 +48,7 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
     private logSrv: LogService,
     private userSrv: UserService,
     private noticeSrv: NoticeService,
+    private pictureSrv: PictureService,
     private commentsSrv: CommentsService,
     ) {
       this.configAllowed = false;
@@ -162,6 +164,10 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
 
   public viewImage(): void {
     window.open(this.notice.imagePath, '_blank');
+  }
+
+  getMediumImage(image: string): string {
+    return this.pictureSrv.getMediumImage(image);
   }
 
   private canConfig(userLogged: IUser): boolean {
