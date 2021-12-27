@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-import { IEvent } from '@models/event';
-import { IPicture } from '@models/picture';
 import { PictureService } from '@services/pictures.service';
 
 @Component({
@@ -11,15 +9,14 @@ import { PictureService } from '@services/pictures.service';
 })
 export class EventImageDetailComponent {
 
-  // @Input() event: IEvent;
-  @Input() eventPicture: IPicture;
+  @Input() imagePath: string;
 
   constructor(
     private pictureSrv: PictureService,
   ) { }
 
   public viewImage(): void {
-    window.open(this.eventPicture.pathLarge, '_blank');
+    window.open(this.imagePath, '_blank');
   }
 
   getMediumImage(image: string): string {

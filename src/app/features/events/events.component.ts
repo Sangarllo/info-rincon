@@ -74,6 +74,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
     });
+
     this.listOfObservers.push(subs2$);
   }
 

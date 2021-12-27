@@ -2,9 +2,6 @@ export interface IPicture {
   id: string;
   active: boolean;
   path: string;
-  pathThumb: string;
-  pathMedium: string;
-  pathLarge: string;
   timestamp: string;
   userId: string;
 }
@@ -22,9 +19,6 @@ export class Picture implements IPicture {
     public active: boolean,
 
     public path: string,
-    public pathThumb: string,
-    public pathMedium: string,
-    public pathLarge: string,
     public timestamp: string,
     public userId: string,
   ) { }
@@ -33,9 +27,6 @@ export class Picture implements IPicture {
     return new Picture(
       '0',
       true, // Active
-      Picture.IMAGE_DEFAULT, // Path
-      Picture.IMAGE_DEFAULT, // Path
-      Picture.IMAGE_DEFAULT, // Path
       Picture.IMAGE_DEFAULT, // Path
       null, // Timestamp
       null, // UserId
@@ -47,9 +38,6 @@ export class Picture implements IPicture {
       path,
       true, // Active
       path,
-      path,
-      path,
-      path,
       null, // Timestamp
       null, // UserId
     );
@@ -59,9 +47,6 @@ export class Picture implements IPicture {
     return new Picture(
       '0',
       true, // Active
-      path,
-      Picture.resizedName(path, Picture.THUMB_SIZE),
-      Picture.resizedName(path, Picture.MEDIUM_SIZE),
       path,
       null, // Timestamp
       null, // UserId

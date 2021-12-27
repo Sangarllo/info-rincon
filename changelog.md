@@ -20,9 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Enable url https://agendarinconera.es/
 
-### Temp
+### Update
 
-- `feature` Enable resize images getUrl.
+- `feature` Reduce picture model.
+- Update firebase-tools@10.0.1.
 
 ## [0.2.5] - Add comments feature
 
