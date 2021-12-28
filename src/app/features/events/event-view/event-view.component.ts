@@ -157,15 +157,13 @@ export class EventViewComponent implements OnInit, OnDestroy {
               .subscribe( (eventSocial: IEventSocial) => {
                   this.eventSocial = eventSocial;
               });
-          this.pictureSrv.getPictureFromImage(this.event.imageId)
-              .subscribe((picture: IPicture) => {
-                  this.eventPicture = picture;
-                  this.seo.generateTags({
-                    title: `${event.name} | Rincón de Soto`,
-                    description: event.description,
-                    image: this.pictureSrv.getMediumImage(this.event.imagePath),
-                  });
-              });
+          const image = this.pictureSrv.getMediumImage(this.event.imagePath);
+          console.log(`image for sharing: ${image}`);
+          this.seo.generateTags({
+                title: `${event.name} | Rincón de Soto`,
+                description: event.description,
+                image,
+          });
       });
 
     this.listOfObservers.push( subs2$ );
