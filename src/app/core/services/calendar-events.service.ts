@@ -64,7 +64,7 @@ export class CalendarEventsService {
         this.openEventDialog(event, scheduleId);
       });
 
-    this.listOfObservers.push(subs1$);
+    // this.listOfObservers.push(subs1$); TODO Remove
   }
 
   getBaseFromCalendarEvent(calEvent: CalendarEvent): Observable<IBase> {

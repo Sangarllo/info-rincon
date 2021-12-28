@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Enabled url https//www.agendarinconera.es.
 
-## [0.2.6] - Enable url https://agendarinconera.es/
+## [0.2.6] - Enable url https://agendarinconera.es/ and updgrade angular/fire 7
 
 ### Add
 
@@ -27,7 +27,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Update
 
 - `feature` Reduce picture model.
-- Update firebase-tools@10.0.1.
+- `arch` Update firebase-tools@10.0.1.
+- `arch` Update @angular/fire@7 (from 6).
+- `arch` Update firebase@9 (from 8).
+- `arch` Update rxjs@7 (from 6).
+- `arch` Update Dev firebase-admin@10 (from 8).
+- `arch` Update Dev firebase-functions@3.16 (from 3.15).
+- `arch` Update Dev firebase-tools@9 (from 8).
 
 ## [0.2.5] - Add comments feature
 

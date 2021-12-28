@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -78,7 +78,7 @@ export class PlaceEditComponent implements OnInit, OnDestroy {
             }
       });
 
-      this.listOfObservers.push(subs1$);
+      // this.listOfObservers.push(subs1$); TODO Remove
     }
   }
 
@@ -156,7 +156,7 @@ export class PlaceEditComponent implements OnInit, OnDestroy {
     const task = this.afStorage.upload(filePath, file);
 
     // observe percentage changes
-    this.uploadPercent = task.percentageChanges();
+    this.uploadPercent =  task.percentageChanges();
     // get notified when the download URL is available
     task.snapshotChanges().pipe(
         finalize(() => {

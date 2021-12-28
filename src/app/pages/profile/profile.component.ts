@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Observable, Subscription } from 'rxjs';
 
@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.getAudit(this.uidUser);
     });
 
-    this.listOfObservers.push( subs$ );
+    // this.listOfObservers.push( subs$ ); // TODO: remove
   }
 
   ngOnDestroy(): void {

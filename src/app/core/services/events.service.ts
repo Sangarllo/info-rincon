@@ -3,8 +3,8 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
   AngularFirestoreDocument
-} from '@angular/fire/firestore';
-import { AngularFireAuth } from '@angular/fire/auth';
+} from '@angular/fire/compat/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Observable, combineLatest, of } from 'rxjs';
 import { first, map, tap } from 'rxjs/operators';

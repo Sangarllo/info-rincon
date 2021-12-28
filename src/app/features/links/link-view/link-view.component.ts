@@ -69,7 +69,7 @@ export class LinkViewComponent implements OnInit, OnDestroy {
         });
       });
 
-    this.listOfObservers.push(subs1$);
+    // this.listOfObservers.push(subs1$); TODO Remove
   }
 
   public gotoUrl(): void {

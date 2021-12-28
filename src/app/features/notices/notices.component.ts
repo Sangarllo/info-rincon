@@ -64,7 +64,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
         this.dataSource.sort = this.sort;
       });
 
-    this.listOfObservers.push(subs1$);
+    // this.listOfObservers.push(subs1$); TODO Remove
   }
 
   applyFilter(filterValue: string): void {

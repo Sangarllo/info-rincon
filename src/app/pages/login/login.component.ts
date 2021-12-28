@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable, Subscription } from 'rxjs';
 
 import { AuthService } from '@auth/auth.service';
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.listOfObservers.push(subs1$);
+    // this.listOfObservers.push(subs1$); TODO Remove
   }
 
   gotoHome(): void {

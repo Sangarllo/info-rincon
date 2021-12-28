@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -70,7 +70,7 @@ export class EventEditComponent implements OnInit, OnDestroy {
       description: ''
     });
 
-    this.listOfObservers.push(subs1$);
+    // this.listOfObservers.push(subs1$); TODO Remove
   }
 
   ngOnDestroy(): void {
@@ -94,7 +94,7 @@ export class EventEditComponent implements OnInit, OnDestroy {
         }
       });
 
-      this.listOfObservers.push(subs2$);
+      // this.listOfObservers.push(subs2$); TODO Remove
     }
   }
 

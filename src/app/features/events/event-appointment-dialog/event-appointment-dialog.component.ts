@@ -66,7 +66,7 @@ export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
         }
       });
 
-      this.listOfObservers.push(subs1$);
+      // this.listOfObservers.push(subs1$); TODO Remove
     }
   }
 

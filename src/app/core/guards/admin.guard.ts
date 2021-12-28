@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { AuthService } from '@auth/auth.service';
 
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { SnackService } from '@services/snack.service';
 import { UserRole } from '@models/user-role.enum';

@@ -15,7 +15,7 @@ import { Status } from '@models/status.enum';
 import { LogService } from '@services/log.service';
 import { EventService } from '@services/events.service';
 import { SpinnerService } from '@services/spinner.service';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-events-own',

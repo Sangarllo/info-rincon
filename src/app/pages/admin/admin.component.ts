@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Observable, Subscription } from 'rxjs';
 
@@ -27,7 +27,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.userData$ = this.userSrv.getOneUser(uidUser);
     });
 
-    this.listOfObservers.push(subs1$);
+    // this.listOfObservers.push(subs1$); TODO Remove
   }
 
   ngOnDestroy(): void {

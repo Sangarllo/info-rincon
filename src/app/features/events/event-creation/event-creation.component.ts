@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Subscription } from 'rxjs';
 
@@ -55,8 +55,8 @@ export class EventCreationComponent implements OnInit, OnDestroy {
           this.role = user.role;
         });
 
-        this.listOfObservers.push(subs1$);
-        this.listOfObservers.push(subs2$);
+        // this.listOfObservers.push(subs1$); TODO Remove
+        // this.listOfObservers.push(subs2$); TODO Remove
     });
   }
 

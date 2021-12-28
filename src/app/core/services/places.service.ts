@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,7 +14,7 @@ const PLACES_COLLECTION = 'lugares';
 })
 export class PlaceService {
 
-  private placeCollection!: AngularFirestoreCollection<IPlace>;
+  private placeCollection: AngularFirestoreCollection<IPlace>;
   private placeDoc!: AngularFirestoreDocument<IPlace>;
 
   constructor(private afs: AngularFirestore) {
@@ -29,6 +29,20 @@ export class PlaceService {
     );
 
     return this.placeCollection.valueChanges();
+  }
+
+  getPlaces(): Observable<IPlace[]> {
+    return this.afs.collection<IPlace>(
+      PLACES_COLLECTION,
+      ref => ref.where('active', '==', true))
+                .snapshotChanges()
+                .pipe(
+                  map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as IPlace;
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                  }))
+                );
   }
 
   getAllPlacesBase(): Observable<IBase[]> {
