@@ -3,7 +3,7 @@
     <mat-card class="item-view" *ngIf="event; else loadingTemplate">
 
         <div *ngIf="event.status === 'VISIBLE'; else noVisibleTemplate" class="row">
-            <div *ngIf="eventPicture" class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+            <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
                 <app-event-image-detail [imagePath]="event.imagePath"></app-event-image-detail>
             </div>
 

@@ -20,14 +20,18 @@ export class SeoService {
   ) { }
 
   generateTags({ title = '', description = '', image = '' }): void {
-    this.logSrv.info(`generating tags: ${title}`);
+    console.log(`generating tags: ${title} | ${description} | ${image}`);
     this.title.setTitle(title);
 
     // Open Graph
     this.meta.updateTag({ property: 'og:url', content: `${this.baseUrl}${this.router.url}` });
     this.meta.updateTag({ property: 'og:title', content: title });
-    this.meta.updateTag({ property: 'og:description', content: description });
     this.meta.updateTag({ property: 'og:image', content: image });
+
+    if ( description ) {
+        this.meta.updateTag({ property: 'og:description', content: description });
+        this.meta.updateTag({name: 'description', content: description});
+    }
 
     this.meta.addTag(
       {name: 'fb:app_id', content: '1386530691696376'},
@@ -36,10 +40,20 @@ export class SeoService {
 
     this.meta.updateTag({ property: 'og:type', content: 'article' });
 
-    this.meta.updateTag({name: 'description', content: `description: ${description}`});
-
     // Twitter
     this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+  }
+
+  public updateDescription(description: string): void {
+    console.log(`updateDescription: ${description}`);
+    this.meta.updateTag({ name: 'description', content: description });
+    this.meta.updateTag({ property: 'og:description', content: description });
+  }
+
+  public updateDescrValues(values: string[]): void {
+    const description = values.join(' ');
+    this.meta.updateTag({ name: 'description', content: description });
+    this.meta.updateTag({ property: 'og:description', content: description });
   }
 
   // public changeTags(): void {

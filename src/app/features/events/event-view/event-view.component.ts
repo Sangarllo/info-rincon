@@ -138,6 +138,10 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.idSubevent = this.idEventUrl.split('_')[1];
 
     this.appointment$ = this.appointmentSrv.getOneAppointment(this.idEvent);
+    this.appointment$.subscribe( (appointment: IAppointment) => {
+      console.log('appointment: ' + JSON.stringify(appointment));
+      this.seo.updateDescription(appointment.description);
+    });
     this.eventComments$ = this.eventsCommentSrv.getAllEventComments(this.idEvent);
 
     if ( this.idEvent ) {

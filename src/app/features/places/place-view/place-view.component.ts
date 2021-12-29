@@ -39,13 +39,13 @@ export class PlaceViewComponent implements OnInit {
     this.logSrv.info(`id asked ${idPlace}`);
     this.place$ = this.placeSrv.getOnePlace(idPlace)
       .pipe(
-        tap(place =>
+        tap(place => {
           this.seo.generateTags({
             title: `${place.name} | Lugar de Rincón de Soto`,
             description: place.description,
             image: place.imagePath,
-          })
-        )
+          });
+        })
       );
   }
 

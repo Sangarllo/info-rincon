@@ -11,6 +11,7 @@ export interface IPlace {
   description?: string;
   locality?: string;
   roleDefault?: string;
+  categories?: string[];
 }
 
 export class Place implements IPlace, IBase {

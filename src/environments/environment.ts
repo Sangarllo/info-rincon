@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
   appVersion: '0.2.6',
-  releaseDate: '2021-12-29 11:00',
-  baseUrl: 'http://localhost:4200/',
+  releaseDate: '2021-12-29 19:30',
+  baseUrl: 'http://localhost:4200',
   setAudit: false,
   storiesNDaysAhead: 3,
   firebase: {
