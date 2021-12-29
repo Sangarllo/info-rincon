@@ -22,21 +22,28 @@ export class SeoService {
   generateTags({ title = '', description = '', image = '' }): void {
     this.logSrv.info(`generating tags: ${title}`);
     this.title.setTitle(title);
-    this.meta.addTags([
-      {name: 'keywords', content: 'Rincón de Soto'},
-      {name: 'description', content: description},
-      {name: 'robots', content: 'index, follow'},
-      // Open Graph
-      { name: 'og:url', content: `${this.baseUrl}${this.router.url}` },
-      { name: 'og:title', content: title },
-      { name: 'og:description', content: description },
-      { name: 'og:image', content: image },
-      { name: 'og:type', content: 'website' },
-      // Facebook App
-      { name: 'fb:app_id', content: '1386530691696376' },
-      // Twitter Card
-      { name: 'twitter:card', content: 'summary' },
-      // { name: 'twitter:site', content: '@fireship_dev' },
-    ]);
+
+    // Open Graph
+    this.meta.updateTag({ property: 'og:url', content: `${this.baseUrl}${this.router.url}` });
+    this.meta.updateTag({ property: 'og:title', content: title });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:image', content: image });
+
+    this.meta.addTag(
+      {name: 'fb:app_id', content: '1386530691696376'},
+      true
+    );
+
+    this.meta.updateTag({ property: 'og:type', content: 'article' });
+
+    this.meta.updateTag({name: 'description', content: `description: ${description}`});
+
+    // Twitter
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
   }
+
+  // public changeTags(): void {
+  //   this.title.setTitle('Rincón de Soto 2');
+  //   this.meta.updateTag({ name: 'description', content: 'Description 2' });
+  // }
 }
