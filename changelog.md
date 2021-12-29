@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Style` Extract event default-image from assets.
 - `Seo` Change OpenGraph meta tags.
 - `Seo` Fix creating tags from description.
+- `Style` Scape storage paths.
+- `Social` Share longest images.
 
 ### Update
 

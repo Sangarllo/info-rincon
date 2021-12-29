@@ -112,7 +112,7 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
         this.seo.generateTags({
           title: `${notice.name} | Rincón de Soto`,
           description: notice.description,
-          image: notice.thumbnailImg ?? notice.imagePath,
+          image: notice.imagePath,
         });
         this.seo.updateDescrValues(notice.categories);
       });

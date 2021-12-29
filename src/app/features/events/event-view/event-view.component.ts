@@ -161,12 +161,11 @@ export class EventViewComponent implements OnInit, OnDestroy {
               .subscribe( (eventSocial: IEventSocial) => {
                   this.eventSocial = eventSocial;
               });
-          const image = this.pictureSrv.getMediumImage(this.event.imagePath);
-          console.log(`image for sharing: ${image}`);
+          // const image = this.pictureSrv.getMediumImage(this.event.imagePath);
           this.seo.generateTags({
                 title: `${event.name} | Rincón de Soto`,
                 description: event.description,
-                image,
+                image: this.event.imagePath,
           });
       });
 
@@ -193,7 +192,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public shareLink(social: string) {
 
     const baseUrl = environment.baseUrl;
-    const routerUrl = this.router.url.substring(1);
+    const routerUrl = this.router.url;
     const SHARED_URL = `${baseUrl}${routerUrl}`;
 
     switch ( social ) {

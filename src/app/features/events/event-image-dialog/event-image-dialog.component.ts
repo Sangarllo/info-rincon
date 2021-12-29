@@ -70,7 +70,8 @@ export class EventImageDialogComponent implements OnInit {
 
     this.logSrv.info(`adding other image`);
     const file = event.target.files[0];
-    const filePath = file.name;
+    const filePath = file.name.replace(/\s/g, '');
+    console.log(`filePath1: ${filePath}`);
     const fileRef = this.afStorage.ref(filePath);
     const task = this.afStorage.upload(filePath, file);
 
