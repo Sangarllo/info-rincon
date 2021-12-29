@@ -27,7 +27,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.userData$ = this.userSrv.getOneUser(uidUser);
     });
 
-    // this.listOfObservers.push(subs1$); TODO Remove
+    this.listOfObservers.push(subs1$);
   }
 
   ngOnDestroy(): void {

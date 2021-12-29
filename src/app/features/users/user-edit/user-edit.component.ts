@@ -166,7 +166,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
           }
         });
 
-      // this.listOfObservers.push(subs1$); TODO Remove
+      this.listOfObservers.push(subs1$);
     }
   }
 

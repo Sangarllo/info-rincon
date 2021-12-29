@@ -116,7 +116,7 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
         });
       });
 
-    // this.listOfObservers.push(subs1$); TODO Remove
+    this.listOfObservers.push(subs1$);
   }
 
   public gotoList(): void {

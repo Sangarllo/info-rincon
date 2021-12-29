@@ -81,7 +81,7 @@ export class EventsFavComponent implements OnInit, OnDestroy {
       });
     });
 
-    // this.listOfObservers.push(subs1$); TODO Remove
+    this.listOfObservers.push(subs1$);
   }
 
   applyFilter(filterValue: string): void {

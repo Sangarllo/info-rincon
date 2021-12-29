@@ -57,7 +57,7 @@ export class PlacesComponent implements OnInit, OnDestroy {
       this.dataSource.sort = this.sort;
     });
 
-    // this.listOfObservers.push(subs1$); TODO Remove
+    this.listOfObservers.push(subs1$);
   }
 
   applyFilter(filterValue: string): void {

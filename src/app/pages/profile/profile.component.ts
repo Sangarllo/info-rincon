@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.getAudit(this.uidUser);
     });
 
-    // this.listOfObservers.push( subs$ ); // TODO: remove
+    this.listOfObservers.push( subs$ );
   }
 
   ngOnDestroy(): void {

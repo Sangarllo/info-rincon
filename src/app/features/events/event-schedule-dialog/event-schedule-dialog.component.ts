@@ -98,7 +98,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
           this.displayDetails();
       });
 
-    // this.listOfObservers.push(subs1$); TODO Remove
+    this.listOfObservers.push(subs1$);
   }
 
   displayDetails(): void {

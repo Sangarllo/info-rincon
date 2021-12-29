@@ -75,7 +75,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       this.getDetails(this.idEvent);
     }
 
-    // this.listOfObservers.push(subs1$); TODO Remove
+    this.listOfObservers.push(subs1$);
   }
 
   getDetails(idEvent: string): void {

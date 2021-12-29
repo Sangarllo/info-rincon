@@ -56,7 +56,7 @@ export class UserViewComponent implements OnInit, OnDestroy {
         this.auditItems = auditItems;
       });
 
-    // this.listOfObservers.push(subs1$); TODO Remove
+    this.listOfObservers.push(subs1$);
   }
 
   public gotoList(): void {

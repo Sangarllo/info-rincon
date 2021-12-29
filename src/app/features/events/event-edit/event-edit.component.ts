@@ -70,7 +70,7 @@ export class EventEditComponent implements OnInit, OnDestroy {
       description: ''
     });
 
-    // this.listOfObservers.push(subs1$); TODO Remove
+    this.listOfObservers.push(subs1$);
   }
 
   ngOnDestroy(): void {
@@ -94,7 +94,7 @@ export class EventEditComponent implements OnInit, OnDestroy {
         }
       });
 
-      // this.listOfObservers.push(subs2$); TODO Remove
+      this.listOfObservers.push(subs2$);
     }
   }
 

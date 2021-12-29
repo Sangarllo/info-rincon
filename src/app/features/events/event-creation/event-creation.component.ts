@@ -55,8 +55,8 @@ export class EventCreationComponent implements OnInit, OnDestroy {
           this.role = user.role;
         });
 
-        // this.listOfObservers.push(subs1$); TODO Remove
-        // this.listOfObservers.push(subs2$); TODO Remove
+        this.listOfObservers.push(subs1$);
+        this.listOfObservers.push(subs2$);
     });
   }
 

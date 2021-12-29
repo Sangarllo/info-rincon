@@ -54,7 +54,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         .subscribe( (currentUser: IUser) => {
             this.currentUser = currentUser;
         });
-    // this.listOfObservers.push(subs1$); TODO Remove
+    this.listOfObservers.push(subs1$);
 
     const subs2$ = this.eventSrv.getAllEventsWithAppointments(false, true, null)
         .pipe(
@@ -75,7 +75,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         this.dataSource.sort = this.sort;
     });
 
-    // this.listOfObservers.push(subs2$); TODO Remove
+    this.listOfObservers.push(subs2$);
   }
 
   applyFilter(filterValue: string): void {

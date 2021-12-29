@@ -22,11 +22,12 @@ export class AuditComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  private listOfObservers: Array<Subscription> = [];
   public loading = true;
   public users: IUser[];
   public dataSource: MatTableDataSource<IUser> = new MatTableDataSource();
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   displayedColumns: string[] = [ 'role', 'uid', 'photoURL', 'collapsed-info', 'displayName', 'lastLogin', 'actions2'];
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private router: Router,
@@ -47,7 +48,7 @@ export class AuditComponent implements OnInit, OnDestroy {
       this.dataSource.sort = this.sort;
     });
 
-    // this.listOfObservers.push(subs1$); TODO Remove
+    this.listOfObservers.push(subs1$);
   }
 
   applyFilter(filterValue: string): void {

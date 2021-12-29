@@ -48,7 +48,7 @@ export class UserAdminEntitiesComponent implements OnInit, OnDestroy {
         }
       );
 
-    // this.listOfObservers.push(subs1$); TODO Remove
+    this.listOfObservers.push(subs1$);
   }
 
   ngOnInit(): void {
@@ -71,7 +71,7 @@ export class UserAdminEntitiesComponent implements OnInit, OnDestroy {
           this.user.entitiesAdmin = this.user.entitiesAdmin ?? [];
       });
 
-    // this.listOfObservers.push(subs2$); TODO Remove
+    this.listOfObservers.push(subs2$);
   }
 
   public onSelectedOption(entity: IEntity): void {
