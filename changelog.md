@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Seo` Fix creating tags from description.
 - `Style` Scape storage paths.
 - `Social` Share longest images.
+- `Seo` Reinstall Angular Universal.
 
 ### Update
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import 'globalthis/auto';
-import 'zone.js/node';
+import 'zone.js/dist/zone-node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
@@ -41,7 +41,8 @@ export function app(): express.Express {
 }
 
 function run(): void {
-  const port = process.env.PORT || 4000;
+  // eslint-disable-next-line @typescript-eslint/dot-notation
+  const port = process.env['PORT'] || 4000;
 
   // Start up the Node server
   const server = app();
