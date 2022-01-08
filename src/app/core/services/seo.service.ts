@@ -33,11 +33,6 @@ export class SeoService {
         this.meta.updateTag({name: 'description', content: description});
     }
 
-    this.meta.addTag(
-      {name: 'fb:app_id', content: '1386530691696376'},
-      true
-    );
-
     this.meta.updateTag({ property: 'og:type', content: 'article' });
 
     // Twitter
