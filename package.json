@@ -3,9 +3,8 @@
     "version": "0.2.6",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
-        "build": "ng build",
-        "deploy-firebase": "ng build --configuration production && ng deploy",
+        "start": "npm run serve:ssr",
+        "build": "npm run build:ssr",
         "test": "ng test",
         "lint": "ng lint",
         "lint-fix": "npx ng lint info-rincon --fix",
@@ -14,8 +13,7 @@
         "serve:ssr": "node dist/info-rincon/server/main.js",
         "build:ssr": "ng build && ng run info-rincon:server",
         "prerender": "ng run info-rincon:prerender",
-        "git-log-pretty": "git log --pretty=format:\"%h%x09%an%x09%ad%x09%s\"",
-        "build-and-deploy": "ng build --configuration production && ng run info-rincon:server:production && firebase deploy --only hosting"
+        "git-log-pretty": "git log --pretty=format:\"%h%x09%an%x09%ad%x09%s\""
     },
     "private": true,
     "dependencies": {
