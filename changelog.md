@@ -18,7 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Add
 
-- `feature` Enable url https://agendarinconera.es/
+- `feature` Enable url https://agendarinconera.es/.
+- `feature` Add meta tags about the image.
+- `feature` Deployed to Heroku.
 
 ### Fix
 
