@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
-  appVersion: '0.2.6.001',
-  releaseDate: '2022-01-08 22:40',
+  appVersion: '0.2.6.004',
+  releaseDate: '2022-01-10 23:30',
   baseUrl: 'http://localhost:4200',
   setAudit: false,
   storiesNDaysAhead: 3,

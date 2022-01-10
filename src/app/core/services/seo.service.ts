@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Title, Meta } from '@angular/platform-browser';
+import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
 
@@ -51,8 +51,18 @@ export class SeoService {
     this.meta.updateTag({ property: 'og:description', content: description });
   }
 
-  // public changeTags(): void {
-  //   this.title.setTitle('Rincón de Soto 2');
-  //   this.meta.updateTag({ name: 'description', content: 'Description 2' });
-  // }
+  public changeTags(data: string): void {
+    this.title.setTitle(`nuevo título 3 ${data}`);
+    this.meta.updateTag({ name: 'description', content: `nueva descripción ${data}` });
+    this.meta.updateTag({ property: 'og:title', content: `nuevo título ${data}` });
+    this.meta.updateTag({ property: 'og:description', content: `nueva descipción ${data}` });
+    this.meta.updateTag({ property: 'og:image', content: 'https://via.placeholder.com/1200x630' });
+  }
+
+  public updateTags( title: string, desc: string, image: string): void {
+    this.title.setTitle(title);
+    this.meta.updateTag({ name: 'description', content: desc });
+    this.meta.updateTag({ property: 'og:title', content: title });
+    this.meta.updateTag({ property: 'og:image', content: image });
+  }
 }

@@ -136,11 +136,12 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.idEventUrl = this.route.snapshot.paramMap.get('id');
     this.idEvent = this.idEventUrl.split('_')[0];
     this.idSubevent = this.idEventUrl.split('_')[1];
+    this.seo.changeTags(`event ${this.idEvent}`);
 
     this.appointment$ = this.appointmentSrv.getOneAppointment(this.idEvent);
     this.appointment$.subscribe( (appointment: IAppointment) => {
       console.log('appointment: ' + JSON.stringify(appointment));
-      this.seo.updateDescription(appointment.description);
+      // this.seo.updateDescription(appointment.description);
     });
     this.eventComments$ = this.eventsCommentSrv.getAllEventComments(this.idEvent);
 
@@ -162,11 +163,11 @@ export class EventViewComponent implements OnInit, OnDestroy {
                   this.eventSocial = eventSocial;
               });
           // const image = this.pictureSrv.getMediumImage(this.event.imagePath);
-          this.seo.generateTags({
-                title: `${event.name} | Rincón de Soto`,
-                description: event.description,
-                image: this.event.imagePath,
-          });
+          // this.seo.updateTags(
+          //       `${event.name} | Rincón de Soto`,
+          //       event.description,
+          //       this.event.imagePath,
+          // );
       });
 
     this.listOfObservers.push( subs2$ );

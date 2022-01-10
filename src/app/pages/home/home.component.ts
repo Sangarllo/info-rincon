@@ -22,6 +22,13 @@ import { NoticeService } from '@services/notices.service';
 import { StoriesService } from '@services/stories.service';
 import { INotice } from '@models/notice';
 import { IBase } from '@models/base';
+import { SeoService } from '@services/seo.service';
+
+import {
+  Title,
+  Meta,
+  MetaDefinition
+} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -50,6 +57,7 @@ export class HomeComponent implements OnInit {
     private calEventsSrv: CalendarEventsService,
     private noticesSrv: NoticeService,
     private storiesSrv: StoriesService,
+    private seoSrv: SeoService
     ) {
     }
 
@@ -64,7 +72,7 @@ export class HomeComponent implements OnInit {
       );
 
     this.stories$ = this.storiesSrv.getStories();
-
+    this.seoSrv.changeTags('home');
     // this.fetchEvents();
   }
 
