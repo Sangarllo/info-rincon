@@ -229,15 +229,6 @@ export class EventService {
     );
   }
 
-  async getTagsFromEventAsync(idEvent: string): Promise<ITags> {
-    const event = await this.getOneEvent(idEvent).toPromise();
-    return {
-      name: event.name,
-      description: event.description,
-      image: event.imagePath,
-    } as ITags;
-  }
-
   getEventByUrl(sanitizedUrl: string): Observable<IEvent[]> {
 
     this.eventCollection = this.afs.collection<IEvent>(
