@@ -64,7 +64,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     private eventSrv: EventService,
     private eventSocialSrv: EventSocialService,
     private eventsCommentSrv: CommentsService,
-    private seoSrv: SeoService,
+    // private seoSrv: SeoService,
   ) {
     this.configAllowed = false;
     this.dialogConfig.disableClose = true;
@@ -134,9 +134,9 @@ export class EventViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const eventTags: ITags = this.route.snapshot.data.eventTags;
+    // const eventTags: ITags = this.route.snapshot.data.eventTags;
     // console.log(`Snapshot: ${JSON.stringify(eventTags)}`);
-    this.seoSrv.updateTags(eventTags);
+    // this.seoSrv.updateTags(eventTags);
 
     this.idEventUrl = this.route.snapshot.paramMap.get('id');
     this.idEvent = this.idEventUrl.split('_')[0];
