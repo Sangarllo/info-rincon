@@ -7,7 +7,7 @@ import {
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Observable, combineLatest, of } from 'rxjs';
-import { first, map, tap } from 'rxjs/operators';
+import { first, map, tap, take } from 'rxjs/operators';
 import { CalendarEvent } from 'angular-calendar';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -19,6 +19,7 @@ import { CalendarEventExtended, IEvent } from '@models/event';
 import { IUser } from '@models/user';
 import { AuditItem, AuditType } from '@models/audit';
 import { IEntity } from '@models/entity';
+import { ITags } from '@models/tags';
 import { ScheduleType } from '@models/shedule-type.enum';
 import { Status } from '@models/status.enum';
 import { AppointmentsService } from '@services/appointments.service';
@@ -205,6 +206,27 @@ export class EventService {
 
   getOneEvent(idEvent: string): Observable<IEvent | undefined> {
     return this.eventCollection.doc(idEvent).valueChanges({ idField: 'id' });
+  }
+
+  getImageFromEvent(idEvent: string): Observable<string> {
+    return this.eventCollection.doc(idEvent).valueChanges()
+      .pipe(
+        take(1),
+        map(event => event.imagePath)
+      );
+  }
+
+  getTagsFromEvent(idEvent: string): Observable<ITags> {
+    return this.eventCollection.doc(idEvent).valueChanges()
+      .pipe(
+        take(1),
+        map(event => ({
+          name: event.name,
+          description: event.description,
+          image: event.imagePath,
+        } as ITags)
+      )
+    );
   }
 
   getEventByUrl(sanitizedUrl: string): Observable<IEvent[]> {

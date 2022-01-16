@@ -72,15 +72,7 @@ export class HomeComponent implements OnInit {
       );
 
     this.stories$ = this.storiesSrv.getStories();
-    this.seoSrv.changeTags('home');
-    // this.fetchEvents();
   }
-
-  // fetchEvents(): void {
-  //   this.calendarEvents$ = this.calEventsSrv.getCalendarEventsByRange(
-  //     this.viewDate.toISOString().substr(0, 10),
-  //     this.viewDate.toISOString().substr(0, 10));
-  // }
 
   eventClicked(event: CalendarEvent): void {
     this.router.navigate([`eventos/${event.id}`]);

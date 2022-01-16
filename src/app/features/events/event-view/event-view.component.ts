@@ -12,11 +12,11 @@ import { AuthService } from '@auth/auth.service';
 import { Base } from '@models/base';
 import { IEvent, Event } from '@models/event';
 import { IEventSocial } from '@models/event-social';
+import { ITags } from '@models/tags';
 import { IUser } from '@models/user';
 import { IAppointment } from '@models/appointment';
 import { IPicture } from '@models/picture';
 import { IEventComment } from '@models/comment';
-import { UserRole } from '@models/user-role.enum';
 import { EventService } from '@services/events.service';
 import { EventSocialService } from '@services/events-social.service';
 import { CommentsService } from '@services/comments.service';
@@ -26,6 +26,7 @@ import { SeoService } from '@services/seo.service';
 import { PictureService } from '@services/pictures.service';
 
 import { EventCommentsDialogComponent } from '@features/events/event-comments-dialog/event-comments-dialog.component';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-event-view',
@@ -52,10 +53,10 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
   constructor(
     public authSvc: AuthService,
+    private afs: AngularFirestore,
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private seo: SeoService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private userSrv: UserService,
@@ -63,7 +64,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     private eventSrv: EventService,
     private eventSocialSrv: EventSocialService,
     private eventsCommentSrv: CommentsService,
-    private pictureSrv: PictureService,
+    private seoSrv: SeoService,
   ) {
     this.configAllowed = false;
     this.dialogConfig.disableClose = true;
@@ -133,16 +134,18 @@ export class EventViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const eventTags: ITags = this.route.snapshot.data.eventTags;
+    // console.log(`Snapshot: ${JSON.stringify(eventTags)}`);
+    this.seoSrv.updateTags(eventTags);
+
     this.idEventUrl = this.route.snapshot.paramMap.get('id');
     this.idEvent = this.idEventUrl.split('_')[0];
     this.idSubevent = this.idEventUrl.split('_')[1];
-    this.seo.changeTags(`event ${this.idEvent}`);
 
     this.appointment$ = this.appointmentSrv.getOneAppointment(this.idEvent);
-    this.appointment$.subscribe( (appointment: IAppointment) => {
-      console.log('appointment: ' + JSON.stringify(appointment));
-      // this.seo.updateDescription(appointment.description);
-    });
+    // this.appointment$.subscribe( (appointment: IAppointment) => {
+    //   console.log('appointment: ' + JSON.stringify(appointment));
+    // });
     this.eventComments$ = this.eventsCommentSrv.getAllEventComments(this.idEvent);
 
     if ( this.idEvent ) {
@@ -162,12 +165,6 @@ export class EventViewComponent implements OnInit, OnDestroy {
               .subscribe( (eventSocial: IEventSocial) => {
                   this.eventSocial = eventSocial;
               });
-          // const image = this.pictureSrv.getMediumImage(this.event.imagePath);
-          // this.seo.updateTags(
-          //       `${event.name} | Rincón de Soto`,
-          //       event.description,
-          //       this.event.imagePath,
-          // );
       });
 
     this.listOfObservers.push( subs2$ );

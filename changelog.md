@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Enable url https://agendarinconera.es/.
 - `feature` Add meta tags about the image.
 - `feature` Deployed to Heroku.
+- `feature` Add resolver for eventView to update tags for seo.
 
 ### Fix
 

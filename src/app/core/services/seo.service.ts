@@ -3,6 +3,7 @@ import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
 
+import { ITags } from '@models/tags';
 import { LogService } from '@services/log.service';
 
 @Injectable({
@@ -39,30 +40,14 @@ export class SeoService {
     this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
   }
 
-  public updateDescription(description: string): void {
-    console.log(`updateDescription: ${description}`);
-    this.meta.updateTag({ name: 'description', content: description });
-    this.meta.updateTag({ property: 'og:description', content: description });
-  }
 
-  public updateDescrValues(values: string[]): void {
-    const description = values.join(' ');
-    this.meta.updateTag({ name: 'description', content: description });
-    this.meta.updateTag({ property: 'og:description', content: description });
-  }
-
-  public changeTags(data: string): void {
-    this.title.setTitle(`nuevo título 3 ${data}`);
-    this.meta.updateTag({ name: 'description', content: `nueva descripción ${data}` });
-    this.meta.updateTag({ property: 'og:title', content: `nuevo título ${data}` });
-    this.meta.updateTag({ property: 'og:description', content: `nueva descipción ${data}` });
-    this.meta.updateTag({ property: 'og:image', content: 'https://via.placeholder.com/1200x630' });
-  }
-
-  public updateTags( title: string, desc: string, image: string): void {
-    this.title.setTitle(title);
-    this.meta.updateTag({ name: 'description', content: desc });
-    this.meta.updateTag({ property: 'og:title', content: title });
-    this.meta.updateTag({ property: 'og:image', content: image });
+  public updateTags( tags: ITags): void {
+    // console.log(`updateTags: ${JSON.stringify(tags)}`);
+    this.title.setTitle(tags.name);
+    this.meta.updateTag({ name: 'description', content: tags.description });
+    this.meta.updateTag({ property: 'og:description', content: tags.description });
+    this.meta.updateTag({ property: 'og:title', content: tags.name });
+    this.meta.updateTag({ property: 'og:image', content: tags.image });
+    this.meta.updateTag({ property: 'og:image:alt', content: tags.name });
   }
 }

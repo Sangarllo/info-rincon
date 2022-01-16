@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
 
 import { AdminGuard } from '@guards/admin.guard';
-
+import { EventResolver } from '@resolvers/event.resolver';
 
 import { EventsComponent } from '@features/events/events.component';
 import { EventsFavComponent } from '@features/events/events-fav/events-fav.component';
@@ -44,6 +44,9 @@ const routes: Routes = [
   {
     path: ':id',
     component: EventViewComponent,
+    resolve: {
+      eventTags: EventResolver,
+    }
   },
   {
     path: ':id/editar',

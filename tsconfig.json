@@ -9,6 +9,7 @@
       "@base/*": ["src/base/*"],
       "@pages/*": ["./src/app/pages/*"],
       "@features/*": ["./src/app/features/*"],
+      "@resolvers/*": ["./src/app/core/resolvers/*"],
       "@services/*": ["./src/app/core/services/*"],
       "@models/*": ["src/app/core/models/*"],
       "@interceptors/*": ["src/app/core/interceptors/*"],
