@@ -49,5 +49,13 @@ export class SeoService {
     this.meta.updateTag({ property: 'og:title', content: tags.name });
     this.meta.updateTag({ property: 'og:image', content: tags.image });
     this.meta.updateTag({ property: 'og:image:alt', content: tags.name });
+
+    if ( tags.imageWidth ) {
+      this.meta.updateTag({ property: 'og:image:width', content: tags.imageWidth.toString() });
+    }
+
+    if ( tags.imageHeight ) {
+      this.meta.updateTag({ property: 'og:image:width', content: tags.imageHeight.toString() });
+    }
   }
 }
