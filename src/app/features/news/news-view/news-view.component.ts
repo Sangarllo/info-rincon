@@ -15,10 +15,10 @@ import { SeoService } from '@services/seo.service';
 })
 export class NewsViewComponent implements OnInit, OnDestroy {
 
-  private listOfObservers: Array<Subscription> = [];
   public idNewsItem: string;
   public newsItem: INewsItem;
   public urlNewsItem: string;
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private route: ActivatedRoute,

@@ -114,7 +114,6 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
           description: notice.description,
           image: notice.imagePath,
         });
-        this.seo.updateDescrValues(notice.categories);
       });
 
     this.listOfObservers.push(subs1$);
