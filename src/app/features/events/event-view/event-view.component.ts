@@ -133,21 +133,28 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.listOfObservers.push( subs1$ );
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+
     // const eventTags: ITags = this.route.snapshot.data.eventTags;
     // console.log(`Snapshot: ${JSON.stringify(eventTags)}`);
-    const eventTags = {
-      name: 'Carrera Nocturna',
-      description: 'Carrera Nocturna Descripción',
-      // eslint-disable-next-line max-len
-      image: 'https://firebasestorage.googleapis.com/v0/b/info-rincon.appspot.com/o/thumbnails%2Fcartel-carrera-nocturna-rincon-de-soto-2022-mini_600x600.jpg?alt=media',
-      imageWidth: 424,
-      imageHeight: 600,
-    } as ITags;
-    this.seoSrv.updateTags(eventTags);
+
+    // const eventTags = {
+    //   name: 'Carrera Nocturna',
+    //   description: 'Carrera Nocturna Descripción',
+    // eslint-disable-next-line max-len
+    // image: 'https://firebasestorage.googleapis.com/v0/b/info-rincon.appspot.com/o/thumbnails%2Fcartel-carrera-nocturna-rincon-de-soto-2022-mini_600x600.jpg?alt=media',
+    //   imageWidth: 424,
+    //   imageHeight: 600,
+    // } as ITags;
+    // this.seoSrv.updateTags(eventTags);
 
     this.idEventUrl = this.route.snapshot.paramMap.get('id');
     this.idEvent = this.idEventUrl.split('_')[0];
+
+    const eventTags2 = await this.eventSrv.getTagsFromEventAsync(this.idEvent);
+    console.log(`EventTags2: ${JSON.stringify(eventTags2)}`);
+    this.seoSrv.updateTags(eventTags2);
+
     this.idSubevent = this.idEventUrl.split('_')[1];
 
     this.appointment$ = this.appointmentSrv.getOneAppointment(this.idEvent);
