@@ -141,14 +141,16 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.idEventUrl = this.route.snapshot.paramMap.get('id');
     this.idEvent = this.idEventUrl.split('_')[0];
 
-    const eventTags = {
-      name: 'Carrera Nocturna 2',
-      description: 'Carrera Nocturna Descripción 2',
-      //eslint-disable-next-line max-len
-      image: 'https://firebasestorage.googleapis.com/v0/b/info-rincon.appspot.com/o/thumbnails%2Fcartel-carrera-nocturna-rincon-de-soto-2022-mini_600x600.jpg?alt=media',
-      imageWidth: 424,
-      imageHeight: 600,
-    } as ITags;
+    // const eventTags = {
+    //   name: 'Carrera Nocturna 2',
+    //   description: 'Carrera Nocturna Descripción 2',
+    //   eslint-disable-next-line max-len
+    //   image: 'https://firebasestorage.googleapis.com/v0/b/info-rincon.appspot.com/o/thumbnails%2Fcartel-carrera-nocturna-rincon-de-soto-2022-mini_600x600.jpg?alt=media',
+    //   imageWidth: 424,
+    //   imageHeight: 600,
+    // } as ITags;
+    const eventTags: ITags = this.route.snapshot.data.eventTags;
+
     this.seoSrv.updateTags(eventTags);
 
     // const eventTags2 = await this.eventSrv.getTagsFromEventAsync(this.idEvent);

@@ -55,7 +55,7 @@ export class SeoService {
     }
 
     if ( tags.imageHeight ) {
-      this.meta.updateTag({ property: 'og:image:width', content: tags.imageHeight.toString() });
+      this.meta.updateTag({ property: 'og:image:height', content: tags.imageHeight.toString() });
     }
   }
 }
