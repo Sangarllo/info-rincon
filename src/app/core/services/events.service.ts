@@ -6,7 +6,7 @@ import {
 } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
-import { Observable, combineLatest, of } from 'rxjs';
+import { Observable, combineLatest, of, firstValueFrom } from 'rxjs';
 import { first, map, tap, take } from 'rxjs/operators';
 import { CalendarEvent } from 'angular-calendar';
 import { formatDistance } from 'date-fns';
@@ -206,6 +206,13 @@ export class EventService {
 
   getOneEvent(idEvent: string): Observable<IEvent | undefined> {
     return this.eventCollection.doc(idEvent).valueChanges({ idField: 'id' });
+  }
+
+  async getOneEventAsync(idEvent: string): Promise<IEvent | undefined> {
+    const firstValue = await firstValueFrom(
+        this.eventCollection.doc(idEvent).valueChanges()
+    );
+    return firstValue;
   }
 
   getImageFromEvent(idEvent: string): Observable<string> {

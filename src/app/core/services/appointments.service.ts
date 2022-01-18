@@ -27,7 +27,7 @@ export class AppointmentsService {
 
   getAppointmentsByRange( dateMin: string, dateMax: string, includeSlices: boolean ): Observable<IAppointment[]> {
 
-      console.log(`getAppointmentsByRange( ${dateMin}, ${dateMax}, ${includeSlices}`);
+      // console.log(`getAppointmentsByRange( ${dateMin}, ${dateMax}, ${includeSlices})`);
       this.appointmentCollection = this.afs.collection<IAppointment>(
           APPOINTMENTS_COLLECTION,
           ref => ref.where('dateIni', '>=', dateMin)
