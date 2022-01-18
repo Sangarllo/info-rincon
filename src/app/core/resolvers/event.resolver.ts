@@ -33,16 +33,16 @@ export class EventResolver implements Resolve<Observable<any>> {
 
     console.log(`resolver eventTags: ${JSON.stringify(eventTags)}`);
 
-    const event = await this.eventSrv.getOneEventAsync(eventId);
-    const eventTags2 = {
-      name: event.name,
-      description: event.description,
-      image: event.imagePath,
-    } as ITags;
+    // const event = await this.eventSrv.getOneEventAsync(eventId);
+    // const eventTags2 = {
+    //   name: event.name,
+    //   description: event.description,
+    //   image: event.imagePath,
+    // } as ITags;
 
-    console.log(`resolver eventTags2: ${JSON.stringify(eventTags2)}`);
+    // console.log(`resolver eventTags2: ${JSON.stringify(eventTags2)}`);
 
-      return of(eventTags2);
+      return of(eventTags);
     // return this.eventSrv.getTagsFromEvent(eventId);
   }
 }
