@@ -9,6 +9,7 @@ if (environment.production) {
 }
 
 // document.addEventListener('DOMContentLoaded', () => {
+//   // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 //   function bootstrap() {
 //      platformBrowserDynamic().bootstrapModule(AppModule)
 //   .catch(err => console.error(err));
@@ -23,7 +24,20 @@ if (environment.production) {
 
 // });
 
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener('DOMContentLoaded', () => {
+//   platformBrowserDynamic().bootstrapModule(AppModule)
+//     .catch(err => console.error(err));
+// });
+
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+function bootstrap() {
   platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
-});
+    .catch(err => console.error(err));
+};
+
+
+if (document.readyState === 'complete') {
+  bootstrap();
+} else {
+  document.addEventListener('DOMContentLoaded', bootstrap);
+}
