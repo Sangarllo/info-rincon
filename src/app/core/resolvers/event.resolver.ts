@@ -20,19 +20,19 @@ export class EventResolver implements Resolve<Observable<any>> {
   }
 
   async resolve(route: ActivatedRouteSnapshot): Promise<Observable<ITags>> {
-    // const eventId = route.paramMap.get('id');
-    // return this.eventSrv.getTagsFromEvent(eventId);
+    const eventId = route.paramMap.get('id');
+    return this.eventSrv.getTagsFromEvent(eventId);
 
-    const eventTags = {
-      name: 'Carrera Nocturna 5',
-      description: 'Carrera Nocturna Descripción 5',
-      //eslint-disable-next-line max-len
-      image: 'https://firebasestorage.googleapis.com/v0/b/info-rincon.appspot.com/o/thumbnails%2Fcartel-carrera-nocturna-rincon-de-soto-2022-mini_600x600.jpg?alt=media',
-      imageWidth: 424,
-      imageHeight: 600,
-    } as ITags;
+    // const eventTags = {
+    //   name: 'Carrera Nocturna 5',
+    //   description: 'Carrera Nocturna Descripción 5',
+    //eslint-disable-next-line max-len
+    //   image: 'https://firebasestorage.googleapis.com/v0/b/info-rincon.appspot.com/o/thumbnails%2Fcartel-carrera-nocturna-rincon-de-soto-2022-mini_600x600.jpg?alt=media',
+    //   imageWidth: 424,
+    //   imageHeight: 600,
+    // } as ITags;
 
-    console.log(`resolver eventTags: ${JSON.stringify(eventTags)}`);
-    return of(eventTags);
+    // console.log(`resolver eventTags: ${JSON.stringify(eventTags)}`);
+    // return of(eventTags);
   }
 }

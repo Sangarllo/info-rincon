@@ -27,6 +27,7 @@ import { PictureService } from '@services/pictures.service';
 
 import { EventCommentsDialogComponent } from '@features/events/event-comments-dialog/event-comments-dialog.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-event-view',
@@ -135,27 +136,17 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
 
-    // const eventTags: ITags = this.route.snapshot.data.eventTags;
-    // console.log(`Snapshot: ${JSON.stringify(eventTags)}`);
+    // const eventTagsResolver: ITags = this.route.snapshot.data.eventTags;
+    // console.log(`Event Resolver: ${JSON.stringify(eventTagsResolver)}`);
 
     this.idEventUrl = this.route.snapshot.paramMap.get('id');
     this.idEvent = this.idEventUrl.split('_')[0];
 
-    const eventTags = {
-      name: 'Carrera Nocturna 4',
-      description: 'Carrera Nocturna Descripción 4',
-      // eslint-disable-next-line max-len
-      image: 'https://firebasestorage.googleapis.com/v0/b/info-rincon.appspot.com/o/thumbnails%2Fcartel-carrera-nocturna-rincon-de-soto-2022-mini_600x600.jpg?alt=media',
-      imageWidth: 424,
-      imageHeight: 600,
-    } as ITags;
-    // const eventTags: ITags = this.route.snapshot.data.eventTags;
-    console.log(`EventTags 1st update: ${JSON.stringify(eventTags)}`);
-    this.seoSrv.updateTags(eventTags);
-
-    // const eventTags2 = await this.eventSrv.getTagsFromEventAsync(this.idEvent);
-    // console.log(`EventTags2: ${JSON.stringify(eventTags2)}`);
-    // this.seoSrv.updateTags(eventTags2);
+    this.eventSrv.getTagsFromEvent(this.idEvent)
+      .subscribe( (eventTags: ITags) => {
+        console.log(`EventTags 1st update: ${JSON.stringify(eventTags)}`);
+        this.seoSrv.updateTags(eventTags);
+      });
 
     this.idSubevent = this.idEventUrl.split('_')[1];
 
@@ -178,15 +169,6 @@ export class EventViewComponent implements OnInit, OnDestroy {
     const subs2$ = this.eventSrv.getOneEvent(idEvent)
       .subscribe(async (event: IEvent) => {
           this.event = event;
-
-          const eventTags: ITags = {
-            name: this.event.name,
-            description: this.event.description,
-            image: this.event.imagePath,
-          };
-          console.log(`EventTags 2nd update: ${JSON.stringify(eventTags)}`);
-          this.seoSrv.updateTags(eventTags);
-
           this.eventSocialSrv.getEventSocial(idEvent)
               .subscribe( (eventSocial: IEventSocial) => {
                   this.eventSocial = eventSocial;
