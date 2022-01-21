@@ -142,14 +142,15 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.idEvent = this.idEventUrl.split('_')[0];
 
     const eventTags = {
-      name: 'Carrera Nocturna 3',
-      description: 'Carrera Nocturna Descripción 3',
+      name: 'Carrera Nocturna 4',
+      description: 'Carrera Nocturna Descripción 4',
       // eslint-disable-next-line max-len
       image: 'https://firebasestorage.googleapis.com/v0/b/info-rincon.appspot.com/o/thumbnails%2Fcartel-carrera-nocturna-rincon-de-soto-2022-mini_600x600.jpg?alt=media',
       imageWidth: 424,
       imageHeight: 600,
     } as ITags;
     // const eventTags: ITags = this.route.snapshot.data.eventTags;
+    console.log(`EventTags 1st update: ${JSON.stringify(eventTags)}`);
     this.seoSrv.updateTags(eventTags);
 
     // const eventTags2 = await this.eventSrv.getTagsFromEventAsync(this.idEvent);
@@ -177,6 +178,15 @@ export class EventViewComponent implements OnInit, OnDestroy {
     const subs2$ = this.eventSrv.getOneEvent(idEvent)
       .subscribe(async (event: IEvent) => {
           this.event = event;
+
+          const eventTags: ITags = {
+            name: this.event.name,
+            description: this.event.description,
+            image: this.event.imagePath,
+          };
+          console.log(`EventTags 2nd update: ${JSON.stringify(eventTags)}`);
+          this.seoSrv.updateTags(eventTags);
+
           this.eventSocialSrv.getEventSocial(idEvent)
               .subscribe( (eventSocial: IEventSocial) => {
                   this.eventSocial = eventSocial;
