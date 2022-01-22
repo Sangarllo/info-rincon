@@ -58,4 +58,61 @@ export class SeoService {
       this.meta.updateTag({ property: 'og:image:height', content: tags.imageHeight.toString() });
     }
   }
+
+  async updateTitle(title: string) {
+    this.title.setTitle(title);
+  }
+
+  async updateDescription(desc: string) {
+    this.meta.updateTag({ name: 'description', content: desc });
+  }
+
+  async updateKeywords(keywords: string) {
+    this.meta.updateTag({ name: 'keywords', content: keywords });
+  }
+
+  async updateOgUrl(url: string) {
+    this.meta.updateTag({
+      name: 'og:url',
+      property: 'og:url',
+      content: url
+    });
+  }
+
+  async updateOgTitle(ogTitle: string) {
+    this.meta.updateTag({
+      name: 'og:title',
+      property: 'og:title',
+      content: ogTitle
+    });
+  }
+
+  async updateOgDescription(ogDesc: string) {
+    this.meta.updateTag({
+      name: 'og:description',
+      property: 'og:description',
+      content: ogDesc
+    });
+  }
+
+  async updateOgImage(ogImg: string) {
+    this.meta.updateTag({
+      name: 'og:image',
+      property: 'og:image',
+      content: ogImg
+    });
+  }
+
+  async disableFollow() {
+    this.meta.addTag({
+      name: 'robots',
+      property: 'robots',
+      content: 'noindex, nofollow'
+    });
+  }
+
+  async enableFollow() {
+    this.meta.removeTag('robots');
+  }
 }
+

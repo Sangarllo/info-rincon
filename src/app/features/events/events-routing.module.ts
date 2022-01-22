@@ -44,9 +44,9 @@ const routes: Routes = [
   {
     path: ':id',
     component: EventViewComponent,
-    // resolve: {
-    //   eventTags: EventResolver,
-    // }
+    resolve: {
+      event: EventResolver,
+    }
   },
   {
     path: ':id/editar',

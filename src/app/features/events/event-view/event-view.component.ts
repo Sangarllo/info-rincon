@@ -65,7 +65,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     private eventSrv: EventService,
     private eventSocialSrv: EventSocialService,
     private eventsCommentSrv: CommentsService,
-    private seoSrv: SeoService,
+    // private seoSrv: SeoService,
   ) {
     this.configAllowed = false;
     this.dialogConfig.disableClose = true;
@@ -134,19 +134,22 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.listOfObservers.push( subs1$ );
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
 
     // const eventTagsResolver: ITags = this.route.snapshot.data.eventTags;
     // console.log(`Event Resolver: ${JSON.stringify(eventTagsResolver)}`);
 
+    const eventResolver: IEvent = this.route.snapshot.data.event;
+    console.log(`Event Resolver: ${JSON.stringify(eventResolver)}`);
+
     this.idEventUrl = this.route.snapshot.paramMap.get('id');
     this.idEvent = this.idEventUrl.split('_')[0];
 
-    this.eventSrv.getTagsFromEvent(this.idEvent)
-      .subscribe( (eventTags: ITags) => {
-        console.log(`EventTags 1st update: ${JSON.stringify(eventTags)}`);
-        this.seoSrv.updateTags(eventTags);
-      });
+    // this.eventSrv.getTagsFromEvent(this.idEvent)
+    //   .subscribe( (eventTags: ITags) => {
+    //     console.log(`EventTags 1st update: ${JSON.stringify(eventTags)}`);
+    //     this.seoSrv.updateTags(eventTags);
+    //   });
 
     this.idSubevent = this.idEventUrl.split('_')[1];
 
