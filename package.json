@@ -11,7 +11,7 @@
         "e2e": "ng e2e",
         "dev:ssr": "ng run info-rincon:serve-ssr",
         "serve:ssr": "node dist/info-rincon/server/main.js",
-        "build:ssr": "ng build && ng run info-rincon:server",
+        "build:ssr": "ng build --configuration production && ng run info-rincon:server",
         "prerender": "ng run info-rincon:prerender",
         "git-log-pretty": "git log --pretty=format:\"%h%x09%an%x09%ad%x09%s\""
     },
@@ -71,7 +71,7 @@
         "eslint-plugin-jsdoc": "30.7.6",
         "eslint-plugin-prefer-arrow": "1.2.2",
         "firebase-admin": "^10.0.1",
-        "firebase-functions": "^3.16.0",
+        "firebase-functions": "^3.20.0",
         "firebase-functions-test": "^0.2.2",
         "firebase-tools": "^9.23.3",
         "fuzzy": "^0.1.3",
