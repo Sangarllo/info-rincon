@@ -24,7 +24,7 @@ registerLocaleData(localeEs, 'es');
     AppComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'agenda-rinconera' }),
+    BrowserModule,
     AppRoutingModule,
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
