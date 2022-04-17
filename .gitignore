@@ -5,6 +5,10 @@
 /dist/info-rincon/dist
 /dist/info-rincon/browser
 /dist/info-rincon/node_modules
+/dist/functions/
+/dist/functions/dist
+/dist/functions/browser
+/dist/functions/node_modules
 /tmp
 /out-tsc
 # Only exists if Bazel was run
