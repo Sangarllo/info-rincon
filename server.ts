@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import 'zone.js/dist/zone-node';
+import 'zone.js/dist/zone-patch-rxjs';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
@@ -15,9 +16,11 @@ import { environment } from './src/environments/environment.prod';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  // const websiteFileLocation = environment.production ? 'browser' : 'dist/functions/browser';
-  // const distFolder = join(process.cwd(), websiteFileLocation);
-  const distFolder = join(process.cwd(), 'dist/functions/browser');
+
+  const websiteFileLocation = environment.production ? 'dist/functions/browser' : 'browser';
+  console.log(`Environment Production: ${environment.production}`);
+  console.log(`websiteFileLocation: ${websiteFileLocation}`);
+  const distFolder = join(process.cwd(), websiteFileLocation);
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
@@ -44,7 +47,7 @@ export function app(): express.Express {
 }
 
 function run(): void {
-  const port = process.env.PORT || 4001;
+  const port = process.env.PORT || 4003;
 
   // Start up the Node server
   const server = app();

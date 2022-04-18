@@ -1,10 +1,9 @@
 export const environment = {
   production: true,
   appVersion: '0.3.0.014',
-  releaseDate: '2022-04-17 18:30',
-  // baseUrl: 'https://agendarinconera.es',
+  releaseDate: '2022-04-18 11:45',
+  baseUrl: 'https://agendarinconera.es',
   // baseUrl: 'https://info-rincon.web.app/',
-  baseUrl: 'https://agenda-rinconera.herokuapp.com/',
   setAudit: true,
   storiesNDaysAhead: 7,
   firebase: {

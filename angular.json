@@ -167,7 +167,7 @@
                 "deploy": {
                     "builder": "@angular/fire:deploy",
                     "options": {
-                        "functionsNodeVersion": 14,
+                        "functionsNodeVersion": 16,
                         "functionsRuntimeOptions": {
                             "memory": "1GB",
                             "timeoutSeconds": 540
