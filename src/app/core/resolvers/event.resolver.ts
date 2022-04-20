@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 
 import { SeoSocialShareData, SeoSocialShareService } from 'ngx-seo';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { environment } from '@environments/environment';
+
 import { IEvent } from '@models/event';
-import { ITags } from '@models/tags';
-import { EventService } from '@services/events.service';
-import { SeoService } from '@services/seo.service';
 
 const EVENTS_COLLECTION = 'eventos';
 
@@ -19,8 +18,6 @@ const EVENTS_COLLECTION = 'eventos';
 export class EventResolver implements Resolve<Observable<any>> {
 
   constructor(
-    private eventSrv: EventService,
-    // private seoSrv: SeoService,
     private seoSocialShareService: SeoSocialShareService,
     private angularFirestore: AngularFirestore,
   ) {
@@ -30,7 +27,6 @@ export class EventResolver implements Resolve<Observable<any>> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
-    const stateKey = state.url;
 
     const ref = this.angularFirestore.collection(EVENTS_COLLECTION);
     return ref
@@ -44,9 +40,9 @@ export class EventResolver implements Resolve<Observable<any>> {
             title: event.name,
             description: event.description,
             image: event.imagePath,
-            author: '...',
-            keywords: `...`,
-            url: `...`,
+            author: 'Ayuntamiento de Rincón de Soto',
+            keywords: `Rincón de Soto, ${event.sanitizedUrl}, ${event.categories?.map(category => category).join(', ')}`,
+            url: `${environment.baseUrl}/eventos/${event.id}`,
             // published: '...',
           };
 
@@ -56,23 +52,4 @@ export class EventResolver implements Resolve<Observable<any>> {
         })
       );
   }
-
-
-
-  // resolve(route: ActivatedRouteSnapshot): Observable<ITags> {
-  //   const eventId = route.paramMap.get('id');
-  //   return this.eventSrv.getTagsFromEvent(eventId);
-
-  //   // const eventTags = {
-  //   //   name: 'Carrera Nocturna 5',
-  //   //   description: 'Carrera Nocturna Descripción 5',
-  //   eslint-disable-next-line max-len
-  //   //   image: 'https://firebasestorage.googleapis.com/v0/b/info-rincon.appspot.com/o/thumbnails%2Fcartel-carrera-nocturna-rincon-de-soto-2022-mini_600x600.jpg?alt=media',
-  //   //   imageWidth: 424,
-  //   //   imageHeight: 600,
-  //   // } as ITags;
-
-  //   // console.log(`resolver eventTags: ${JSON.stringify(eventTags)}`);
-  //   // return of(eventTags);
-  // }
 }

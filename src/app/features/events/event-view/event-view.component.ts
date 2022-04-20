@@ -12,7 +12,6 @@ import { AuthService } from '@auth/auth.service';
 import { Base } from '@models/base';
 import { IEvent, Event } from '@models/event';
 import { IEventSocial } from '@models/event-social';
-import { ITags } from '@models/tags';
 import { IUser } from '@models/user';
 import { IAppointment } from '@models/appointment';
 import { IPicture } from '@models/picture';
@@ -22,12 +21,9 @@ import { EventSocialService } from '@services/events-social.service';
 import { CommentsService } from '@services/comments.service';
 import { UserService } from '@services/users.service';
 import { AppointmentsService } from '@services/appointments.service';
-import { SeoService } from '@services/seo.service';
-import { PictureService } from '@services/pictures.service';
 
 import { EventCommentsDialogComponent } from '@features/events/event-comments-dialog/event-comments-dialog.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-event-view',
@@ -64,8 +60,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     private appointmentSrv: AppointmentsService,
     private eventSrv: EventService,
     private eventSocialSrv: EventSocialService,
-    private eventsCommentSrv: CommentsService,
-    // private seoSrv: SeoService,
+    private eventsCommentSrv: CommentsService
   ) {
     this.configAllowed = false;
     this.dialogConfig.disableClose = true;
@@ -74,47 +69,47 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
     this.matIconRegistry.addSvgIcon(
       `whatsapp`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/whatsapp.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/whatsapp.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `facebook`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/facebook.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/facebook.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `twitter`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/twitter.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/twitter.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `config`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/config.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/config.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `clap-on`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/clap-on.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/clap-on.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `clap-off`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/clap-off.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/clap-off.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `favorite-on`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/favorite-on.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/favorite-on.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `favorite-off`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/favorite-off.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/favorite-off.svg')
     );
 
     this.matIconRegistry.addSvgIcon(
       `comments`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/comments.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/comments.svg')
     );
 
     const subs1$ = this.authSvc.afAuth.user
@@ -145,18 +140,10 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.idEventUrl = this.route.snapshot.paramMap.get('id');
     this.idEvent = this.idEventUrl.split('_')[0];
 
-    // this.eventSrv.getTagsFromEvent(this.idEvent)
-    //   .subscribe( (eventTags: ITags) => {
-    //     console.log(`EventTags 1st update: ${JSON.stringify(eventTags)}`);
-    //     this.seoSrv.updateTags(eventTags);
-    //   });
-
     this.idSubevent = this.idEventUrl.split('_')[1];
 
     this.appointment$ = this.appointmentSrv.getOneAppointment(this.idEvent);
-    // this.appointment$.subscribe( (appointment: IAppointment) => {
-    //   console.log('appointment: ' + JSON.stringify(appointment));
-    // });
+
     this.eventComments$ = this.eventsCommentSrv.getAllEventComments(this.idEvent);
 
     if ( this.idEvent ) {
