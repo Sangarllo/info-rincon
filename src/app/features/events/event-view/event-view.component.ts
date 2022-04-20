@@ -144,7 +144,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
     this.appointment$ = this.appointmentSrv.getOneAppointment(this.idEvent);
 
-    this.eventComments$ = this.eventsCommentSrv.getAllEventComments(this.idEvent);
+      this.eventComments$ = this.eventsCommentSrv.getAllEventComments(this.idEvent);
 
     if ( this.idEvent ) {
       this.getDetails(this.idEvent);

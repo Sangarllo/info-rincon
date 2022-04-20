@@ -1,8 +1,9 @@
 export const environment = {
   production: false,
-  appVersion: '0.3.0.020',
-  releaseDate: '2022-04-20 20:30',
-  baseUrl: 'http://localhost:4200',
+  appVersion: '0.3.0.021',
+  releaseDate: '2022-04-20 21:31',
+  baseUrl: 'https://agendarinconera.es',
+  // baseUrl: 'http://localhost:4200',
   setAudit: false,
   storiesNDaysAhead: 3,
   firebase: {
