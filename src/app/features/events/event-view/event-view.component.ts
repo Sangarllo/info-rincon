@@ -67,50 +67,50 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.dialogConfig.autoFocus = true;
     this.dialogConfig.width = '600px';
 
-    this.matIconRegistry.addSvgIcon(
-      `whatsapp`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/whatsapp.svg')
-    );
+    // this.matIconRegistry.addSvgIcon(
+    //   `whatsapp`,
+    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/whatsapp.svg')
+    // );
 
-    this.matIconRegistry.addSvgIcon(
-      `facebook`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/facebook.svg')
-    );
+    // this.matIconRegistry.addSvgIcon(
+    //   `facebook`,
+    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/facebook.svg')
+    // );
 
-    this.matIconRegistry.addSvgIcon(
-      `twitter`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/twitter.svg')
-    );
+    // this.matIconRegistry.addSvgIcon(
+    //   `twitter`,
+    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/twitter.svg')
+    // );
 
-    this.matIconRegistry.addSvgIcon(
-      `config`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/config.svg')
-    );
+    // this.matIconRegistry.addSvgIcon(
+    //   `config`,
+    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/config.svg')
+    // );
 
-    this.matIconRegistry.addSvgIcon(
-      `clap-on`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/clap-on.svg')
-    );
+    // this.matIconRegistry.addSvgIcon(
+    //   `clap-on`,
+    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/clap-on.svg')
+    // );
 
-    this.matIconRegistry.addSvgIcon(
-      `clap-off`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/clap-off.svg')
-    );
+    // this.matIconRegistry.addSvgIcon(
+    //   `clap-off`,
+    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/clap-off.svg')
+    // );
 
-    this.matIconRegistry.addSvgIcon(
-      `favorite-on`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/favorite-on.svg')
-    );
+    // this.matIconRegistry.addSvgIcon(
+    //   `favorite-on`,
+    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/favorite-on.svg')
+    // );
 
-    this.matIconRegistry.addSvgIcon(
-      `favorite-off`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/favorite-off.svg')
-    );
+    // this.matIconRegistry.addSvgIcon(
+    //   `favorite-off`,
+    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/favorite-off.svg')
+    // );
 
-    this.matIconRegistry.addSvgIcon(
-      `comments`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/comments.svg')
-    );
+    // this.matIconRegistry.addSvgIcon(
+    //   `comments`,
+    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/comments.svg')
+    // );
 
     const subs1$ = this.authSvc.afAuth.user
       .subscribe( (user: any) => {

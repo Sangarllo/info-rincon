@@ -19,6 +19,7 @@
 
                         <div class="buttons" *ngIf="eventSocial">
 
+                            <!--
                             <span mat-fab (click)="shareLink('twitter')" class="share-button">
                                 <mat-icon svgIcon="twitter"></mat-icon>
                             </span>
@@ -30,38 +31,51 @@
                             <span mat-fab (click)="shareLink('whatsapp')" class="share-button">
                                 <mat-icon svgIcon="whatsapp"></mat-icon>
                             </span>
+                            -->
+
+                            <img [src]="'assets/svg/twitter.svg'" (click)="shareLink('twitter')" class="share-button">
+                            <img [src]="'assets/svg/facebook.svg'" (click)="shareLink('facebook')" class="share-button">
+                            <img [src]="'assets/svg/whatsapp.svg'" (click)="shareLink('whatsapp')" class="share-button">
 
                             <span class="share-button">
                             </span>
 
 
                             <span *ngIf="eventComments$ | async as eventComments" class="fav-button" (click)="viewComments()">
-                                <mat-icon svgIcon="comments"></mat-icon>
+                                <!--<mat-icon svgIcon="comments"></mat-icon>-->
+                                <img [src]="'assets/svg/comments.svg'" class="fav-button">
                                 <span class="counter">{{eventComments.length}}</span>
                             </span>
 
                             <div *ngIf="userLogged" style="display: inline;">
 
                                 <span *ngIf="eventSocial.usersFavs && (eventSocial.usersFavs?.indexOf(userLogged.uid) !== -1); else noFavTemplate" mat-fab (click)="isFavorite(false)" class="fav-button">
-                                  <mat-icon svgIcon="favorite-on"></mat-icon>
+                                  <!--<mat-icon svgIcon="favorite-on"></mat-icon>-->
+                                  <img [src]="'assets/svg/favorite-on.svg'" class="fav-button">
                                   <span *ngIf="eventSocial.usersFavs" class="counter">{{eventSocial.usersFavs.length}}</span>
                                 </span>
 
                                 <ng-template #noFavTemplate>
                                     <span (click)="isFavorite(true)" class="fav-button">
-                                    <mat-icon svgIcon="favorite-off"></mat-icon>
-                                    <span *ngIf="eventSocial.usersFavs" class="counter">{{eventSocial.usersFavs.length}}</span>
+                                        <!--<mat-icon svgIcon="favorite-off"></mat-icon>-->
+                                        <img [src]="'assets/svg/favorite-off.svg'" class="fav-button">
+                                        <span *ngIf="eventSocial.usersFavs" class="counter">{{eventSocial.usersFavs.length}}</span>
                                     </span>
                                 </ng-template>
 
                             </div>
 
                             <span mat-fab (click)="clap(applause)" class="fav-button">
-                                <mat-icon *ngIf="applause; else noClapTemplate" svgIcon="clap-on"></mat-icon>
-                                <ng-template #noClapTemplate>
-                                    <mat-icon svgIcon="clap-off"></mat-icon>
-                                </ng-template>
-                                <span *ngIf="eventSocial.nClaps" class="counter">{{eventSocial.nClaps}}</span>
+                              <span *ngIf="applause; else noClapTemplate">
+                                <img [src]="'assets/svg/clap-on.svg'" class="fav-button">
+                              </span>
+
+                            <!--<mat-icon *ngIf="applause; else noClapTemplate" svgIcon="clap-on"></mat-icon>-->
+                            <ng-template #noClapTemplate>
+                                <img [src]="'assets/svg/clap-off.svg'" class="fav-button">
+                                <!--<mat-icon svgIcon="clap-off"></mat-icon>-->
+                            </ng-template>
+                            <span *ngIf="eventSocial.nClaps" class="counter">{{eventSocial.nClaps}}</span>
                             </span>
 
                         </div>
