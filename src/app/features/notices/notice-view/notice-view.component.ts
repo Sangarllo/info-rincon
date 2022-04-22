@@ -1,9 +1,7 @@
 /* eslint-disable max-len */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
 
-import { MatIconRegistry } from '@angular/material/icon';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 
@@ -43,8 +41,6 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private seo: SeoService,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
     private logSrv: LogService,
     private userSrv: UserService,
     private noticeSrv: NoticeService,
@@ -55,26 +51,6 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
       this.dialogConfig.disableClose = true;
       this.dialogConfig.autoFocus = true;
       this.dialogConfig.width = '600px';
-
-      this.matIconRegistry.addSvgIcon(
-        `whatsapp`,
-        this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/whatsapp.svg')
-      );
-
-      this.matIconRegistry.addSvgIcon(
-        `facebook`,
-        this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/facebook.svg')
-      );
-
-      this.matIconRegistry.addSvgIcon(
-        `twitter`,
-        this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/twitter.svg')
-      );
-
-      this.matIconRegistry.addSvgIcon(
-        `comments`,
-        this.domSanitizer.bypassSecurityTrustResourceUrl('../../../../assets/svg/comments.svg')
-      );
 
       const subs1$ = this.authSvc.afAuth.user
       .subscribe( (user: any) => {

@@ -24,23 +24,15 @@
 
                         <div class="buttons">
 
-                            <span mat-fab (click)="shareLink('twitter')" class="share-button">
-                                <mat-icon svgIcon="twitter"></mat-icon>
-                            </span>
-
-                            <span mat-fab (click)="shareLink('facebook')" class="share-button">
-                                <mat-icon svgIcon="facebook"></mat-icon>
-                            </span>
-
-                            <span mat-fab (click)="shareLink('whatsapp')" class="share-button">
-                                <mat-icon svgIcon="whatsapp"></mat-icon>
-                            </span>
+                            <img [src]="'assets/svg/twitter.svg'" (click)="shareLink('twitter')" class="share-button">
+                            <img [src]="'assets/svg/facebook.svg'" (click)="shareLink('facebook')" class="share-button">
+                            <img [src]="'assets/svg/whatsapp.svg'" (click)="shareLink('whatsapp')" class="share-button">
 
                             <span class="share-button">
                             </span>
 
                             <span *ngIf="noticeComments$ | async as noticeComments" class="fav-button" (click)="viewComments()">
-                              <mat-icon svgIcon="comments"></mat-icon>
+                              <img [src]="'assets/svg/comments.svg'" class="fav-button">
                               <span class="counter">{{noticeComments.length}}</span>
                             </span>
 

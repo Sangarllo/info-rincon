@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
 
-import { MatIconRegistry } from '@angular/material/icon';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable, Subscription, timer } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -54,8 +52,6 @@ export class EventViewComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
     private userSrv: UserService,
     private appointmentSrv: AppointmentsService,
     private eventSrv: EventService,
@@ -66,51 +62,6 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.dialogConfig.disableClose = true;
     this.dialogConfig.autoFocus = true;
     this.dialogConfig.width = '600px';
-
-    // this.matIconRegistry.addSvgIcon(
-    //   `whatsapp`,
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/whatsapp.svg')
-    // );
-
-    // this.matIconRegistry.addSvgIcon(
-    //   `facebook`,
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/facebook.svg')
-    // );
-
-    // this.matIconRegistry.addSvgIcon(
-    //   `twitter`,
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/twitter.svg')
-    // );
-
-    // this.matIconRegistry.addSvgIcon(
-    //   `config`,
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/config.svg')
-    // );
-
-    // this.matIconRegistry.addSvgIcon(
-    //   `clap-on`,
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/clap-on.svg')
-    // );
-
-    // this.matIconRegistry.addSvgIcon(
-    //   `clap-off`,
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/clap-off.svg')
-    // );
-
-    // this.matIconRegistry.addSvgIcon(
-    //   `favorite-on`,
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/favorite-on.svg')
-    // );
-
-    // this.matIconRegistry.addSvgIcon(
-    //   `favorite-off`,
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/favorite-off.svg')
-    // );
-
-    // this.matIconRegistry.addSvgIcon(
-    //   `comments`,
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/comments.svg')
-    // );
 
     const subs1$ = this.authSvc.afAuth.user
       .subscribe( (user: any) => {
@@ -193,9 +144,9 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
     switch ( social ) {
       case 'twitter':
-        const title = `${this.event.name} | Rincón de Soto`;
+        const titleTwitter = `${this.event.name} | Rincón de Soto`;
         // eslint-disable-next-line max-len
-        window.open('http://twitter.com/share?url='+encodeURIComponent(SHARED_URL)+'&text='+encodeURIComponent(title), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+        window.open('http://twitter.com/share?url='+encodeURIComponent(SHARED_URL)+'&text='+encodeURIComponent(titleTwitter), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
         break;
 
       case 'facebook':
@@ -204,7 +155,8 @@ export class EventViewComponent implements OnInit, OnDestroy {
         break;
 
       case 'whatsapp':
-        window.open(`whatsapp://send?text=${SHARED_URL}`);
+        const titleWhatsapp = `${this.event.name}`;
+        window.open(`whatsapp://send?text=_Agenda Rinconera_%0a*${titleWhatsapp}*%0a${SHARED_URL}`);
         break;
     }
   }
