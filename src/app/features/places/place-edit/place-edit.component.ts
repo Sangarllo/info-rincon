@@ -139,7 +139,7 @@ export class PlaceEditComponent implements OnInit, OnDestroy {
       icon: 'success',
       title: 'Datos guardados con éxito',
       text: `Los datos de ${this.place.name} se han guardado correctamente`,
-      // footer: '<a href>Why do I have this issue?</a>'
+      confirmButtonColor: '#003A59',
     });
     this.router.navigate([`/${Place.PATH_URL}`]);
   }

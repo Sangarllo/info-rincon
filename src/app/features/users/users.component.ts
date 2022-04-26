@@ -79,11 +79,12 @@ export class UsersComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         this.userSrv.deleteUser(user);
-        Swal.fire(
-          '¡Borrado!',
-          `${user.displayName} ha sido borrado`,
-          'success'
-        );
+        Swal.fire({
+          title: '¡Borrado!',
+          text: `${user.displayName} ha sido borrado`,
+          icon: 'success',
+          confirmButtonColor: '#003A59',
+        });
       }
     });
   }

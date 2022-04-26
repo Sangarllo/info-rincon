@@ -118,6 +118,7 @@ export class EventImageDialogComponent implements OnInit {
       icon: 'success',
       title: 'Datos guardados con éxito',
       text: `La imagen ha sido cambiada correctamente`,
+      confirmButtonColor: '#003A59',
     });
 
     const result: [IPicture, IPicture[]] = [

@@ -101,7 +101,7 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
       icon: 'success',
       title: 'Datos guardados con éxito',
       text: `Los datos de ${this.notice.name} se han guardado correctamente`,
-      // footer: '<a href>Why do I have this issue?</a>'
+      confirmButtonColor: '#003A59',
     });
     this.router.navigate([`/${Notice.PATH_URL}`]);
   }

@@ -95,11 +95,12 @@ export class EntitiesComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         this.entitySrv.deleteEntity(entity);
-        Swal.fire(
-          '¡Borrado!',
-          `${entity.name} ha sido borrado`,
-          'success'
-        );
+        Swal.fire({
+          title: '¡Borrado!',
+          text: `${entity.name} ha sido borrado`,
+          icon: 'success',
+          confirmButtonColor: '#003A59',
+        });
       }
     });
   }

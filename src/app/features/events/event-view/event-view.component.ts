@@ -173,12 +173,14 @@ export class EventViewComponent implements OnInit, OnDestroy {
       Swal.fire({
         icon: 'success',
         title: 'Este evento se ha convertido en uno de tus favoritos',
+        confirmButtonColor: '#003A59',
       });
     } else {
       this.eventSocialSrv.removeFavourite(this.eventSocial, this.userLogged.uid);
       Swal.fire({
         icon: 'success',
         title: 'Este evento ha dejado de estar entre tus favoritos',
+        confirmButtonColor: '#003A59',
       });
     }
 

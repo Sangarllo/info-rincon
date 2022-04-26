@@ -100,11 +100,12 @@ export class NoticesComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         this.noticeSrv.deleteNotice(notice);
-        Swal.fire(
-          '¡Borrado!',
-          `${notice.name} ha sido borrado`,
-          'success'
-        );
+        Swal.fire({
+          title: '¡Borrado!',
+          text: `${notice.name} ha sido borrado`,
+          icon: 'success',
+          confirmButtonColor: '#003A59',
+        });
       }
     });
   }
@@ -127,11 +128,12 @@ export class NoticesComponent implements OnInit, OnDestroy {
 
             case 0: {
               notice.alerted = true;
-              Swal.fire(
-                'Cambiado!',
-                `${notice.name} se mostrará ahora como alerta`,
-                'success'
-              );
+              Swal.fire({
+                title: 'Cambiado!',
+                text: `${notice.name} se mostrará ahora como alerta`,
+                icon: 'success',
+                confirmButtonColor: '#003A59',
+              });
               done = true;
               this.noticeSrv.updateNotice(notice);
               break;
@@ -152,11 +154,12 @@ export class NoticesComponent implements OnInit, OnDestroy {
                   oldAlertedNotice.alerted = false;
                   this.noticeSrv.updateNotice(oldAlertedNotice);
                   notice.alerted = true;
-                  Swal.fire(
-                    'Cambiado!',
-                    `${notice.name} se mostrará ahora como alerta`,
-                    'success'
-                  );
+                  Swal.fire({
+                    title: '¡Cambiado!',
+                    text: `${notice.name} se mostrará ahora como alerta`,
+                    icon: 'success',
+                    confirmButtonColor: '#003A59',
+                  });
                   done = true;
                   this.noticeSrv.updateNotice(notice);
                 }
@@ -165,11 +168,11 @@ export class NoticesComponent implements OnInit, OnDestroy {
             }
 
             default: {
-              Swal.fire(
-                'Ups, el cambio no fue realizado!',
-                `Avisa al administrador ya que hay más de un aviso mostrados como alerta`,
-                'error'
-              );
+              Swal.fire({
+                title: 'Ups, el cambio no fue realizado!',
+                text: `Avisa al administrador ya que hay más de un aviso mostrados como alerta`,
+                icon: 'error'
+              });
               done = true;
             }
 
@@ -190,11 +193,12 @@ export class NoticesComponent implements OnInit, OnDestroy {
         }).then((result) => {
           if (result.isConfirmed) {
             notice.alerted = false;
-            Swal.fire(
-              'Cambiado!',
-              `${notice.name} ya no es mostrado como alerta`,
-              'success'
-            );
+            Swal.fire({
+              title: 'Cambiado!',
+              text: `${notice.name} ya no es mostrado como alertas`,
+              icon: 'success',
+              confirmButtonColor: '#003A59',
+            });
             done = true;
             this.noticeSrv.updateNotice(notice);
           }

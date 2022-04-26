@@ -93,6 +93,7 @@ export class UserAdminEntitiesComponent implements OnInit, OnDestroy {
         icon: 'success',
         title: 'Datos guardados con éxito',
         text: `${this.user.displayName} ya no gestiona la entidad ${deletedEntity.name}`,
+        confirmButtonColor: '#003A59',
     });
   }
 
@@ -105,6 +106,7 @@ export class UserAdminEntitiesComponent implements OnInit, OnDestroy {
         icon: 'success',
         title: 'Datos guardados con éxito',
         text: `${this.user.displayName} administra pr defecto ${entity.name}`,
+        confirmButtonColor: '#003A59',
     });
   }
 
@@ -119,6 +121,7 @@ export class UserAdminEntitiesComponent implements OnInit, OnDestroy {
         icon: 'success',
         title: 'Datos guardados con éxito',
         text: `${this.user.displayName} ya puede gestionar la entidad ${this.selectedEntity.name}`,
+        confirmButtonColor: '#003A59',
       });
     } else {
       Swal.fire({

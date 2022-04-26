@@ -111,11 +111,12 @@ export class EventsComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         this.eventSrv.deleteEvent(event, this.currentUser);
-        Swal.fire(
-          '¡Borrado!',
-          `${event.name} ha sido borrado`,
-          'success'
-        );
+        Swal.fire({
+          title: '¡Borrado!',
+          text: `${event.name} ha sido borrado`,
+          icon: 'success',
+          confirmButtonColor: '#003A59',
+        });
       }
     });
   }

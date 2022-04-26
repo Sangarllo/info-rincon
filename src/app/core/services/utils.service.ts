@@ -35,7 +35,8 @@ export class UtilsService {
         Swal.fire({
             icon: 'success',
             title: 'Datos guardados con éxito',
-            text: `La información sobre ${extraInfo} ha sido guarda correctamente`
+            text: `La información sobre ${extraInfo} ha sido guarda correctamente`,
+            confirmButtonColor: '#003A59',
         });
         break;
 
@@ -43,6 +44,7 @@ export class UtilsService {
           Swal.fire({
               icon: 'success',
               title: extraInfo,
+              confirmButtonColor: '#003A59',
           });
           break;
 

@@ -114,11 +114,12 @@ export class NewsComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         this.newsSrv.deleteNewsItem(newsItem);
-        Swal.fire(
-          '¡Borrada!',
-          `${newsItem.name} ha sido borrada`,
-          'success'
-        );
+        Swal.fire({
+          title: '¡Borrada!',
+          text: `${newsItem.name} ha sido borrada`,
+          icon: 'success',
+          confirmButtonColor: '#003A59',
+        });
       }
     });
   }

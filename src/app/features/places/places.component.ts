@@ -92,11 +92,12 @@ export class PlacesComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         this.placeSrv.deletePlace(place);
-        Swal.fire(
-          '¡Borrado!',
-          `${place.name} ha sido borrado`,
-          'success'
-        );
+        Swal.fire({
+          title: '¡Borrado!',
+          text: `${place.name} ha sido borrado`,
+          icon: 'success',
+          confirmButtonColor: '#003A59',
+        });
       }
     });
   }

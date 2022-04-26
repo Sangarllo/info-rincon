@@ -149,6 +149,7 @@ export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
       icon: 'success',
       title: 'Datos guardados con éxito',
       text: `El horario ha sido guardado correctamente`,
+      confirmButtonColor: '#003A59',
     });
 
     this.appointmentForm.controls.dateIni.setValue(this.appointment.dateIni);

@@ -106,7 +106,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
      icon: 'success',
      title: 'Datos guardados con éxito',
      text: `Los datos de ${this.user.displayName} se han guardado correctamente`,
-     // footer: '<a href>Why do I have this issue?</a>'
+     confirmButtonColor: '#003A59',
    });
    this.router.navigate([`/${User.PATH_URL}`]);
  }

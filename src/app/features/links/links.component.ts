@@ -114,11 +114,12 @@ export class LinksComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         this.linksSrv.deleteLink(link);
-        Swal.fire(
-          '¡Borrada!',
-          `${link.name} ha sido borrada`,
-          'success'
-        );
+        Swal.fire({
+          title: '¡Borrada!',
+          text: `${link.name} ha sido borrada`,
+          icon: 'success',
+          confirmButtonColor: '#003A59',
+        });
       }
     });
   }

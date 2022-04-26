@@ -172,6 +172,7 @@ export class LinkEditComponent implements OnInit, OnDestroy {
       icon: 'success',
       title: 'Datos guardados con éxito',
       text: `Los datos de ${this.link.name} se han guardado correctamente`,
+      confirmButtonColor: '#003A59',
       // footer: '<a href>Why do I have this issue?</a>'
     });
     this.router.navigate([`/${Link.PATH_URL}`]);

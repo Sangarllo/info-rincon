@@ -47,6 +47,7 @@ export class EventStatusDialogComponent implements OnInit {
       icon: 'success',
       title: 'Datos guardados con éxito',
       text: `El estado del evento ha sido modificado`,
+      confirmButtonColor: '#003A59',
     });
     this.dialogRef.close(this.statusForm.value);
   }

@@ -60,6 +60,7 @@ export class EventCommentsDialogComponent implements OnInit, OnDestroy {
           Swal.fire({
             icon: 'success',
             title: 'Comentario enviado con éxito',
+            confirmButtonColor: '#003A59',
           });
 
           this.eventCommentForm.reset();
