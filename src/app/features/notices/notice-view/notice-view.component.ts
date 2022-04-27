@@ -119,7 +119,7 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
   public shareLink(social: string) {
 
     const baseUrl = environment.baseUrl;
-    const routerUrl = this.router.url.substring(1);
+    const routerUrl = this.router.url;
     const SHARED_URL = `${baseUrl}${routerUrl}`;
 
     switch ( social ) {
@@ -133,7 +133,8 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
         break;
 
       case 'whatsapp':
-        window.open(`whatsapp://send?text=${SHARED_URL}`);
+        const titleWhatsapp = `${this.notice.name}`;
+        window.open(`whatsapp://send?text=_Aviso en la Agenda Rinconera_%0a*${titleWhatsapp}*%0a${SHARED_URL}`);
         break;
     }
   }

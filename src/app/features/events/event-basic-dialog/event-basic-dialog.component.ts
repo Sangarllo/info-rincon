@@ -41,6 +41,7 @@ export class EventBasicDialogComponent implements OnInit {
       icon: 'warning',
       title: 'Datos no modificados',
       text: `Has cerrado la ventana sin guardar ningún cambio`,
+      confirmButtonColor: '#003A59',
     });
     this.dialogRef.close();
   }

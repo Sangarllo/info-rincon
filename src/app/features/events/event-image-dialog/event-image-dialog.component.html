@@ -31,9 +31,9 @@
         </div>
 
         <div class="images-container">
-            <img alt="Sin imagen" (click)="onSelectedImage(PICTURE_BLANK)" [src]="IMAGE_BLANK" [ngClass]="{'selected-image' : (pictureSelected?.path == IMAGE_BLANK)}" />
+            <img alt="Sin imagen" (click)="onSelectedImage(PICTURE_BLANK)" [src]="IMAGE_BLANK" [ngClass]="{'selected-image' : (pictureSelected?.path === IMAGE_BLANK)}" />
             <div *ngFor="let picture of pictures">
-                <img [alt]="picture.path" [src]="picture.path" (click)="onSelectedImage(picture)" [ngClass]="{'selected-image' : (pictureSelected.path == picture.path)}" />
+                <img [alt]="picture.path" [src]="picture.path" (click)="onSelectedImage(picture)" [ngClass]="{'selected-image' : (pictureSelected.path === picture.path)}" />
             </div>
         </div>
     </div>

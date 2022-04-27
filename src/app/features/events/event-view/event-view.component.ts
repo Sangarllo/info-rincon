@@ -82,11 +82,8 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    // const eventTagsResolver: ITags = this.route.snapshot.data.eventTags;
-    // console.log(`Event Resolver: ${JSON.stringify(eventTagsResolver)}`);
-
     const eventResolver: IEvent = this.route.snapshot.data.event;
-    console.log(`Event Resolver: ${JSON.stringify(eventResolver)}`);
+    // console.log(`Event Resolver: ${JSON.stringify(eventResolver)}`);
 
     this.idEventUrl = this.route.snapshot.paramMap.get('id');
     this.idEvent = this.idEventUrl.split('_')[0];

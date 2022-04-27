@@ -28,6 +28,7 @@ export class UtilsService {
           icon: 'warning',
           title: 'Datos no modificados',
           text: `Has cerrado la ventana sin guardar ningún cambio`,
+          confirmButtonColor: '#003A59',
         });
         break;
 

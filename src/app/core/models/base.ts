@@ -34,7 +34,7 @@ export class Base implements IBase {
 
   public static ID_DEFAULT = '0';
   public static NAME_DEFAULT = 'SIN ESPECIFICAR';
-  public static IMAGE_DEFAULT = 'https://firebasestorage.googleapis.com/v0/b/memento-185617.appspot.com/o/no-image-default.png?alt=media';
+  public static IMAGE_DEFAULT = 'assets/images/imagen-no-disponible.png';
 
   constructor(
     public id: string,

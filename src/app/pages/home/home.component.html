@@ -23,6 +23,7 @@
 
     <!-- Stories Panel -->
     <div *ngIf="stories$ | async as stories">
+
         <mat-expansion-panel *ngIf="stories.length > 0" class="expansion-panel" [expanded]="true" hideToggle>
 
             <mat-expansion-panel-header>

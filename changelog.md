@@ -14,7 +14,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Enabled url https//www.agendarinconera.es.
 
-## [0.2.6] - Enable url https://agendarinconera.es/ and updgrade angular/fire 7
+## [0.3.1] - 
+
+
+### Fix
+
+- `Style` Improve social sharing with extra info.
+- `arch` Fix deploying (hosting + functions) to firebase.
+
+### Update
+
+- `arch` Update to angular 13.3.4.
+- `arch` Executed `npx npm-check-updates`.
+
+### Remove
+
+- `feature` Remove deploying to Heroku.
+
+## [0.3.0] - Enable url https://agendarinconera.es/ and updgrade angular/fire 7
 
 ### Add
 
