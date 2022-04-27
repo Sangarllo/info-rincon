@@ -31,10 +31,19 @@
                             <span class="share-button">
                             </span>
 
-                            <span *ngIf="noticeComments$ | async as noticeComments" class="fav-button" (click)="viewComments()">
-                              <img [src]="'assets/svg/comments.svg'" class="fav-button">
-                              <span class="counter">{{noticeComments.length}}</span>
-                            </span>
+                            <div *ngIf="noticeComments$ | async as noticeComments" class="fav-button" [ngSwitch]="noticeComments.comments" style="display: inline;float:right">
+
+                                <span *ngSwitchCase="0">
+                                    <img *appRole="['AUTOR', 'ADMIN', 'SUPER']" [src]="'assets/svg/comments.svg'" class="fav-button" (click)="viewComments()">
+                                    <span *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="counter">{{noticeComments.length}}</span>
+                                </span>
+
+                                <span *ngSwitchDefault>
+                                  <img [src]="'assets/svg/comments.svg'" class="fav-button" (click)="viewComments()">
+                                  <span class="counter">{{noticeComments.length}}</span>
+                                </span>
+
+                            </div>
 
                         </div>
 
