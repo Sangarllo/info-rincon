@@ -58,6 +58,8 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+      console.log(`EventScheduleDialogComponent.ngOnInit(${this.event.extra})`);
+
       const eventId = this.event.id;
       if ( eventId ) {
         this.getDetails(eventId);
@@ -107,8 +109,8 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
     let name = '';
     let description = '';
 
-    this.orderId = this.event.scheduleItems.length + 1;
     if ( this.event.extra === '' ) {
+      // -> Schedule Item Nuevo
       const GUID = this.utilsSrv.getGUID();
       console.log(`GUID: ${GUID}`);
       this.thisScheduleId = `${this.event.id}_${GUID}`;
@@ -117,7 +119,9 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       description = '';
       this.imageIdSelected = this.event.imageId;
       this.imagePathSelected = this.event.imagePath;
+      this.orderId = this.event.scheduleItems.length + 1;
     } else {
+      // -> Schedule Item ya existente
       this.thisScheduleId = this.event.extra;
       const scheduleEdited = this.event.scheduleItems.find( item => item.id === this.thisScheduleId );
       name = scheduleEdited.name;
@@ -128,6 +132,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       const datetimeIni = scheduleEdited.extra.split(' ');
       this.appointment.dateIni = datetimeIni[0];
       this.appointment.timeIni = datetimeIni[1];
+      this.orderId = scheduleEdited.order;
     }
 
     if ( this.event.placeItems.length > 0 ) {

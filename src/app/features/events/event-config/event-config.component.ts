@@ -204,7 +204,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   }
 
   openScheduleDialog(scheduleItemId: string): void {
-
+    console.log(`openScheduleDialog: ${scheduleItemId}`);
     if ( scheduleItemId === '' ) {
       this.event.extra = ''; // New Item
     } else {

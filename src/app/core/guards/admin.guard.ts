@@ -31,7 +31,7 @@ export class AdminGuard implements CanActivate {
             this.snack.authError();
             return false;
         }
-        console.log(JSON.stringify(user));
+        // console.log(JSON.stringify(user));
         if (
           (user.role === UserRole.Admin) ||
           (user.role === UserRole.Super) ) {
