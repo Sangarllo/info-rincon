@@ -12,9 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- `feature` Enabled url https//www.agendarinconera.es.
 
 ## [2.0.1] - Ready for release
+
+### Add
+
+- `settings` Enabled url https//www.agendarinconera.es.
+- `settings` Update domain at Firebase Console.
 
 ### Fix
 
@@ -26,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `arch` Update to angular 13.3.4.
 - `arch` Executed `npx npm-check-updates`.
+- `feature` Disable login by email.
 
 ### Remove
 

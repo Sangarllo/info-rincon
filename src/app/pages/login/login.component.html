@@ -45,9 +45,10 @@
             <img src="/assets/google-logo.svg" /> Acceso con Google
         </button>
 
-        <br/><br/>o<br/><br/>
-
-        <app-email-login></app-email-login>
+        <div *ngIf="loginWithEmail">
+            <br/><br/>o<br/><br/>
+            <app-email-login></app-email-login>
+        </div>
 
     </div>
 

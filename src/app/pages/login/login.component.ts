@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable, Subscription } from 'rxjs';
+import { environment } from '@environments/environment';
 
 import { AuthService } from '@auth/auth.service';
 
@@ -14,6 +15,7 @@ import { AuthService } from '@auth/auth.service';
 export class LoginComponent implements OnInit, OnDestroy {
 
   public userRole: string;
+  public loginWithEmail: boolean;
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
 
     this.listOfObservers.push(subs1$);
+    this.loginWithEmail = environment.loginWithLogin;
   }
 
   gotoHome(): void {

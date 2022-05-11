@@ -6,6 +6,7 @@ export const environment = {
   // baseUrl: 'http://localhost:4200',
   setAudit: false,
   storiesNDaysAhead: 3,
+  loginWithLogin: false,
   firebase: {
     apiKey: 'AIzaSyChFHMB9Kj4sEBdPKLRWu-JFVMg7gketuM',
     authDomain: 'info-rincon.firebaseapp.com',
