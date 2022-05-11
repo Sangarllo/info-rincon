@@ -14,13 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Enabled url https//www.agendarinconera.es.
 
-## [0.3.1] - 
-
+## [2.0.1] - Ready for release
 
 ### Fix
 
 - `Style` Improve social sharing with extra info.
 - `arch` Fix deploying (hosting + functions) to firebase.
+- `feature` Solve problem with end dates.
 
 ### Update
 

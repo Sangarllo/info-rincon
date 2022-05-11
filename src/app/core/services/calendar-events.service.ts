@@ -138,18 +138,22 @@ export class CalendarEventsService {
         //console.log(`scheduleItem: ${JSON.stringify(scheduleItem)}`);
       }
 
+      const dateIni = new Date(`${appointment.dateIni}T${appointment.timeIni}`);
+      const dateEnd = new Date(`${appointment.dateEnd}T${appointment.timeEnd}`);
+
       const theCalendarEvent = ({
         id: appointment.id,
         title: isSchedule ? scheduleItem?.name : event?.name,
         color: colors.color1,
         allDay: appointment.allDay,
         image: isSchedule ? scheduleItem?.imageId : event?.imageId,
-        start: new Date(`${appointment.dateIni}T${appointment.timeIni}`),
-        end: isSchedule ?
-          new Date(`${appointment.dateIni}T${appointment.timeIni}`) :
-          null,
+        start: dateIni,
+        end: ( dateEnd < dateIni ) ? dateIni : dateEnd,
+        // end: isSchedule ?
+        //   new Date(`${appointment.dateIni}T${appointment.timeIni}`) : // TODO: revisar
+        //   new Date(`${appointment.dateEnd}T${appointment.timeEnd}`)
       }) as CalendarEvent;
-      // console.log(`CalendarEvent: ${JSON.stringify(theCalendarEvent)}`);
+      // console.log(`CalendarEvent (${isSchedule}): ${JSON.stringify(theCalendarEvent)}`);
       return theCalendarEvent;
     } else {
       return null;
