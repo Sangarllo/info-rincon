@@ -127,7 +127,12 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.dialogConfig.data = {
       eventId: this.event.id,
       UserUid: this.userLogged?.uid ?? '',
+      UserName: this.userLogged?.displayName ?? '',
+      UserImage: this.userLogged?.photoURL ?? '',
       UserRole: this.userLogged?.role ?? '',
+      EntityId: ( this.userLogged?.entityDefault?.id ?? '' ),
+      EntityName: ( this.userLogged?.entityDefault?.name ?? '' ),
+      EntityImage: ( this.userLogged?.entityDefault?.imagePath ?? '' ),
     };
 
     const dialogRef = this.dialog.open(EventCommentsDialogComponent, this.dialogConfig);

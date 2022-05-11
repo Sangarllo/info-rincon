@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -5,10 +6,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
-import { IEvent } from '@models/event';
 import { IEventComment } from '@models/comment';
 import { CommentsService } from '@services/comments.service';
-import { User } from '../../../core/models/user';
 import { UserRole } from '@models/user-role.enum';
 
 @Component({
@@ -28,6 +27,11 @@ export class EventCommentsDialogComponent implements OnInit, OnDestroy {
   public eventComments$: Observable<IEventComment[]>;
   private listOfObservers: Array<Subscription> = [];
 
+  commentator: any;
+  commentatorAsUser: any;
+  commentatorAsEntity: any;
+  commentatorAsSuper: any;
+
   constructor(
     private fb: FormBuilder,
     private eventsCommentsSrv: CommentsService,
@@ -44,6 +48,25 @@ export class EventCommentsDialogComponent implements OnInit, OnDestroy {
       this.eventCommentForm = this.fb.group({
         message: [ '', []],
       });
+
+    this.commentatorAsUser = {
+      name: this.data.UserName,
+      image: this.data.UserImage,
+    };
+
+    this.commentatorAsEntity = (this.data.EntityName) ? {
+      name: this.data.EntityName,
+      image: this.data.EntityImage,
+    } : null;
+
+    this.commentatorAsSuper = {
+      name: 'Agenda Rinconera',
+      image: 'assets/icons/logo-agenda-rinconera.png',
+    };
+
+
+
+    this.commentator = this.commentatorAsUser;
   }
 
   onNoClick(): void {
@@ -53,6 +76,8 @@ export class EventCommentsDialogComponent implements OnInit, OnDestroy {
   sendComment(): void {
     this.eventsCommentsSrv.addEventComment(
         this.eventId,
+        this.commentator.name,
+        this.commentator.image,
         this.eventCommentForm.controls.message.value
     ).then(
       (eventComment: IEventComment) => {

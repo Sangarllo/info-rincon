@@ -1,6 +1,8 @@
 export interface IEventComment {
   id: string;
   eventId: string;
+  commentatorDisplayedName: string;
+  commentatorDisplayedImage: string;
   userUid: string;
   userName: string;
   userImage: string;
@@ -8,11 +10,14 @@ export interface IEventComment {
   timestamp: string;
 }
 
+
 export class EventComment implements IEventComment {
 
   constructor(
     public id: string,
     public eventId: string,
+    public commentatorDisplayedName: string,
+    public commentatorDisplayedImage: string,
     public userUid: string,
     public userName: string,
     public userImage: string,

@@ -31,19 +31,31 @@
     }
 }
 
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 0px 10px 0px;
+    align-items: flex-start;
+    font-size: smaller;
+}
+
 .container-messages {
     margin: 0px -15px;
     .comment-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.1);
         padding: 5px;
         margin-bottom: 10px;
         .comment-image {
-            margin-right: 5px;
             img {
+                border-radius: 50%;
                 max-width: 40px; // 100px for big devices
             }
         }
         .comment-body {
+            padding-left: 10px;
             font-size: smaller;
             width: 100%;
             .comment-timestamp {

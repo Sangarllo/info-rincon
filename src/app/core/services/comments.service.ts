@@ -56,7 +56,8 @@ export class CommentsService {
     return this.noticeCommentsCollection.valueChanges();
   }
 
-  async addEventComment(eventId: string, message: string): Promise<any> {
+  // eslint-disable-next-line max-len
+  async addEventComment(eventId: string, commentatorDisplayedName: string, commentatorDisplayedImage: string, message: string): Promise<any> {
 
     const currentUser = await this.afAuth.currentUser;
     const id: string = this.afs.createId();
@@ -66,6 +67,8 @@ export class CommentsService {
       id,
       eventId,
       timestamp,
+      commentatorDisplayedName,
+      commentatorDisplayedImage,
       userUid: currentUser.uid,
       userName: currentUser.displayName,
       userImage: currentUser.photoURL,

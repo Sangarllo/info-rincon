@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `settings` Enabled url https//www.agendarinconera.es.
 - `settings` Update domain at Firebase Console.
+- `feature` Comments can be done by users, entities, or Agenda.
 
 ### Fix
 
