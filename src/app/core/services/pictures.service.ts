@@ -13,6 +13,7 @@ const PICTURES_COLLECTION = 'imagenes';
 })
 export class PictureService {
 
+  private static IMAGE_DEFAULT = 'assets/images/events/default.png';
   private pictureCollection!: AngularFirestoreCollection<IPicture>;
   private pictureDoc!: AngularFirestoreDocument<IPicture>;
 
@@ -110,6 +111,12 @@ export class PictureService {
   }
 
   private getResizedName(fileName, dimensions): string {
+
+    if ( fileName === PictureService.IMAGE_DEFAULT ) {
+      return PictureService.IMAGE_DEFAULT;
+    }
+
+
     const index1 = fileName.lastIndexOf('/o/');
     const path1 = fileName.substring(0, index1 + 3);
     // console.log(`image2: ${path1}`);
