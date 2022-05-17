@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 
 import { Observable, Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 import { environment } from '@environments/environment';
 import { AuthService } from '@auth/auth.service';
@@ -470,5 +471,29 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     });
 
     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado ShownAsAWhole');
+  }
+
+  public deleteForeverItem(event: IEvent): void {
+    this.logSrv.info(`deleting forever ${event.id}`);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'No podrás deshacer esta acción de borrado!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, bórralo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.eventSrv.deleteForeverEvent(event);
+        Swal.fire({
+          title: '¡Borrado!',
+          text: `${event.name} ha sido borrado`,
+          icon: 'success',
+          confirmButtonColor: '#003A59',
+        });
+        this.router.navigate([`/${Event.PATH_URL}`]);
+      }
+    });
   }
 }

@@ -396,4 +396,23 @@ export class EventService {
     this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${idEvent}`);
     this.eventDoc.update(event);
   }
+
+  deleteForeverEvent(event: IEvent): void {
+
+    this.eventDoc = this.afs.doc<IEvent>(`${EVENTS_COLLECTION}/${event.id}`);
+
+    // 2. Delete appointments
+    event.scheduleItems.forEach(scheduleItem => {
+      this.appointmentSrv.deleteAppointment(scheduleItem.id);
+    });
+    this.appointmentSrv.deleteAppointment(event.id);
+
+    // 3. Social
+    // TODO: Delete social
+
+    this.eventDoc.delete();
+
+    // 4 -> Audit deletion
+  }
+
 }

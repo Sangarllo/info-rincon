@@ -12,6 +12,7 @@ export interface CalendarEventExtended extends CalendarEvent {
 export interface IEvent {
   id: string;
   active: boolean;
+  pristine: boolean;
   name: string;
   imageId: string;
   imagePath: string;
@@ -48,6 +49,7 @@ export class Event implements IEvent, IBase { // IAudit
     public id: string,
 
     public active: boolean,
+    public pristine: boolean,
     public status: Status,
     public focused: boolean,
 
@@ -79,7 +81,7 @@ export class Event implements IEvent, IBase { // IAudit
   static InitDefault(): Event {
     return new Event(
       '0',
-      true, Status.Editing, true, // Status
+      true, true, Status.Editing, true, // Status
       '', // Name
       Event.IMAGE_DEFAULT, Event.IMAGE_DEFAULT, [ Event.IMAGE_DEFAULT ], // Image
       BaseType.EVENT, // BaseType

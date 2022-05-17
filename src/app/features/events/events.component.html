@@ -33,7 +33,10 @@
 
             <ng-container matColumnDef="timestamp">
                 <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Fecha Actualización</th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let event">hace {{ event.timestamp }}</td>
+                <td mat-cell class="td-extra-lg" *matCellDef="let event">
+                    hace {{ event.timestamp }}
+                    <span *ngIf="event.pristine" alt="No ha sido modificado, por lo que puede ser un evento fallido">(intacto)</span>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="image">
@@ -50,7 +53,7 @@
                     <div style="font-size: smaller;color:gray">
                         {{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}
                     </div>
-                    {{ event.name }}
+                    <span style="color:#606060">{{ event.name }}</span>
                 </td>
             </ng-container>
 
@@ -85,7 +88,7 @@
                         </mat-icon>
                     </button>
 
-                    <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(event)">
+                    <button [disabled]="event.status === 'DELETED'" mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(event)">
                         <mat-icon class="btn-1" aria-label="Delete">
                             delete
                         </mat-icon>
@@ -101,7 +104,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'make-deleted': ( row.status === 'DELETED' ) }"></tr>
         </table>
 
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>

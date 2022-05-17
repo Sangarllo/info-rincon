@@ -75,6 +75,13 @@ table {
     padding-right: 30px !important;
 }
 
+.mat-column-timestamp span {
+    color: red;
+    display: inline-block;
+    font-size: smaller;
+    border-bottom: 1px dotted red;
+}
+
 .mat-column-id,
 .mat-column-uid {
     text-overflow: ellipsis;
@@ -230,6 +237,7 @@ td.mat-column-status {
             color: lightgrey !important;
             border: 1px solid black;
             background-color: #202020;
+            font-size: smaller;
         }
     }
     &.LOGOUT,
@@ -238,12 +246,14 @@ td.mat-column-status {
         div.inside {
             border: 1px solid darkred;
             background-color: lightcoral;
+            font-size: smaller;
         }
     }
     &.AUTOR {
         div.inside {
             border: 1px solid orangered;
             background-color: orange;
+            font-size: smaller;
         }
     }
     &.LECTOR,
@@ -251,6 +261,7 @@ td.mat-column-status {
         div.inside {
             border: 1px solid #856404;
             background-color: #fff3cd;
+            font-size: smaller;
         }
     }
     &.LOGIN_EMAIL,
@@ -259,11 +270,13 @@ td.mat-column-status {
         div.inside {
             border: 1px solid darkgreen;
             background-color: lightgreen;
+            font-size: smaller;
         }
     }
     div.inside {
         border: 1px solid black;
         background-color: lightgray;
+        font-size: smaller;
     }
 }
 

@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
-  appVersion: '2.0.1.029',
-  releaseDate: '2022-05-15 20:30',
+  appVersion: '2.0.1.030',
+  releaseDate: '2022-05-18 00:45',
   baseUrl: 'https://agendarinconera.es',
   // baseUrl: 'http://localhost:4200',
   setAudit: false,
