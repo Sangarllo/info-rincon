@@ -14,14 +14,6 @@ Styles for Forms
     font-size: large;
 }
 
-mat-card.item-view {
-    @media screen and (min-width: $minTabletWidth) {
-        .mat-standard-chip {
-            margin: 10px;
-        }
-    }
-}
-
 mat-card.item-edit {
     mat-form-field {
         width: 100%;
@@ -30,9 +22,6 @@ mat-card.item-edit {
         height: 25px;
         font-size: large;
         color: rgba(0, 0, 0, .87);
-    }
-    .mat-standard-chip {
-        margin: 10px;
     }
     form {
         background-color: white;

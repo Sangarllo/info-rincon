@@ -74,24 +74,21 @@ body {
 }
 
 @media screen and (max-width: $maxMobileWidth) {
-    .share-button,
-    .fav-button {
+    .share-button {
         width: 40px;
         .mat-icon {
             width: 40px;
             height: 40px;
         }
     }
-    img.share-button,
-    img.fav-button {
+    img.share-button {
         width: 40px !important;
         height: 40px !important;
     }
 }
 
 @media screen and (min-width: $minTabletWidth) and (max-width: $maxTabletWidth) {
-    .share-button,
-    .fav-button {
+    .share-button {
         margin-right: 8px;
         width: 45px;
         .mat-icon {
@@ -99,8 +96,7 @@ body {
             height: 45px;
         }
     }
-    img.share-button,
-    img.fav-button {
+    img.share-button {
         margin-right: 8px;
         width: 45px !important;
         height: 45px !important;
@@ -108,8 +104,7 @@ body {
 }
 
 @media screen and (min-width: $minComputerWidth) {
-    .share-button,
-    .fav-button {
+    .share-button {
         margin-right: 12px;
         width: 50px;
         img,
@@ -118,16 +113,14 @@ body {
             height: 50px;
         }
     }
-    img.share-button,
-    img.fav-button {
+    img.share-button {
         margin-right: 12px;
         width: 50px !important;
         height: 50px !important;
     }
 }
 
-.share-button,
-.fav-button {
+.share-button {
     display: inline-flex;
     flex-direction: column;
     text-align: center;
@@ -137,15 +130,6 @@ body {
 .share-button {
     float: left;
     background-color: white;
-}
-
-.fav-button {
-    background-color: white;
-    .counter {
-        display: block;
-        margin-top: 2px;
-        text-align: center;
-    }
 }
 
 td.mat-cell,
@@ -252,4 +236,9 @@ button:not(.mat-button-disabled) {
 
 .mat-menu-content {
     width: 260px;
+}
+
+.mat-badge-content {
+    background-color: $color1 !important;
+    color: white !important;
 }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -31,6 +32,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 const matModules = [
   MatExpansionModule,
   MatAutocompleteModule,
+  MatBadgeModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,

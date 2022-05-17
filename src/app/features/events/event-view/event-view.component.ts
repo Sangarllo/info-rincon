@@ -43,6 +43,13 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public eventComments$: Observable<IEventComment[]>;
   public appointment$: Observable<IAppointment>;
   public dialogConfig = new MatDialogConfig();
+  public BTN_IMG_COMMENTS = 'assets/svg/comments.svg';
+  public BTN_IMG_FAVORITE_ON = 'assets/svg/favorite-on.svg';
+  public BTN_IMG_FAVORITE_OFF = 'assets/svg/favorite-off.svg';
+  public BTN_IMG_CLAP_ON = 'assets/svg/clap-on.svg';
+  public BTN_IMG_CLAP_OFF = 'assets/svg/clap-off.svg';
+
+
   readonly SECTION_BLANK: Base = Base.InitDefault();
   private listOfObservers: Array<Subscription> = [];
 
