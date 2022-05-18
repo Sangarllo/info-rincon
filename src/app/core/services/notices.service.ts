@@ -119,6 +119,8 @@ export class NoticeService {
     this.noticeCollection = this.afs.collection<INotice>(
       NOTICES_COLLECTION,
       ref => ref.where('alerted', '==', true)
+                .where('active', '==', true)
+                .where('status', '==', 'VISIBLE')
                 .limit(1)
     );
     return this.noticeCollection.valueChanges();

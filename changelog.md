@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `arch` Fix deploying (hosting + functions) to firebase.
 - `feature` Solve problem with end dates.
 - `style` Fix default-image path.
+- `feature` Alerted notice must be active+alerted+visible.
 
 ### Update
 

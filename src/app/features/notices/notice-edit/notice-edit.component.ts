@@ -54,7 +54,7 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
       active: true,
       status: [ Status.Editing, Validators.required],
       focused: true,
-      alerted: [{value: false, disabled: true}],
+      alerted: false, // [{value: false, disabled: true}],
       name: ['', [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)]],
