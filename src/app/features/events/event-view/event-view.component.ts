@@ -127,22 +127,34 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.router.navigate([`/${Event.PATH_URL}/${this.idEvent}/config`]);
   }
 
-  public viewComments(): void {
+  public viewComments(nComments: number): void {
 
-    this.dialogConfig.width = '600px';
-    this.dialogConfig.height = '600px';
-    this.dialogConfig.data = {
-      eventId: this.event.id,
-      UserUid: this.userLogged?.uid ?? '',
-      UserName: this.userLogged?.displayName ?? '',
-      UserImage: this.userLogged?.photoURL ?? '',
-      UserRole: this.userLogged?.role ?? '',
-      EntityId: ( this.userLogged?.entityDefault?.id ?? '' ),
-      EntityName: ( this.userLogged?.entityDefault?.name ?? '' ),
-      EntityImage: ( this.userLogged?.entityDefault?.imagePath ?? '' ),
-    };
+    const userRole = this.userLogged?.role ?? '';
 
-    const dialogRef = this.dialog.open(EventCommentsDialogComponent, this.dialogConfig);
+    if ( nComments > 0 || ['SUPER', 'ADMIN', 'AUTOR'].includes(userRole)) {
+
+        this.dialogConfig.width = '600px';
+        this.dialogConfig.height = '600px';
+        this.dialogConfig.data = {
+          eventId: this.event.id,
+          UserUid: this.userLogged?.uid ?? '',
+          UserName: this.userLogged?.displayName ?? '',
+          UserImage: this.userLogged?.photoURL ?? '',
+          UserRole: userRole,
+          EntityId: ( this.userLogged?.entityDefault?.id ?? '' ),
+          EntityName: ( this.userLogged?.entityDefault?.name ?? '' ),
+          EntityImage: ( this.userLogged?.entityDefault?.imagePath ?? '' ),
+        };
+
+        const dialogRef = this.dialog.open(EventCommentsDialogComponent, this.dialogConfig);
+      } else {
+        // Swal.fire({
+        //   icon: 'warning',
+        //   title: 'No hay comentarios en este evento',
+        //   text: 'Todos los comentarios son escritos por administradores de la agenda, evitando así spam o malos entendidos',
+        //   confirmButtonColor: '#003A59',
+        // });
+      }
   }
 
   public shareLink(social: string) {

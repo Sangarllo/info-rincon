@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 import { environment } from '@environments/environment';
 import { AuthService } from '@auth/auth.service';
@@ -19,6 +20,7 @@ import { CommentsService } from '@services/comments.service';
 import { PictureService } from '@services/pictures.service';
 
 import { NoticeCommentsDialogComponent } from '@features/notices/notice-comments-dialog/notice-comments-dialog.component';
+import { NumberSymbol } from '@angular/common';
 
 @Component({
   selector: 'app-notice-view',
@@ -33,6 +35,7 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
   public notice: INotice;
   public noticeComments$: Observable<INoticeComment[]>;
   public dialogConfig = new MatDialogConfig();
+  public BTN_IMG_COMMENTS = 'assets/svg/comments.svg';
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
@@ -103,17 +106,29 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
     this.router.navigate([`/${Notice.PATH_URL}/${this.idNotice}/editar`]);
   }
 
-  public viewComments(): void {
+  public viewComments(nComments: number): void {
 
-    this.dialogConfig.width = '600px';
-    this.dialogConfig.height = '600px';
-    this.dialogConfig.data = {
-      noticeId: this.notice.id,
-      UserUid: this.userLogged?.uid ?? '',
-      UserRole: this.userLogged?.role ?? '',
-    };
+    const userRole = this.userLogged?.role ?? '';
 
-    const dialogRef = this.dialog.open(NoticeCommentsDialogComponent, this.dialogConfig);
+    if ( nComments > 0 || ['SUPER', 'ADMIN', 'AUTOR'].includes(userRole)) {
+
+        this.dialogConfig.width = '600px';
+        this.dialogConfig.height = '600px';
+        this.dialogConfig.data = {
+          noticeId: this.notice.id,
+          UserUid: this.userLogged?.uid ?? '',
+          UserRole: this.userLogged?.role ?? '',
+        };
+
+        const dialogRef = this.dialog.open(NoticeCommentsDialogComponent, this.dialogConfig);
+    } else {
+      // Swal.fire({
+      //   icon: 'warning',
+      //   title: 'No hay comentarios en este aviso',
+      //   text: 'Todos los comentarios son escritos por administradores de la agenda, evitando así spam o malos entendidos',
+      //   confirmButtonColor: '#003A59',
+      // });
+    }
   }
 
   public shareLink(social: string) {
