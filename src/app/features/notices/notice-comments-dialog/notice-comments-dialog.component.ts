@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -28,6 +29,11 @@ export class NoticeCommentsDialogComponent implements OnInit, OnDestroy {
   public noticeComments$: Observable<INoticeComment[]>;
   private listOfObservers: Array<Subscription> = [];
 
+  commentator: any;
+  commentatorAsUser: any;
+  commentatorAsEntity: any;
+  commentatorAsSuper: any;
+
   constructor(
     private fb: FormBuilder,
     private commentsSrv: CommentsService,
@@ -44,6 +50,23 @@ export class NoticeCommentsDialogComponent implements OnInit, OnDestroy {
       this.commentForm = this.fb.group({
         message: [ '', []],
       });
+
+    this.commentatorAsUser = {
+      name: this.data.UserName,
+      image: this.data.UserImage,
+    };
+
+    this.commentatorAsEntity = (this.data.EntityName) ? {
+      name: this.data.EntityName,
+      image: this.data.EntityImage,
+    } : null;
+
+    this.commentatorAsSuper = {
+      name: 'Agenda Rinconera',
+      image: 'assets/icons/logo-agenda-rinconera.png',
+    };
+
+    this.commentator = this.commentatorAsUser;
   }
 
   onNoClick(): void {
@@ -53,6 +76,8 @@ export class NoticeCommentsDialogComponent implements OnInit, OnDestroy {
   sendComment(): void {
     this.commentsSrv.addNoticeComment(
         this.noticeId,
+        this.commentator.name,
+        this.commentator.image,
         this.commentForm.controls.message.value
     ).then(
       (comment: INoticeComment) => {

@@ -1,20 +1,28 @@
 <div class="dialog__header dialog-comments__header">
     <span mat-dialog-title>{{ title }}</span>
     <button mat-fab class="dialog__button dialog__button-close" (click)="onNoClick()">
-        <mat-icon>close</mat-icon>
-    </button>
+    <mat-icon>close</mat-icon>
+  </button>
 </div>
 
-<mat-dialog-content *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="cointainer-form-inline" [formGroup]="commentForm">
+<div *appRole="['AUTOR', 'ADMIN', 'SUPER']">
+    <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [(ngModel)]="commentator">
+        <mat-radio-button [value]="commentatorAsUser">Comentar como {{ commentatorAsUser?.name }}</mat-radio-button>
+        <mat-radio-button *ngIf="commentatorAsEntity" [value]="commentatorAsEntity">Comentar como {{ commentatorAsEntity?.name }}</mat-radio-button>
+        <mat-radio-button *appRole="['SUPER']" [value]="commentatorAsSuper">Comentar como {{ commentatorAsSuper?.name }}</mat-radio-button>
+    </mat-radio-group>
+</div>
+
+<mat-dialog-content *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="cointainer-form-inline" [formGroup]="noticeCommentForm">
 
     <mat-form-field appearance="outline">
         <mat-label>Mensaje</mat-label>
         <textarea matInput formControlName="message" placeholder="Mensaje"></textarea>
     </mat-form-field>
 
-    <button [disabled]="!commentForm.controls.message.value" mat-mini-fab class="dialog__button" (click)="sendComment()" cdkFocusInitial>
-        <mat-icon>add</mat-icon>
-    </button>
+    <button [disabled]="!noticeCommentForm?.controls?.message?.value" mat-mini-fab class="dialog__button" (click)="sendComment()" cdkFocusInitial>
+      <mat-icon>add</mat-icon>
+  </button>
 
 </mat-dialog-content>
 
@@ -22,20 +30,18 @@
 
     <section class="comment-item">
 
-        <div class="media">
-            <div class="comment-image" href="#">
-                <img [src]="comment.userImage" alt="">
-            </div>
-            <div class="comment-body">
-                <button *ngIf="canDelete(comment)" class="comment-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteComment(comment)">
-                    <mat-icon class="btn-1" aria-label="Delete">
-                        remove_circle_outline
-                    </mat-icon>
-                </button>
-                <div class="comment-timestamp">{{comment.timestamp}}</div>
-                <div class="comment-heading">{{comment.userName}}</div>
-                <div class="comment-message">{{comment.message}}</div>
-            </div>
+        <div class="comment-image" href="#">
+            <img [src]="comment.commentatorDisplayedImage" [alt]="commentatorDisplayedName">
+        </div>
+        <div class="comment-body">
+            <button *ngIf="canDelete(comment)" class="comment-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteComment(comment)">
+                  <mat-icon class="btn-1" aria-label="Delete">
+                      remove_circle_outline
+                  </mat-icon>
+              </button>
+            <div class="comment-timestamp">{{comment.timestamp}}</div>
+            <div class="comment-heading">{{comment.commentatorDisplayedName}}</div>
+            <div class="comment-message">{{comment.message}}</div>
         </div>
 
     </section>

@@ -117,7 +117,12 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
         this.dialogConfig.data = {
           noticeId: this.notice.id,
           UserUid: this.userLogged?.uid ?? '',
-          UserRole: this.userLogged?.role ?? '',
+          UserName: this.userLogged?.displayName ?? '',
+          UserImage: this.userLogged?.photoURL ?? '',
+          UserRole: userRole,
+          EntityId: ( this.userLogged?.entityDefault?.id ?? '' ),
+          EntityName: ( this.userLogged?.entityDefault?.name ?? '' ),
+          EntityImage: ( this.userLogged?.entityDefault?.imagePath ?? '' ),
         };
 
         const dialogRef = this.dialog.open(NoticeCommentsDialogComponent, this.dialogConfig);

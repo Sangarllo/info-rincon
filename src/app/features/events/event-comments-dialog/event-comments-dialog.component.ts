@@ -64,8 +64,6 @@ export class EventCommentsDialogComponent implements OnInit, OnDestroy {
       image: 'assets/icons/logo-agenda-rinconera.png',
     };
 
-
-
     this.commentator = this.commentatorAsUser;
   }
 
