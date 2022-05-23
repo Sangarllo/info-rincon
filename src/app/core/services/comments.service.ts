@@ -9,100 +9,66 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Observable } from 'rxjs';
 
-import { IEventComment, INoticeComment } from '@models/comment';
+import { CommentType, IComment } from '@models/comment';
 import { AppointmentsService } from '@services/appointments.service';
 
-const EVENTS_COMMENTS_COLLECTION = 'eventos-comentarios';
-const NOTICES_COMMENTS_COLLECTION = 'avisos-comentarios';
+const COMMENTS_COLLECTION = 'comentarios';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentsService {
 
-  private eventCommentsCollection!: AngularFirestoreCollection<IEventComment>;
-  private eventCommentsDoc!: AngularFirestoreDocument<IEventComment>;
-  private noticeCommentsCollection!: AngularFirestoreCollection<INoticeComment>;
-  private noticeCommentsDoc!: AngularFirestoreDocument<INoticeComment>;
+  private commentsCollection!: AngularFirestoreCollection<IComment>;
+  private commentsDoc!: AngularFirestoreDocument<IComment>;
 
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private appointmentSrv: AppointmentsService,
   ) {
-    this.eventCommentsCollection = afs.collection(EVENTS_COMMENTS_COLLECTION);
-    this.noticeCommentsCollection = afs.collection(NOTICES_COMMENTS_COLLECTION);
+    this.commentsCollection = afs.collection(COMMENTS_COLLECTION);
   }
 
-  public getAllEventComments(eventId: string): Observable<IEventComment[]> {
+  public getAllComments(eventId: string): Observable<IComment[]> {
 
-    this.eventCommentsCollection = this.afs.collection<IEventComment>(
-      EVENTS_COMMENTS_COLLECTION,
-      ref => ref.where('eventId', '==', eventId)
+    this.commentsCollection = this.afs.collection<IComment>(
+      COMMENTS_COLLECTION,
+      ref => ref.where('itemId', '==', eventId)
                 .orderBy('timestamp', 'desc')
     );
 
-    return this.eventCommentsCollection.valueChanges();
+    return this.commentsCollection.valueChanges();
   }
 
-  public getAllNoticeComments(noticeId: string): Observable<INoticeComment[]> {
-
-    this.noticeCommentsCollection = this.afs.collection<INoticeComment>(
-      NOTICES_COMMENTS_COLLECTION,
-      ref => ref.where('noticeId', '==', noticeId)
-                .orderBy('timestamp', 'desc')
-    );
-
-    return this.noticeCommentsCollection.valueChanges();
-  }
 
   // eslint-disable-next-line max-len
-  async addEventComment(eventId: string, commentatorDisplayedName: string, commentatorDisplayedImage: string, message: string): Promise<any> {
+  async addComment(itemId: string, commentatorDisplayedName: string, commentatorDisplayedImage: string, message: string, commentType: CommentType): Promise<void> {
 
     const currentUser = await this.afAuth.currentUser;
     const id: string = this.afs.createId();
     const timestamp = this.appointmentSrv.getTimestamp();
 
-    this.eventCommentsCollection.doc(id).set({
+    const newComment: IComment = {
       id,
-      eventId,
-      timestamp,
+      itemId,
       commentatorDisplayedName,
       commentatorDisplayedImage,
       userUid: currentUser.uid,
       userName: currentUser.displayName,
       userImage: currentUser.photoURL,
       message,
-    });
-  }
-
-  // eslint-disable-next-line max-len
-  async addNoticeComment(noticeId: string, commentatorDisplayedName: string, commentatorDisplayedImage: string, message: string): Promise<any> {
-
-    const currentUser = await this.afAuth.currentUser;
-    const id: string = this.afs.createId();
-    const timestamp = this.appointmentSrv.getTimestamp();
-
-    this.noticeCommentsCollection.doc(id).set({
-      id,
-      noticeId,
       timestamp,
-      commentatorDisplayedName,
-      commentatorDisplayedImage,
-      userUid: currentUser.uid,
-      userName: currentUser.displayName,
-      userImage: currentUser.photoURL,
-      message,
-    });
+      commentType
+    };
+
+    this.commentsCollection.doc(id).set(
+      newComment
+    );
   }
 
-  deleteEventComment(id: string): void {
-    this.eventCommentsDoc = this.afs.doc<IEventComment>(`${EVENTS_COMMENTS_COLLECTION}/${id}`);
-    this.eventCommentsDoc.delete();
-  }
-
-  deleteNoticeComment(id: string): void {
-    this.noticeCommentsDoc = this.afs.doc<INoticeComment>(`${NOTICES_COMMENTS_COLLECTION}/${id}`);
-    this.noticeCommentsDoc.delete();
+  deleteComment(id: string): void {
+    this.commentsDoc = this.afs.doc<IComment>(`${COMMENTS_COLLECTION}/${id}`);
+    this.commentsDoc.delete();
   }
 }

@@ -31,8 +31,8 @@
                             <span class="share-button">
                             </span>
 
-                            <div class="fav-button" *ngIf="noticeComments$ | async as noticeComments" [ngSwitch]="noticeComments.length">
-                                <button [matBadge]="noticeComments.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_COMMENTS + ')'" (click)="viewComments(noticeComments.length)"></button>
+                            <div class="fav-button" *ngIf="comments$ | async as comments" [ngSwitch]="comments.length">
+                                <button [matBadge]="comments.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_COMMENTS + ')'" (click)="viewComments(comments.length)"></button>
                             </div>
 
                         </div>

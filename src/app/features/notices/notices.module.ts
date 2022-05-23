@@ -10,7 +10,6 @@ import { NoticeEditComponent } from '@features/notices/notice-edit/notice-edit.c
 import { NoticesDashboardComponent } from '@features/notices/notices-dashboard/notices-dashboard.component';
 import { NoticeItemDetailComponent } from '@features/notices/notice-item-detail/notice-item-detail.component';
 import { NoticeExpansionPanelComponent } from '@features/notices/notice-expansion-panel/notice-expansion-panel.component';
-import { NoticeCommentsDialogComponent } from '@features/notices/notice-comments-dialog/notice-comments-dialog.component';
 
 
 @NgModule({
@@ -21,7 +20,6 @@ import { NoticeCommentsDialogComponent } from '@features/notices/notice-comments
     NoticesDashboardComponent,
     NoticeExpansionPanelComponent,
     NoticeItemDetailComponent,
-    NoticeCommentsDialogComponent,
   ],
   imports: [
     HttpClientModule,

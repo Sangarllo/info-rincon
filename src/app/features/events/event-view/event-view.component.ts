@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable, Subscription, timer } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -13,15 +14,14 @@ import { IEventSocial } from '@models/event-social';
 import { IUser } from '@models/user';
 import { IAppointment } from '@models/appointment';
 import { IPicture } from '@models/picture';
-import { IEventComment } from '@models/comment';
+import { CommentType, IComment } from '@models/comment';
 import { EventService } from '@services/events.service';
 import { EventSocialService } from '@services/events-social.service';
 import { CommentsService } from '@services/comments.service';
 import { UserService } from '@services/users.service';
 import { AppointmentsService } from '@services/appointments.service';
 
-import { EventCommentsDialogComponent } from '@features/events/event-comments-dialog/event-comments-dialog.component';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { CommentsDialogComponent } from '@shared/components/comments-dialog/comments-dialog.component';
 
 @Component({
   selector: 'app-event-view',
@@ -40,7 +40,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public idEvent: string;
   public idSubevent: string;
   public eventPicture: IPicture;
-  public eventComments$: Observable<IEventComment[]>;
+  public comments$: Observable<IComment[]>;
   public appointment$: Observable<IAppointment>;
   public dialogConfig = new MatDialogConfig();
   public BTN_IMG_COMMENTS = 'assets/svg/comments.svg';
@@ -63,7 +63,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     private appointmentSrv: AppointmentsService,
     private eventSrv: EventService,
     private eventSocialSrv: EventSocialService,
-    private eventsCommentSrv: CommentsService
+    private commentSrv: CommentsService
   ) {
     this.configAllowed = false;
     this.dialogConfig.disableClose = true;
@@ -99,7 +99,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
     this.appointment$ = this.appointmentSrv.getOneAppointment(this.idEvent);
 
-      this.eventComments$ = this.eventsCommentSrv.getAllEventComments(this.idEvent);
+      this.comments$ = this.commentSrv.getAllComments(this.idEvent);
 
     if ( this.idEvent ) {
       this.getDetails(this.idEvent);
@@ -136,7 +136,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
         this.dialogConfig.width = '600px';
         this.dialogConfig.height = '600px';
         this.dialogConfig.data = {
-          eventId: this.event.id,
+          itemId: this.event.id,
           UserUid: this.userLogged?.uid ?? '',
           UserName: this.userLogged?.displayName ?? '',
           UserImage: this.userLogged?.photoURL ?? '',
@@ -144,9 +144,10 @@ export class EventViewComponent implements OnInit, OnDestroy {
           EntityId: ( this.userLogged?.entityDefault?.id ?? '' ),
           EntityName: ( this.userLogged?.entityDefault?.name ?? '' ),
           EntityImage: ( this.userLogged?.entityDefault?.imagePath ?? '' ),
+          commentType: CommentType.Event,
         };
 
-        const dialogRef = this.dialog.open(EventCommentsDialogComponent, this.dialogConfig);
+        const dialogRef = this.dialog.open(CommentsDialogComponent, this.dialogConfig);
       } else {
         // Swal.fire({
         //   icon: 'warning',

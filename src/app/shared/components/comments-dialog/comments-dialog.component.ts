@@ -6,27 +6,26 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
-import { INotice } from '@models/notice';
-import { INoticeComment } from '@models/comment';
+import { CommentType, IComment } from '@models/comment';
 import { CommentsService } from '@services/comments.service';
-import { User } from '../../../core/models/user';
 import { UserRole } from '@models/user-role.enum';
 
 @Component({
-  selector: 'app-notice-comments-dialog',
-  templateUrl: './notice-comments-dialog.component.html',
-  styleUrls: ['./notice-comments-dialog.component.scss']
+  selector: 'app-comments-dialog',
+  templateUrl: './comments-dialog.component.html',
+  styleUrls: ['./comments-dialog.component.scss']
 })
-export class NoticeCommentsDialogComponent implements OnInit, OnDestroy {
+export class CommentsDialogComponent implements OnInit, OnDestroy {
 
   title = 'Últimos comentarios';
   errorMessage = '';
-  public noticeId: string;
-  noticeComment: INoticeComment;
+  public itemId: string;
+  comment: IComment;
   commentForm: FormGroup;
   public userUid: string;
   public userRole: string;
-  public noticeComments$: Observable<INoticeComment[]>;
+  public commentType: CommentType;
+  public comments$: Observable<IComment[]>;
   private listOfObservers: Array<Subscription> = [];
 
   commentator: any;
@@ -37,15 +36,16 @@ export class NoticeCommentsDialogComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private commentsSrv: CommentsService,
-    public dialogRef: MatDialogRef<NoticeCommentsDialogComponent>,
+    public dialogRef: MatDialogRef<CommentsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit(): void {
-    this.noticeId = this.data.noticeId;
+    this.itemId = this.data.itemId;
     this.userUid = this.data.UserUid;
     this.userRole = this.data.UserRole;
-    this.noticeComments$ = this.commentsSrv.getAllNoticeComments(this.noticeId);
+    this.commentType = this.data.commentType;
+    this.comments$ = this.commentsSrv.getAllComments(this.itemId);
 
       this.commentForm = this.fb.group({
         message: [ '', []],
@@ -74,17 +74,19 @@ export class NoticeCommentsDialogComponent implements OnInit, OnDestroy {
   }
 
   sendComment(): void {
-    this.commentsSrv.addNoticeComment(
-        this.noticeId,
+    this.commentsSrv.addComment(
+        this.itemId,
         this.commentator.name,
         this.commentator.image,
-        this.commentForm.controls.message.value
+        this.commentForm.controls.message.value,
+        this.commentType,
     ).then(
-      (comment: INoticeComment) => {
+      () => {
 
           Swal.fire({
             icon: 'success',
             title: 'Comentario enviado con éxito',
+            text: `Publicado como ${this.commentator.name}`,
             confirmButtonColor: '#003A59',
           });
 
@@ -100,14 +102,14 @@ export class NoticeCommentsDialogComponent implements OnInit, OnDestroy {
         });
   }
 
-  canDelete(comment: INoticeComment): boolean {
+  canDelete(comment: IComment): boolean {
     return this.userRole === UserRole.Admin ||
     this.userRole === UserRole.Super ||
     this.userUid === comment.userUid;
   }
 
-  deleteComment(comment: INoticeComment): void {
-    this.commentsSrv.deleteNoticeComment(comment.id);
+  deleteComment(comment: IComment): void {
+    this.commentsSrv.deleteComment(comment.id);
   }
 
   ngOnDestroy(): void {

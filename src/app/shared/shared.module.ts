@@ -19,6 +19,7 @@ import { BaseItemsPanelComponent } from '@shared/components/base-items-panel/bas
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component';
 import { RoleOptionsComponent } from '@shared/components/role-options/role-options.component';
 import { StoriesPanelComponent } from '@shared/components/stories-panel/stories-panel.component';
+import { CommentsDialogComponent } from '@shared/components/comments-dialog/comments-dialog.component';
 
 const components = [
   ShellComponent,
@@ -31,6 +32,7 @@ const components = [
   BaseItemsTableComponent,
   BaseItemDetailComponent,
   BaseItemsPanelComponent,
+  CommentsDialogComponent,
   StoriesPanelComponent,
   SpinnerComponent,
   RoleOptionsComponent,

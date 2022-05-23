@@ -8,10 +8,9 @@ import Swal from 'sweetalert2';
 
 import { environment } from '@environments/environment';
 import { AuthService } from '@auth/auth.service';
+import { CommentType, IComment } from '@models/comment';
 import { INotice, Notice } from '@models/notice';
 import { IUser } from '@models/user';
-import { UserRole } from '@models/user-role.enum';
-import { INoticeComment } from '@models/comment';
 import { NoticeService } from '@services/notices.service';
 import { LogService } from '@services/log.service';
 import { SeoService } from '@services/seo.service';
@@ -19,8 +18,7 @@ import { UserService } from '@services/users.service';
 import { CommentsService } from '@services/comments.service';
 import { PictureService } from '@services/pictures.service';
 
-import { NoticeCommentsDialogComponent } from '@features/notices/notice-comments-dialog/notice-comments-dialog.component';
-import { NumberSymbol } from '@angular/common';
+import { CommentsDialogComponent } from '@shared/components/comments-dialog/comments-dialog.component';
 
 @Component({
   selector: 'app-notice-view',
@@ -33,7 +31,7 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
   public idNotice: string;
   public configAllowed: boolean;
   public notice: INotice;
-  public noticeComments$: Observable<INoticeComment[]>;
+  public comments$: Observable<IComment[]>;
   public dialogConfig = new MatDialogConfig();
   public BTN_IMG_COMMENTS = 'assets/svg/comments.svg';
   private listOfObservers: Array<Subscription> = [];
@@ -72,7 +70,7 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.idNotice = this.route.snapshot.paramMap.get('id');
-    this.noticeComments$ = this.commentsSrv.getAllNoticeComments(this.idNotice);
+    this.comments$ = this.commentsSrv.getAllComments(this.idNotice);
     if ( this.idNotice ) {
       this.logSrv.info(`id asked ${this.idNotice}`);
       this.getDetails(this.idNotice);
@@ -115,7 +113,7 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
         this.dialogConfig.width = '600px';
         this.dialogConfig.height = '600px';
         this.dialogConfig.data = {
-          noticeId: this.notice.id,
+          itemId: this.notice.id,
           UserUid: this.userLogged?.uid ?? '',
           UserName: this.userLogged?.displayName ?? '',
           UserImage: this.userLogged?.photoURL ?? '',
@@ -123,9 +121,10 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
           EntityId: ( this.userLogged?.entityDefault?.id ?? '' ),
           EntityName: ( this.userLogged?.entityDefault?.name ?? '' ),
           EntityImage: ( this.userLogged?.entityDefault?.imagePath ?? '' ),
+          commentType: CommentType.Notice,
         };
 
-        const dialogRef = this.dialog.open(NoticeCommentsDialogComponent, this.dialogConfig);
+        const dialogRef = this.dialog.open(CommentsDialogComponent, this.dialogConfig);
     } else {
       // Swal.fire({
       //   icon: 'warning',

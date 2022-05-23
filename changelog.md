@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `arch` Executed `npx npm-check-updates`.
 - `feature` Disable login by email.
 - `style` Use badges for social sharing.
+- `code` Refactor event-comment and notice-comment to simple comment.
 
 ### Remove
 
