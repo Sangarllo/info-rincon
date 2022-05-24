@@ -1,27 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Observable, Subscription, timer } from 'rxjs';
-import Swal from 'sweetalert2';
+import { Observable, Subscription } from 'rxjs';
 
 import { environment } from '@environments/environment';
 import { AuthService } from '@auth/auth.service';
 import { Base } from '@models/base';
 import { IEvent, Event } from '@models/event';
-import { IEventSocial } from '@models/event-social';
 import { IUser } from '@models/user';
 import { IAppointment } from '@models/appointment';
 import { IPicture } from '@models/picture';
-import { CommentType, IComment } from '@models/comment';
 import { EventService } from '@services/events.service';
-import { EventSocialService } from '@services/events-social.service';
-import { CommentsService } from '@services/comments.service';
 import { UserService } from '@services/users.service';
 import { AppointmentsService } from '@services/appointments.service';
-
-import { CommentsDialogComponent } from '@shared/components/comments-dialog/comments-dialog.component';
 
 @Component({
   selector: 'app-event-view',
@@ -33,54 +24,33 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public userLogged: IUser;
   public configAllowed: boolean;
   public event: IEvent;
-  public eventSocial: IEventSocial;
-  public isFav = false;
-  public applause = false;
   public idEventUrl: string;
   public idEvent: string;
   public idSubevent: string;
   public eventPicture: IPicture;
-  public comments$: Observable<IComment[]>;
   public appointment$: Observable<IAppointment>;
-  public dialogConfig = new MatDialogConfig();
-  public BTN_IMG_COMMENTS = 'assets/svg/comments.svg';
-  public BTN_IMG_FAVORITE_ON = 'assets/svg/favorite-on.svg';
-  public BTN_IMG_FAVORITE_OFF = 'assets/svg/favorite-off.svg';
-  public BTN_IMG_CLAP_ON = 'assets/svg/clap-on.svg';
-  public BTN_IMG_CLAP_OFF = 'assets/svg/clap-off.svg';
-
 
   readonly SECTION_BLANK: Base = Base.InitDefault();
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
     public authSvc: AuthService,
-    private afs: AngularFirestore,
-    public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
     private userSrv: UserService,
     private appointmentSrv: AppointmentsService,
     private eventSrv: EventService,
-    private eventSocialSrv: EventSocialService,
-    private commentSrv: CommentsService
   ) {
     this.configAllowed = false;
-    this.dialogConfig.disableClose = true;
-    this.dialogConfig.autoFocus = true;
-    this.dialogConfig.width = '600px';
 
     const subs1$ = this.authSvc.afAuth.user
       .subscribe( (user: any) => {
           if ( user?.uid ) {
-            this.userSrv.getOneUser(user.uid).subscribe( (userLogged: any ) => {
-              this.userLogged = userLogged;
-              if ( this.userLogged.favEvents?.includes(this.event?.id) ) {
-                  this.isFav = true;
-              }
-
-              this.configAllowed = this.canConfig(this.userLogged);
-          });
+            this.userSrv.getOneUser(user.uid)
+                .subscribe( (userLogged: any ) => {
+                    this.userLogged = userLogged;
+                    this.configAllowed = this.canConfig(this.userLogged);
+                });
           }
       });
 
@@ -99,8 +69,6 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
     this.appointment$ = this.appointmentSrv.getOneAppointment(this.idEvent);
 
-      this.comments$ = this.commentSrv.getAllComments(this.idEvent);
-
     if ( this.idEvent ) {
       this.getDetails(this.idEvent);
     }
@@ -114,10 +82,6 @@ export class EventViewComponent implements OnInit, OnDestroy {
     const subs2$ = this.eventSrv.getOneEvent(idEvent)
       .subscribe(async (event: IEvent) => {
           this.event = event;
-          this.eventSocialSrv.getEventSocial(idEvent)
-              .subscribe( (eventSocial: IEventSocial) => {
-                  this.eventSocial = eventSocial;
-              });
       });
 
     this.listOfObservers.push( subs2$ );
@@ -127,36 +91,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     this.router.navigate([`/${Event.PATH_URL}/${this.idEvent}/config`]);
   }
 
-  public viewComments(nComments: number): void {
 
-    const userRole = this.userLogged?.role ?? '';
-
-    if ( nComments > 0 || ['SUPER', 'ADMIN', 'AUTOR'].includes(userRole)) {
-
-        this.dialogConfig.width = '600px';
-        this.dialogConfig.height = '600px';
-        this.dialogConfig.data = {
-          itemId: this.event.id,
-          UserUid: this.userLogged?.uid ?? '',
-          UserName: this.userLogged?.displayName ?? '',
-          UserImage: this.userLogged?.photoURL ?? '',
-          UserRole: userRole,
-          EntityId: ( this.userLogged?.entityDefault?.id ?? '' ),
-          EntityName: ( this.userLogged?.entityDefault?.name ?? '' ),
-          EntityImage: ( this.userLogged?.entityDefault?.imagePath ?? '' ),
-          commentType: CommentType.Event,
-        };
-
-        const dialogRef = this.dialog.open(CommentsDialogComponent, this.dialogConfig);
-      } else {
-        // Swal.fire({
-        //   icon: 'warning',
-        //   title: 'No hay comentarios en este evento',
-        //   text: 'Todos los comentarios son escritos por administradores de la agenda, evitando así spam o malos entendidos',
-        //   confirmButtonColor: '#003A59',
-        // });
-      }
-  }
 
   public shareLink(social: string) {
 
@@ -180,46 +115,6 @@ export class EventViewComponent implements OnInit, OnDestroy {
         const titleWhatsapp = `${this.event.name}`;
         window.open(`whatsapp://send?text=_Agenda Rinconera_%0a*${titleWhatsapp}*%0a${SHARED_URL}`);
         break;
-    }
-  }
-
-  public isFavorite(isFav: boolean): void {
-
-    this.userLogged.favEvents = this.userLogged.favEvents ?? [];
-    this.userLogged.favEvents = this.userLogged.favEvents.filter( (eventId: string) => eventId !== this.event.id );
-
-    this.isFav = !this.isFav;
-    if ( isFav ) {
-      this.userLogged.favEvents.push(this.event.id);
-      this.eventSocialSrv.addFavourite(this.eventSocial, this.userLogged.uid);
-      Swal.fire({
-        icon: 'success',
-        title: 'Este evento se ha convertido en uno de tus favoritos',
-        confirmButtonColor: '#003A59',
-      });
-    } else {
-      this.eventSocialSrv.removeFavourite(this.eventSocial, this.userLogged.uid);
-      Swal.fire({
-        icon: 'success',
-        title: 'Este evento ha dejado de estar entre tus favoritos',
-        confirmButtonColor: '#003A59',
-      });
-    }
-
-    this.userSrv.updateUser(this.userLogged);
-  }
-
-  public clap(applause: boolean): void {
-    if ( !applause ) {
-      console.log(`applause!`);
-      this.applause = true;
-      this.eventSocialSrv.addClaps(this.eventSocial);
-      const source = timer(3000);
-      const subsTimer$ = source.subscribe(val => {
-        console.log(val);
-        this.applause = false;
-      });
-      this.listOfObservers.push( subsTimer$ );
     }
   }
 

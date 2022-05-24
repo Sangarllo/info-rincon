@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `settings` Update domain at Firebase Console.
 - `feature` Comments can be done by users, entities, or Agenda.
 - `admin` Let deletion forever of events.
+- `code` Isolate component for social data.
 
 ### Fix
 
@@ -38,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Disable login by email.
 - `style` Use badges for social sharing.
 - `code` Refactor event-comment and notice-comment to simple comment.
+- `style` Fav events shown with cards.
 
 ### Remove
 

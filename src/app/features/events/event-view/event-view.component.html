@@ -17,7 +17,7 @@
                         <legend>¡Comparte!</legend>
                         -->
 
-                        <div class="buttons" *ngIf="eventSocial">
+                        <div class="buttons">
 
                             <img [src]="'assets/svg/twitter.svg'" (click)="shareLink('twitter')" class="share-button">
                             <img [src]="'assets/svg/facebook.svg'" (click)="shareLink('facebook')" class="share-button">
@@ -26,31 +26,7 @@
                             <span class="share-button">
                             </span>
 
-                            <div class="fav-button" *ngIf="comments$ | async as comments" [ngSwitch]="comments?.length">
-                                <button [matBadge]="comments?.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_COMMENTS + ')'" (click)="viewComments(comments?.length)"></button>
-                            </div>
-
-                            <div class="fav-button" *ngIf="userLogged">
-
-                                <button *ngIf="eventSocial.usersFavs && (eventSocial.usersFavs?.indexOf(userLogged.uid) !== -1); else noFavTemplateButton" [matBadge]="eventSocial?.usersFavs?.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'"
-                                    (click)="isFavorite(false)"></button>
-
-                                <ng-template #noFavTemplateButton>
-                                    <button [matBadge]="eventSocial?.usersFavs?.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_OFF + ')'" (click)="isFavorite(true)"></button>
-                                </ng-template>
-
-                            </div>
-
-
-                            <div class="fav-button" *ngIf="userLogged">
-
-                                <button *ngIf="applause; else noClapTemplateButton" (click)="clap(applause)" [matBadge]="eventSocial.nClaps" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_CLAP_ON + ')'"></button>
-
-                                <ng-template #noClapTemplateButton>
-                                    <button (click)="clap(applause)" [matBadge]="eventSocial.nClaps" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_CLAP_OFF + ')'"></button>
-                                </ng-template>
-
-                            </div>
+                            <app-event-social [event]="event" [userLogged]="userLogged"></app-event-social>
 
                         </div>
 

@@ -1,5 +1,6 @@
 <app-section-header [title]="'Tus Eventos Favoritos'"></app-section-header>
 
+<!--
 <div class="section-wrapper" *ngIf="events.length > 0; else noEventsTemplate">
 
     <div class="section-list-options">
@@ -85,11 +86,11 @@
     </div>
 
 </div>
+-->
 
+<div class="section-wrapper row" *ngIf="events.length > 0; else noEventsTemplate">
 
-<div class="section-wrapper" *ngIf="events.length > 0">
-
-    <div class="item-view" *ngFor="let event of events">
+    <div class="item-view col-12 col-sm-6 col-md-4" *ngFor="let event of events">
         <app-event-card [event]="event"></app-event-card>
     </div>
 

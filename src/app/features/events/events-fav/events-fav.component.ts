@@ -30,7 +30,7 @@ export class EventsFavComponent implements OnInit, OnDestroy {
   public events: IEvent[] = [];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   public displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'image', 'collapsed-info', 'name', 'categories', 'actions1'];
-  private currentUser: IUser;
+  private userLogged: IUser;
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
@@ -51,8 +51,8 @@ export class EventsFavComponent implements OnInit, OnDestroy {
       const uidUser = usr.uid;
       this.userSrv.getOneUser(uidUser)
       .subscribe( (user: IUser) => {
-        this.currentUser = user;
-        const favEvents = this.currentUser.favEvents;
+        this.userLogged = user;
+        const favEvents = this.userLogged.favEvents;
         this.events = [];
 
         if ( favEvents?.length > 0 ) {
@@ -97,8 +97,8 @@ export class EventsFavComponent implements OnInit, OnDestroy {
   }
 
   public removeFav(event: IEvent): void {
-    this.currentUser.favEvents = this.currentUser.favEvents.filter( (eventId: string) => eventId !== event.id );
-    this.userSrv.updateUser(this.currentUser);
+    this.userLogged.favEvents = this.userLogged.favEvents.filter( (eventId: string) => eventId !== event.id );
+    this.userSrv.updateUser(this.userLogged);
   }
 
   ngOnDestroy(): void {

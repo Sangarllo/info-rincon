@@ -3,17 +3,19 @@
     <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>{{ event.name }}</mat-card-title>
+        <mat-card-subtitle>{{ event.extra2 }}</mat-card-subtitle>
         <mat-card-subtitle>{{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}</mat-card-subtitle>
     </mat-card-header>
     <img [src]="getMediumImage(event.imagePath)" class="img-thumbnail" [alt]="event.name">
     <mat-card-content>
         <p>
-            {{ event.extra2 }}
+            <!--{{ event.extra2 }}-->
         </p>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
+
+        <app-event-social [event]="event" [userLogged]="userLogged"></app-event-social>
+
     </mat-card-actions>
 
 </mat-card>

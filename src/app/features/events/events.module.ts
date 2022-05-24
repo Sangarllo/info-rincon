@@ -31,6 +31,7 @@ import { CalendarEventItemsPanelComponent } from '@features/events/calendar-even
 import { EventCardComponent } from '@features/events/event-card/event-card.component';
 import { EventWikiComponent } from '@features/events/event-wiki/event-wiki.component';
 import { EventLinkDialogComponent } from '@features/events/event-link-dialog/event-link-dialog.component';
+import { EventSocialComponent } from '@features/events/event-social/event-social.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { EventLinkDialogComponent } from '@features/events/event-link-dialog/eve
     EventsOwnComponent,
     EventCardComponent,
     EventViewComponent,
+    EventSocialComponent,
     EventConfigComponent,
     EventEditComponent,
     EventBasicDialogComponent,
