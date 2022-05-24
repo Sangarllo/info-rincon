@@ -86,6 +86,16 @@
 
 </div>
 
+
+<div class="section-wrapper" *ngIf="events.length > 0">
+
+    <div class="item-view" *ngFor="let event of events">
+        <app-event-card [event]="event"></app-event-card>
+    </div>
+
+</div>
+
+
 <ng-template #noEventsTemplate>
     <div class="m-3 alert alert-warning">
         ¡No tienes eventos marcados como favoritos!

@@ -1,0 +1,23 @@
+<mat-card class="item-view" *ngIf="event; else loadingTemplate">
+
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{ event.name }}</mat-card-title>
+        <mat-card-subtitle>{{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}</mat-card-subtitle>
+    </mat-card-header>
+    <img [src]="getMediumImage(event.imagePath)" class="img-thumbnail" [alt]="event.name">
+    <mat-card-content>
+        <p>
+            {{ event.extra2 }}
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+    </mat-card-actions>
+
+</mat-card>
+
+<ng-template #loadingTemplate>
+    Cargando...
+</ng-template>
