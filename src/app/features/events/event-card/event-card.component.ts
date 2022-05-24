@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Observable, Subscription } from 'rxjs';
-
-import { IEvent } from '@models/event';
-import { EventService } from '@services/events.service';
+import { IEvent, Event } from '@models/event';
 import { PictureService } from '@services/pictures.service';
 import { SpinnerService } from '@services/spinner.service';
 
@@ -19,6 +17,7 @@ export class EventCardComponent implements OnInit {
   constructor(
     private pictureSrv: PictureService,
     private spinnerSvc: SpinnerService,
+    private router: Router,
   ) {
     this.spinnerSvc.show();
   }
@@ -35,4 +34,7 @@ export class EventCardComponent implements OnInit {
     return this.pictureSrv.getMediumImage(image);
   }
 
+  gotoEvent(): void {
+    this.router.navigate([`/${Event.PATH_URL}/${this.event.id}`]);
+  }
 }

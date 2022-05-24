@@ -4,7 +4,7 @@
 
 <div class="fav-button" *ngIf="userLogged">
 
-    <button *ngIf="eventSocial.usersFavs && (eventSocial.usersFavs?.indexOf(userLogged.uid) !== -1); else noFavTemplateButton" [matBadge]="eventSocial?.usersFavs?.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'"
+    <button *ngIf="eventSocial?.usersFavs && (eventSocial?.usersFavs?.indexOf(userLogged.uid) !== -1); else noFavTemplateButton" [matBadge]="eventSocial?.usersFavs?.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'"
         (click)="isFavorite(false)"></button>
 
     <ng-template #noFavTemplateButton>
@@ -19,7 +19,7 @@
     <button *ngIf="applause; else noClapTemplateButton" (click)="clap(applause)" [matBadge]="eventSocial.nClaps" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_CLAP_ON + ')'"></button>
 
     <ng-template #noClapTemplateButton>
-        <button (click)="clap(applause)" [matBadge]="eventSocial.nClaps" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_CLAP_OFF + ')'"></button>
+        <button (click)="clap(applause)" [matBadge]="eventSocial?.nClaps" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_CLAP_OFF + ')'"></button>
     </ng-template>
 
 </div>

@@ -7,7 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import Swal from 'sweetalert2';
+import { formatDistance } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 import { AuthService } from '@auth/auth.service';
 import { IEvent } from '@models/event';
@@ -60,6 +61,8 @@ export class EventsFavComponent implements OnInit, OnDestroy {
             .pipe(
               map(events => events.map(event => {
                 const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
+
+                event.timestamp = formatDistance(new Date(event.timestamp), new Date(), {locale: es});
 
                 event.description = ( event.categories ) ? event.categories.reduce(reducer, '') : '';
                 return { ...event };

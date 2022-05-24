@@ -1,7 +1,23 @@
+@import '../../../../base/variables';
 app-event-social {
     display: inline-block;
 }
 
 .item-view {
     margin-bottom: 10px;
+    .event-content {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-top: 3px;
+        .event-timestamp {
+            text-transform: uppercase;
+            font-size: x-small;
+            padding: 0px 5px;
+            background-color: $color1;
+            border: 1px solid $color1;
+            border-radius: 10px;
+            color: $color2;
+            float: right;
+        }
+    }
 }
