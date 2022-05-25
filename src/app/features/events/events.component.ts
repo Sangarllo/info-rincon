@@ -27,6 +27,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  public viewMode = 'cards';
   public events: IEvent[];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   displayedColumns: string[] = [
@@ -127,6 +128,10 @@ export class EventsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
+
+  setViewMode(mode: string): void {
+    this.viewMode = mode;
   }
 
   private formatSocialInfo(info: string): string {
