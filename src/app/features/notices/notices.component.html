@@ -1,114 +1,149 @@
-<app-section-header [title]="'Panel de Configuración de Imágenes'"></app-section-header>
+<app-section-header [title]="'Panel de Configuración de Imágenes'" showViewMode="true" (viewMode)="setViewMode($event)"></app-section-header>
 
-<div class="section-wrapper">
+<div *ngIf="notices.length > 0; else noNoticesTemplate">
 
-    <div class="section-list-options">
-        <mat-form-field>
-            <mat-label>Filtro</mat-label>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
-            <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
+    <div class="section-wrapper">
 
-        <div class="buttons">
-            <button mat-mini-fab class="btn-1" (click)="addItem()">
-                <mat-icon>add</mat-icon>
-            </button>
+        <!-- LIST View -->
+        <div *ngIf="viewMode === 'list'">
+
+            <div class="section-list-options">
+                <mat-form-field>
+                    <mat-label>Filtro</mat-label>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+
+                <div class="buttons">
+                    <button mat-mini-fab class="btn-1" (click)="addItem()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort>
+
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Id.</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let element">{{ element.id }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Estado</th>
+                        <td [class]="element.status" mat-cell class="td-extra-lg" *matCellDef="let element">
+                            <div class="inside">{{ element.status | status }}</div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="timestamp">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Fecha Actualización</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let element">hace {{ element.timestamp }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="image">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                        <td mat-cell *matCellDef="let element">
+                            <img (click)="gotoItemConfig(element)" [src]="getThumbnail(element.imagePath)" class="img-thumbnail" alt="element.name">
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="collapsed-info">
+                        <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Aviso</th>
+                        <td mat-cell class="td-collapsed-info" [class]="item.status" *matCellDef="let item">
+
+                            <button mat-mini-fab class="button-collapsed btn-1" aria-label="Establecer como alerta" (click)="alertItem(item)">
+                              <mat-icon>lightbulb</mat-icon>
+                          </button>
+
+                            <div (click)="gotoItemConfig(item)" class="inside"></div>
+
+                            <div (click)="gotoItemConfig(item)" style="font-size: smaller;color:gray">
+                                actualizado hace {{ item.timestamp }}
+                            </div>
+                            <div (click)="gotoItemConfig(item)">
+                                {{ item.name }}
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Nombre</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let notice">{{ notice.name }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="categories">
+                        <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header></th>
+                        <td mat-cell class="td-extra-md" *matCellDef="let notice">{{ notice.extra }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions4">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let notice">
+
+                            <button [disabled]="notice.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(notice)">
+                              <mat-icon class="btn-1" aria-label="View">
+                                  remove_red_eye
+                              </mat-icon>
+                          </button>
+
+                            <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" (click)="gotoItemConfig(notice)">
+                              <mat-icon class="btn-1" aria-label="Edit">
+                                  build_circle
+                              </mat-icon>
+                          </button>
+
+                            <button [disabled]="notice.alerted" mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(notice)">
+                              <mat-icon class="btn-1" aria-label="Delete">
+                                  delete
+                              </mat-icon>
+                          </button>
+
+                            <button [disabled]="notice.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to Alerted" class="iconbutton" [color]="(notice.alerted) ? 'accent' : 'yellow'" (click)="alertItem(notice)">
+                              <mat-icon aria-label="Activar como alerta">
+                                  lightbulb
+                              </mat-icon>
+                          </button>
+
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'marked-row': row.alerted }"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+
+            </div>
+
         </div>
-    </div>
+        <!-- LIST View - End -->
 
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
 
-            <ng-container matColumnDef="id">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Id.</th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let element">{{ element.id }}</td>
-            </ng-container>
+        <!-- CARDS View -->
+        <div *ngIf="viewMode === 'cards'">
 
-            <ng-container matColumnDef="status">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Estado</th>
-                <td [class]="element.status" mat-cell class="td-extra-lg" *matCellDef="let element">
-                    <div class="inside">{{ element.status | status }}</div>
-                </td>
-            </ng-container>
+            <div class="form-group">
+                <input type="text" class="form-control mb-4" placeholder="Filtrar Búsqueda" [(ngModel)]="query" id="listSearch">
+            </div>
 
-            <ng-container matColumnDef="timestamp">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Fecha Actualización</th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let element">hace {{ element.timestamp }}</td>
-            </ng-container>
+            <div class="section-cards">
+                <div class="item-card" *ngFor="let notice of notices | searchFilter: query">
 
-            <ng-container matColumnDef="image">
-                <th mat-header-cell *matHeaderCellDef> </th>
-                <td mat-cell *matCellDef="let element">
-                    <img (click)="gotoItemConfig(element)" [src]="getThumbnail(element.imagePath)" class="img-thumbnail" alt="element.name">
-                </td>
-            </ng-container>
+                    <app-notice-card [notice]="notice"></app-notice-card>
 
-            <ng-container matColumnDef="collapsed-info">
-                <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Aviso</th>
-                <td mat-cell class="td-collapsed-info" [class]="item.status" *matCellDef="let item">
-
-                    <button mat-mini-fab class="button-collapsed btn-1" aria-label="Establecer como alerta" (click)="alertItem(item)">
-                      <mat-icon>lightbulb</mat-icon>
-                  </button>
-
-                    <div (click)="gotoItemConfig(item)" class="inside"></div>
-
-                    <div (click)="gotoItemConfig(item)" style="font-size: smaller;color:gray">
-                        actualizado hace {{ item.timestamp }}
-                    </div>
-                    <div (click)="gotoItemConfig(item)">
-                        {{ item.name }}
-                    </div>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="name">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Nombre</th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let notice">{{ notice.name }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="categories">
-                <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header></th>
-                <td mat-cell class="td-extra-md" *matCellDef="let notice">{{ notice.extra }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="actions4">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones</th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let notice">
-
-                    <button [disabled]="notice.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(notice)">
-                      <mat-icon class="btn-1" aria-label="View">
-                          remove_red_eye
-                      </mat-icon>
-                  </button>
-
-                    <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" (click)="gotoItemConfig(notice)">
-                      <mat-icon class="btn-1" aria-label="Edit">
-                          build_circle
-                      </mat-icon>
-                  </button>
-
-                    <button [disabled]="notice.alerted" mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(notice)">
-                      <mat-icon class="btn-1" aria-label="Delete">
-                          delete
-                      </mat-icon>
-                  </button>
-
-                    <button [disabled]="notice.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to Alerted" class="iconbutton" [color]="(notice.alerted) ? 'accent' : 'yellow'" (click)="alertItem(notice)">
-                      <mat-icon aria-label="Activar como alerta">
-                          lightbulb
-                      </mat-icon>
-                  </button>
-
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'marked-row': row.alerted }"></tr>
-        </table>
-
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+                </div>
+            </div>
+        </div>
+        <!-- CARDS View - End -->
 
     </div>
 
 </div>
+
+
+<ng-template #noNoticesTemplate>
+    <div class="m-3 alert alert-warning">
+        ¡No se han encontrado avisos!
+    </div>
+</ng-template>

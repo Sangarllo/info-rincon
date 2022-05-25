@@ -25,6 +25,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  public viewMode = 'cards';
   public loading = true;
   public notices: INotice[];
   public dataSource: MatTableDataSource<INotice> = new MatTableDataSource();
@@ -217,5 +218,9 @@ export class NoticesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
+
+  setViewMode(mode: string): void {
+    this.viewMode = mode;
   }
 }

@@ -5,6 +5,7 @@ import { SharedModule } from '@shared/shared.module';
 
 import { NoticesRoutingModule } from '@features/notices/notices-routing.module';
 import { NoticesComponent } from '@features/notices/notices.component';
+import { NoticeCardComponent } from '@features/notices/notice-card/notice-card.component';
 import { NoticeViewComponent } from '@features/notices/notice-view/notice-view.component';
 import { NoticeEditComponent } from '@features/notices/notice-edit/notice-edit.component';
 import { NoticesDashboardComponent } from '@features/notices/notices-dashboard/notices-dashboard.component';
@@ -15,6 +16,7 @@ import { NoticeExpansionPanelComponent } from '@features/notices/notice-expansio
 @NgModule({
   declarations: [
     NoticesComponent,
+    NoticeCardComponent,
     NoticeViewComponent,
     NoticeEditComponent,
     NoticesDashboardComponent,
