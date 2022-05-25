@@ -12,7 +12,8 @@
         "serve:ssr": "node dist/functions/server/main.js",
         "build:ssr": "ng build && ng run info-rincon:server:production",
         "prerender": "ng run info-rincon:prerender",
-        "deploy-firebase": "xcopy /E dist\\functions\\browser dist\\functions\\dist\\functions\\browser\\ /Y && xcopy /E dist\\functions\\server dist\\functions\\dist\\functions\\server\\ /Y && firebase deploy"
+        "deploy-firebase": "xcopy /E dist\\functions\\browser dist\\functions\\dist\\functions\\browser\\ /Y && xcopy /E dist\\functions\\server dist\\functions\\dist\\functions\\server\\ /Y && firebase deploy",
+        "build-and-deploy": "ng build --configuration production && npm run build:ssr && npm run deploy-firebase"
     },
     "private": true,
     "dependencies": {

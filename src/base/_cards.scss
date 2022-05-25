@@ -55,3 +55,27 @@ mat-card-content.item-view {
         }
     }
 }
+
+.section-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    .item-card {
+        @media screen and (max-width: $maxMobileWidth) {
+            width: 100%;
+        }
+        @media screen and (min-width: $minTabletWidth) and (max-width: $maxTabletWidth) {
+            width: 48%;
+        }
+        @media screen and (min-width: $minComputerWidth) and (max-width: $maxComputerWidth) {
+            width: 32%;
+        }
+        @media screen and (min-width: $minLargeComputerWidth) {
+            width: 260px;
+        }
+    }
+}
