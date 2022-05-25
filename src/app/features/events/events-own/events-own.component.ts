@@ -27,6 +27,8 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  public filter = '';
+  public viewMode = 'cards';
   public uidUser: string;
   public events: IEvent[] = [];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
@@ -78,11 +80,17 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(filterValue: string): void {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = this.filter;
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  isFiltered(event: IEvent): boolean {
+    return event.name.trim().toLowerCase().indexOf(this.filter) === -1;
+    // console.log(`isFiltered ${event.name} ${this.filter} ${isFiltered}`);
   }
 
   public gotoItem(event: IEvent): void {
@@ -122,6 +130,10 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
+
+  setViewMode(mode: string): void {
+    this.viewMode = mode;
   }
 
   private formatSocialInfo(info: string): string {

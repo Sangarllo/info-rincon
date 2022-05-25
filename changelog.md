@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Comments can be done by users, entities, or Agenda.
 - `admin` Let deletion forever of events.
 - `code` Isolate component for social data.
+- `feature` View of cards with search-filter pipe.
 
 ### Fix
 

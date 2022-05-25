@@ -5,7 +5,9 @@ import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from '@shared/material/material.module';
 
+import { SearchFilterPipe } from '@pipes/search-filter.pipe';
 import { StatusPipe } from '@pipes/status.pipe';
+
 import { RoleDirective } from '@shared/directives/role.directive';
 import { ShellComponent } from '@shared/layout/shell/shell.component';
 import { FooterComponent } from '@shared/layout/footer/footer.component';
@@ -39,6 +41,7 @@ const components = [
 ];
 
 const pipes = [
+  SearchFilterPipe,
   StatusPipe,
 ];
 

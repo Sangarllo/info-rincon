@@ -1,9 +1,12 @@
 <mat-card (click)="gotoEvent()" class="item-view" *ngIf="event; else loadingTemplate">
 
+    <span *ngIf="event.status !== 'VISIBLE'" class="event-status" [class]="event.status">
+      {{ event.status }}
+    </span>
+
     <mat-card-header>
         <mat-card-title>{{ event.name }}</mat-card-title>
         <mat-card-subtitle>{{ event.extra2 }}</mat-card-subtitle>
-        <mat-card-subtitle>{{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}</mat-card-subtitle>
     </mat-card-header>
     <img [src]="getMediumImage(event.imagePath)" class="img-thumbnail" [alt]="event.name">
     <mat-card-content class="event-content">
