@@ -236,6 +236,7 @@ button:not(.mat-button-disabled) {
 
 .mat-menu-content {
     width: 260px;
+    overflow: hidden !important;
 }
 
 .mat-badge-content {

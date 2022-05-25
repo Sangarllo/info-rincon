@@ -114,20 +114,17 @@
                     <i>💡</i>
                     <span>Acerca de esta WebApp</span>
                 </a>
-                <a mat-menu-item target="_blank" href="http://www.rincondesoto.org/">
-                    <i>🏛️</i>
-                    <span>Ayuntamiento de Rincón</span>
-                </a>
-                <a mat-menu-item target="_blank" href="http://perasderincondesoto.com/">
-                    <i>🍐</i>
-                    <span>Peras de Rincón de Soto</span>
-                </a>
 
                 <div *ngIf="afAuth.authState | async; else loginTemplate">
 
                     <a mat-menu-item [routerLink]="'/admin'">
                         <i>⚙️</i>
                         <span>Administración</span>
+                    </a>
+
+                    <a mat-menu-item [routerLink]="'/eventos/favoritos'">
+                        <i>⭐​</i>
+                        <span>Favoritos</span>
                     </a>
 
                     <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-menu-item [routerLink]="'/eventos/new'">
@@ -141,6 +138,17 @@
                     </a>
 
                 </div>
+
+                <a mat-menu-item target="_blank" href="http://www.rincondesoto.org/">
+                    <i>🏛️</i>
+                    <span>Ayuntamiento de Rincón</span>
+                </a>
+
+                <a mat-menu-item target="_blank" href="http://perasderincondesoto.com/">
+                    <i>🍐</i>
+                    <span>Peras de Rincón de Soto</span>
+                </a>
+
 
                 <ng-template #loginTemplate>
                     <a mat-menu-item [routerLink]="'/login'">

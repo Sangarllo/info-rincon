@@ -1,100 +1,107 @@
-<app-section-header [title]="'Tus Eventos Favoritos'"></app-section-header>
+<app-section-header [title]="'Tus Eventos Favoritos'" showViewMode="true" (viewMode)="setViewMode($event)"></app-section-header>
 
-<!--
-<div class="section-wrapper" *ngIf="events.length > 0; else noEventsTemplate">
+<div *ngIf="events.length > 0; else noEventsTemplate">
 
-    <div class="section-list-options">
-        <mat-form-field>
-            <mat-label>Filtro</mat-label>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
-            <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
+    <!-- LIST View -->
+    <div class="section-wrapper" *ngIf="viewMode === 'list'">
+
+        <div class="section-list-options">
+            <mat-form-field>
+                <mat-label>Filtro</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Id.</th>
+                    <td mat-cell class="td-extra-lg" *matCellDef="let event">{{ event.id }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Estado</th>
+                    <td mat-cell [class]="event.status" class="td-extra-lg" *matCellDef="let event">
+                        <div class="inside">{{ event.status | status }}</div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="timestamp">
+                    <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Fecha Actualización</th>
+                    <td mat-cell class="td-extra-lg" *matCellDef="let event">hace {{ event.timestamp }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="image">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let element">
+                        <img (click)="gotoItem(element)" [src]="element.imagePath" class="img-thumbnail" alt="element.name">
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="collapsed-info">
+                    <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Evento</th>
+                    <td mat-cell class="td-collapsed-info" [class]="event.status" *matCellDef="let event" (click)="gotoItem(event)">
+                        <div class="inside"></div>
+                        <div style="font-size: smaller;color:gray">
+                            {{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}
+                        </div>
+                        {{ event.name }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Nombre del evento</th>
+                    <td mat-cell class="td-extra-lg" *matCellDef="let event">{{ event.name }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="categories">
+                    <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header>Categorías</th>
+                    <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.description }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions1">
+                    <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones </th>
+                    <td mat-cell class="td-extra-lg" *matCellDef="let event">
+
+                        <button [disabled]="event.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(event)">
+                            <mat-icon class="btn-1" aria-label="View">
+                                remove_red_eye
+                            </mat-icon>
+                        </button>
+
+                        <button mat-icon-button matTooltip="Click to quit from favourite" class="iconbutton" (click)="removeFav(event)">
+                            <mat-icon class="btn-1" aria-label="Favourite off">
+                                gps_off
+                            </mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+
+        </div>
+
     </div>
+    <!-- LIST View - End -->
 
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
 
-            <ng-container matColumnDef="id">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Id.</th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let event">{{ event.id }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="status">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Estado</th>
-                <td mat-cell [class]="event.status" class="td-extra-lg" *matCellDef="let event">
-                    <div class="inside">{{ event.status | status }}</div>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="timestamp">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Fecha Actualización</th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let event">hace {{ event.timestamp }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="image">
-                <th mat-header-cell *matHeaderCellDef> </th>
-                <td mat-cell *matCellDef="let element">
-                    <img (click)="gotoItem(element)" [src]="element.imagePath" class="img-thumbnail" alt="element.name">
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="collapsed-info">
-                <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Evento</th>
-                <td mat-cell class="td-collapsed-info" [class]="event.status" *matCellDef="let event" (click)="gotoItem(event)">
-                    <div class="inside"></div>
-                    <div style="font-size: smaller;color:gray">
-                        {{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}
-                    </div>
-                    {{ event.name }}
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="name">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Nombre del evento</th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let event">{{ event.name }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="categories">
-                <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header>Categorías</th>
-                <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.description }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="actions1">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones </th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let event">
-
-                    <button [disabled]="event.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(event)">
-                        <mat-icon class="btn-1" aria-label="View">
-                            remove_red_eye
-                        </mat-icon>
-                    </button>
-
-                    <button mat-icon-button matTooltip="Click to quit from favourite" class="iconbutton" (click)="removeFav(event)">
-                        <mat-icon class="btn-1" aria-label="Favourite off">
-                            gps_off
-                        </mat-icon>
-                    </button>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
-
+    <!-- CARDS View -->
+    <div class="section-wrapper row" *ngIf="viewMode === 'cards'">
+        <div class="item-view col-12 col-sm-6 col-md-4" *ngFor="let event of events">
+            <app-event-card [event]="event"></app-event-card>
+        </div>
     </div>
+    <!-- CARDS View - End -->
 
 </div>
--->
 
-<div class="section-wrapper row" *ngIf="events.length > 0; else noEventsTemplate">
 
-    <div class="item-view col-12 col-sm-6 col-md-4" *ngFor="let event of events">
-        <app-event-card [event]="event"></app-event-card>
-    </div>
-
-</div>
 
 
 <ng-template #noEventsTemplate>

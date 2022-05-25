@@ -1,13 +1,20 @@
 @import '../../../../base/variables';
-div {
+div.header-container {
     background-color: $color2;
     color: $color1;
-    text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .header-button {
+        color: $color1;
+        background-color: $color2;
+    }
 }
 
 @media screen and (max-width: $maxMobileWidth) {
     div {
-        height: 48px;
+        height: 58px;
         font-weight: 240;
         font-size: large;
         padding: 18px 12px;
@@ -16,7 +23,7 @@ div {
 
 @media screen and (min-width: $minTabletWidth) {
     div {
-        height: 60px;
+        height: 70px;
         font-weight: 300;
         font-size: x-large;
         padding: 23px 18px;

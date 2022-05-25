@@ -1,3 +1,19 @@
-<div>
+<div class="header-container">
     {{ title }}
+
+    <button *ngIf="showViewMode" mat-mini-fab class="btn-1 header-button" [matMenuTriggerFor]="menu" aria-label="Modo de visualización">
+        <mat-icon>tune</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu" class="header-menu">
+        <button mat-menu-item (click)="setViewMode('cards')">
+            <mat-icon>grid_view</mat-icon>
+            <span>Ver como tarjetas</span>
+        </button>
+        <button mat-menu-item (click)="setViewMode('list')">
+            <mat-icon>view_list</mat-icon>
+            <span>Ver como lista</span>
+        </button>
+    </mat-menu>
+
 </div>
