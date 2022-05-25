@@ -21,7 +21,7 @@ import { SpinnerService } from '@services/spinner.service';
 @Component({
   selector: 'app-events-fav',
   templateUrl: './events-fav.component.html',
-  styleUrls: ['./events-fav.component.css']
+  styleUrls: ['./events-fav.component.scss']
 })
 export class EventsFavComponent implements OnInit, OnDestroy {
 

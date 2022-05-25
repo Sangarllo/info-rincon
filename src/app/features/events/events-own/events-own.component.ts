@@ -27,7 +27,6 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  public filter = '';
   public viewMode = 'cards';
   public uidUser: string;
   public events: IEvent[] = [];
@@ -80,17 +79,11 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(filterValue: string): void {
-    this.filter = filterValue.trim().toLowerCase();
-    this.dataSource.filter = this.filter;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
-
-  isFiltered(event: IEvent): boolean {
-    return event.name.trim().toLowerCase().indexOf(this.filter) === -1;
-    // console.log(`isFiltered ${event.name} ${this.filter} ${isFiltered}`);
   }
 
   public gotoItem(event: IEvent): void {
