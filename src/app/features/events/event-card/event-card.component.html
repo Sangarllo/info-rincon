@@ -1,6 +1,6 @@
-<mat-card (click)="gotoEvent()" class="item-view" *ngIf="event; else loadingTemplate">
+<mat-card (click)="gotoEvent()" class="item-card" [class]="event.status" *ngIf="event; else loadingTemplate">
 
-    <span *ngIf="event.status !== 'VISIBLE'" class="event-status" [class]="event.status">
+    <span *ngIf="event.status !== 'VISIBLE'" class="item-status" [class]="event.status">
       {{ event.status }}
     </span>
 
@@ -9,8 +9,8 @@
         <mat-card-subtitle>{{ event.extra2 }}</mat-card-subtitle>
     </mat-card-header>
     <img [src]="getMediumImage(event.imagePath)" class="img-thumbnail" [alt]="event.name">
-    <mat-card-content class="event-content">
-        <span class="event-timestamp">
+    <mat-card-content class="item-content">
+        <span class="item-timestamp">
             Actualizado hace {{ event.timestamp }}
         </span>
     </mat-card-content>

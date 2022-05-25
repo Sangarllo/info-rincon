@@ -1,4 +1,4 @@
-<mat-card (click)="gotoNotice()" class="item-view" *ngIf="notice; else loadingTemplate">
+<mat-card (click)="gotoNotice()" class="item-card" [class]="notice.status" *ngIf="notice; else loadingTemplate">
 
     <span *ngIf="notice.status !== 'VISIBLE'" class="item-status" [class]="notice.status">
       {{ notice.status }}
