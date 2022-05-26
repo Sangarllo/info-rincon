@@ -1,18 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { INotice, Notice } from '@models/notice';
+import { IPlace, Place } from '@models/place';
 import { PictureService } from '@services/pictures.service';
 import { SpinnerService } from '@services/spinner.service';
 
 @Component({
-  selector: 'app-notice-card',
-  templateUrl: './notice-card.component.html',
-  styleUrls: ['./notice-card.component.scss']
+  selector: 'app-place-card',
+  templateUrl: './place-card.component.html'
 })
-export class NoticeCardComponent implements OnInit {
+export class PlaceCardComponent implements OnInit {
 
-  @Input() notice: INotice;
+  @Input() place: IPlace;
 
   constructor(
     private pictureSrv: PictureService,
@@ -25,7 +24,7 @@ export class NoticeCardComponent implements OnInit {
   ngOnInit(): void {
 
     const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
-    this.notice.extra = ( this.notice.categories ) ? this.notice.categories.reduce(reducer, '') : '';
+    this.place.extra = ( this.place.categories ) ? this.place.categories.reduce(reducer, '') : '';
 
     this.spinnerSvc.hide();
   }
@@ -34,7 +33,7 @@ export class NoticeCardComponent implements OnInit {
     return this.pictureSrv.getMediumImage(image);
   }
 
-  gotoNotice(): void {
-    this.router.navigate([`/${Notice.PATH_URL}/${this.notice.id}`]);
+  gotoItem(): void {
+    this.router.navigate([`/${Place.PATH_URL}/${this.place.id}`]);
   }
 }

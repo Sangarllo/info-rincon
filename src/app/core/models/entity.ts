@@ -16,6 +16,7 @@ export interface IEntity {
   place?: IPlace;
   roleDefault?: EntityRole;
   scheduleTypeDefault?: ScheduleType;
+  extra?: string; // Extra field to pass info
 }
 
 export class Entity implements IEntity, IBase {
@@ -38,6 +39,7 @@ export class Entity implements IEntity, IBase {
     public place?: IPlace,
     public roleDefault?: EntityRole,
     public scheduleTypeDefault?: ScheduleType,
+    public extra?: string,
      ) {
   }
 

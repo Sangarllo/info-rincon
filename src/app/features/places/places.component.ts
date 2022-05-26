@@ -23,6 +23,7 @@ export class PlacesComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  public viewMode = 'cards';
   public loading = true;
   public places: IPlace[];
   public dataSource: MatTableDataSource<IPlace> = new MatTableDataSource();
@@ -109,4 +110,9 @@ export class PlacesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
+
+  setViewMode(mode: string): void {
+    this.viewMode = mode;
+  }
 }
+

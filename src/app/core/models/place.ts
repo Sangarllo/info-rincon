@@ -12,6 +12,7 @@ export interface IPlace {
   locality?: string;
   roleDefault?: string;
   categories?: string[];
+  extra?: string; // Extra field to pass info
 }
 
 export class Place implements IPlace, IBase {
@@ -32,6 +33,7 @@ export class Place implements IPlace, IBase {
     public description?: string,
     public locality?: string,
     public roleDefault?: string,
+    public extra?: string,
      ) {
   }
 

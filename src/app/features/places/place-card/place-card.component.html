@@ -1,0 +1,21 @@
+<mat-card (click)="gotoItem()" class="item-card" [class]="place.status" *ngIf="place; else loadingTemplate">
+
+    <mat-card-header>
+        <mat-card-title>{{ place.name }}</mat-card-title>
+        <mat-card-subtitle>{{ place.extra }}</mat-card-subtitle>
+    </mat-card-header>
+    <img [src]="getMediumImage(place.imagePath)" class="img-thumbnail" [alt]="place.name">
+    <mat-card-content class="item-content">
+    </mat-card-content>
+
+    <mat-card-actions>
+        <!--
+        <app-event-social [event]="event" [userLogged]="userLogged"></app-event-social>
+        -->
+    </mat-card-actions>
+
+</mat-card>
+
+<ng-template #loadingTemplate>
+    Cargando...
+</ng-template>

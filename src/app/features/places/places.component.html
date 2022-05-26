@@ -1,94 +1,127 @@
-<app-section-header [title]="'Panel de Configuración de Lugares'">
-</app-section-header>
+<app-section-header [title]="'Panel de Configuración de Lugares'" showViewMode="true" (viewMode)="setViewMode($event)"></app-section-header>
 
-<div class="section-wrapper">
+<div *ngIf="places?.length > 0; else noItemsTemplate">
 
-    <div class="section-list-options">
-        <mat-form-field>
-            <mat-label>Filtro</mat-label>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
-            <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
+    <div class="section-wrapper">
 
-        <div class="buttons">
-            <button mat-mini-fab class="btn-1" (click)="addItem()">
-                <mat-icon>add</mat-icon>
-            </button>
+        <!-- LIST View -->
+        <div *ngIf="viewMode === 'list'">
+
+            <div class="section-list-options">
+                <mat-form-field>
+                    <mat-label>Filtro</mat-label>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+
+                <div class="buttons">
+                    <button mat-mini-fab class="btn-1" (click)="addItem()">
+                      <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+            </div>
+
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort>
+
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Id.</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let place">{{ place.id }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="image">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                        <td mat-cell *matCellDef="let element">
+                            <img (click)="gotoItem(element)" [src]="getThumbnail(element.imagePath)" class="img-thumbnail" alt="element.name">
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="collapsed-info">
+                        <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Lugar</th>
+                        <td mat-cell class="td-collapsed-info" *matCellDef="let item" (click)="gotoItem(item)">
+                            <div class="full-inside">
+                                {{ item.description }}
+                            </div>
+                            {{ item.name }}
+                            <div style="font-size: smaller;color:gray">
+                                {{ item.locality }}
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Nombre</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let place">{{ place.name }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="types">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Tipo</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let place">{{ place.description }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="locality">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Localidad</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let place">{{ place.locality }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions3">
+                        <th mat-header-cell class="td-extra-md" *matHeaderCellDef>Acciones </th>
+                        <td mat-cell class="td-extra-md" *matCellDef="let place">
+                            <button mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(place)">
+                              <mat-icon class="btn-1" aria-label="View">
+                                  remove_red_eye
+                              </mat-icon>
+                          </button>
+
+                            <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" (click)="editItem(place)">
+                              <mat-icon class="btn-1" aria-label="Edit">
+                                  build_circle
+                              </mat-icon>
+                          </button>
+
+                            <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(place)">
+                              <mat-icon class="btn-1" aria-label="Delete">
+                                  delete
+                              </mat-icon>
+                          </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+
+            </div>
+
         </div>
-    </div>
+        <!-- LIST View - End -->
 
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
+        <!-- CARDS View -->
+        <div *ngIf="viewMode === 'cards'">
 
-            <ng-container matColumnDef="id">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Id.</th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let place">{{ place.id }}</td>
-            </ng-container>
+            <div class="form-group">
+                <input type="text" class="form-control mb-4" placeholder="Filtrar Búsqueda" [(ngModel)]="query" id="listSearch">
+            </div>
 
-            <ng-container matColumnDef="image">
-                <th mat-header-cell *matHeaderCellDef> </th>
-                <td mat-cell *matCellDef="let element">
-                    <img (click)="gotoItem(element)" [src]="getThumbnail(element.imagePath)" class="img-thumbnail" alt="element.name">
-                </td>
-            </ng-container>
+            <div class="section-cards">
+                <div class="item-card" *ngFor="let place of places | searchFilter: query">
 
-            <ng-container matColumnDef="collapsed-info">
-                <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info del Lugar</th>
-                <td mat-cell class="td-collapsed-info" *matCellDef="let item" (click)="gotoItem(item)">
-                    <div class="full-inside">
-                        {{ item.description }}
-                    </div>
-                    {{ item.name }}
-                    <div style="font-size: smaller;color:gray">
-                        {{ item.locality }}
-                    </div>
-                </td>
-            </ng-container>
+                    <app-place-card [place]="place"></app-place-card>
 
-            <ng-container matColumnDef="name">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Nombre</th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let place">{{ place.name }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="types">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Tipo</th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let place">{{ place.description }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="locality">
-                <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Localidad</th>
-                <td mat-cell class="td-extra-lg" *matCellDef="let place">{{ place.locality }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="actions3">
-                <th mat-header-cell class="td-extra-md" *matHeaderCellDef>Acciones </th>
-                <td mat-cell class="td-extra-md" *matCellDef="let place">
-                    <button mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(place)">
-                        <mat-icon class="btn-1" aria-label="View">
-                            remove_red_eye
-                        </mat-icon>
-                    </button>
-
-                    <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" (click)="editItem(place)">
-                        <mat-icon class="btn-1" aria-label="Edit">
-                            build_circle
-                        </mat-icon>
-                    </button>
-
-                    <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(place)">
-                        <mat-icon class="btn-1" aria-label="Delete">
-                            delete
-                        </mat-icon>
-                    </button>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+                </div>
+            </div>
+        </div>
+        <!-- CARDS View - End -->
 
     </div>
 
 </div>
+
+
+<ng-template #noItemsTemplate>
+    <div class="m-3 alert alert-warning">
+        ¡No se han encontrado lugares!
+    </div>
+</ng-template>
