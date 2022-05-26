@@ -65,6 +65,7 @@ mat-card-content.item-view {
     justify-content: flex-start;
     gap: 10px;
     .item-card {
+        display: table-cell;
         @media screen and (max-width: $maxMobileWidth) {
             width: 100%;
         }
