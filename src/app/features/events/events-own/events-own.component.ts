@@ -28,8 +28,15 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   public viewMode = 'cards';
+  public statusFiltered = [
+    Status.Visible,
+    Status.Editing,
+    Status.Blocked,
+    Status.Deleted
+  ];
   public uidUser: string;
   public events: IEvent[] = [];
+  public EVENTS_BACKUP: IEvent[];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   displayedColumns: string[] = [
       'status', 'id', 'timestamp',
@@ -67,6 +74,7 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
                 )
             .subscribe( (events: IEvent[]) => {
                 this.events = events;
+                this.EVENTS_BACKUP = this.events;
                 this.dataSource = new MatTableDataSource(this.events);
                 this.spinnerSvc.hide();
 
@@ -127,6 +135,14 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
 
   setViewMode(mode: string): void {
     this.viewMode = mode;
+  }
+
+  setStatusFiltered(filtered: Status[]): void {
+    this.statusFiltered = filtered;
+    console.log(`${this.statusFiltered}`);
+    this.events = this.EVENTS_BACKUP.filter(notice =>
+      this.statusFiltered.includes(notice.status)
+    );
   }
 
   private formatSocialInfo(info: string): string {

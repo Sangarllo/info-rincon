@@ -1,4 +1,4 @@
-<app-section-header [title]="'Panel de Configuración de Eventos'" showViewMode="true" (viewMode)="setViewMode($event)"></app-section-header>
+<app-section-header [title]="'Panel de Configuración de Eventos'" showStatusFilter="true" showViewMode="true" (viewMode)="setViewMode($event)" (statusFiltered)="setStatusFiltered($event)"></app-section-header>
 
 <div *ngIf="events.length > 0; else noEventsTemplate">
 

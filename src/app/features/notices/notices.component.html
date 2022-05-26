@@ -1,6 +1,6 @@
-<app-section-header [title]="'Panel de Configuración de Avisos'" showViewMode="true" (viewMode)="setViewMode($event)"></app-section-header>
+<app-section-header [title]="'Panel de Configuración de Avisos'" showStatusFilter="true" showViewMode="true" (viewMode)="setViewMode($event)" (statusFiltered)="setStatusFiltered($event)"></app-section-header>
 
-<div *ngIf="notices.length > 0; else noNoticesTemplate">
+<div *ngIf="notices?.length > 0; else noNoticesTemplate">
 
     <div class="section-wrapper">
 

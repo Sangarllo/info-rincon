@@ -14,6 +14,7 @@ import { PictureService } from '@services/pictures.service';
 import { UtilsService } from '@services/utils.service';
 import { LogService } from '@services/log.service';
 import { SpinnerService } from '@services/spinner.service';
+import { Status } from '@models/status.enum';
 
 @Component({
   selector: 'app-notices',
@@ -26,8 +27,15 @@ export class NoticesComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   public viewMode = 'cards';
+  public statusFiltered = [
+    Status.Visible,
+    Status.Editing,
+    Status.Blocked,
+    Status.Deleted
+  ];
   public loading = true;
   public notices: INotice[];
+  public NOTICES_BACKUP: INotice[];
   public dataSource: MatTableDataSource<INotice> = new MatTableDataSource();
   displayedColumns: string[] =  [ 'status', 'id', 'timestamp', 'image', 'collapsed-info', 'name', 'categories', 'actions4'];
   private listOfObservers: Array<Subscription> = [];
@@ -59,6 +67,7 @@ export class NoticesComponent implements OnInit, OnDestroy {
       )
       .subscribe( (notices: INotice[]) => {
         this.notices = notices;
+        this.NOTICES_BACKUP = notices;
         this.dataSource = new MatTableDataSource(this.notices);
         this.spinnerSvc.hide();
         this.dataSource.paginator = this.paginator;
@@ -223,4 +232,13 @@ export class NoticesComponent implements OnInit, OnDestroy {
   setViewMode(mode: string): void {
     this.viewMode = mode;
   }
+
+  setStatusFiltered(filtered: Status[]): void {
+    this.statusFiltered = filtered;
+    console.log(`${this.statusFiltered}`);
+    this.notices = this.NOTICES_BACKUP.filter(notice =>
+      this.statusFiltered.includes(notice.status)
+    );
+  }
+
 }

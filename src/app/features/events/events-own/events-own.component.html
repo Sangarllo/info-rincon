@@ -1,4 +1,4 @@
-<app-section-header [title]="'Tus eventos creados'" showViewMode="true" (viewMode)="setViewMode($event)"></app-section-header>
+<app-section-header [title]="'Tus eventos creados'" showStatusFilter="true" showViewMode="true" (viewMode)="setViewMode($event)" (statusFiltered)="setStatusFiltered($event)"></app-section-header>
 
 <div *ngIf="events.length > 0; else noEventsTemplate">
 
