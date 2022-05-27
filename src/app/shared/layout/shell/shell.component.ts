@@ -1,24 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
+import { AuthService } from '@auth/auth.service';
+import { AuditType } from '@models/audit';
+import { INotice } from '@models/notice';
+import { IUser } from '@models/user';
 import { AuditService } from '@services/audit.service';
 import { LogService } from '@services/log.service';
 import { NoticeService } from '@services/notices.service';
-import { AuditType } from '@models/audit';
-import { INotice } from '@models/notice';
+import { UserService } from '@services/users.service';
 
 @Component({
   selector: 'app-shell',
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss']
 })
-export class ShellComponent {
+export class ShellComponent implements OnDestroy {
 
+  public userLogged: IUser;
   public theAlertedNotice$: Observable<INotice>;
   public isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset])
     .pipe(
@@ -107,12 +111,16 @@ export class ShellComponent {
       },
 ];
 
+  private listOfObservers: Array<Subscription> = [];
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private auditSrv: AuditService,
     private logSrv: LogService,
     private noticeSrv: NoticeService,
+    private userSrv: UserService,
+    public authSvc: AuthService,
     public afAuth: AngularFireAuth,
     ) {
         this.theAlertedNotice$ = this.noticeSrv
@@ -120,6 +128,19 @@ export class ShellComponent {
         .pipe(
           map( notices => notices[0] )
         );
+
+        const subs1$ = this.authSvc.afAuth.user
+        .subscribe( (user: any) => {
+            if ( user?.uid ) {
+              this.userSrv.getOneUser(user.uid)
+                  .subscribe( (userLogged: any ) => {
+                      this.userLogged = userLogged;
+                      console.log(`userLoggedFav: ${userLogged.favEvents?.length}`);
+                  });
+            }
+        });
+
+        this.listOfObservers.push( subs1$ );
   }
 
   async onLogout(): Promise<void> {
@@ -135,5 +156,9 @@ export class ShellComponent {
 
   public showAlert(notice: INotice): void {
     this.router.navigate([`/avisos/${notice.id}`]);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }

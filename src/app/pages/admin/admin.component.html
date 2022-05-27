@@ -14,7 +14,7 @@
 
         <div class="options-wrapper">
 
-            <div class="option-item col-4">
+            <div class="option-item col-3">
                 <mat-card [routerLink]="'../perfil'">
                     <mat-card-title>Cuenta<br/>Personal</mat-card-title>
                     <div class="option-image">
@@ -23,16 +23,26 @@
                 </mat-card>
             </div>
 
-            <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-4">
+            <div class="option-item col-3">
+                <mat-card [routerLink]="'../eventos/favoritos'" *appRole="['LECTOR','AUTOR', 'ADMIN', 'SUPER']" (click)="gotoFavourites()">
+                    <mat-card-title>Eventos<br/>Favoritos</mat-card-title>
+                    <div class="option-image">
+                        <img alt="'Añadir Favoritos'" [src]="'assets/images/goto/goto-favourites.png'" style="width:200px" class="img-thumbnail" />
+                    </div>
+                </mat-card>
+            </div>
+
+            <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-3">
                 <mat-card [routerLink]="'../usuarios/' + user?.uid + '/entidades'">
-                    <mat-card-title>Tus<br/>entidades</mat-card-title>
+                    <mat-card-title>Entidades<br/>favoritas</mat-card-title>
                     <div class="option-image">
                         <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" style="width:200px" class="img-thumbnail" />
                     </div>
                 </mat-card>
             </div>
 
-            <div *appRole="['ADMIN']" class="option-item col-4">
+            <!--
+            <div *appRole="['SUPER']" class="option-item col-3">
                 <mat-card [routerLink]="'../usuarios/' + user?.uid + '/audit'">
                     <mat-card-title>Tus<br/>accesos</mat-card-title>
                     <div class="option-image">
@@ -40,8 +50,9 @@
                     </div>
                 </mat-card>
             </div>
+            -->
 
-            <div *appRole="['SUPER']" class="option-item col-4">
+            <div *appRole="['SUPER']" class="option-item col-3">
                 <mat-card [routerLink]="'../audit'">
                     <mat-card-title>Auditoría<br/>General</mat-card-title>
                     <div class="option-image">

@@ -1,35 +1,11 @@
 <mat-sidenav-container class="sidenav-container">
 
-    <!-- <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="false">
-
-        <mat-toolbar>Menu</mat-toolbar>
-
-        <mat-nav-list class="buttons">
-            <div *ngFor="let link of LINKS">
-                <mat-list-item *appRole="link.roles" [routerLink]="link.path" (click)="drawer.close()">
-                    <button mat-mini-fab class="btn-1">
-                        <mat-icon>{{ link.icon }}</mat-icon>
-                    </button>
-                    <span class="list-item">{{ link.name }}</span>
-                    <mat-divider></mat-divider>
-                </mat-list-item>
-            </div>
-        </mat-nav-list>
-
-    </mat-sidenav> -->
-
     <mat-sidenav-content>
         <mat-toolbar class="mat-elevation-z8" color="primary">
 
             <span class="logo" routerLink="/">
               <img [src]="'assets/icons/logo.png'" [ngClass]="{'alerted-logo' : (theAlertedNotice$ | async)}" alt='inicio' class="rounded-circle" />
             </span>
-
-            <!--
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async) && (afAuth.authState | async)">
-                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-            </button>
-            -->
 
             <span class="logo-title" routerLink="/">
               Agenda Rinconera
@@ -39,22 +15,15 @@
 
             <div *ngIf="(afAuth.authState | async);else login2Template">
 
-                <a class="header__button header__button-plus" mat-button routerLink="/eventos/favoritos">
-                    ⭐
-                    <span class="text-extra">Favoritos</span>
+                <a *ngIf="userLogged?.favEvents?.length > 0" class="header__button header__button-plus" mat-button routerLink="/eventos/favoritos">
+                    <span>⭐</span>
+                    <span class="text-extra" [matBadge]="userLogged?.favEvents?.length">Favs</span>
                 </a>
 
                 <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="header__button header__button-plus" mat-button routerLink="/eventos/new">
                     ➕
                     <span class="text-extra">Evento</span>
                 </a>
-
-                <!--
-                  <a *appRole="['LECTOR', 'AUTOR', 'ADMIN', 'SUPER']" class="header__button header__button-admin" mat-button routerLink="/admin">
-                      ⚙️
-                      <span class="text-extra">Admin</span>
-                  </a>
-                  -->
 
                 <a mat-button class="header__button header__button-logout" (click)="onLogout()">
                       🔐
@@ -75,41 +44,6 @@
                 </a>
             </ng-template>
 
-
-            <!--
-            <div *ngIf="!(isHandset$ | async)">
-                <div *ngIf="(afAuth.authState | async);else login2Template">
-
-                    <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/eventos/new">
-                        ➕
-                        <span class="text-extra">Evento</span>
-                    </a>
-
-
-                    <a *appRole="['LECTOR', 'AUTOR', 'ADMIN', 'SUPER']" mat-button routerLink="/admin">
-                        ⚙️
-                        <span class="text-extra">Admin</span>
-                    </a>
-
-                    <a mat-button (click)="onLogout()">
-                        🔐
-                        <span class="text-extra">Salir</span>
-                    </a>
-
-                    <a mat-button routerLink="/perfil" *ngIf="afAuth.authState | async as user">
-                        <img class="avatar" [src]="user.photoURL || 'assets/default-user.svg'">
-                        <span class="text-extra">Perfil</span>
-                    </a>
-
-                </div>
-
-                <ng-template #login2Template>
-                    <a mat-button routerLink="/login">🔑 Login</a>
-                </ng-template>
-
-            </div>
-            -->
-
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -127,7 +61,7 @@
                         <span>Administración</span>
                     </a>
 
-                    <a mat-menu-item [routerLink]="'/eventos/favoritos'">
+                    <a *ngIf="userLogged?.favEvents?.length > 0" mat-menu-item [routerLink]="'/eventos/favoritos'">
                         <i>⭐​</i>
                         <span>Favoritos</span>
                     </a>
@@ -171,9 +105,3 @@
 
     </mat-sidenav-content>
 </mat-sidenav-container>
-
-<!--
-<pre *ngIf="alertedNotices">
-{{ alertedNotices | json }}
-</pre>
--->

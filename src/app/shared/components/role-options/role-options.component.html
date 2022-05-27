@@ -11,8 +11,8 @@
         </mat-card>
     </div>
 
-    <div class="option-item col-3">
-        <mat-card *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="openEntityDialog()">
+    <div *appRole="['SUPER']" class="option-item col-3">
+        <mat-card (click)="openEntityDialog()">
             <mat-card-title>Evento de<br/>entidad</mat-card-title>
             <div class="option-image">
                 <img alt="'Crear evento'" [src]="'assets/images/goto/add-from-entities.png'" style="width:200px" class="img-thumbnail" />
@@ -20,8 +20,8 @@
         </mat-card>
     </div>
 
-    <div *ngIf="currentUser?.entityDefault" class="option-item col-3">
-        <mat-card class="" *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="createEventFromEntity(currentUser.entityDefault)">
+    <div *appRole="['AUTOR','ADMIN']" class="option-item col-3">
+        <mat-card *ngIf="currentUser?.entityDefault" class="" (click)="createEventFromEntity(currentUser.entityDefault)">
             <mat-card-title>Evento<br/>de ...</mat-card-title>
             <div class="option-image">
                 <img alt="'Crear evento'" [src]="currentUser.entityDefault.imagePath" style="width:200px" class="img-thumbnail" />
@@ -37,6 +37,16 @@
             </div>
         </mat-card>
     </div>
+
+    <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-3">
+        <mat-card [routerLink]="'../usuarios/' + user?.uid + '/entidades'">
+            <mat-card-title>Tus<br/>entidades</mat-card-title>
+            <div class="option-image">
+                <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
+
 
 </div>
 
@@ -117,6 +127,7 @@
 
 </div>
 
+<!--
 <span class="section-subtitle">Tus opciones en la web</span>
 
 <div class="options-wrapper">
@@ -149,3 +160,4 @@
     </div>
 
 </div>
+-->
