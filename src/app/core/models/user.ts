@@ -12,6 +12,7 @@ export interface IUser {
   role?: UserRole;
   lastLogin?: string;
   favEvents?: string[];
+  favEntities?: string[];
   entitiesAdmin?: IEntity[];
   entityDefault?: IEntity;
 }
@@ -33,6 +34,7 @@ export class User implements IUser {
     public role?: UserRole,
     public lastLogin?: string,
     public favEvents?: string[],
+    public favEntities?: string[],
     public entitiesAdmin?: IEntity[],
     public entityDefault?: IEntity,
      ) {
@@ -49,7 +51,7 @@ export class User implements IUser {
       User.IMAGE_DEFAULT,
       UserRole.Lector,
       '',
-      [],
+      [],[], // favs
     );
   }
 }

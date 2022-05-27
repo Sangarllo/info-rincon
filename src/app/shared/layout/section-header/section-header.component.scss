@@ -34,26 +34,34 @@ div.header-container {
     }
 }
 
-.section-status {
-    margin: 12px 0;
-    .section-status_title {
-        font-size: larger;
-        margin: 10px 20px;
-        display: inline-block;
+.header-menu {
+    .section-status {
+        margin: 12px 0;
+        .section-status_title {
+            font-size: larger;
+            margin: 10px 20px;
+            display: inline-block;
+        }
+        .section-status_list {
+            ul {
+                list-style-type: none;
+                margin-top: 4px;
+            }
+             ::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+                background-color: $color1 !important;
+            }
+             ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+                background-color: $color1 !important;
+            }
+             ::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+                background-color: $color1 !important;
+            }
+        }
     }
-    .section-status_list {
-        ul {
-            list-style-type: none;
-            margin-top: 4px;
-        }
-         ::ng-deep .mat-checkbox-ripple .mat-ripple-element {
-            background-color: $color1 !important;
-        }
-         ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-            background-color: $color1 !important;
-        }
-         ::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-            background-color: $color1 !important;
-        }
-    }
+}
+
+.menu_submit_button {
+    margin: 10px 32px;
+    background-color: $color1;
+    color: $color2;
 }

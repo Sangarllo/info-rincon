@@ -4,6 +4,10 @@
 
     <div class="header-buttons">
 
+        <button *ngIf="showOptionsMode" mat-mini-fab class="btn-1 header-button" [matMenuTriggerFor]="menuOptions" aria-label="Opciones de Visualización">
+              <mat-icon>toggle_on</mat-icon>
+        </button>
+
         <button *ngIf="showStatusFilter" mat-mini-fab class="btn-1 header-button" [matMenuTriggerFor]="menuStatus" aria-label="Estados Visualizados">
             <mat-icon>filter_alt</mat-icon>
         </button>
@@ -33,15 +37,29 @@
     </mat-menu>
 
 
+    <mat-menu #menuOptions="matMenu" class="header-menu">
+
+        <mat-slide-toggle disabled (click)="setOption($event)" [(ngModel)]="showNoActive">
+            Mostrar no Activos
+        </mat-slide-toggle>
+
+        <mat-slide-toggle (click)="setOption($event)" [(ngModel)]="showNoFavorite">
+            Mostrar no Favoritos
+        </mat-slide-toggle>
+
+        <button class="menu_submit_button" mat-raised-button (click)="emitOptionsMode()">Guardar Preferencias</button>
+
+    </mat-menu>
+
     <mat-menu #menu1="matMenu" class="header-menu">
         <button mat-menu-item (click)="setViewMode('cards')">
-            <mat-icon>grid_view</mat-icon>
-            <span>Ver como tarjetas</span>
-        </button>
+          <mat-icon>grid_view</mat-icon>
+          <span>Ver como tarjetas</span>
+      </button>
         <button mat-menu-item (click)="setViewMode('list')">
-            <mat-icon>view_list</mat-icon>
-            <span>Ver como lista</span>
-        </button>
+          <mat-icon>view_list</mat-icon>
+          <span>Ver como lista</span>
+      </button>
     </mat-menu>
 
 </div>

@@ -1,0 +1,141 @@
+<app-section-header [title]="'Tus entidades favoritas'" showOptionsMode="true" (optionsMode)="setOptionsMode($event)" showViewMode="true" (viewMode)="setViewMode($event)" [initialOptions]="[false, true]"></app-section-header>
+
+<div *ngIf="entities?.length > 0; else noItemsTemplate">
+
+    <div class="section-wrapper">
+
+        <!-- LIST View -->
+        <div *ngIf="viewMode === 'list'">
+
+            <div class="section-list-options">
+                <mat-form-field>
+                    <mat-label>Filtro</mat-label>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+
+                <div class="buttons">
+                    <button mat-mini-fab class="btn-1" (click)="addItem()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort>
+
+                    <ng-container matColumnDef="roleDefault">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Rol</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let entity">
+                            <div class="inside">{{ entity.roleDefault }}</div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Id.</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let entity">{{ entity.id }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="image">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                        <td mat-cell *matCellDef="let element">
+                            <img (click)="gotoItem(element)" [src]="getThumbnail(element.imagePath)" class="img-thumbnail" alt="element.name">
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="collapsed-info">
+                        <th mat-header-cell class="td-collapsed-info" *matHeaderCellDef mat-sort-header>Info de la entidad</th>
+                        <td mat-cell class="td-collapsed-info" *matCellDef="let item" (click)="gotoItem(item)">
+                            <div class="full-inside">
+                                {{ item.description }}
+                            </div>
+                            {{ item.name }}
+                            <div style="font-size: smaller;color:gray">
+                                {{ item?.place?.name }}
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Nombre de la entidad</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let entity">{{ entity.name }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="categories">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Categorías</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let entity">{{ entity.description }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="placeImage">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef></th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let element">
+                            <img *ngIf="element?.place?.imagePath" [src]="element?.place?.imagePath" class="img-thumbnail" alt="element?.place?.name">
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="placeName">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Lugar por defecto</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let entity">{{ entity?.place?.name }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions3">
+                        <th mat-header-cell class="td-extra-md" *matHeaderCellDef>Acciones </th>
+                        <td mat-cell class="td-extra-md" *matCellDef="let entity">
+                            <button mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(entity)">
+                                <mat-icon class="btn-1" aria-label="View">
+                                    remove_red_eye
+                                </mat-icon>
+                            </button>
+
+                            <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" (click)="editEntity(entity)">
+                                <mat-icon class="btn-1" aria-label="Edit">
+                                    build_circle
+                                </mat-icon>
+                            </button>
+
+                            <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteEntity(entity)">
+                                <mat-icon class="btn-1" aria-label="Delete">
+                                    delete
+                                </mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+
+            </div>
+
+        </div>
+        <!-- LIST View - End -->
+
+        <!-- CARDS View -->
+        <div *ngIf="viewMode === 'cards'">
+
+            <div class="form-group">
+                <input type="text" class="form-control mb-4" placeholder="Filtrar Búsqueda" [(ngModel)]="query" id="listSearch">
+            </div>
+
+            <div class="section-cards">
+                <div class="item-card" *ngFor="let entity of entities | searchFilter: query">
+
+                    <app-entity-card [entity]="entity"></app-entity-card>
+
+                </div>
+            </div>
+        </div>
+        <!-- CARDS View - End -->
+
+    </div>
+
+</div>
+
+
+<ng-template #noItemsTemplate>
+    <div class="m-3 alert alert-warning">
+        ¡No se han encontrado entidades!
+    </div>
+</ng-template>
