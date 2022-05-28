@@ -33,7 +33,7 @@ export class EntitiesFavComponent implements OnInit, OnDestroy {
   public entities: IEntity[];
   public ENTITIES_BACKUP: IEntity[];
   public dataSource: MatTableDataSource<IEntity> = new MatTableDataSource();
-  displayedColumns: string[] = [ 'roleDefault', 'id', 'image', 'collapsed-info', 'name', 'categories', 'placeImage', 'placeName', 'actions3'];
+  displayedColumns: string[] = [ 'roleDefault', 'id', 'image', 'collapsed-info', 'name', 'categories', 'placeImage', 'placeName', 'actions1'];
   private userLogged: IUser;
   private favEntities: string[];
   private listOfObservers: Array<Subscription> = [];
@@ -101,31 +101,16 @@ export class EntitiesFavComponent implements OnInit, OnDestroy {
     this.router.navigate([`entidades/${entity.id}`]);
   }
 
-  public editEntity(entity: IEntity): void {
-    this.router.navigate([`entidades/${entity.id}/editar`]);
-  }
+  public favItem(entity: IEntity): void {
+    const uidUser = this.userLogged.uid;
+    const favEntities = this.userLogged.favEntities;
+    const index = favEntities.indexOf(entity.id);
 
-  public deleteEntity(entity: IEntity): void {
-    this.logSrv.info(`Borrando ${entity.id}`);
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'No podrás deshacer esta acción de borrado!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '¡Sí, bórralo!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.entitySrv.deleteEntity(entity);
-        Swal.fire({
-          title: '¡Borrado!',
-          text: `${entity.name} ha sido borrado`,
-          icon: 'success',
-          confirmButtonColor: '#003A59',
-        });
-      }
-    });
+    if ( index === -1 ) {
+      favEntities.push(entity.id);
+    } else {
+      favEntities.splice(index, 1);
+    }
   }
 
   public addItem(): void {

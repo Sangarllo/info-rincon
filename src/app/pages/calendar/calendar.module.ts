@@ -6,14 +6,16 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { SharedModule } from '@shared/shared.module';
 import { CalendarRoutingModule } from '@pages/calendar/calendar-routing.module';
 import { CalendarComponent } from '@pages/calendar/calendar.component';
-import { CalendarHeaderComponent } from '@pages/calendar/calendar-header.component';
-import { CalendarModeDialogComponent } from '@pages/calendar/calendar-mode-dialog.component';
+import { CalendarHeaderComponent } from '@pages/calendar/calendar-header/calendar-header.component';
+import { CalendarEntitiesDialogComponent } from '@pages/calendar/calendar-entities-dialog/calendar-entities-dialog.component';
+import { CalendarModeDialogComponent } from '@pages/calendar/calendar-mode-dialog/calendar-mode-dialog.component';
 
 @NgModule({
   declarations: [
     CalendarComponent,
     CalendarHeaderComponent,
-    CalendarModeDialogComponent
+    CalendarEntitiesDialogComponent,
+    CalendarModeDialogComponent,
   ],
   imports: [
     SharedModule,

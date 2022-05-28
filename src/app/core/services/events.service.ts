@@ -47,7 +47,7 @@ export class EventService {
     this.eventCollection = afs.collection(EVENTS_COLLECTION);
   }
 
-  getAllEvents(showOnlyActive: boolean, modeDashboard: boolean, sizeDashboard?: number, entityId?: string): Observable<IEvent[]> {
+  getAllEvents(showOnlyActive: boolean, modeDashboard: boolean, sizeDashboard?: number, entities?: string[]): Observable<IEvent[]> {
 
     if ( modeDashboard ) {
       this.eventCollection = this.afs.collection<IEvent>(
@@ -64,7 +64,7 @@ export class EventService {
         const timestampLastYear = this.appointmentSrv.getTimestamp(-1);
         // console.log('timestampLastYear', timestampLastYear);
 
-        if ( !entityId ) {
+        if ( !entities ) {
           // console.log(`-> No Hay entityId`);
           this.eventCollection = this.afs.collection<IEvent>(
             EVENTS_COLLECTION,
@@ -80,7 +80,7 @@ export class EventService {
             ref => ref.where('active', '==', true)
                       .where('status', '==', 'VISIBLE')
                       .where('timestamp', '>', timestampLastYear)
-                      .where('entitiesArray', 'array-contains', entityId)
+                      .where('entitiesArray', 'array-contains-any', entities)
                       .orderBy('timestamp', 'desc')
           );
         }

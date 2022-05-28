@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `code` Isolate component for social data.
 - `feature` View of cards with search-filter pipe.
 - `feature` View of cards can be filtered by status.
+- `feature` Setting of favorite entities.
 
 ### Fix
 

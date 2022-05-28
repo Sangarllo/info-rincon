@@ -1,0 +1,32 @@
+<div class="dialog-wrapper">
+
+    <div class="dialog__header">
+        <span mat-dialog-title>Configuración del Modo Vista</span>
+    </div>
+
+    <div mat-dialog-content>
+
+        <h3>Modo de visualización del calendario</h3>
+
+        <mat-form-field class="sel-view-mode" appearance="fill">
+            <mat-select [(value)]="modeSelected" panelClass="example-panel">
+                <mat-option value="CalendarView.Month">Vista Mensual</mat-option>
+                <mat-option value="CalendarView.Week">Vista Semanal</mat-option>
+                <mat-option value="CalendarView.Day">Vista de Día</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+
+
+    <div mat-dialog-actions class="buttons buttons-center">
+        <button mat-mini-fab class="btn-1" (click)="onOkClick()" cdkFocusInitial>
+            <mat-icon>done</mat-icon>
+        </button>
+
+        <button mat-mini-fab class="btn-1" mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+</div>

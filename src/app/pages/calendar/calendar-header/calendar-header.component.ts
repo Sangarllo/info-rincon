@@ -5,7 +5,8 @@ import { CalendarView } from 'angular-calendar';
 
 import { EventsSearchDialogComponent } from '@features/events/events-search-dialog/events-search-dialog.component';
 import { Base, IBase } from '@models/base';
-import { CalendarModeDialogComponent } from '@pages/calendar/calendar-mode-dialog.component';
+import { CalendarEntitiesDialogComponent } from '@pages/calendar/calendar-entities-dialog/calendar-entities-dialog.component';
+import { CalendarModeDialogComponent } from '@pages/calendar/calendar-mode-dialog/calendar-mode-dialog.component';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
@@ -22,11 +23,13 @@ export class CalendarHeaderComponent {
 
   @Output() viewChange = new EventEmitter<CalendarView>();
   @Output() viewDateChange = new EventEmitter<Date>();
-  @Output() entitySelectedChange = new EventEmitter<IBase>();
+  @Output() entitySelectedChange = new EventEmitter<string[]>();
 
   public dialogConfig = new MatDialogConfig();
   CalendarView = CalendarView;
   modeSelected: string;
+
+  entityFilteredOption: string;
   entityFiltered: IBase;
 
   constructor(
@@ -40,28 +43,18 @@ export class CalendarHeaderComponent {
 
   gotoModeConfig() {
 
-    console.log('gotoModeConfig this.entityId: ', JSON.stringify(this.entityFiltered));
+    console.log('gotoModeConfig');
 
-    this.dialogConfig.data = { view: this.view, entity: this.entityFiltered };
+    this.dialogConfig.data = { view: this.view };
     this.dialogConfig.width = '500px';
     this.dialogConfig.height = '500px';
 
     const dialogRef2 = this.dialog.open(CalendarModeDialogComponent, this.dialogConfig);
 
-    dialogRef2.afterClosed().subscribe(([modeSelected, entitySelected]: [string, IBase]) => {
+    dialogRef2.afterClosed().subscribe((modeSelected: string) => {
 
-        this.entityFiltered = entitySelected?.id !== '0' ? entitySelected : null;
-        // console.log('modeSelected', modeSelected);
-        // console.log('entitySelected', JSON.stringify(entitySelected));
+        if ( modeSelected ) {
 
-        if ( modeSelected || this.entityFiltered ) {
-
-            if ( entitySelected) {
-              this.entityId = entitySelected.id;
-              this.entitySelectedChange.emit(entitySelected);
-            }
-
-            if ( modeSelected ) {
               switch (modeSelected) {
                 case 'CalendarView.Day':
                   this.view = CalendarView.Day;
@@ -75,12 +68,50 @@ export class CalendarHeaderComponent {
                   this.view = CalendarView.Month;
                   this.viewChange.emit(CalendarView.Month);
               }
-          }
 
         } else {
           // this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
         }
       });
+    }
+
+    gotoEntitiesConfig() {
+
+      console.log(`gotoEntitiesConfig: ${this.entityFilteredOption} | ${this.entityFiltered?.name}`);
+
+      this.dialogConfig.data = {
+          option: this.entityFilteredOption,
+          entity: this.entityFiltered
+      };
+      this.dialogConfig.width = '500px';
+      this.dialogConfig.height = '500px';
+
+      const dialogRef2 = this.dialog.open(CalendarEntitiesDialogComponent, this.dialogConfig);
+
+      dialogRef2.afterClosed().subscribe(([entityOption, entitySelected]: [string, IBase]) => {
+
+          this.entityFilteredOption = entityOption;
+          console.log(`closing - entityFilteredOption -> ${this.entityFilteredOption};`);
+
+          this.entityFiltered = entitySelected?.id !== '0' ? entitySelected : null;
+
+          if ( this.entityFilteredOption ) {
+
+              let entities = [];
+              switch (this.entityFilteredOption) {
+                case '1': // cualquiera
+                  entities = [];
+                  break;
+                case '2': // TODO favoritos - TODO
+                  break;
+                case '3': // una concreta
+                  entities = [entitySelected.id];
+              }
+              this.entitySelectedChange.emit(entities);
+          } else {
+            // this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
+          }
+        });
     }
 
     public applyEntityFilteredStyles() {

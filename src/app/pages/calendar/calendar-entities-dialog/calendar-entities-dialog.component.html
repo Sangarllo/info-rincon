@@ -1,0 +1,51 @@
+<div class="dialog-wrapper">
+
+    <div class="dialog__header">
+        <span mat-dialog-title>Filtro por Entidades</span>
+    </div>
+
+    <div mat-dialog-content>
+
+        <div [formGroup]="baseItemForm">
+
+            <mat-radio-group aria-label="Selecciona una opción" formControlName="entityOption" class="example-radio-group">
+
+                <mat-radio-button class="radio-button" value="1">Cualquier entidad</mat-radio-button>
+
+                <mat-radio-button class="radio-button" disabled value="2">Tus entidades favoritas</mat-radio-button>
+
+                <mat-radio-button class="radio-button" value="3">Filtrar por una entidad</mat-radio-button>
+
+                <mat-form-field appearance="outline" *ngIf="baseItemForm.controls.entityOption.value === '3'">
+                    <mat-label>{{ baseItemName }}</mat-label>
+                    <mat-select [placeholder]="baseItemName" formControlName="baseItem" [compareWith]="compareFunction" (selectionChange)="onSelectionChanged($event)">
+                        <!--
+                        <mat-option [value]="SECTION_BLANK">
+                            TODAS LAS ENTIDADES
+                        </mat-option>
+                        -->
+                        <mat-option *ngFor="let baseItem of baseItems$ | async as baseItems" [value]="baseItem">
+                            <img class="option-img" aria-hidden [src]="baseItem.imagePath" height="25">
+                            <span>{{baseItem.name}}</span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </mat-radio-group>
+
+        </div>
+
+    </div>
+
+
+    <div mat-dialog-actions class="buttons buttons-center">
+        <button mat-mini-fab class="btn-1" (click)="onOkClick()" cdkFocusInitial>
+            <mat-icon>done</mat-icon>
+        </button>
+
+        <button mat-mini-fab class="btn-1" mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+</div>

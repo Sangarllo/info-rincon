@@ -1,19 +1,18 @@
 import { Component, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
-import { CalendarView } from 'angular-calendar';
 
 import { IBase, Base, BaseType } from '@models/base';
 import { BaseService } from '@services/base.service';
 
 @Component({
-  selector: 'app-calendar-mode-dialog',
-  templateUrl: './calendar-mode-dialog.component.html',
-  styleUrls: ['./calendar-mode-dialog.component.scss']
+  selector: 'app-calendar-entities-dialog',
+  templateUrl: './calendar-entities-dialog.component.html',
+  styleUrls: ['./calendar-entities-dialog.component.scss']
 })
-export class CalendarModeDialogComponent {
+export class CalendarEntitiesDialogComponent {
 
   readonly SECTION_BLANK: Base = Base.InitDefault();
   baseItemName: string;
@@ -23,28 +22,12 @@ export class CalendarModeDialogComponent {
   baseItemSelected: IBase;
   baseItems$: Observable<IBase[]>;
 
-  CalendarView = CalendarView;
-  public modeSelected: string;
-  view: CalendarView;
-
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<CalendarModeDialogComponent>,
+    public dialogRef: MatDialogRef<CalendarEntitiesDialogComponent>,
     private baseSrv: BaseService,
     @Inject(MAT_DIALOG_DATA) public data: any, // DialogData,
   ) {
-    switch ( data.view ) {
-      case 'day':
-          this.modeSelected = 'CalendarView.Day';
-          break;
-      case 'week':
-          this.modeSelected = 'CalendarView.Week';
-          break;
-      case 'month':
-      default:
-          this.modeSelected = 'CalendarView.Month';
-          break;
-    }
 
     this.baseItems$ = this.baseSrv.getAllItemsBase(BaseType.ENTITY);
 
@@ -54,6 +37,8 @@ export class CalendarModeDialogComponent {
     this.baseItemDesc = 'rol';
 
     this.baseItemForm = this.fb.group({
+      // control:new FormControl('',Validators.required),
+      entityOption: ['1', []],
       baseItem: [ this.baseItemSelected, []],
       baseItemDesc: [ '', []],
     });
@@ -73,7 +58,7 @@ export class CalendarModeDialogComponent {
   }
 
   onOkClick(): void {
-    const result: [string, IBase] = [this.modeSelected, this.baseItemSelected];
+    const result: [string, IBase] = [this.baseItemForm.controls.entityOption.value, this.baseItemSelected];
     this.dialogRef.close(result);
   }
 }

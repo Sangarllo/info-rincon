@@ -36,6 +36,7 @@ export class CalendarComponent implements OnInit {
   activeDayIsOpen = false;
   infoEventsFooter = ' en toda la agenda';
   entityId = '0';
+  entities = [];
 
   events$: Observable<CalendarEvent[]>;
   readonly today = new Date();
@@ -60,7 +61,7 @@ export class CalendarComponent implements OnInit {
   fetchEvents(): void {
       this.events$ = this.calEventsSrv.getCalendarEventsByRange(
           this.DATE_MIN, this.DATE_MAX,
-          ( this.entityId === '0' ) ? null : this.entityId
+          ( this.entities.length === 0 ) ? null : this.entities
       );
   }
 
@@ -88,12 +89,32 @@ export class CalendarComponent implements OnInit {
       this.router.navigate([`eventos/${event.id}`]);
   }
 
-  selectEntity(entityBase: IBase): void {
-      // console.log(`select Entity: ${JSON.stringify(entityBase)}`);
-      this.entityId = entityBase.id;
-      // console.log(`select EntityId: ${this.entityId}`);
-      this.infoEventsFooter = ( entityBase.id === '0' ) ?
-        ` en la agenda` :
-        ` vinculados a ${entityBase.name}`;
+  // selectEntity(entityOption: string, entityBase: IBase): void {
+  selectEntity(entities: string[]): void {
+
+      console.log(`calendar - entities: ${entities}|`);
+      if (entities.length === 0) { // Cualquier entidad
+
+            console.log(` -> cualquier entidad`);
+            this.entityId = '0';
+            this.entities = [];
+            this.infoEventsFooter = ` en la agenda`;
+      }
+      else if ( entities.length === 1 ) { // Filtrar por una entidad
+
+            const entityId = entities[0];
+            console.log(` -> select Entity 3`);
+            console.log(` -> select Entity: ${entityId}`);
+            this.entityId = entityId;
+            this.entities = [entityId];
+            this.infoEventsFooter = ` vinculados a esta entidad`;
+      } else {
+        console.log(` -> varias entidades`);
+        this.entityId = '0';
+        this.entities = entities;
+        this.infoEventsFooter = ` para estos eventos`;
+      }
+
+      this.fetchEvents();
   }
 }

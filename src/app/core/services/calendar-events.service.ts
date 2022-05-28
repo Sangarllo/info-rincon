@@ -28,8 +28,8 @@ export class CalendarEventsService {
     private appointmentSrv: AppointmentsService,
   ) { }
 
-  getCalendarEventsByRange(dateMinStr: string, dateMaxStr: string, entityId?: string): Observable<CalendarEvent[]> {
-    const events$ = this.eventsSrv.getAllEvents(true, false, null, entityId);
+  getCalendarEventsByRange(dateMinStr: string, dateMaxStr: string, entities?: string[]): Observable<CalendarEvent[]> {
+    const events$ = this.eventsSrv.getAllEvents(true, false, null, entities);
     const appointments$ = this.appointmentSrv.getAppointmentsByRange(dateMinStr, dateMaxStr, true);
 
     return combineLatest([
