@@ -21,6 +21,8 @@ export interface IAuditItem {
   auditType: AuditType;
   description: string;
   userId?: string;
+  userName?: string;
+  userImg?: string;
   timestamp?: string;
 }
 
@@ -44,6 +46,8 @@ export class AuditItem implements IAuditItem, IBase {
     public auditType: AuditType,
     public description: string,
     public userId?: string,
+    public userName?: string,
+    public userImg?: string,
     public timestamp?: string,
      ) {
   }
@@ -113,7 +117,23 @@ export class AuditItem implements IAuditItem, IBase {
       auditType,
       descExtra ?? null,
       user.uid,
+      user.name,
+      user.photoURL ?? '',
       timestamp,
     );
+  }
+
+  static getEmoji(auditType: AuditType): string {
+    switch( auditType ) {
+      case AuditType.CREATED:
+          return '🟢';
+      case AuditType.UPDATED_INFO:
+      case AuditType.UPDATED_STATUS:
+          return '🟡';
+      case AuditType.DELETED:
+          return '🔴';
+      default:
+          return '​​⚪​​'; // 🔵
+    }
   }
 }

@@ -155,24 +155,26 @@
                     </fieldset>
 
 
-                    <fieldset *ngIf="setAudit" class="event-audit-detail type-other">
+                    <div *appRole="['SUPER']">
+                        <fieldset *ngIf="audit" class="event-audit-detail type-other">
 
-                        <legend>¿Audit?</legend>
+                            <legend>¿Audit?</legend>
 
-                        <mat-accordion>
-                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                                <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        Auditoría de la administración
-                                    </mat-panel-title>
-                                </mat-expansion-panel-header>
+                            <mat-accordion>
+                                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Auditoría de la administración
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
 
-                                <sh-base-items-list [baseItems]="event.auditItems"></sh-base-items-list>
+                                    <sh-audit-items-list *ngIf="event.auditItems" [items]="event.auditItems"></sh-audit-items-list>
 
-                            </mat-expansion-panel>
-                        </mat-accordion>
+                                </mat-expansion-panel>
+                            </mat-accordion>
 
-                    </fieldset>
+                        </fieldset>
+                    </div>
 
                 </mat-card-content>
 

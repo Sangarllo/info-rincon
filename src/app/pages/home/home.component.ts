@@ -1,34 +1,16 @@
-import { Component, ChangeDetectionStrategy, OnInit, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatAccordion } from '@angular/material/expansion';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
-import {
-  isSameMonth,
-  isSameDay,
-  startOfMonth,
-  endOfMonth,
-  startOfWeek,
-  endOfWeek,
-  startOfDay,
-  endOfDay,
-  format,
-} from 'date-fns';
 
+import { INotice } from '@models/notice';
+import { IBase } from '@models/base';
 import { CalendarEventsService } from '@services/calendar-events.service';
 import { NoticeService } from '@services/notices.service';
 import { StoriesService } from '@services/stories.service';
-import { INotice } from '@models/notice';
-import { IBase } from '@models/base';
-import { SeoService } from '@services/seo.service';
-
-import {
-  Title,
-  Meta,
-  MetaDefinition
-} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -50,14 +32,11 @@ export class HomeComponent implements OnInit {
   locale = 'es';
   showHeader = true;
 
-  // calendarEvents$: Observable<CalendarEvent[]>;
-
   constructor(
     private router: Router,
     private calEventsSrv: CalendarEventsService,
     private noticesSrv: NoticeService,
-    private storiesSrv: StoriesService,
-    private seoSrv: SeoService
+    private storiesSrv: StoriesService
     ) {
     }
 
@@ -81,5 +60,4 @@ export class HomeComponent implements OnInit {
   openCalendarEventClicked(event: CalendarEvent): void {
     this.calEventsSrv.openCalendarEventClicked(event);
   }
-
 }

@@ -36,7 +36,7 @@
 
         <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-12 col-sm-6 col-md-4">
             <div *ngIf="currentUser?.entityDefault">
-                <mat-card (click)="createEventFromEntity(currentUser.entityDefault)">
+                <mat-card (click)="createEventFromEntityDefault(currentUser.entityDefault.id)">
                     <mat-card-title>Evento de ...</mat-card-title>
                     <div class="option-image">
                         <img alt="'Crear evento'" [src]="currentUser.entityDefault.imagePath" style="width:200px" class="img-thumbnail" />

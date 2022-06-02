@@ -54,7 +54,7 @@
                             </mat-form-field>
 
                             <div *ngIf="entity.place" class="card-detail-block">
-                                <img [src]="entity.place.imagePath" class="img-thumbnail" [alt]="entity.place.name" />
+                                <img [src]="entity.place?.imagePath" class="img-thumbnail" [alt]="entity.place?.name" />
                                 <div>
                                     <span class="desc">Lugar por defecto</span>
                                     <br/>

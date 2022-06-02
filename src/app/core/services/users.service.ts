@@ -67,11 +67,21 @@ export class UserService {
       .valueChanges({ uidField: 'uid' })
       .pipe(
         map(user => {
-          user.role = user.role || UserRole.Lector;
+          user.role = user?.role || UserRole.Lector;
           return { ...user };
         })
       );
   }
+
+
+  getSeveralUsers(usersUid: string[]): Observable<IUser[]>{
+    this.userCollection = this.afs.collection<IUser>(
+      USERS_COLLECTION,
+      ref => ref.where('uid', 'in', usersUid)
+    );
+    return this.userCollection.valueChanges();
+  }
+
 
   async getUserRole(userUid): Promise<UserRole> {
     const user = await this.getOneUser(userUid).toPromise();

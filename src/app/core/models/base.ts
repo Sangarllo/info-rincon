@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { IPlace } from '@models/place';
+import { AuditType } from '@models/audit';
 
 // eslint-disable-next-line no-shadow
 export enum BaseType {
@@ -27,6 +28,8 @@ export interface IBase {
   place?: IPlace;
   order?: number;
   extra?: string; // With Schedule, date + time
+  userId?: string;
+  auditType?: AuditType;
   // getUrl(): string;
 }
 

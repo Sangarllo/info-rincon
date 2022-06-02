@@ -1,0 +1,30 @@
+<div *ngIf="items.length > 0; else noItemsTemplate" class="list">
+
+    <div *ngFor="let item of auditItems" style="margin-bottom: 0px;flex-grow: 1;">
+
+        <div *ngIf="item" [ngClass]="{
+            'list__item': (item.active),
+            'list__item--disabled' : !(item.active)
+          }">
+
+            <div class="list__item-header">
+
+                <img [src]="item.userImg" class="list__item-img img-thumbnail">
+
+                <div class="list__item-info-main">
+                    <span class="name">{{ item.description }} {{ item.name }}</span>
+                    <span class="extra-data">😀 {{ item.userName }}</span>
+                    <span class="extra-data">🕑 {{ item.timestamp }}</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<ng-template #noItemsTemplate>
+    No hay elementos auditados
+</ng-template>

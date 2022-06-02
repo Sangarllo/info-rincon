@@ -75,6 +75,8 @@ export class EventCreationComponent implements OnInit, OnDestroy {
         this.entitiesSrv.getOneEntity(newBase.id)
         .subscribe((entity: IEntity) => {
           const newEvent = Event.InitDefault();
+          // eslint-disable-next-line no-debugger
+          debugger;
           this.eventSrv.addEventFromEntity(newEvent, entity, newBase.description).then((eventId: string) => {
             this.logSrv.info(`EventId: ${eventId}`);
             this.router.navigate([`eventos/${eventId}/config`]);
@@ -86,11 +88,14 @@ export class EventCreationComponent implements OnInit, OnDestroy {
     });
   }
 
-  createEventFromEntity(entity: IEntity): void {
+  createEventFromEntityDefault(entityId: string): void {
     const newEvent = Event.InitDefault();
-    this.eventSrv.addEventFromEntity(newEvent, entity, entity.description).then((eventId: string) => {
-      this.logSrv.info(`EventId: ${eventId}`);
-      this.router.navigate([`eventos/${eventId}/config`]);
+    this.entitiesSrv.getOneEntity(entityId)
+    .subscribe((entity: IEntity) => {
+      this.eventSrv.addEventFromEntity(newEvent, entity, entity.description).then((eventId: string) => {
+        this.logSrv.info(`EventId: ${eventId}`);
+        this.router.navigate([`eventos/${eventId}/config`]);
+      });
     });
   }
 

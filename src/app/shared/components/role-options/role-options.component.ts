@@ -58,6 +58,10 @@ export class RoleOptionsComponent implements OnDestroy {
     this.router.navigate([`eventos/favoritos`]);
   }
 
+  gotoEventsAuditDashboard(): void {
+    this.router.navigate([`eventos/audit`]);
+  }
+
   gotoEventsOwnDashboard(): void {
     this.router.navigate([`eventos/propios`]);
   }
@@ -94,6 +98,10 @@ export class RoleOptionsComponent implements OnDestroy {
     this.router.navigate([`enlaces`]);
   }
 
+  gotoAudit(): void {
+    this.router.navigate([`audit`]);
+  }
+
   openEntityDialog(): void {
     this.dialogConfig.data = BaseType.ENTITY;
     this.dialogConfig.width = '600px';
@@ -116,11 +124,14 @@ export class RoleOptionsComponent implements OnDestroy {
     });
   }
 
-  createEventFromEntity(entity: IEntity): void {
+  createEventFromEntityDefault(entityId: string): void {
     const newEvent = Event.InitDefault();
-    this.eventSrv.addEventFromEntity(newEvent, entity, entity.description).then((eventId: string) => {
-      this.logSrv.info(`EventId: ${eventId}`);
-      this.router.navigate([`eventos/${eventId}/config`]);
+    this.entitiesSrv.getOneEntity(entityId)
+    .subscribe((entity: IEntity) => {
+      this.eventSrv.addEventFromEntity(newEvent, entity, entity.description).then((eventId: string) => {
+        this.logSrv.info(`EventId: ${eventId}`);
+        this.router.navigate([`eventos/${eventId}/config`]);
+      });
     });
   }
 

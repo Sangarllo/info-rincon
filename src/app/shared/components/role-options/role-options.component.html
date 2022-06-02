@@ -1,3 +1,4 @@
+<!-- INI DE CREACIÓN DE EVENTOS -->
 <span class="section-subtitle" *appRole="['AUTOR', 'ADMIN', 'SUPER']">Creación de eventos</span>
 
 <div class="options-wrapper mb-3">
@@ -20,8 +21,8 @@
         </mat-card>
     </div>
 
-    <div *appRole="['AUTOR','ADMIN']" class="option-item col-3">
-        <mat-card *ngIf="currentUser?.entityDefault" class="" (click)="createEventFromEntity(currentUser.entityDefault)">
+    <div *appRole="['AUTOR','ADMIN','SUPER']" class="option-item col-3">
+        <mat-card *ngIf="currentUser?.entityDefault" class="" (click)="createEventFromEntityDefault(currentUser.entityDefault?.id)">
             <mat-card-title>Evento<br/>de ...</mat-card-title>
             <div class="option-image">
                 <img alt="'Crear evento'" [src]="currentUser.entityDefault.imagePath" style="width:200px" class="img-thumbnail" />
@@ -29,7 +30,7 @@
         </mat-card>
     </div>
 
-    <div *ngIf="currentUser?.entityDefault" class="option-item col-3">
+    <div class="option-item col-3">
         <mat-card *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="gotoEventsOwnDashboard()">
             <mat-card-title>Tus<br/>Eventos</mat-card-title>
             <div class="option-image">
@@ -39,7 +40,7 @@
     </div>
 
     <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-3">
-        <mat-card [routerLink]="'../usuarios/' + user?.uid + '/entidades'">
+        <mat-card [routerLink]="'../usuarios/' + currentUser?.uid + '/entidades'">
             <mat-card-title>Tus<br/>entidades</mat-card-title>
             <div class="option-image">
                 <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" style="width:200px" class="img-thumbnail" />
@@ -47,10 +48,48 @@
         </mat-card>
     </div>
 
+</div>
+<!-- FIN DE CREACIÓN DE EVENTOS -->
+
+
+<!-- INI DE AUDITORÍAS -->
+<span class="section-subtitle" *appRole="['SUPER']">Auditorías</span>
+
+<div class="options-wrapper mb-3">
+
+    <div *appRole="['SUPER']" class="option-item col-3">
+        <mat-card (click)="gotoAudit()">
+            <mat-card-title>Auditoría<br/>General</mat-card-title>
+            <div class="option-image">
+                <img alt="'Auditoría de accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="option-item col-3">
+        <mat-card *appRole="['SUPER']" (click)="gotoEventsAuditDashboard()">
+            <mat-card-title>Auditoría<br/>de Eventos</mat-card-title>
+            <div class="option-image">
+                <img alt="'Panel de Eventos'" [src]="'assets/images/goto/goto-events.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="option-item col-3">
+        <mat-card *appRole="['SUPER']" (click)="gotoEventsAuditDashboard()">
+            <mat-card-title>Auditoría<br/>Social</mat-card-title>
+            <div class="option-image">
+                <img alt="'Panel de Eventos'" [src]="'assets/images/goto/goto-events.png'" style="width:200px" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
+
 
 </div>
+<!-- FIN DE AUDITORÍAS -->
 
 
+<!-- INI DE MANTENIMIENTOS -->
 <span class="section-subtitle" *appRole="['ADMIN', 'SUPER']">Mantenimientos</span>
 
 <div class="options-wrapper mb-3" *appRole="['ADMIN', 'SUPER']">
@@ -92,6 +131,7 @@
     </div>
 
 </div>
+<!-- FIN DE MANTENIMIENTOS -->
 
 
 <span class="section-subtitle" *appRole="['ADMIN', 'SUPER']">Tableros (eventos, noticias y avisos)</span>

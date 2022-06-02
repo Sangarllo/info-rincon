@@ -1,10 +1,11 @@
 import { CalendarEvent } from 'angular-calendar';
 
+import { AuditItem } from '@models/audit';
 import { IBase, BaseType } from '@models/base';
 import { Status, STATUS_MODES } from '@models/status.enum';
 import { Category } from '@models/category.enum';
-
 import { ScheduleType, SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
+
 
 export interface CalendarEventExtended extends CalendarEvent {
   active: boolean;
@@ -37,6 +38,7 @@ export interface IEvent {
   usersArray?: string[];
   extra?: string; // Extra field to pass info
   extra2?: string; // Extra field to pass info
+  auditCreation?: IBase;
 }
 
 export class Event implements IEvent, IBase { // IAudit

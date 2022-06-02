@@ -26,6 +26,7 @@ import { AppointmentsService } from '@services/appointments.service';
 import { EventSocialService } from '@services/events-social.service';
 import { PictureService } from '@services/pictures.service';
 import { UserRole } from '@models/user-role.enum';
+import { Place } from '@models/place';
 
 const EVENTS_COLLECTION = 'eventos';
 
@@ -316,18 +317,28 @@ export class EventService {
     this.appointmentSrv.addAppointment(eventId);
 
     const place = entity.place;
+    if ( place ) {
+      console.log(`hay place: ${place.imageId}`);
+      console.log(`hay place: ${place.imagePath}`);
+    } else {
+      console.log(`no hay place`);
+    }
+
     const newPlaceItem: IBase = place ? {
         id: place.id,
         active: true,
         name: place.name,
-        imageId: place.imageId,
-        imagePath: place.imagePath,
+        imageId: place.imageId ?? Place.IMAGE_DEFAULT,
+        imagePath: place.imagePath ?? Place.IMAGE_DEFAULT,
         baseType: BaseType.PLACE,
         description: place.roleDefault ?? '',
       } : null;
 
+    console.log(`JSON.stringify(newPlaceItem): ${JSON.stringify(newPlaceItem)}`);
+
+
     if ( place ) {
-      event.images.push(place.imageId);
+      event.images.push(place.imageId ?? Place.IMAGE_DEFAULT);
     }
 
     const categories = entity.categories;
@@ -350,6 +361,7 @@ export class EventService {
         extra2: '',
       }
     );
+
 
     return Promise.resolve(eventId);
   }

@@ -6,16 +6,9 @@ import { CalendarEvent, CalendarView } from 'angular-calendar';
 import {
   isSameMonth,
   isSameDay,
-  startOfMonth,
-  endOfMonth,
-  startOfWeek,
-  endOfWeek,
-  startOfDay,
-  endOfDay,
-  format,
 } from 'date-fns';
+
 import { CalendarEventsService } from '@services/calendar-events.service';
-import { IBase } from '@models/base';
 
 @Component({
   selector: 'app-calendar',
@@ -37,8 +30,8 @@ export class CalendarComponent implements OnInit {
   infoEventsFooter = ' en toda la agenda';
   entityId = '0';
   entities = [];
-
   events$: Observable<CalendarEvent[]>;
+
   readonly today = new Date();
   readonly DATE_MIN = new Date(
       this.today.getFullYear()-1,
@@ -51,7 +44,7 @@ export class CalendarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private calEventsSrv: CalendarEventsService
+    private calEventsSrv: CalendarEventsService,
   ) {}
 
   ngOnInit(): void {
@@ -89,10 +82,8 @@ export class CalendarComponent implements OnInit {
       this.router.navigate([`eventos/${event.id}`]);
   }
 
-  // selectEntity(entityOption: string, entityBase: IBase): void {
-  selectEntity(entities: string[]): void {
+  filterEntities(entities: string[]): void {
 
-      console.log(`calendar - entities: ${entities}|`);
       if (entities.length === 0) { // Cualquier entidad
 
             console.log(` -> cualquier entidad`);

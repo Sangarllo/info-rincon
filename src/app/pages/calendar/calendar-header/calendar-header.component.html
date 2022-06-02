@@ -26,7 +26,7 @@
 
         <div class="title__mode buttons">
 
-            <button *ngIf="entityFiltered; else ngAllEntitiesTemplate" mat-mini-fab class="btn-entity" [ngStyle]="applyEntityFilteredStyles()" (click)="gotoEntitiesConfig()">
+            <button *ngIf="(entities.length === 1); else ngAllEntitiesTemplate" mat-mini-fab class="btn-entity" [ngStyle]="applyEntityFilteredStyles()" (click)="gotoEntitiesConfig()">
             </button>
 
             <ng-template #ngAllEntitiesTemplate>

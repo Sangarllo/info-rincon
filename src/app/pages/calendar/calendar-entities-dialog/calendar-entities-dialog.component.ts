@@ -21,6 +21,7 @@ export class CalendarEntitiesDialogComponent {
   baseItemCtrl = new FormControl();
   baseItemSelected: IBase;
   baseItems$: Observable<IBase[]>;
+  favEntities: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -29,9 +30,10 @@ export class CalendarEntitiesDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any, // DialogData,
   ) {
 
+    this.favEntities = this.data.favEntities;
+
     this.baseItems$ = this.baseSrv.getAllItemsBase(BaseType.ENTITY);
 
-    console.log(`configuring... data.entityId: ${data.entity?.id}`);
     this.baseItemSelected = data.entity; // this.SECTION_BLANK;
     this.baseItemName = 'entidad';
     this.baseItemDesc = 'rol';

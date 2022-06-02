@@ -22,6 +22,7 @@ import { SpinnerComponent } from '@shared/components/spinner/spinner.component';
 import { RoleOptionsComponent } from '@shared/components/role-options/role-options.component';
 import { StoriesPanelComponent } from '@shared/components/stories-panel/stories-panel.component';
 import { CommentsDialogComponent } from '@shared/components/comments-dialog/comments-dialog.component';
+import { AuditItemsListComponent } from '@shared/components/audit-items-list/audit-items-list.component';
 
 const components = [
   ShellComponent,
@@ -34,6 +35,7 @@ const components = [
   BaseItemsTableComponent,
   BaseItemDetailComponent,
   BaseItemsPanelComponent,
+  AuditItemsListComponent,
   CommentsDialogComponent,
   StoriesPanelComponent,
   SpinnerComponent,

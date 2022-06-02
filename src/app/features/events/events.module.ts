@@ -9,6 +9,7 @@ import { SharedModule } from '@shared/shared.module';
 import { EventsRoutingModule } from '@features/events/events-routing.module';
 import { EventsComponent } from '@features/events/events.component';
 import { EventsFavComponent } from '@features/events/events-fav/events-fav.component';
+import { EventsAuditComponent } from '@features/events/events-audit/events-audit.component';
 import { EventsOwnComponent } from '@features/events/events-own/events-own.component';
 import { EventViewComponent } from '@features/events/event-view/event-view.component';
 import { EventConfigComponent } from '@features/events/event-config/event-config.component';
@@ -36,6 +37,7 @@ import { EventSocialComponent } from '@features/events/event-social/event-social
 @NgModule({
   declarations: [
     EventsComponent,
+    EventsAuditComponent,
     EventsFavComponent,
     EventsOwnComponent,
     EventCardComponent,

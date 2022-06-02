@@ -12,6 +12,6 @@ import { AuditComponent } from '@features/audit/audit.component';
   imports: [
     SharedModule,
     AuditRoutingModule
-  ]
+  ],
 })
 export class AuditModule { }

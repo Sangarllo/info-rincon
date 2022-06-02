@@ -119,7 +119,8 @@ export class EntityEditComponent implements OnInit, OnDestroy {
       place: ( this.entity.place ) ? {
         id: this.entity.place.id,
         name: this.entity.place.name,
-        image: this.entity.place.imageId
+        imageId: this.entity.place.imageId,
+        imagePath: this.entity.place.imagePath
       } : this.SECTION_BLANK,
       roleDefault: this.entity.roleDefault,
       scheduleTypeDefault: this.entity.scheduleTypeDefault,

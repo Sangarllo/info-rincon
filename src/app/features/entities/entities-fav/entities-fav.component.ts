@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
@@ -60,8 +60,6 @@ export class EntitiesFavComponent implements OnInit, OnDestroy {
         this.favEntities = this.userLogged.favEntities;
       });
     });
-
-
 
     const subs2$ = this.entitySrv.getAllEntities()
     .pipe(

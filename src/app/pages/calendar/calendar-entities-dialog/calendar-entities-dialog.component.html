@@ -12,7 +12,7 @@
 
                 <mat-radio-button class="radio-button" value="1">Cualquier entidad</mat-radio-button>
 
-                <mat-radio-button class="radio-button" disabled value="2">Tus entidades favoritas</mat-radio-button>
+                <mat-radio-button class="radio-button" *ngIf="favEntities?.length > 0" value="2">Tus entidades favoritas ({{favEntities.length}})</mat-radio-button>
 
                 <mat-radio-button class="radio-button" value="3">Filtrar por una entidad</mat-radio-button>
 

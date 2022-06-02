@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` View of cards with search-filter pipe.
 - `feature` View of cards can be filtered by status.
 - `feature` Setting of favorite entities.
+- `feature` Improve audit items.
 
 ### Fix
 
