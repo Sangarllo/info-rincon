@@ -388,8 +388,9 @@ export class EventService {
     return this.eventDoc.set(event, { merge: true });
   }
 
-  deleteEvent(event: IEvent, currentUser: IUser): void {
+  async deleteEvent(event: IEvent): Promise<void> {
 
+    const currentUser = await this.afAuth.currentUser;
     const timeStamp = this.appointmentSrv.getTimestamp();
     event.timestamp = timeStamp;
 

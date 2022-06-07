@@ -43,7 +43,7 @@ export class EventsAuditComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
       'status', 'timestamp',
       'image', 'collapsed-info', 'name',
-      'auditCreation'
+      'auditCreation', 'auditLastItem'
 ];
   private listOfObservers: Array<Subscription> = [];
   private currentUser: IUser;
@@ -69,8 +69,11 @@ export class EventsAuditComponent implements OnInit, OnDestroy {
                   map(events => events.map(event => {
                     const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
 
-                    const auditItem: IBase = event.auditItems.filter(item => item.auditType === AuditType.CREATED)[0];
-                    event.auditCreation = auditItem;
+                    const auditCreation: IBase = event.auditItems.filter(item => item.auditType === AuditType.CREATED)[0];
+                    event.auditCreation = auditCreation;
+
+                    const auditLastItem: IBase = event.auditItems[event.auditItems.length - 1];
+                    event.auditLastItem = auditLastItem;
 
                     return { ...event };
                   }))

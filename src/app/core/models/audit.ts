@@ -1,4 +1,5 @@
 import { BaseType, IBase } from '@models/base';
+import firebase from 'firebase/compat/app';
 
 // eslint-disable-next-line no-shadow
 export enum AuditType {
@@ -52,7 +53,7 @@ export class AuditItem implements IAuditItem, IBase {
      ) {
   }
 
-  static InitDefault(auditType: AuditType, user: any, timestamp: string, descExtra?: string): IAuditItem {
+  static InitDefault(auditType: AuditType, user: firebase.User, timestamp: string, descExtra?: string): IAuditItem {
 
     let name = '';
     let imageId = AuditItem.IMAGE_DEFAULT;
@@ -115,9 +116,9 @@ export class AuditItem implements IAuditItem, IBase {
       imageId, imagePath,
       BaseType.AUDIT,
       auditType,
-      descExtra ?? null,
-      user.uid,
-      user.name,
+      descExtra ?? '',
+      user.uid ?? '',
+      user.displayName ?? '',
       user.photoURL ?? '',
       timestamp,
     );

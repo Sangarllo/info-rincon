@@ -39,6 +39,7 @@ export interface IEvent {
   extra?: string; // Extra field to pass info
   extra2?: string; // Extra field to pass info
   auditCreation?: IBase;
+  auditLastItem?: IBase;
 }
 
 export class Event implements IEvent, IBase { // IAudit

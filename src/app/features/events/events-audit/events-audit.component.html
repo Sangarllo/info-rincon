@@ -54,8 +54,27 @@
                     </ng-container>
 
                     <ng-container matColumnDef="auditCreation">
-                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Creación</th>
-                        <td mat-cell class="td-extra-lg" *matCellDef="let event">{{ event.auditCreation | json }} </td>
+                        <th mat-header-cell class="td-audit" *matHeaderCellDef mat-sort-header>Creación</th>
+                        <td mat-cell class="td-audit" *matCellDef="let event">
+                            <div class="inside"></div>
+                            <div style="font-size: smaller;color:gray">
+                                {{ event.auditCreation?.timestamp | date:'EEEE, d \'de\' MMMM' }}
+                            </div>
+                            <span style="font-size: smaller;color:#808080">{{ event.auditCreation?.userName }}</span>
+                            <pre style="font-size: smaller;color:#303030">{{ event.auditCreation | json }}</pre>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="auditLastItem">
+                        <th mat-header-cell class="td-audit" *matHeaderCellDef mat-sort-header>Última Mod.</th>
+                        <td mat-cell class="td-audit" *matCellDef="let event">
+                            <div class="inside"></div>
+                            <div style="font-size: smaller;color:gray">
+                                {{ event.auditLastItem?.timestamp | date:'EEEE, d \'de\' MMMM' }}
+                            </div>
+                            <span style="font-size: smaller;color:#808080">{{ event.auditCreation?.userName }}</span>
+                            <pre style="font-size: smaller;color:#303030">{{ event.auditCreation | json }}</pre>
+                        </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

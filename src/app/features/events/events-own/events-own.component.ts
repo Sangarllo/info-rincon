@@ -114,7 +114,7 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
       confirmButtonText: '¡Sí, bórralo!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.eventSrv.deleteEvent(event, this.currentUser);
+        this.eventSrv.deleteEvent(event);
         Swal.fire({
           title: '¡Borrado!',
           text: `${event.name} ha sido borrado`,
