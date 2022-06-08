@@ -34,8 +34,6 @@ export class AuditItemsListComponent implements OnInit {
 
         for (const item of this.items) {
 
-          console.log(`item: ${JSON.stringify(item)}`);
-
           const user: IUser = users.find(u => u.uid === item.userId);
           const auditItem: IAuditItem = {
             ...item,
@@ -47,8 +45,6 @@ export class AuditItemsListComponent implements OnInit {
           };
 
           this.auditItems.push(auditItem);
-
-          console.log(`auditItem: ${JSON.stringify(auditItem)}`);
         }
       });
   }
