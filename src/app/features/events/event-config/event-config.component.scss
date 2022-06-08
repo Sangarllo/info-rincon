@@ -93,3 +93,46 @@ span.text__when-info {}
     margin-top: 30px;
     margin-bottom: 0px;
 }
+
+.container-messages {
+    margin: 0px -15px;
+    .comment-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.1);
+        padding: 5px;
+        margin-bottom: 10px;
+        .comment-image {
+            img {
+                border-radius: 50%;
+                max-width: 40px; // 100px for big devices
+            }
+        }
+        .comment-body {
+            padding-left: 10px;
+            font-size: smaller;
+            width: 100%;
+            .comment-timestamp {
+                color: $color1;
+                font-size: smaller;
+                margin-bottom: 0px;
+            }
+            .comment-heading {
+                color: $color1;
+                background-color: $color2;
+                font-weight: bolder;
+                font-size: 0.8rem;
+                border-radius: 10px;
+                padding-left: 10px;
+                margin-bottom: 0px;
+            }
+            .comment-message {
+                margin-top: 0.3rem;
+                font-size: 0.8rem;
+                text-align: left;
+                margin-bottom: 0px;
+            }
+        }
+    }
+}

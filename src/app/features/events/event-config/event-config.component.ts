@@ -11,14 +11,19 @@ import { AuthService } from '@auth/auth.service';
 import { Base, IBase, BaseType } from '@models/base';
 import { IAppointment, Appointment, ShowMode } from '@models/appointment';
 import { IEvent, Event } from '@models/event';
+import { IEventSocial } from '@models/event-social';
 import { IUser } from '@models/user';
 import { AuditType } from '@models/audit';
+import { IComment } from '@models/comment';
 import { IPicture } from '@models/picture';
+import { CommentsService } from '@services/comments.service';
 import { EventService } from '@services/events.service';
+import { EventSocialService } from '@services/events-social.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 import { LogService } from '@services/log.service';
 import { PictureService } from '@services/pictures.service';
+import { UserService } from '@services/users.service';
 
 import { EventBasicDialogComponent } from '@features/events/event-basic-dialog/event-basic-dialog.component';
 import { EventStatusDialogComponent } from '@features/events/event-status-dialog/event-status-dialog.component';
@@ -38,6 +43,8 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   panelOpenState = false;
   shownAsAWholeControl = new FormControl();
   public event: IEvent;
+  public eventSocial: IEventSocial;
+  public comments$: Observable<IComment[]>;
   public idEvent: string;
   public eventPicture: IPicture;
   public appointment$: Observable<IAppointment>;
@@ -45,6 +52,8 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   public dialogConfig = new MatDialogConfig();
   public baseType = BaseType.EVENT;
   public audit = environment.setAudit;
+  public socialUsersFav = [];
+  public socialNClaps = 0;
   private currentUser: IUser;
   private listOfObservers: Array<Subscription> = [];
 
@@ -56,8 +65,11 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     private logSrv: LogService,
     private utilsSrv: UtilsService,
     private eventSrv: EventService,
+    private eventSocialSrv: EventSocialService,
+    private commentSrv: CommentsService,
     private pictureSrv: PictureService,
-    private appointmentSrv: AppointmentsService
+    private appointmentSrv: AppointmentsService,
+    private userSrv: UserService,
   ) {
     this.dialogConfig.disableClose = true;
     this.dialogConfig.autoFocus = true;
@@ -87,6 +99,22 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       this.pictureSrv.getPictureFromImage(this.event.imageId)
       .subscribe((picture: IPicture) => {
           this.eventPicture = picture;
+      });
+
+      this.eventSocialSrv.getEventSocial(idEvent)
+      .subscribe( (eventSocial: IEventSocial) => {
+          this.eventSocial = eventSocial;
+          this.comments$ = this.commentSrv.getAllComments(idEvent);
+
+          this.socialNClaps = this.eventSocial.nClaps;
+          if ( eventSocial.usersFavs.length > 0 ) {
+            this.userSrv.getSeveralUsers(eventSocial.usersFavs)
+            .subscribe((users: IUser[]) => {
+              this.socialUsersFav = users;
+            });
+          } else {
+            this.socialUsersFav = [];
+          }
       });
 
       this.shownAsAWholeControl.setValue(String(this.event.shownAsAWhole));
