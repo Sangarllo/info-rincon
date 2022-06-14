@@ -201,8 +201,11 @@
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>
 
-                                    <div *ngFor="let user of usersFav">
-                                        <span>​{{ user.displayName }}</span>
+                                    <div class="container-favs" *ngFor="let user of socialUsersFav">
+                                        <section class="fav-item">
+                                            <img class="fav-image" [src]="user.photoURL" [alt]="user.displayName">
+                                            <span class="fav-name">​{{ user.displayName }}</span>
+                                        </section>
                                     </div>
 
                                 </mat-expansion-panel>

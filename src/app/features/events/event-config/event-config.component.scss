@@ -94,6 +94,25 @@ span.text__when-info {}
     margin-bottom: 0px;
 }
 
+.container-favs {
+    margin: 0px -15px;
+    .fav-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 10px 20px;
+        .fav-image {
+            border-radius: 50%;
+            max-width: 40px; // 100px for big devices
+            max-height: 40px; // 100px for big devices
+        }
+        .fav-name {
+            text-transform: uppercase;
+            font-size: smaller;
+        }
+    }
+}
+
 .container-messages {
     margin: 0px -15px;
     .comment-item {
