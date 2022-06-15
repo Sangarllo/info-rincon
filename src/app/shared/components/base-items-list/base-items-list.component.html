@@ -10,7 +10,7 @@
 
             <div class="list__item-header">
 
-                <img [src]="baseItem.imagePath" class="list__item-img img-thumbnail">
+                <img (click)="viewImage(baseItem)" [src]="baseItem.imagePath" class="list__item-img img-thumbnail">
 
                 <div class="list__item-info-main">
                     <span class="name">{{ baseItem.name }}</span>

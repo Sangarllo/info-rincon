@@ -45,6 +45,10 @@ export class BaseItemsListComponent {
     }
   }
 
+  public viewImage(baseItem: IBase): void {
+    window.open(baseItem.imagePath, '_blank');
+  }
+
   deleteBaseItem(base: IBase): void {
     this.deleteBase.emit(base);
   }
