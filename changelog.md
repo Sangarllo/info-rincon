@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Setting of favorite entities.
 - `feature` Improve audit items.
 - `feature` Add social audit in event-config view.
+- `feature` Add `brave-rewards-verification` file.
 
 ### Fix
 

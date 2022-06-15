@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: agendarinconera.es
+Token: f1cb1a81d44b3a60e65066ab752225c8a189125c0bc15783543e4eefa17b2330
