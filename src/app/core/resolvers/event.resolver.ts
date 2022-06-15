@@ -28,9 +28,11 @@ export class EventResolver implements Resolve<Observable<any>> {
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
 
+    const eventId = route.params.id.split('_')[0];
+
     const ref = this.angularFirestore.collection(EVENTS_COLLECTION);
     return ref
-      .doc(route.params.id)
+      .doc(eventId)
       .get()
       .pipe(
         map(doc => {

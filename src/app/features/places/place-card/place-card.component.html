@@ -4,7 +4,7 @@
         <mat-card-title>{{ place.name }}</mat-card-title>
         <mat-card-subtitle>{{ place.extra }}</mat-card-subtitle>
     </mat-card-header>
-    <img [src]="getMediumImage(place.imagePath)" class="img-thumbnail" [alt]="place.name">
+    <img [src]="place.imagePath" class="img-thumbnail" [alt]="place.name">
     <mat-card-content class="item-content">
     </mat-card-content>
 

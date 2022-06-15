@@ -79,6 +79,7 @@ export class CalendarComponent implements OnInit {
   }
 
   eventClicked(event: CalendarEvent): void {
+      console.log(` -> eventClicked: ${event.id}`);
       this.router.navigate([`eventos/${event.id}`]);
   }
 

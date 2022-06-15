@@ -51,6 +51,7 @@ export class Place implements IPlace, IBase {
       '',
       Place.LOCALITY_DEFAULT,
       'SE CELEBRA EN',
+      '',
     );
   }
 }

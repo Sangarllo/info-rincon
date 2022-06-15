@@ -120,6 +120,7 @@ export class PlaceEditComponent implements OnInit, OnDestroy {
         const placeItem = { ...this.place, ...this.placeForm.value };
 
         if (placeItem.id === '0') {
+          console.log(`newPlace: ${JSON.stringify(placeItem)}`);
           this.placeSrv.addPlace(placeItem);
         } else {
           this.placeSrv.updatePlace(placeItem);

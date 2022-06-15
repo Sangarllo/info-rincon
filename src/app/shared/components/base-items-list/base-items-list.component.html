@@ -21,8 +21,8 @@
             </div>
 
 
-            <div *ngIf="baseItem.description" class="list__item-description">
-                <span [innerHtml]="baseItem.description"></span>
+            <div *ngIf="baseItem.description" class="list__item-description" [innerHtml]="baseItem.description">
+
             </div>
 
             <button *ngIf="modeAdmin === true" class="list__item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteBaseItem(baseItem)">

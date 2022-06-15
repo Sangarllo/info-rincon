@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Solve problem with end dates.
 - `feature` Alerted notice must be active+alerted+visible.
 - `feature` Avoid comments to appear when there isn't.
+- `feature` Fix resolver-problem with subevents.
 
 ### Update
 
