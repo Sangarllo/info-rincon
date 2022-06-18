@@ -1,6 +1,6 @@
 <app-section-header [title]="'Panel de Configuración de Eventos'" showStatusFilter="true" showViewMode="true" (viewMode)="setViewMode($event)" (statusFiltered)="setStatusFiltered($event)"></app-section-header>
 
-<div *ngIf="events.length > 0; else noEventsTemplate">
+<div *ngIf="events?.length > 0; else noEventsTemplate">
 
     <div class="section-wrapper">
 
@@ -77,7 +77,7 @@
                         <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}</td>
                     </ng-container>
 
-                    <ng-container matColumnDef="actions3">
+                    <ng-container matColumnDef="actions4">
                         <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones </th>
                         <td mat-cell class="td-extra-lg" *matCellDef="let event">
 
@@ -98,6 +98,11 @@
                                     delete
                                 </mat-icon>
                             </button>
+
+                            <button *ngIf="event.status === 'DELETED'" [disabled]="event.active" mat-icon-button matTooltip="Click to Remove" class="iconbutton" (click)="deleteForeverElement(event)">
+                                <mat-icon class="btn-1" aria-label="Delete Forever">cancel</mat-icon>
+                            </button>
+
                         </td>
                     </ng-container>
 

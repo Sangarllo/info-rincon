@@ -38,23 +38,23 @@ export class SectionHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.showNoActive = this.initialOptions[0];
     this.showNoFavorite = this.initialOptions[1];
-    console.log(`showNoActive: ${this.showNoActive}`);
+    // console.log(`showNoActive: ${this.showNoActive}`);
   }
 
   setViewMode(mode: string): void {
-    console.log(`mode: ${mode}`);
+    // console.log(`mode: ${mode}`);
     this.viewMode.emit(mode);
   }
 
   setStatusFiltered(): void {
     const statusFiltered = this.STATUS_LIST.filter(status => status.selected).map(status => status.value);
-    console.log(`statusFiltered: ${statusFiltered.length}`);
+    // console.log(`statusFiltered: ${statusFiltered.length}`);
     this.statusFiltered.emit(statusFiltered);
   }
 
   emitOptionsMode(): void {
     const options = [ this.showNoActive, this.showNoFavorite ];
-    console.log(`options: ${options}`);
+    // console.log(`options: ${options}`);
     this.optionsMode.emit(options);
   }
 

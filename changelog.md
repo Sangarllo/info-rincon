@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.2] - After first release (without SSR because of performance issues at deploying)
 
+### Add
+
+- `feature` Add remove-forever functionallity for events dashboard.
+
 ### Fix
 
 - `arch` Remove angular universal.

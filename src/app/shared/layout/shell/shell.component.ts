@@ -135,7 +135,7 @@ export class ShellComponent implements OnDestroy {
               this.userSrv.getOneUser(user.uid)
                   .subscribe( (userLogged: any ) => {
                       this.userLogged = userLogged;
-                      console.log(`userLoggedFav: ${userLogged.favEvents?.length}`);
+                      // console.log(`userLoggedFav: ${userLogged.favEvents?.length}`);
                   });
             }
         });

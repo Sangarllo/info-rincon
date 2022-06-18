@@ -79,7 +79,7 @@ export class CalendarComponent implements OnInit {
   }
 
   eventClicked(event: CalendarEvent): void {
-      console.log(` -> eventClicked: ${event.id}`);
+      // console.log(` -> eventClicked: ${event.id}`);
       this.router.navigate([`eventos/${event.id}`]);
   }
 
@@ -95,8 +95,8 @@ export class CalendarComponent implements OnInit {
       else if ( entities.length === 1 ) { // Filtrar por una entidad
 
             const entityId = entities[0];
-            console.log(` -> select Entity 3`);
-            console.log(` -> select Entity: ${entityId}`);
+            // console.log(` -> select Entity 3`);
+            // console.log(` -> select Entity: ${entityId}`);
             this.entityId = entityId;
             this.entities = [entityId];
             this.infoEventsFooter = ` vinculados a esta entidad`;

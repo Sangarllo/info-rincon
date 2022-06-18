@@ -32,8 +32,8 @@ export class StoriesService {
     dateMax.setDate(dateMax.getDate() + this.N_DAYS_AHEAD);
     const dateMaxStr = dateMax.toISOString().substr(0, 10);
 
-    console.log(`dateTodayStr: ${dateTodayStr}`);
-    console.log(`dateMaxStr: ${dateMaxStr}`);
+    // console.log(`dateTodayStr: ${dateTodayStr}`);
+    // console.log(`dateMaxStr: ${dateMaxStr}`);
 
     const appointments$ = this.appointmentSrv.getAppointmentsByRange(dateTodayStr, dateMaxStr, false);
     const events$ = this.eventSrv.getAllEvents(true, true);
@@ -43,10 +43,10 @@ export class StoriesService {
       events$
     ])
       .pipe(
-        tap(([appointments, events ]) => {
-          console.log(`Nº appointments: ${appointments.length}`);
-          console.log(`Nº events: ${events.length}`);
-        }),
+        // tap(([appointments, events ]) => {
+        //   console.log(`Nº appointments: ${appointments.length}`);
+        //   console.log(`Nº events: ${events.length}`);
+        // }),
         map(([appointments, events ]) =>
             appointments.map(appointment =>
               this.getEventBaseFromAppointment(appointment, events)

@@ -74,7 +74,7 @@
                         <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}</td>
                     </ng-container>
 
-                    <ng-container matColumnDef="actions3">
+                    <ng-container matColumnDef="actions4">
                         <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones </th>
                         <td mat-cell class="td-extra-lg" *matCellDef="let event">
 
@@ -90,11 +90,16 @@
                                   </mat-icon>
                               </button>
 
-                            <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(event)">
-                                  <mat-icon class="btn-1" aria-label="Delete">
+                            <button [disabled]="event.status === 'DELETED'" mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(event)">
+                                <mat-icon class="btn-1" aria-label="Delete">
                                       delete
-                                  </mat-icon>
-                              </button>
+                                </mat-icon>
+                            </button>
+
+                            <button *ngIf="event.status === 'DELETED'" mat-icon-button matTooltip="Click to Remove" class="iconbutton" (click)="deleteForeverElement(event)">
+                                <mat-icon class="btn-1" aria-label="Delete Forever">cancel</mat-icon>
+                            </button>
+
                         </td>
                     </ng-container>
 

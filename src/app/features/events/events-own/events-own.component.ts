@@ -41,7 +41,7 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
       'status', 'id', 'timestamp',
       'image', 'collapsed-info', 'name', 'categories', 'dateIni',
-      'actions3', 'social'
+      'actions4', 'social'
 ];
   private listOfObservers: Array<Subscription> = [];
   private currentUser: IUser;
@@ -123,6 +123,11 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  deleteForeverElement(event: IEvent): void {
+    this.logSrv.info(`deleteForeverElement: ${JSON.stringify(event.id)}`);
+    this.eventSrv.deleteForeverEvent(event);
   }
 
   public addItem(): void {

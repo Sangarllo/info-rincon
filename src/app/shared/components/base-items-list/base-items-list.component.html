@@ -21,7 +21,7 @@
             </div>
 
 
-            <div *ngIf="baseItem.description" class="list__item-description" [innerHtml]="baseItem.description">
+            <div *ngIf="baseItem.description && (baseItem.description !== 'Rincón de Soto')" class="list__item-description" [innerHtml]="baseItem.description">
 
             </div>
 
