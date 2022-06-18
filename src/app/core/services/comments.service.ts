@@ -11,6 +11,9 @@ import { Observable } from 'rxjs';
 
 import { CommentType, IComment } from '@models/comment';
 import { AppointmentsService } from '@services/appointments.service';
+import { AuditSocialService } from '@services/audit-social.service';
+import { AuditSocialType } from '@models/audit-social';
+import { BaseType } from '@models/base';
 
 const COMMENTS_COLLECTION = 'comentarios';
 
@@ -26,6 +29,7 @@ export class CommentsService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private appointmentSrv: AppointmentsService,
+    private auditSocialSrv: AuditSocialService,
   ) {
     this.commentsCollection = afs.collection(COMMENTS_COLLECTION);
   }
@@ -43,7 +47,7 @@ export class CommentsService {
 
 
   // eslint-disable-next-line max-len
-  async addComment(itemId: string, commentatorDisplayedName: string, commentatorDisplayedImage: string, message: string, commentType: CommentType): Promise<void> {
+  async addComment(itemId: string, itemName: string, commentatorDisplayedName: string, commentatorDisplayedImage: string, message: string, commentType: CommentType): Promise<void> {
 
     const currentUser = await this.afAuth.currentUser;
     const id: string = this.afs.createId();
@@ -52,6 +56,7 @@ export class CommentsService {
     const newComment: IComment = {
       id,
       itemId,
+      itemName,
       commentatorDisplayedName,
       commentatorDisplayedImage,
       userUid: currentUser.uid,
@@ -61,6 +66,14 @@ export class CommentsService {
       timestamp,
       commentType
     };
+
+    // Audit
+    this.auditSocialSrv.addAuditSocialItem(
+      AuditSocialType.COMMENT,
+      itemId, itemName, BaseType.EVENT,
+      currentUser.uid, currentUser.displayName,
+      message
+    );
 
     this.commentsCollection.doc(id).set(
       newComment

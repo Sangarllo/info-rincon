@@ -75,8 +75,6 @@ export class EventCreationComponent implements OnInit, OnDestroy {
         this.entitiesSrv.getOneEntity(newBase.id)
         .subscribe((entity: IEntity) => {
           const newEvent = Event.InitDefault();
-          // eslint-disable-next-line no-debugger
-          debugger;
           this.eventSrv.addEventFromEntity(newEvent, entity, newBase.description).then((eventId: string) => {
             this.logSrv.info(`EventId: ${eventId}`);
             this.router.navigate([`eventos/${eventId}/config`]);

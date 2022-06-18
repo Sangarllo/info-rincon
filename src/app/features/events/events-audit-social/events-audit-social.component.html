@@ -1,0 +1,21 @@
+<app-section-header [title]="'Auditoría social de eventos'"></app-section-header>
+
+<div class="container-items" *ngFor="let item of auditSocialItems">
+
+    <section class="item">
+
+        <div class="item-image" href="#">
+            <img [src]="item.imagePath" [alt]="item.imagePath">
+        </div>
+        <div class="item-body">
+            <div class="item-timestamp">hace {{item.timestamp}}</div>
+            <div class="item-heading">{{item.name}}</div>
+            <div class="item-name">🏷️​ {{item.itemName}}</div>
+            <div class="item-name">🙂​ {{item.userDisplayName}}</div>
+            <div *ngIf="item.text" class="item-name">💬 {{item.text}}</div>
+            ​
+        </div>
+
+    </section>
+
+</div>

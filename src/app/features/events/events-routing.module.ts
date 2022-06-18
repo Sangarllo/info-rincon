@@ -9,6 +9,7 @@ import { EventResolver } from '@resolvers/event.resolver';
 import { EventsComponent } from '@features/events/events.component';
 import { EventsFavComponent } from '@features/events/events-fav/events-fav.component';
 import { EventsAuditComponent } from '@features/events/events-audit/events-audit.component';
+import { EventsAuditSocialComponent } from '@features/events/events-audit-social/events-audit-social.component';
 import { EventsOwnComponent } from '@features/events/events-own/events-own.component';
 import { EventViewComponent } from '@features/events/event-view/event-view.component';
 import { EventConfigComponent } from '@features/events/event-config/event-config.component';
@@ -33,6 +34,12 @@ const routes: Routes = [
   {
     path: 'audit',
     component: EventsAuditComponent,
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'audit-social',
+    component: EventsAuditSocialComponent,
     canActivate: [ AngularFireAuthGuard ],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
   },

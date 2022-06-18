@@ -20,6 +20,7 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
   title = 'Últimos comentarios';
   errorMessage = '';
   public itemId: string;
+  public itemName: string;
   comment: IComment;
   commentForm: FormGroup;
   public userUid: string;
@@ -42,6 +43,7 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.itemId = this.data.itemId;
+    this.itemName = this.data.itemName;
     this.userUid = this.data.UserUid;
     this.userRole = this.data.UserRole;
     this.commentType = this.data.commentType;
@@ -76,6 +78,7 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
   sendComment(): void {
     this.commentsSrv.addComment(
         this.itemId,
+        this.itemName,
         this.commentator.name,
         this.commentator.image,
         this.commentForm.controls.message.value,

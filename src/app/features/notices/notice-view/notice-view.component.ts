@@ -114,6 +114,7 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
         this.dialogConfig.height = '600px';
         this.dialogConfig.data = {
           itemId: this.notice.id,
+          itemName: this.notice.name,
           UserUid: this.userLogged?.uid ?? '',
           UserName: this.userLogged?.displayName ?? '',
           UserImage: this.userLogged?.photoURL ?? '',

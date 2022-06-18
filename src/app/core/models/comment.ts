@@ -1,6 +1,7 @@
 export interface IComment {
   id: string;
   itemId: string;
+  itemName: string;
   commentatorDisplayedName: string;
   commentatorDisplayedImage: string;
   userUid: string;
@@ -17,6 +18,7 @@ export class Comment implements IComment {
   constructor(
     public id: string,
     public itemId: string,
+    public itemName: string,
     public commentatorDisplayedName: string,
     public commentatorDisplayedImage: string,
     public userUid: string,

@@ -87,6 +87,7 @@ export class EventSocialComponent implements OnInit {
         this.dialogConfig.height = '600px';
         this.dialogConfig.data = {
           itemId: this.event.id,
+          itemName: this.event.name,
           UserUid: this.userLogged?.uid ?? '',
           UserName: this.userLogged?.displayName ?? '',
           UserImage: this.userLogged?.photoURL ?? '',
@@ -116,14 +117,14 @@ export class EventSocialComponent implements OnInit {
     this.isFav = !this.isFav;
     if ( isFav ) {
       this.userLogged.favEvents.push(this.event.id);
-      this.eventSocialSrv.addFavourite(this.eventSocial, this.userLogged.uid);
+      this.eventSocialSrv.addFavourite(this.eventSocial, this.event.name, this.userLogged.uid, this.userLogged.displayName);
       Swal.fire({
         icon: 'success',
         title: 'Este evento se ha convertido en uno de tus favoritos',
         confirmButtonColor: '#003A59',
       });
     } else {
-      this.eventSocialSrv.removeFavourite(this.eventSocial, this.userLogged.uid);
+      this.eventSocialSrv.removeFavourite(this.eventSocial, this.event.name, this.userLogged.uid, this.userLogged.displayName);
       Swal.fire({
         icon: 'success',
         title: 'Este evento ha dejado de estar entre tus favoritos',
@@ -138,7 +139,7 @@ export class EventSocialComponent implements OnInit {
     if ( !applause ) {
       console.log(`applause!`);
       this.applause = true;
-      this.eventSocialSrv.addClaps(this.eventSocial);
+      this.eventSocialSrv.addClaps(this.eventSocial, this.event.name);
       const source = timer(3000);
       const subsTimer$ = source.subscribe(val => {
         console.log(val);

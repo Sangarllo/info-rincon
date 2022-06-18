@@ -118,14 +118,14 @@ export class EntitySocialComponent implements OnInit {
     this.isFav = !this.isFav;
     if ( isFav ) {
       this.userLogged.favEntities.push(this.entity.id);
-      this.socialSrv.addFavourite(this.itemSocial, this.userLogged.uid);
+      this.socialSrv.addFavourite(this.itemSocial, this.entity.name, this.userLogged.uid, this.userLogged.displayName);
       Swal.fire({
         icon: 'success',
         title: 'Este evento se ha convertido en uno de tus favoritos',
         confirmButtonColor: '#003A59',
       });
     } else {
-      this.socialSrv.removeFavourite(this.itemSocial, this.userLogged.uid);
+      this.socialSrv.removeFavourite(this.itemSocial, this.entity.name, this.userLogged.uid, this.userLogged.displayName);
       Swal.fire({
         icon: 'success',
         title: 'Este evento ha dejado de estar entre tus favoritos',

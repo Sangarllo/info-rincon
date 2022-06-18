@@ -8,6 +8,9 @@ import {
 import { Observable } from 'rxjs';
 
 import { IEventSocial } from '@models/event-social';
+import { AuditSocialType } from '@models/audit-social';
+import { BaseType } from '@models/base';
+import { AuditSocialService } from '@services/audit-social.service';
 
 const EVENTS_SOCIAL_COLLECTION = 'eventos-social';
 
@@ -21,6 +24,7 @@ export class EventSocialService {
 
   constructor(
     private afs: AngularFirestore,
+    private auditSocialSrv: AuditSocialService,
   ) {
     this.eventSocialCollection = afs.collection(EVENTS_SOCIAL_COLLECTION);
   }
@@ -52,7 +56,8 @@ export class EventSocialService {
     return this.eventSocialDoc.set(eventSocial, { merge: true });
   }
 
-  public async addFavourite(eventSocial: IEventSocial, userUid: string): Promise<void> {
+  public async addFavourite(eventSocial: IEventSocial, eventName: string, userUid: string, userName: string): Promise<void> {
+
     const eventSocialId = eventSocial.id;
     this.eventSocialDoc = this.afs.doc<IEventSocial>(`${EVENTS_SOCIAL_COLLECTION}/${eventSocialId}`);
     if ( eventSocial.usersFavs ) {
@@ -61,20 +66,48 @@ export class EventSocialService {
     } else {
       eventSocial.usersFavs = [ userUid ];
     }
+
+    // Audit
+    this.auditSocialSrv.addAuditSocialItem(
+      AuditSocialType.FAV_ON,
+      eventSocialId, eventName, BaseType.EVENT,
+      userUid, userName,
+      ''
+    );
+
     return this.eventSocialDoc.set(eventSocial, { merge: true });
   }
 
-  public async removeFavourite(eventSocial: IEventSocial, userUid: string): Promise<void> {
+  public async removeFavourite(eventSocial: IEventSocial, eventName: string, userUid: string, userName: string): Promise<void> {
+
     const eventSocialId = eventSocial.id;
     this.eventSocialDoc = this.afs.doc<IEventSocial>(`${EVENTS_SOCIAL_COLLECTION}/${eventSocialId}`);
     eventSocial.usersFavs = eventSocial.usersFavs.filter( userId => userId !== userUid );
+
+    // Audit
+    this.auditSocialSrv.addAuditSocialItem(
+      AuditSocialType.FAV_OFF,
+      eventSocialId, eventName, BaseType.EVENT,
+      userUid, userName,
+      ''
+    );
+
     return this.eventSocialDoc.set(eventSocial, { merge: true });
   }
 
-  public async addClaps(eventSocial: IEventSocial): Promise<void> {
+  public async addClaps(eventSocial: IEventSocial, eventName: string): Promise<void> {
     const idEvent = eventSocial.id;
     this.eventSocialDoc = this.afs.doc<IEventSocial>(`${EVENTS_SOCIAL_COLLECTION}/${idEvent}`);
     eventSocial.nClaps = ( eventSocial.nClaps ) ? eventSocial.nClaps+1 : 1;
+
+    // Audit
+    this.auditSocialSrv.addAuditSocialItem(
+      AuditSocialType.CLAP,
+      idEvent, eventName, BaseType.EVENT,
+      '',
+      ''
+    );
+
     return this.eventSocialDoc.set(eventSocial, { merge: true });
   }
 }
