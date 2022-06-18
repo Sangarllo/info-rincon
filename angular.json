@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/functions/browser",
+                        "outputPath": "dist/info-rincon",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -131,39 +131,7 @@
                         }
                     }
                 },
-                "serve-ssr": {
-                    "builder": "@nguniversal/builders:ssr-dev-server",
-                    "configurations": {
-                        "development": {
-                            "browserTarget": "info-rincon:build:development",
-                            "serverTarget": "info-rincon:server:development"
-                        },
-                        "production": {
-                            "browserTarget": "info-rincon:build:production",
-                            "serverTarget": "info-rincon:server:production"
-                        }
-                    },
-                    "defaultConfiguration": "production"
-                },
-                "prerender": {
-                    "builder": "@nguniversal/builders:prerender",
-                    "options": {
-                        "routes": [
-                            "/"
-                        ]
-                    },
-                    "configurations": {
-                        "production": {
-                            "browserTarget": "info-rincon:build:production",
-                            "serverTarget": "info-rincon:server:production"
-                        },
-                        "development": {
-                            "browserTarget": "info-rincon:build:development",
-                            "serverTarget": "info-rincon:server:development"
-                        }
-                    },
-                    "defaultConfiguration": "production"
-                },
+
                 "deploy": {
                     "builder": "@angular/fire:deploy",
                     "options": {
@@ -172,32 +140,8 @@
                             "memory": "1GB",
                             "timeoutSeconds": 540
                         },
-                        "ssr": true
+                        "ssr": false
                     }
-                },
-                "server": {
-                    "builder": "@angular-devkit/build-angular:server",
-                    "options": {
-                        "outputPath": "dist/functions/server",
-                        "main": "server.ts",
-                        "tsConfig": "tsconfig.server.json",
-                        "optimization": false,
-                        "sourceMap": true,
-                        "extractLicenses": false
-                    },
-                    "configurations": {
-                        "production": {
-                            "outputHashing": "media",
-                            "fileReplacements": [{
-                                "replace": "src/environments/environment.ts",
-                                "with": "src/environments/environment.prod.ts"
-                            }],
-                            "optimization": true,
-                            "sourceMap": false,
-                            "extractLicenses": true
-                        }
-                    },
-                    "defaultConfiguration": "production"
                 }
             }
         }

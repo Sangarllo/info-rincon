@@ -25,7 +25,7 @@ registerLocaleData(localeEs, 'es');
     AppComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule,
     AppRoutingModule,
     AngularFirestoreModule,
     AngularFireAnalyticsModule,

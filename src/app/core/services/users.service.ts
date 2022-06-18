@@ -67,7 +67,7 @@ export class UserService {
       .valueChanges({ uidField: 'uid' })
       .pipe(
         map(user => {
-          user.role = user?.role || UserRole.Lector;
+          user.role = user?.role ?? UserRole.Lector;
           return { ...user };
         })
       );

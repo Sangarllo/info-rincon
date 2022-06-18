@@ -1,7 +1,7 @@
 {
     "hosting": [{
         "target": "info-rincon",
-        "public": "dist/functions/browser",
+        "public": "dist/info-rincon",
         "ignore": [
             "**/.*"
         ],
@@ -14,10 +14,7 @@
         }],
         "rewrites": [{
             "source": "**",
-            "function": "ssr"
+            "destination": "/index.html"
         }]
-    }],
-    "functions": {
-        "source": "dist/functions"
-    }
+    }]
 }
