@@ -37,7 +37,7 @@ export class AuditSocialService {
     return this.auditSocialCollection.valueChanges();
   }
 
-  addAuditSocialItem(type: AuditSocialType, itemId: string, itemName: string, itemType: BaseType, userUid: string, userName: string, text?: string ): void {
+  addAuditSocialItem(type: AuditSocialType, itemId: string, itemName: string, itemType: BaseType, userUid?: string, userName?: string, text?: string ): void {
       const timestamp = this.appointmentSrv.getTimestamp();
       const auditSocialItem = AuditSocialItem.InitDefault(type, timestamp, itemId, itemName, itemType, userUid, userName, text);
       this.auditSocialCollection.add({...auditSocialItem});

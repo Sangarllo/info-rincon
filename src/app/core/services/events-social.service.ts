@@ -95,7 +95,7 @@ export class EventSocialService {
     return this.eventSocialDoc.set(eventSocial, { merge: true });
   }
 
-  public async addClaps(eventSocial: IEventSocial, eventName: string): Promise<void> {
+  public async addClaps(eventSocial: IEventSocial, eventName: string, userUid: string, userName: string): Promise<void> {
     const idEvent = eventSocial.id;
     this.eventSocialDoc = this.afs.doc<IEventSocial>(`${EVENTS_SOCIAL_COLLECTION}/${idEvent}`);
     eventSocial.nClaps = ( eventSocial.nClaps ) ? eventSocial.nClaps+1 : 1;
@@ -104,7 +104,7 @@ export class EventSocialService {
     this.auditSocialSrv.addAuditSocialItem(
       AuditSocialType.CLAP,
       idEvent, eventName, BaseType.EVENT,
-      '',
+      userUid, userName,
       ''
     );
 

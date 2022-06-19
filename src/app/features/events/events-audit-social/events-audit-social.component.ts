@@ -14,6 +14,8 @@ import { IUser } from '@models/user';
 import { AuditSocialService } from '@services/audit-social.service';
 import { SpinnerService } from '@services/spinner.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Event } from '@models/event';
+import { BaseType } from '@models/base';
 
 @Component({
   selector: 'app-events-audit-social',
@@ -70,6 +72,14 @@ export class EventsAuditSocialComponent implements OnInit, OnDestroy {
       });
 
       this.listOfObservers.push(subs2$);
+  }
+
+  gotoItem(item: IAuditSocialItem): void {
+    switch ( item.itemType) {
+      case BaseType.EVENT:
+        this.router.navigate([Event.PATH_URL, item.itemId]);
+        break;
+    }
   }
 
   applyFilter(filterValue: string): void {

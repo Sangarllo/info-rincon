@@ -138,11 +138,12 @@ export class EventSocialComponent implements OnInit {
   public clap(applause: boolean): void {
     if ( !applause ) {
       console.log(`applause!`);
+      const userUid = this.userLogged?.uid ?? '';
+      const userDisplayName = this.userLogged?.displayName ?? '';
       this.applause = true;
-      this.eventSocialSrv.addClaps(this.eventSocial, this.event.name);
+      this.eventSocialSrv.addClaps(this.eventSocial, this.event.name,  userUid, userDisplayName);
       const source = timer(3000);
       const subsTimer$ = source.subscribe(val => {
-        console.log(val);
         this.applause = false;
       });
       this.listOfObservers.push( subsTimer$ );

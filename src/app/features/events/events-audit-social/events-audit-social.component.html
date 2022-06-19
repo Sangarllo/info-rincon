@@ -10,8 +10,8 @@
         <div class="item-body">
             <div class="item-timestamp">hace {{item.timestamp}}</div>
             <div class="item-heading">{{item.name}}</div>
-            <div class="item-name">🏷️​ {{item.itemName}}</div>
-            <div class="item-name">🙂​ {{item.userDisplayName}}</div>
+            <div class="item-title" (click)="gotoItem(item)">🏷️​ {{item.itemName}}</div>
+            <div *ngIf="item.userDisplayName" class="item-name">🙂​ {{item.userDisplayName}}</div>
             <div *ngIf="item.text" class="item-name">💬 {{item.text}}</div>
             ​
         </div>

@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fix
 
 - `feature` Fix problem loading place at schedule item.
+- `feature` Show claps when user is not logged.
 
 ### Remove
 
