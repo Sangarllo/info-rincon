@@ -30,9 +30,7 @@
         .item-body {
             padding-left: 10px;
             width: 100%;
-            .item-heading-extra,
-            .item-heading,
-            .item-title {
+            .item-heading {
                 @media screen and (max-width: 450px) {
                     font-size: small;
                 }
@@ -42,6 +40,10 @@
                 @media screen and (min-width: 601px) {
                     font-size: larger;
                 }
+            }
+            .item-heading-audit,
+            .item-title-audit {
+                font-size: medium;
             }
             .item-timestamp,
             .item-data,
@@ -59,18 +61,18 @@
             .item-timestamp {
                 color: $color1;
             }
-            .item-heading {
+            .item-heading-audit {
                 color: $color1;
                 background-color: $color2;
                 font-weight: bolder;
                 border-radius: 10px;
                 padding-left: 10px;
             }
-            .item-heading-extra {
+            .item-heading {
                 font-weight: bolder;
                 text-transform: uppercase;
             }
-            .item-title {
+            .item-title-audit {
                 margin: 6px 4px;
                 color: $color1;
                 text-transform: uppercase;
@@ -96,7 +98,6 @@
         background-color: $color2 !important;
         border: 5px solid $color1;
         .item-heading,
-        .item-heading-extra,
         .item-name {
             font-size: larger !important;
         }

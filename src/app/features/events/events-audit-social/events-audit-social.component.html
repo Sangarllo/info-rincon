@@ -9,8 +9,8 @@
         </div>
         <div class="item-body">
             <div class="item-timestamp">hace {{item.timestamp}}</div>
-            <div class="item-heading">{{item.name}}</div>
-            <div class="item-title" (click)="gotoItem(item)">🏷️​ {{item.itemName}}</div>
+            <div class="item-heading-audit">{{item.name}}</div>
+            <div class="item-title-audit" (click)="gotoItem(item)">🏷️​ {{item.itemName}}</div>
             <div *ngIf="item.userDisplayName" class="item-data">🙂​ {{item.userDisplayName}}</div>
             <div *ngIf="item.text" class="item-data">💬 {{item.text}}</div>
             ​
