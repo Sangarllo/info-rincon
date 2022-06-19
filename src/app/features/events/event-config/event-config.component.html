@@ -204,10 +204,18 @@
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>
 
-                                    <div class="container-favs" *ngFor="let user of socialUsersFav">
-                                        <section class="fav-item">
-                                            <img class="fav-image" [src]="user.photoURL" [alt]="user.displayName">
-                                            <span class="fav-name">​{{ user.displayName }}</span>
+                                    <div class="container-social-items" *ngFor="let user of socialUsersFav">
+                                        <section class="item">
+
+                                            <div class="item-image" href="#">
+                                                <img class="fav-image" [src]="user.photoURL" [alt]="user.displayName">
+                                            </div>
+                                            <div class="item-body">
+                                                <div class="item-timestamp">🔑​ {{user.lastLogin}}</div>
+                                                <div class="item-heading">​ ​{{ user.displayName }}</div>
+                                                <div class="item-title">🏷️​ ​{{ user.role }}</div>
+                                            </div>
+
                                         </section>
                                     </div>
 
@@ -221,12 +229,12 @@
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>
 
-                                    <div class="container-messages" *ngFor="let comment of comments">
-                                        <section class="comment-item">
-                                            <div class="comment-body">
-                                                <div class="comment-timestamp">{{comment.timestamp}}</div>
-                                                <div class="comment-heading">{{comment.commentatorDisplayedName}}</div>
-                                                <div class="comment-message">{{comment.message}}</div>
+                                    <div class="container-social-items" *ngFor="let comment of comments">
+                                        <section class="item">
+                                            <div class="item-body">
+                                                <div class="item-timestamp">{{comment.timestamp}}</div>
+                                                <div class="item-heading">{{comment.commentatorDisplayedName}}</div>
+                                                <div class="item-name">💬 {{comment.message}}</div>
                                             </div>
                                         </section>
                                     </div>
