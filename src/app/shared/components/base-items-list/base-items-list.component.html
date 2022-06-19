@@ -1,5 +1,9 @@
 <div *ngIf="baseItems.length > 0; else noBaseItemsTemplate" class="items__container">
 
+    <!-- <pre *ngIf="userLogged">
+        {{ userLogged.favEntities | json }}
+    </pre> -->
+
     <div *ngFor="let baseItem of baseItems">
 
         <section *ngIf="baseItem" [ngClass]="{
@@ -8,15 +12,25 @@
             'item--selected' : (baseItem.id === baseItemSelected)
           }">
 
-            <div class="item-image" href="#">
-                <img (click)="viewImage(baseItem)" [src]="baseItem.imagePath" class="square img-thumbnail">
+            <div class="item-image" href="#" (click)="clickItem(baseItem)">
+                <img [src]="baseItem.imagePath" class="square img-thumbnail">
             </div>
 
-            <div class="item-body">
+            <div class="item-body" (click)="clickItem(baseItem)">
                 <div class="item-heading">{{ baseItem.name }}</div>
                 <div *ngIf="baseItem.extra" class="item-data">🕑 {{ baseItem.extra }}</div>
                 <div *ngIf="baseItem.place" class="item-data">📍 {{ baseItem.place?.name }}</div>
                 <div *ngIf="baseItem.description && (baseItem.description !== 'Rincón de Soto')" class="item-text" [innerHtml]="baseItem.description"></div>
+            </div>
+
+            <div class="item-fav-button" *ngIf="userLogged">
+
+                <button *ngIf="userLogged.favEntities.includes(baseItem.id); else noFavTemplateButton" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'" (click)="setEntityFav(false, baseItem)"></button>
+
+                <ng-template #noFavTemplateButton>
+                    <button mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_OFF + ')'" (click)="setEntityFav(true, baseItem)"></button>
+                </ng-template>
+
             </div>
 
             <button *ngIf="modeAdmin === true" class="item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteBaseItem(baseItem)">

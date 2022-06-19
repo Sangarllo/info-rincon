@@ -11,14 +11,14 @@ import { AuthService } from '@auth/auth.service';
 import { Base, IBase, BaseType } from '@models/base';
 import { IAppointment, Appointment, ShowMode } from '@models/appointment';
 import { IEvent, Event } from '@models/event';
-import { IEventSocial } from '@models/event-social';
+import { IItemSocial } from '@models/item-social';
 import { IUser } from '@models/user';
 import { AuditType } from '@models/audit';
 import { IComment } from '@models/comment';
 import { IPicture } from '@models/picture';
 import { CommentsService } from '@services/comments.service';
 import { EventService } from '@services/events.service';
-import { EventSocialService } from '@services/events-social.service';
+import { ItemSocialService } from '@services/items-social.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 import { LogService } from '@services/log.service';
@@ -43,7 +43,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   panelOpenState = false;
   shownAsAWholeControl = new FormControl();
   public event: IEvent;
-  public eventSocial: IEventSocial;
+  public eventSocial: IItemSocial;
   public comments$: Observable<IComment[]>;
   public idEvent: string;
   public eventPicture: IPicture;
@@ -65,7 +65,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     private logSrv: LogService,
     private utilsSrv: UtilsService,
     private eventSrv: EventService,
-    private eventSocialSrv: EventSocialService,
+    private itemSocialSrv: ItemSocialService,
     private commentSrv: CommentsService,
     private pictureSrv: PictureService,
     private appointmentSrv: AppointmentsService,
@@ -101,8 +101,8 @@ export class EventConfigComponent implements OnInit, OnDestroy {
           this.eventPicture = picture;
       });
 
-      this.eventSocialSrv.getEventSocial(idEvent)
-      .subscribe( (eventSocial: IEventSocial) => {
+      this.itemSocialSrv.getItemSocial(idEvent)
+      .subscribe( (eventSocial: IItemSocial) => {
           this.eventSocial = eventSocial;
           this.comments$ = this.commentSrv.getAllComments(idEvent);
 

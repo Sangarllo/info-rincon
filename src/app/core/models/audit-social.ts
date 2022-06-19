@@ -63,13 +63,29 @@ export class AuditSocialItem implements IAuditSocialItem, IBase {
     switch (auditSocialType) {
 
       case AuditSocialType.FAV_ON:
-        name = `Favorito añadido | ${timestamp}`;
+
+        switch (itemType) {
+          case BaseType.ENTITY:
+            name = `Entidad favorita añadida | ${timestamp}`;
+            break;
+          case BaseType.EVENT:
+            name = `Evento favorito añadido | ${timestamp}`;
+            break;
+        }
         imageId = AuditSocialItem.IMG_FAVORITE_ON;
         imagePath = AuditSocialItem.IMG_FAVORITE_ON;
         break;
 
       case AuditSocialType.FAV_OFF:
-        name = `Favorito eliminado | ${timestamp}`;
+
+        switch (itemType) {
+          case BaseType.ENTITY:
+            name = `Entidad favorita eliminada | ${timestamp}`;
+            break;
+          case BaseType.EVENT:
+            name = `Evento favorito eliminado | ${timestamp}`;
+            break;
+        }
         imageId = AuditSocialItem.IMG_FAVORITE_OFF;
         imagePath = AuditSocialItem.IMG_FAVORITE_OFF;
         break;

@@ -1,9 +1,3 @@
-<!--
-<div class="fav-button" *ngIf="comments$ | async as comments" [ngSwitch]="comments?.length">
-    <button [matBadge]="comments?.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_COMMENTS + ')'" (click)="viewComments(comments?.length)"></button>
-</div>
--->
-
 <div class="fav-button" *ngIf="userLogged">
 
     <button *ngIf="itemSocial?.usersFavs && (itemSocial?.usersFavs?.indexOf(userLogged.uid) !== -1); else noFavTemplateButton" [matBadge]="itemSocial?.usersFavs?.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'"
@@ -14,15 +8,3 @@
     </ng-template>
 
 </div>
-
-<!--
-<div class="fav-button" *ngIf="userLogged">
-
-    <button *ngIf="applause; else noClapTemplateButton" (click)="clap(applause)" [matBadge]="eventSocial.nClaps" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_CLAP_ON + ')'"></button>
-
-    <ng-template #noClapTemplateButton>
-        <button (click)="clap(applause)" [matBadge]="eventSocial?.nClaps" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_CLAP_OFF + ')'"></button>
-    </ng-template>
-
-</div>
--->

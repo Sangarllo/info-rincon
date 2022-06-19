@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Add remove-forever functionallity for events dashboard.
 - `feature` Add social event audit.
+- `feature` Enable entity-favorite from event-views.
 
 ### Fix
 

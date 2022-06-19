@@ -23,7 +23,7 @@ import { ITags } from '@models/tags';
 import { ScheduleType } from '@models/shedule-type.enum';
 import { Status } from '@models/status.enum';
 import { AppointmentsService } from '@services/appointments.service';
-import { EventSocialService } from '@services/events-social.service';
+import { ItemSocialService } from '@services/items-social.service';
 import { PictureService } from '@services/pictures.service';
 import { UserRole } from '@models/user-role.enum';
 import { Place } from '@models/place';
@@ -41,7 +41,7 @@ export class EventService {
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private eventSocialSrv: EventSocialService,
+    private itemSocialSrv: ItemSocialService,
     private appointmentSrv: AppointmentsService,
     private pictureSrv: PictureService,
   ) {
@@ -132,7 +132,7 @@ export class EventService {
         this.getAllEventsByAuthUser(userUid) :
         this.getAllEvents(showOnlyActive, false, null, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
-    const eventsSocial$ = ( addSocialInfo ) ? this.eventSocialSrv.getAllEventsSocial() : of([]);
+    const eventsSocial$ = ( addSocialInfo ) ? this.itemSocialSrv.getAllItemsSocial() : of([]);
     const pictures$ = this.pictureSrv.getAllPictures();
 
     return combineLatest([
