@@ -71,9 +71,19 @@
 
                 <mat-card-actions class="buttons buttons-center">
 
+                    <div class="fav-button" *ngIf="userLogged">
+
+                        <button *ngIf="userLogged.favEntities?.includes(entity.id); else noFavTemplateButton" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'" (click)="setEntityFav(false)"></button>
+
+                        <ng-template #noFavTemplateButton>
+                            <button mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_OFF + ')'" (click)="setEntityFav(true)"></button>
+                        </ng-template>
+
+                    </div>
+
                     <button *appRole="['ADMIN', 'SUPER']" mat-fab class="btn-1" (click)="editItem()">
-                        <mat-icon>edit</mat-icon>
-                    </button>
+                      <mat-icon>edit</mat-icon>
+                  </button>
 
                 </mat-card-actions>
 

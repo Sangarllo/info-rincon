@@ -1,0 +1,14 @@
+div.fav-button {
+    display: inline;
+    button {
+        min-width: 36px;
+        min-height: 36px;
+        &.button-image {
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center center;
+            margin: 0px 8px;
+        }
+    }
+}

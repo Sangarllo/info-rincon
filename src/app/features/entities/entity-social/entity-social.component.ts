@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Observable, Subscription, timer } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -22,15 +22,13 @@ import { BaseType } from '@models/base';
   templateUrl: './entity-social.component.html',
   styleUrls: ['./entity-social.component.scss']
 })
-export class EntitySocialComponent implements OnInit {
+export class EntitySocialComponent implements OnInit, OnDestroy {
 
   @Input() entity: IEvent;
   @Input() userLogged: IUser;
 
   // public comments$: Observable<IComment[]>;
   public itemSocial: IItemSocial;
-  public isFav = false;
-  // public applause = false;
 
   public dialogConfig = new MatDialogConfig();
   // public BTN_IMG_COMMENTS = 'assets/svg/comments.svg';
@@ -44,7 +42,6 @@ export class EntitySocialComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public authSvc: AuthService,
-    // private commentSrv: CommentsService,
     private itemSocialSrv: ItemSocialService,
     private userSrv: UserService,
   ) {
@@ -68,34 +65,32 @@ export class EntitySocialComponent implements OnInit {
           if ( user?.uid ) {
             this.userSrv.getOneUser(user.uid).subscribe( (userLogged: any ) => {
               this.userLogged = userLogged;
-              if ( this.userLogged.favEntities?.includes(this.entity?.id) ) {
-                  this.isFav = true;
-              }
           });
           }
       });
 
     this.listOfObservers.push( subs1$ );
-
   }
 
 
-  public isFavorite(isFav: boolean): void {
+  public setEntityFav(isFav: boolean): void {
 
     this.userLogged.favEntities = this.userLogged.favEntities ?? [];
     this.userLogged.favEntities = this.userLogged.favEntities.filter( (eventId: string) => eventId !== this.entity.id );
 
-    this.isFav = !this.isFav;
+    const itemName = this.entity.name;
+    const itemId = this.entity.id;
+
     if ( isFav ) {
-      this.userLogged.favEntities.push(this.entity.id);
-      this.itemSocialSrv.addFavourite(this.itemSocial.id, BaseType.ENTITY, this.entity.name, this.userLogged.uid, this.userLogged.displayName);
+      this.userLogged.favEntities.push(itemId);
+      this.itemSocialSrv.addFavourite(itemId, BaseType.ENTITY, itemName, this.userLogged.uid, this.userLogged.displayName);
       Swal.fire({
         icon: 'success',
         title: 'Esta entidad se ha convertido en uno de tus favoritas',
         confirmButtonColor: '#003A59',
       });
     } else {
-      this.itemSocialSrv.removeFavourite(this.itemSocial.id, BaseType.ENTITY, this.entity.name, this.userLogged.uid, this.userLogged.displayName);
+      this.itemSocialSrv.removeFavourite(itemId, BaseType.ENTITY, itemName, this.userLogged.uid, this.userLogged.displayName);
       Swal.fire({
         icon: 'success',
         title: 'Esta entidad ha dejado de estar entre tus favoritas',
@@ -104,5 +99,9 @@ export class EntitySocialComponent implements OnInit {
     }
 
     this.userSrv.updateUser(this.userLogged);
+  }
+
+  ngOnDestroy(): void {
+    this.listOfObservers.forEach(sub => sub.unsubscribe());
   }
 }
