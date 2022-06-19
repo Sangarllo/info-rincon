@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fix
 
+- `feature` Fix problem loading place at schedule item.
+
+### Remove
+
 - `arch` Remove angular universal.
 
 ## [2.0.1] - Ready for release

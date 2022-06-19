@@ -107,7 +107,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
           this.comments$ = this.commentSrv.getAllComments(idEvent);
 
           this.socialNClaps = this.eventSocial.nClaps;
-          if ( eventSocial.usersFavs.length > 0 ) {
+          if ( eventSocial.usersFavs?.length > 0 ) {
             this.userSrv.getSeveralUsers(eventSocial.usersFavs)
             .subscribe((users: IUser[]) => {
               this.socialUsersFav = users;
@@ -233,7 +233,6 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   }
 
   openScheduleDialog(scheduleItemId: string): void {
-    console.log(`openScheduleDialog: ${scheduleItemId}`);
     if ( scheduleItemId === '' ) {
       this.event.extra = ''; // New Item
     } else {

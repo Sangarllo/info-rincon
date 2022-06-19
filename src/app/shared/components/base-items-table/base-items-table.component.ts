@@ -92,7 +92,8 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
   }
 
   editElement(base: IBase): void {
-    this.logSrv.info(`editBase: ${JSON.stringify(base)}`);
+    console.log(`editBase: ${JSON.stringify(base)}`);
+    //this.logSrv.info(`editBase: ${JSON.stringify(base)}`);
     this.editBase.emit(base);
   }
 

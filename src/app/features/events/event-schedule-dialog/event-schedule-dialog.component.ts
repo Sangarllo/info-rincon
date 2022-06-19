@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -112,14 +113,14 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
     if ( this.event.extra === '' ) {
       // -> Schedule Item Nuevo
       const GUID = this.utilsSrv.getGUID();
-      console.log(`GUID: ${GUID}`);
       this.thisScheduleId = `${this.event.id}_${GUID}`;
       this.title = `Configura un nuevo ${scheduleType} para este evento`;
-      name = `${scheduleType} ${this.orderId}`;
       description = '';
+      this.orderId = this.event.scheduleItems.length + 1;
+      name = `${scheduleType} ${this.orderId}`;
       this.imageIdSelected = this.event.imageId;
       this.imagePathSelected = this.event.imagePath;
-      this.orderId = this.event.scheduleItems.length + 1;
+      this.placeBaseSelected = this.SECTION_BLANK;
     } else {
       // -> Schedule Item ya existente
       this.thisScheduleId = this.event.extra;
@@ -133,12 +134,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       this.appointment.dateIni = datetimeIni[0];
       this.appointment.timeIni = datetimeIni[1];
       this.orderId = scheduleEdited.order;
-    }
-
-    if ( this.event.placeItems.length > 0 ) {
-      this.placeBaseSelected = this.event.placeItems[0] as Base;
-    } else {
-      this.placeBaseSelected = this.SECTION_BLANK;
+      this.placeBaseSelected = scheduleEdited.place as Base;
     }
 
     this.scheduleItemForm.patchValue({
