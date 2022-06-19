@@ -7,7 +7,7 @@
         <mat-card *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="gotoNewEventFromScratch()">
             <mat-card-title>Evento<br/>desde 0</mat-card-title>
             <div class="option-image">
-                <img alt="'Crear evento'" [src]="'assets/images/goto/add-from-scratch.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Crear evento'" [src]="'assets/images/goto/add-from-scratch.png'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -16,7 +16,7 @@
         <mat-card (click)="openEntityDialog()">
             <mat-card-title>Evento de<br/>entidad</mat-card-title>
             <div class="option-image">
-                <img alt="'Crear evento'" [src]="'assets/images/goto/add-from-entities.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Crear evento'" [src]="'assets/images/goto/add-from-entities.png'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -25,7 +25,7 @@
         <mat-card *ngIf="currentUser?.entityDefault" class="" (click)="createEventFromEntityDefault(currentUser.entityDefault?.id)">
             <mat-card-title>Evento<br/>de ...</mat-card-title>
             <div class="option-image">
-                <img alt="'Crear evento'" [src]="currentUser.entityDefault.imagePath" style="width:200px" class="img-thumbnail" />
+                <img alt="'Crear evento'" [src]="currentUser.entityDefault.imagePath" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -34,16 +34,7 @@
         <mat-card *appRole="['AUTOR', 'ADMIN', 'SUPER']" (click)="gotoEventsOwnDashboard()">
             <mat-card-title>Tus<br/>Eventos</mat-card-title>
             <div class="option-image">
-                <img alt="'Panel de Eventos'" [src]="'assets/images/goto/goto-events.png'" style="width:200px" class="img-thumbnail" />
-            </div>
-        </mat-card>
-    </div>
-
-    <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-3">
-        <mat-card [routerLink]="'../usuarios/' + currentUser?.uid + '/entidades'">
-            <mat-card-title>Tus<br/>entidades</mat-card-title>
-            <div class="option-image">
-                <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Panel de Eventos'" [src]="'assets/images/goto/goto-events.png'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -59,9 +50,9 @@
 
     <div *appRole="['SUPER']" class="option-item col-3">
         <mat-card (click)="gotoAudit()">
-            <mat-card-title>Auditoría<br/>General</mat-card-title>
+            <mat-card-title>Auditoría<br/>de Usuarios</mat-card-title>
             <div class="option-image">
-                <img alt="'Auditoría de accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Auditoría de accesos'" [src]="'assets/images/goto/goto-users-audit.png'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -70,7 +61,7 @@
         <mat-card *appRole="['SUPER']" (click)="gotoEventsAuditDashboard()">
             <mat-card-title>Auditoría<br/>de Eventos</mat-card-title>
             <div class="option-image">
-                <img alt="'Panel de Eventos'" [src]="'assets/images/goto/goto-events.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Auditoría de Eventos'" [src]="'assets/images/goto/goto-events-audit.png'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -79,11 +70,20 @@
         <mat-card *appRole="['SUPER']" (click)="gotoEventsAuditSocialDashboard()">
             <mat-card-title>Auditoría<br/>Social</mat-card-title>
             <div class="option-image">
-                <img alt="'Panel de Eventos'" [src]="'assets/images/goto/goto-events.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Auditoría Social de Eventos'" [src]="'assets/images/goto/goto-social-audit.jpg'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
 
+    <!-- TODO REPENSAR UBICIACIÓN -->
+    <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-3">
+        <mat-card [routerLink]="'../usuarios/' + currentUser?.uid + '/entidades'">
+            <mat-card-title>Tus<br/>entidades</mat-card-title>
+            <div class="option-image">
+                <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
 
 </div>
 <!-- FIN DE AUDITORÍAS -->
@@ -98,7 +98,7 @@
         <mat-card (click)="gotoUsersDashboard()">
             <mat-card-title>Panel de<br/>Usuarios</mat-card-title>
             <div class="option-image">
-                <img alt="'Panel de Usuarios'" [src]="'assets/images/goto/goto-users.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Panel de Usuarios'" [src]="'assets/images/goto/goto-users.png'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -107,7 +107,7 @@
         <mat-card (click)="gotoEntitiesDashboard()">
             <mat-card-title>Panel de<br/>Entidades</mat-card-title>
             <div class="option-image">
-                <img alt="'Panel de Entidades'" [src]="'assets/images/goto/goto-entities.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Panel de Entidades'" [src]="'assets/images/goto/goto-entities.png'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -116,7 +116,7 @@
         <mat-card (click)="gotoPlacesDashboard()">
             <mat-card-title>Panel de<br/>Lugares</mat-card-title>
             <div class="option-image">
-                <img alt="'Panel de Lugares'" [src]="'assets/images/goto/goto-places.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Panel de Lugares'" [src]="'assets/images/goto/goto-places.png'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -125,7 +125,7 @@
         <mat-card (click)="gotoPicturesDashboard()">
             <mat-card-title>Panel de<br/>Imágenes</mat-card-title>
             <div class="option-image">
-                <img alt="'Panel de Imágenes'" [src]="'assets/images/goto/goto-pictures.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Panel de Imágenes'" [src]="'assets/images/goto/goto-pictures.png'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -142,7 +142,7 @@
         <mat-card (click)="gotoEventsDashboard()">
             <mat-card-title>Panel de<br/>Eventos</mat-card-title>
             <div class="option-image">
-                <img alt="'Panel de Eventos'" [src]="'assets/images/goto/goto-events.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Panel de Eventos'" [src]="'assets/images/goto/goto-events.png'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -151,7 +151,7 @@
         <mat-card (click)="gotoNoticesDashboard()">
             <mat-card-title>Panel de<br/>Avisos</mat-card-title>
             <div class="option-image">
-                <img alt="'Panel de Avisos'" [src]="'assets/images/goto/goto-notices.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Panel de Avisos'" [src]="'assets/images/goto/goto-notices.png'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -160,7 +160,7 @@
         <mat-card (click)="gotoLinksDashboard()">
             <mat-card-title>Panel de<br/>Enlaces</mat-card-title>
             <div class="option-image">
-                <img alt="'Panel de Enlaces'" [src]="'assets/images/goto/goto-links.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Panel de Enlaces'" [src]="'assets/images/goto/goto-links.png'" class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -176,7 +176,7 @@
         <mat-card *appRole="['LECTOR','AUTOR', 'ADMIN', 'SUPER']" (click)="gotoHome()">
             <mat-card-title>Página de<br/>Inicio</mat-card-title>
             <div class="option-image">
-                <img alt="'Ir al inicio'" [src]="'assets/images/goto/goto-calendar-home.jpg'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Ir al inicio'" [src]="'assets/images/goto/goto-calendar-home.jpg'"  class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -185,7 +185,7 @@
         <mat-card *appRole="['LECTOR','AUTOR', 'ADMIN', 'SUPER']" (click)="gotoDashboard()">
             <mat-card-title>Tablero de<br/>novedades</mat-card-title>
             <div class="option-image">
-                <img alt="'Ir al dashboard'" [src]="'assets/images/goto/goto-calendar-dashboard.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Ir al dashboard'" [src]="'assets/images/goto/goto-calendar-dashboard.png'"  class="img-thumbnail" />
             </div>
         </mat-card>
     </div>
@@ -194,7 +194,7 @@
         <mat-card *appRole="['LECTOR','AUTOR', 'ADMIN', 'SUPER']" (click)="gotoFavourites()">
             <mat-card-title>Eventos<br/>Favoritos</mat-card-title>
             <div class="option-image">
-                <img alt="'Añadir Favoritos'" [src]="'assets/images/goto/goto-favourites.png'" style="width:200px" class="img-thumbnail" />
+                <img alt="'Añadir Favoritos'" [src]="'assets/images/goto/goto-favourites.png'"  class="img-thumbnail" />
             </div>
         </mat-card>
     </div>

@@ -18,7 +18,7 @@
                 <mat-card [routerLink]="'../perfil'">
                     <mat-card-title>Cuenta<br/>Personal</mat-card-title>
                     <div class="option-image">
-                        <img alt="'Tu cuenta personal'" style="width:200px" [src]="user.photoURL" class="img-thumbnail" />
+                        <img alt="'Tu cuenta personal'" [src]="user.photoURL" class="img-thumbnail" />
                     </div>
                 </mat-card>
             </div>
@@ -27,7 +27,7 @@
                 <mat-card [routerLink]="'../eventos/favoritos'" *appRole="['LECTOR','AUTOR', 'ADMIN', 'SUPER']" (click)="gotoFavourites()">
                     <mat-card-title>Eventos<br/>Favoritos</mat-card-title>
                     <div class="option-image">
-                        <img alt="'Añadir Favoritos'" [src]="'assets/images/goto/goto-favourites.png'" style="width:200px" class="img-thumbnail" />
+                        <img alt="'Añadir Favoritos'" [src]="'assets/images/goto/goto-favourites.png'" class="img-thumbnail" />
                     </div>
                 </mat-card>
             </div>
@@ -36,7 +36,7 @@
                 <mat-card [routerLink]="'../entidades/favoritas'">
                     <mat-card-title>Entidades<br/>favoritas</mat-card-title>
                     <div class="option-image">
-                        <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" style="width:200px" class="img-thumbnail" />
+                        <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" class="img-thumbnail" />
                     </div>
                 </mat-card>
             </div>
@@ -45,7 +45,7 @@
                 <mat-card [routerLink]="'../usuarios/' + user?.uid + '/audit'">
                     <mat-card-title>Tus<br/>accesos</mat-card-title>
                     <div class="option-image">
-                        <img alt="'Tus accesos'" [src]="'assets/images/goto/my-accesses.png'" style="width:200px" class="img-thumbnail" />
+                        <img alt="'Tus accesos'" [src]="'assets/images/goto/my-accesses.png'" class="img-thumbnail" />
                     </div>
                 </mat-card>
             </div>
