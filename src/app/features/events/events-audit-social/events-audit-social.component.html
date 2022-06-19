@@ -1,18 +1,18 @@
 <app-section-header [title]="'Auditoría social de eventos'"></app-section-header>
 
-<div class="container-social-items" *ngFor="let item of auditSocialItems">
+<div class="items__container" *ngFor="let item of auditSocialItems">
 
     <section class="item">
 
         <div class="item-image" href="#">
-            <img [src]="item.imagePath" [alt]="item.imagePath">
+            <img class="circle" [src]="item.imagePath" [alt]="item.name">
         </div>
         <div class="item-body">
             <div class="item-timestamp">hace {{item.timestamp}}</div>
             <div class="item-heading">{{item.name}}</div>
             <div class="item-title" (click)="gotoItem(item)">🏷️​ {{item.itemName}}</div>
-            <div *ngIf="item.userDisplayName" class="item-name">🙂​ {{item.userDisplayName}}</div>
-            <div *ngIf="item.text" class="item-name">💬 {{item.text}}</div>
+            <div *ngIf="item.userDisplayName" class="item-data">🙂​ {{item.userDisplayName}}</div>
+            <div *ngIf="item.text" class="item-data">💬 {{item.text}}</div>
             ​
         </div>
 

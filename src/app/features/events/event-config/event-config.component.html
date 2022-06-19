@@ -204,11 +204,11 @@
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>
 
-                                    <div class="container-social-items" *ngFor="let user of socialUsersFav">
+                                    <div class="items__container" *ngFor="let user of socialUsersFav">
                                         <section class="item">
 
                                             <div class="item-image" href="#">
-                                                <img class="fav-image" [src]="user.photoURL" [alt]="user.displayName">
+                                                <img class="circle" [src]="user.photoURL" [alt]="user.displayName">
                                             </div>
                                             <div class="item-body">
                                                 <div class="item-timestamp">🔑​ {{user.lastLogin}}</div>
@@ -229,7 +229,7 @@
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>
 
-                                    <div class="container-social-items" *ngFor="let comment of comments">
+                                    <div class="items__container" *ngFor="let comment of comments">
                                         <section class="item">
                                             <div class="item-body">
                                                 <div class="item-timestamp">{{comment.timestamp}}</div>

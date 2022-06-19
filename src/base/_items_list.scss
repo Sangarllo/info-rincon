@@ -1,0 +1,104 @@
+@import './variables';
+.items__container {
+    div {
+        margin-bottom: 0px !important;
+    }
+    .item--disabled {
+        display: none;
+    }
+    .item--selected,
+    .item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.1);
+        padding: 5px;
+        margin-bottom: 10px;
+        background-color: white;
+        .item-image {
+            img.circle {
+                border-radius: 50%;
+                max-width: 40px; // 100px for big devices
+                max-height: 40px; // 100px for big devices
+            }
+            img.square {
+                order: 1;
+                width: 54px;
+                height: 54px;
+            }
+        }
+        .item-body {
+            padding-left: 10px;
+            width: 100%;
+            .item-heading-extra,
+            .item-heading,
+            .item-title {
+                @media screen and (max-width: 450px) {
+                    font-size: small;
+                }
+                @media screen and (min-width: 451px) and (max-width: 600px) {
+                    font-size: medium;
+                }
+                @media screen and (min-width: 601px) {
+                    font-size: larger;
+                }
+            }
+            .item-timestamp,
+            .item-data,
+            .item-text {
+                @media screen and (max-width: 450px) {
+                    font-size: smaller;
+                }
+                @media screen and (min-width: 451px) and (max-width: 600px) {
+                    font-size: smaller;
+                }
+                @media screen and (min-width: 601px) {
+                    font-size: smaller;
+                }
+            }
+            .item-timestamp {
+                color: $color1;
+            }
+            .item-heading {
+                color: $color1;
+                background-color: $color2;
+                font-weight: bolder;
+                border-radius: 10px;
+                padding-left: 10px;
+            }
+            .item-heading-extra {
+                font-weight: bolder;
+                text-transform: uppercase;
+            }
+            .item-title {
+                margin: 6px 4px;
+                color: $color1;
+                text-transform: uppercase;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            .item-data {
+                margin: 2px 4px;
+            }
+            .item-text {
+                padding-top: 10px;
+                margin-bottom: 0px;
+            }
+            .item-button-delete {
+                float: right;
+                margin-top: 10px;
+                margin-right: -12px;
+                color: $color1;
+            }
+        }
+    }
+    .item--selected {
+        background-color: $color2 !important;
+        border: 5px solid $color1;
+        .item-heading,
+        .item-heading-extra,
+        .item-name {
+            font-size: larger !important;
+        }
+    }
+}

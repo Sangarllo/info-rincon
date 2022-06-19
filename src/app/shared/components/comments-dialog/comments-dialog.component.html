@@ -27,12 +27,12 @@
 
 </mat-dialog-content>
 
-<div class="container-social-items" *ngFor="let comment of comments$ | async">
+<div class="items__container" *ngFor="let comment of comments$ | async">
 
     <section class="item">
 
         <div class="item-image" href="#">
-            <img [src]="comment.commentatorDisplayedImage" [alt]="commentatorDisplayedName">
+            <img class="circle" [src]="comment.commentatorDisplayedImage" [alt]="commentatorDisplayedName">
         </div>
         <div class="item-body">
             <button *ngIf="canDelete(comment)" class="item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteComment(comment)">
@@ -42,7 +42,7 @@
                 </button>
             <div class="item-timestamp">{{comment.timestamp}}</div>
             <div class="item-heading">{{comment.commentatorDisplayedName}}</div>
-            <div class="item-message">{{comment.message}}</div>
+            <div class="item-text">{{comment.message}}</div>
         </div>
 
     </section>

@@ -1,37 +1,31 @@
-<div *ngIf="baseItems.length > 0; else noBaseItemsTemplate" class="list">
+<div *ngIf="baseItems.length > 0; else noBaseItemsTemplate" class="items__container">
 
-    <div *ngFor="let baseItem of baseItems" style="margin-bottom: 0px;flex-grow: 1;">
+    <div *ngFor="let baseItem of baseItems">
 
-        <div *ngIf="baseItem" [ngClass]="{
-            'list__item': (baseItem.active),
-            'list__item--disabled' : !(baseItem.active),
-            'list__item--selected' : (baseItem.id === baseItemSelected)
+        <section *ngIf="baseItem" [ngClass]="{
+            'item': (baseItem.active),
+            'item--disabled' : !(baseItem.active),
+            'item--selected' : (baseItem.id === baseItemSelected)
           }">
 
-            <div class="list__item-header">
-
-                <img (click)="viewImage(baseItem)" [src]="baseItem.imagePath" class="list__item-img img-thumbnail">
-
-                <div class="list__item-info-main">
-                    <span class="name">{{ baseItem.name }}</span>
-                    <span *ngIf="baseItem.extra" class="extra-data">🕑 {{ baseItem.extra }}</span>
-                    <span *ngIf="baseItem.place" class="extra-data">📍 {{ baseItem.place?.name }}</span>
-                </div>
-
+            <div class="item-image" href="#">
+                <img (click)="viewImage(baseItem)" [src]="baseItem.imagePath" class="square img-thumbnail">
             </div>
 
-
-            <div *ngIf="baseItem.description && (baseItem.description !== 'Rincón de Soto')" class="list__item-description" [innerHtml]="baseItem.description">
-
+            <div class="item-body">
+                <div class="item-heading-extra">{{ baseItem.name }}</div>
+                <div *ngIf="baseItem.extra" class="item-data">🕑 {{ baseItem.extra }}</div>
+                <div *ngIf="baseItem.place" class="item-data">📍 {{ baseItem.place?.name }}</div>
+                <div *ngIf="baseItem.description && (baseItem.description !== 'Rincón de Soto')" class="item-text" [innerHtml]="baseItem.description"></div>
             </div>
 
-            <button *ngIf="modeAdmin === true" class="list__item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteBaseItem(baseItem)">
+            <button *ngIf="modeAdmin === true" class="item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteBaseItem(baseItem)">
                 <mat-icon class="btn-1" aria-label="Delete">
                     remove_circle_outline
                 </mat-icon>
             </button>
 
-        </div>
+        </section>
 
     </div>
 
