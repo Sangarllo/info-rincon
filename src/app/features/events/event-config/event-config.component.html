@@ -31,6 +31,14 @@
 
                         <app-event-status-detail [event]="event"></app-event-status-detail>
 
+                        <div class="help-container alert" [ngClass]="{
+                          'alert-warning': (event.status === 'EDITING'),
+                          'alert-danger': (event.status === 'BLOCKED')
+                        }" *ngIf="event.status !== 'VISIBLE'">
+                            💡 El botón VER está deshabilitado porque el evento no está en estado
+                            <B>VISIBLE</B>.
+                        </div>
+
                         <div class="buttons">
                             <button [disabled]="event.status !== 'VISIBLE'" mat-fab class="btn-1" (click)="gotoItemView()">
                                 VER
@@ -43,11 +51,6 @@
                             <button *ngIf="event.status==='DELETED'" mat-fab class="btn-1" (click)="deleteForeverItem(event)">
                               <mat-icon>delete_forever</mat-icon>
                           </button>
-                        </div>
-
-                        <div class="help-container alert alert-warning" *ngIf="event.status !== 'VISIBLE'">
-                            💡 El botón VER está deshabilitado porque el evento no está en estado
-                            <B>VISIBLE</B>.
                         </div>
 
                     </fieldset>
