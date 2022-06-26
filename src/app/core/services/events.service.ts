@@ -27,6 +27,7 @@ import { ItemSocialService } from '@services/items-social.service';
 import { PictureService } from '@services/pictures.service';
 import { UserRole } from '@models/user-role.enum';
 import { Place } from '@models/place';
+import { IAppointment } from '@models/appointment';
 
 const EVENTS_COLLECTION = 'eventos';
 
@@ -178,6 +179,41 @@ export class EventService {
     );
   }
 
+  getAllEventsByEntity(entityId: string): Observable<IEvent[]> {
+
+    this.eventCollection = this.afs.collection<IEvent>(
+        EVENTS_COLLECTION,
+        ref => ref.where('entitiesArray', 'array-contains', entityId)
+                  .orderBy('timestamp', 'desc')
+    );
+
+    return this.eventCollection.valueChanges();
+  }
+
+  getEventsByEntityAndRange(dateMinStr: string, dateMaxStr: string, entityId: string): Observable<IEvent[]> {
+    const events$ = this.getAllEvents(true, false, null, [entityId]);
+    const appointments$ = this.appointmentSrv.getAppointmentsByRange(dateMinStr, dateMaxStr, true);
+
+    return combineLatest([
+      appointments$,
+      events$
+    ])
+      .pipe(
+        // tap(([appointments, events ]) => {
+        //   console.log(`Nº appointments: ${appointments.length}`);
+        //   console.log(`Nº events: ${events.length}`);
+        //   appointments.forEach(item => console.warn(item.id));
+        // }),
+        map(([appointments, events ]) => appointments
+
+          .map(appointment =>
+            this.getIEventFromAppointment(appointment, events, entityId)
+            )),
+          // tap(data => console.log(`-> Hay ${data.length}`)),
+          map(data => data.filter(e => e?.id)),
+          // tap(data => console.log(`-> Hay ${data.length}`)),
+    );
+  }
 
 
 
@@ -426,6 +462,34 @@ export class EventService {
     this.eventDoc.delete();
 
     // 4 -> Audit deletion
+  }
+
+  private isValidCalendarEvent(event: IEvent): boolean {
+    return ( event?.active && event?.status === 'VISIBLE' );
+  }
+
+  private getIEventFromAppointment(appointment: IAppointment, events: IEvent[], entityId: string): IEvent | null {
+    const idData = appointment.id.split('_');
+    const eventId = idData[0];
+    const event = events.find(e => e.id === eventId);
+    const isValidEvent = this.isValidCalendarEvent(event);
+
+    if ( isValidEvent ) {
+
+      // const dateIni = new Date(`${appointment.dateIni}T${appointment.timeIni}`);
+      // const dateEnd = new Date(`${appointment.dateEnd}T${appointment.timeEnd}`);
+      // event.extra = `${dateIni} | ${dateEnd}`;
+
+      event.extra = `${appointment.dateIni} ${appointment.timeIni}`;
+
+      const entityRol = event.entityItems.find( item => item.id === entityId);
+      event.extra2 = entityRol ? entityRol.description : '-';
+
+      // console.log(`CalendarEvent (${isSchedule}): ${JSON.stringify(theCalendarEvent)}`);
+      return event;
+    } else {
+      return null;
+    }
   }
 
 }

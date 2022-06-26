@@ -65,6 +65,31 @@
 
                         </mat-tab>
 
+
+                        <mat-tab class="tab-card-detail" label="Eventos">
+
+                            <div *ngFor="let event of events$ | async as events" class="items__container">
+
+                                <section (click)="clickItem(event)" class="item">
+
+                                    <div class="item-image" href="#">
+                                        <img class="square img-thumbnail" [src]="event.imagePath" [alt]="event.name">
+                                    </div>
+                                    <div class="item-body">
+                                        <div class="item-heading"> {{event.name}}</div>
+                                        <div *ngIf="event.extra" class="item-data">🕑 {{ event.extra }} </div>
+                                        <div *ngIf="event.placeItems" class="item-data">📍 {{ event.placeItems[0].name }}</div>
+
+                                        <div *ngIf="event.extra2" class="item-data">🏷️​ {{event.extra2}}</div>
+                                    </div>
+
+                                </section>
+
+
+                            </div>
+
+                        </mat-tab>
+
                     </mat-tab-group>
 
                 </mat-card-content>
