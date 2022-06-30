@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Fix problem loading place at schedule item.
 - `feature` Show claps when user is not logged.
 - `social` Fix name of variable for claps and favorites.
+- `feature` Reset tags in home page.
 
 ### Update
 

@@ -11,6 +11,7 @@ import { IBase } from '@models/base';
 import { CalendarEventsService } from '@services/calendar-events.service';
 import { NoticeService } from '@services/notices.service';
 import { StoriesService } from '@services/stories.service';
+import { SeoService } from '@services/seo.service';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +37,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private calEventsSrv: CalendarEventsService,
     private noticesSrv: NoticeService,
-    private storiesSrv: StoriesService
+    private storiesSrv: StoriesService,
+    private seo: SeoService,
     ) {
     }
 
@@ -51,6 +53,13 @@ export class HomeComponent implements OnInit {
       );
 
     this.stories$ = this.storiesSrv.getStories();
+
+    this.seo.generateTags({
+      title: 'Agenda Rinconera | Rincón de Soto',
+      description: 'WebApp de eventos e información general de Rincón de Soto, La Rioja',
+      // eslint-disable-next-line max-len
+      image: 'https://firebasestorage.googleapis.com/v0/b/info-rincon.appspot.com/o/logo-agenda-rinconera.png?alt=media&token=7f18efd0-8761-4776-a136-65f961601afe',
+    });
   }
 
   eventClicked(event: CalendarEvent): void {
