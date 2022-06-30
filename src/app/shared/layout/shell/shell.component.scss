@@ -19,12 +19,20 @@
     .logo-title {
         color: white;
     }
+    .logo-title-img img {
+        display: none;
+    }
     .header__button {
         display: inline-block;
     }
     @media screen and (max-width: $maxMobileWidth) {
         .logo-title {
+            display: none;
             font-size: 0.8em;
+        }
+        .logo-title-img img {
+            display: inline;
+            width: 132px;
         }
         .header__button-profile {
             padding-left: 10px;

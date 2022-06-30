@@ -11,6 +11,10 @@
               Agenda Rinconera
             </span>
 
+            <span class="logo-title-img" routerLink="/">
+                <img [src]="'assets/images/header/logo-title.png'" alt="Agenda Rinconera" />
+            </span>
+
             <span class="fill-space"></span>
 
             <div *ngIf="(afAuth.authState | async);else login2Template">

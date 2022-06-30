@@ -28,6 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Show claps when user is not logged.
 - `social` Fix name of variable for claps and favorites.
 
+### Update
+
+- `style` Add logo-image for mobile devices.
+
 ### Remove
 
 - `arch` Remove angular universal.
