@@ -78,7 +78,7 @@
                                     <div class="item-body">
                                         <div class="item-heading"> {{event.name}}</div>
                                         <div *ngIf="event.extra" class="item-data">🕑 {{ event.extra }} </div>
-                                        <div *ngIf="event.placeItems" class="item-data">📍 {{ event.placeItems[0].name }}</div>
+                                        <div *ngIf="event.placeItems?.length > 0" class="item-data">📍 {{ event.placeItems[0].name }}</div>
 
                                         <div *ngIf="event.extra2" class="item-data">🏷️​ {{event.extra2}}</div>
                                     </div>
@@ -120,5 +120,5 @@
 </div>
 
 <ng-template #noEntityTemplate>
-    No existe tal entidad
+    Cargando esta entidad...
 </ng-template>

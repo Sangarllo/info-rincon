@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Enable entity-favorite from event-views.
 - `feature` Enable entity-favorite from entity-view.
 - `feature` List events in entity-view.
+- `feature` Improve events-fav view width entity-favs.
 
 ### Fix
 

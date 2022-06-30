@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { SeoService } from '@services/seo.service';
@@ -63,6 +63,16 @@ export class EntityService {
     return this.entityCollection
       .doc(idEntity)
       .valueChanges({ idField: 'id' });
+  }
+
+  getSeveralEntities(entities: string[]): Observable<IEntity[]>{
+
+    const eventsObs: Observable<IEntity>[] = [];
+    entities.forEach(entityId => {
+      eventsObs.push(this.getOneEntity(entityId));
+    });
+
+    return combineLatest(eventsObs);
   }
 
   addEntity(entity: IEntity): void {

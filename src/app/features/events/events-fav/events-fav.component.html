@@ -1,5 +1,22 @@
 <app-section-header [title]="'Tus Eventos Favoritos'" showViewMode="true" (viewMode)="setViewMode($event)"></app-section-header>
 
+<div *ngIf="favEntitiesStr.length > 0; else noEntitiesTemplate" class="m-3 alert alert-success entities-container" (click)="gotoEntitiesFav()">
+    <div class="entities-image">
+        <img alt="'Entidades Favoritas'" [src]="'assets/images/goto/my-entities.png'" class="img-thumbnail" />
+    </div>
+    <div class="entities-text">
+        <div class="entities-text__title">Tienes {{ favEntitiesStr.length }} entidades marcadas como favoritas</div>
+        <div class="entities-text__expl">Pulsa en la imagen para suscribirte a los eventos de tus entidades favoritas o en cualquiera de ellas para ver sus eventos</div>
+        <div class="entities-text__favs" *ngFor="let entityFav of favEntities$ | async">
+            <div class="entity-fav" (click)="gotoEntity(entityFav)">
+                <img [src]="entityFav.imageId" [alt]="entityFav.name" class="img-thumbnail">
+                <span (click)="gotoEntity(entityFav)">{{entityFav.name}}</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <div *ngIf="events.length > 0; else noEventsTemplate">
 
     <div class="section-wrapper">
@@ -113,8 +130,24 @@
 
 </div>
 
+<ng-template #noEntitiesTemplate>
+    <div class="m-3 alert alert-warning entities-container" (click)="gotoEntitiesFav()">
+        <div class="entities-image">
+            <img alt="'Entidades Favoritas'" [src]="'assets/images/goto/my-entities.png'" class="img-thumbnail" />
+        </div>
+        <div class="entities-text">
+            <div class="entities-text__title">No tienes entidades marcadas como favoritas</div>
+            <div class="entities-text__expl">Pulsa en la imagen para suscribirte a los eventos de tus entidades favoritas</div>
+        </div>
+    </div>
+</ng-template>
+
+
 <ng-template #noEventsTemplate>
-    <div class="m-3 alert alert-warning">
-        ¡No tienes eventos marcados como favoritos!
+    <div class="m-3 alert alert-warning events-container">
+        <div class="events-text">
+            <div class="events-text__title">Aún no tienes eventos marcados como favoritos</div>
+            <div class="events-text__expl">Si estás interesado en seguir algún evento, pulsa la estrella que aparece junto a él</div>
+        </div>
     </div>
 </ng-template>

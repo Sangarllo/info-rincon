@@ -5,17 +5,19 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 import { AuthService } from '@auth/auth.service';
+import { IEntity } from '@models/entity';
 import { IEvent } from '@models/event';
 import { IUser } from '@models/user';
 import { UserService } from '@services/users.service';
 import { LogService } from '@services/log.service';
 import { EventService } from '@services/events.service';
+import { EntityService } from '@services/entities.service';
 import { SpinnerService } from '@services/spinner.service';
 
 @Component({
@@ -30,6 +32,8 @@ export class EventsFavComponent implements OnInit, OnDestroy {
 
   public viewMode = 'cards';
   public events: IEvent[] = [];
+  public favEntitiesStr: string[] = [];
+  public favEntities$: Observable<IEntity[]>;
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   public displayedColumns: string[] = [ 'status', 'id', 'timestamp', 'image', 'collapsed-info', 'name', 'categories', 'actions1'];
   private userLogged: IUser;
@@ -43,6 +47,7 @@ export class EventsFavComponent implements OnInit, OnDestroy {
     private logSrv: LogService,
     private spinnerSvc: SpinnerService,
     private eventSrv: EventService,
+    private entitySrv: EntityService
   ) {
     this.spinnerSvc.show();
   }
@@ -82,6 +87,12 @@ export class EventsFavComponent implements OnInit, OnDestroy {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         }
+
+        // Entities
+        this.favEntitiesStr = this.userLogged.favEntities;
+        if ( this.favEntitiesStr?.length > 0 ) {
+            this.favEntities$ = this.entitySrv.getSeveralEntities(this.favEntitiesStr);
+        };
       });
     });
 
@@ -98,6 +109,14 @@ export class EventsFavComponent implements OnInit, OnDestroy {
 
   public gotoItem(event: IEvent): void {
     this.router.navigate([`eventos/${event.id}`]);
+  }
+
+  public gotoEntity(entity: IEntity): void {
+    this.router.navigate([`entidades/${entity.id}`]);
+  }
+
+  public gotoEntitiesFav(): void {
+    this.router.navigate([`entidades/favoritas`]);
   }
 
   public removeFav(event: IEvent): void {
