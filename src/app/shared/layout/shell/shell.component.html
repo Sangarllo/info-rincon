@@ -1,7 +1,7 @@
 <mat-sidenav-container class="sidenav-container">
 
     <mat-sidenav-content>
-        <mat-toolbar class="mat-elevation-z8" color="primary">
+        <mat-toolbar class="mat-elevation-z8 sidenav-toolbar" color="primary">
 
             <span class="logo" routerLink="/">
               <img [src]="'assets/icons/logo.png'" [ngClass]="{'alerted-logo' : (theAlertedNotice$ | async)}" alt='inicio' class="rounded-circle" />
@@ -19,11 +19,6 @@
 
             <div *ngIf="(afAuth.authState | async);else login2Template">
 
-                <a *ngIf="userLogged?.favEvents?.length > 0" class="header__button header__button-plus" mat-button routerLink="/eventos/favoritos">
-                    <span>⭐</span>
-                    <span class="text-extra" [matBadge]="userLogged?.favEvents?.length">Favs</span>
-                </a>
-
                 <a *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="header__button header__button-plus" mat-button routerLink="/eventos/new">
                     ➕
                     <span class="text-extra">Evento</span>
@@ -39,7 +34,19 @@
                     <span class="text-extra">Menú Personal</span>
                 </a>
 
+                <a class="header__button header__button-fav" mat-button routerLink="/eventos/favoritos">
+                    <img *ngIf="userLogged?.favEvents?.length > 0;else noFavsTemplate" [src]="'assets/images/header/fav-logo-text.png'" alt="Fav" (click)="gotoFavs()" />
+                    <!--<span>⭐</span>-->
+                    <!--
+                    <span class="text-extra" [matBadge]="userLogged?.favEvents?.length">Favs</span>
+                    -->
+                </a>
+
             </div>
+
+            <ng-template #noFavsTemplate>
+                <img [src]="'assets/images/header/fav-logo-text-alt.png'" alt="Fav" (click)="gotoFavs()" />
+            </ng-template>
 
             <ng-template #login2Template>
                 <a mat-button routerLink="/login">

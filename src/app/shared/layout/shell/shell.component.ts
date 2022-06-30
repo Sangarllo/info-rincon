@@ -143,6 +143,10 @@ export class ShellComponent implements OnDestroy {
         this.listOfObservers.push( subs1$ );
   }
 
+  gotoFavs(): void {
+    this.router.navigate([`/eventos/favoritos`]);
+  }
+
   async onLogout(): Promise<void> {
     try {
       const currentUser = await this.afAuth.currentUser;

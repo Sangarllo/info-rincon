@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Update
 
 - `style` Add logo-image for mobile devices.
+- `style` Change fav-logo in header.
 
 ### Remove
 

@@ -25,7 +25,24 @@
     .header__button {
         display: inline-block;
     }
+    .header__button-fav img {
+        width: 36px;
+        margin: 0 5px;
+    }
+    .avatar {
+        width: 3em;
+        border-radius: 50%;
+        margin: 0 10px;
+        border: 2px solid $color2;
+    }
     @media screen and (max-width: $maxMobileWidth) {
+        .sidenav-toolbar {
+            padding: 0 6px;
+            // background-color: orangered !important;
+        }
+        .logo img {
+            height: 70px;
+        }
         .logo-title {
             display: none;
             font-size: 0.8em;
@@ -35,14 +52,26 @@
             width: 132px;
         }
         .header__button-profile {
-            padding-left: 10px;
+            padding-left: 4px;
             padding-right: 0px;
+        }
+        .header__button-fav {
+            // display: inline !important;
+            // background-color: orange;
+            display: inline;
+            padding: 0 2px;
         }
         .header__button-plus,
         .header__button-admin,
         .header__button-logout,
         .text-extra {
             display: none !important;
+        }
+        .mat-icon-button {
+            width: 30px;
+        }
+        .avatar {
+            margin: 0 2px;
         }
     }
     @media screen and (min-width: $minTabletWidth) and (max-width: $maxTabletWidth) {
@@ -54,6 +83,7 @@
             padding-left: 0px;
             padding-right: 0px;
         }
+        .header__button-fav,
         .header__button-admin,
         .header__button-plus,
         .header__button-logout {
@@ -64,6 +94,7 @@
         .logo-title {
             font-size: 1.0em;
         }
+        .header__button-fav,
         .header__button-profile,
         .header__button-admin,
         .header__button-plus {
@@ -77,18 +108,13 @@
         .logo-title {
             font-size: 1.1em;
         }
+        .header__button-fav,
         .header__button-profile,
         .header__button-admin,
         .header__button-plus,
         .header__button-logout {
             display: inline-block;
         }
-    }
-    .avatar {
-        width: 3em;
-        border-radius: 50%;
-        margin: 0 10px;
-        border: 2px solid $color2;
     }
 }
 
