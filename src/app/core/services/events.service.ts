@@ -209,9 +209,9 @@ export class EventService {
           .map(appointment =>
             this.getIEventFromAppointment(appointment, events, entityId)
             )),
-          // tap(data => console.log(`-> Hay ${data.length}`)),
-          map(data => data.filter(e => e?.id)),
-          // tap(data => console.log(`-> Hay ${data.length}`)),
+        // tap(data => console.log(`-> Hay ${data.length}`)),
+        map(data => data.filter(e => e?.id)),
+        // tap(data => console.log(`-> Hay ${data.length}`)),
     );
   }
 

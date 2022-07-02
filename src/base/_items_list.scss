@@ -3,6 +3,18 @@
     div {
         margin-bottom: 0px !important;
     }
+    .item--title {
+        color: $color1;
+        font-size: small;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-top: 6px;
+    }
+    .item--marked {
+        border-radius: 4%;
+        background-color: $color2 !important;
+        border: 2px solid $color1;
+    }
     .item--disabled {
         display: none;
     }
