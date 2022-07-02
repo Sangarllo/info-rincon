@@ -14,33 +14,8 @@
 
 .entities-container {
     min-height: 160px;
-    .entities-image {
-        width: 64px;
-        float: left;
-    }
-    .entities-text {
-        margin-left: 76px;
-        .entities-text__title {
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .entities-text__expl {
-            margin-top: 12px;
-            font-size: 1em;
-        }
-        .entities-text__favs {
-            .entity-fav {
-                img {
-                    width: 40px;
-                    border-radius: 50%;
-                    margin: 4px;
-                    border: 2px solid $color1;
-                }
-                span {
-                    color: $color1;
-                    font-size: small;
-                }
-            }
-        }
+    .entities-container__title {
+        font-weight: bold;
+        margin-bottom: 20px !important;
     }
 }

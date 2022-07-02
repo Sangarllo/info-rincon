@@ -1,18 +1,30 @@
 <app-section-header [title]="'Tus Eventos Favoritos'" showViewMode="true" (viewMode)="setViewMode($event)"></app-section-header>
 
-<div *ngIf="favEntitiesStr.length > 0; else noEntitiesTemplate" class="m-3 alert alert-success entities-container" (click)="gotoEntitiesFav()">
-    <div class="entities-image">
-        <img alt="'Entidades Favoritas'" [src]="'assets/images/goto/my-entities.png'" class="img-thumbnail" />
-    </div>
-    <div class="entities-text">
-        <div class="entities-text__title">Tienes {{ favEntitiesStr.length }} entidades marcadas como favoritas</div>
-        <div class="entities-text__expl">Pulsa en la imagen para suscribirte a los eventos de tus entidades favoritas o en cualquiera de ellas para ver sus eventos</div>
-        <div class="entities-text__favs" *ngFor="let entityFav of favEntities$ | async">
-            <div class="entity-fav" (click)="gotoEntity(entityFav)">
-                <img [src]="entityFav.imageId" [alt]="entityFav.name" class="img-thumbnail">
-                <span (click)="gotoEntity(entityFav)">{{entityFav.name}}</span>
+<div *ngIf="favEntitiesStr.length > 0; else noEntitiesTemplate" class="m-3 alert alert-success items__container entities-container" (click)="gotoEntitiesFav()">
+    <div class="items__container__title">Tienes {{ favEntitiesStr.length }} entidades marcadas como favoritas</div>
+
+    <div>
+        <section class="item" (click)="gotoEntitiesFav()">
+            <div class="item-image">
+                <img alt="'Entidades Favoritas'" [src]="'assets/images/goto/my-entities.png'" class="square img-thumbnail">
             </div>
-        </div>
+            <div class="item-body">Configura tus entidades favoritas para suscribirte a sus eventos</div>
+        </section>
+    </div>
+
+    <div *ngFor="let entityFav of favEntities$ | async">
+
+        <section *ngIf="entityFav" class="item" (click)="gotoEntity(entityFav)">
+
+            <div class="item-image">
+                <img [src]="entityFav.imageId" class="square img-thumbnail">
+            </div>
+
+            <div class="item-body">
+                <div class="item-heading">{{ entityFav.name }}</div>
+            </div>
+
+        </section>
 
     </div>
 </div>
