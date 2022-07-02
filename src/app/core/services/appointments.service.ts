@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { IAppointment, Appointment, ShowMode } from '@models/appointment';
 import { IBase } from '@models/base';
+import { ScheduleType } from '@models/shedule-type.enum';
 
 const APPOINTMENTS_COLLECTION = 'appointments';
 
@@ -69,6 +70,9 @@ export class AppointmentsService {
   addScheduleAppointment(scheduleItem: IBase, active: boolean): void {
     const idAppointment = scheduleItem.id;
     const dateTime = scheduleItem.extra.split(' ');
+    const isDeadline: boolean = ( scheduleItem.extra2 === ScheduleType.FechaLimite );
+
+
     this.appointmentCollection.doc(idAppointment).set({
       id: idAppointment,
       active,
@@ -81,6 +85,7 @@ export class AppointmentsService {
       dateEnd: '',
       timeEnd: '',
       description: '',
+      isDeadline,
     });
   }
 

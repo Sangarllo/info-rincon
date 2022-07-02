@@ -10,6 +10,7 @@ export enum ScheduleType {
   Partido = 'PARTIDO',
   Película = 'PELÍCULA',
   Proyección = 'PROYECCIÓN',
+  FechaLimite = 'FECHA LÍMITE'
 }
 
 const SCHEDULE_TYPE_DEFAULT = ScheduleType.Acto;
@@ -24,6 +25,7 @@ const SCHEDULE_TYPES: ScheduleType[] = [
   ScheduleType.Partido,
   ScheduleType.Película,
   ScheduleType.Proyección,
+  ScheduleType.FechaLimite,
 ];
 
 export { SCHEDULE_TYPES, SCHEDULE_TYPE_DEFAULT };

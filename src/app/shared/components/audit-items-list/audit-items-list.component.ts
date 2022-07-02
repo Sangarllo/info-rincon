@@ -35,16 +35,18 @@ export class AuditItemsListComponent implements OnInit {
         for (const item of this.items) {
 
           const user: IUser = users.find(u => u.uid === item.userId);
-          const auditItem: IAuditItem = {
-            ...item,
-            userId: user.uid,
-            userName: user.displayName,
-            userImg: user.photoURL,
-            auditType: item.auditType,
-            description: AuditItem.getEmoji(item.auditType),
-          };
+          if ( user ) {
+            const auditItem: IAuditItem = {
+              ...item,
+              userId: user.uid,
+              userName: user.displayName,
+              userImg: user.photoURL,
+              auditType: item.auditType,
+              description: AuditItem.getEmoji(item.auditType),
+            };
 
-          this.auditItems.push(auditItem);
+            this.auditItems.push(auditItem);
+          }
         }
       });
   }

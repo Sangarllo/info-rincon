@@ -28,6 +28,7 @@ export interface IBase {
   place?: IPlace;
   order?: number;
   extra?: string; // With Schedule, date + time
+  extra2?: string; // With Schedule, ScheduleType
   userId?: string;
   auditType?: AuditType;
   // getUrl(): string;
@@ -51,6 +52,7 @@ export class Base implements IBase {
     public place?: IPlace,
     public order?: number,
     public extra?: string,
+    public extra2?: string,
   ) { }
 
   getUrl(): string {

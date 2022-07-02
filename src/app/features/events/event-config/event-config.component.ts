@@ -246,6 +246,8 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
       if ( scheduleItem ) {
 
+        console.log(`scheduleItem: ${JSON.stringify(scheduleItem)}`);
+
         const index = this.event.scheduleItems.findIndex(item => item.id === scheduleItem.id);
         if ( index < 0 ) { // Adding new ScheduleItem and appointment
           this.event.scheduleItems.push(scheduleItem);

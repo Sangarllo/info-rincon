@@ -144,7 +144,7 @@ export class CalendarEventsService {
       const theCalendarEvent = ({
         id: appointment.id,
         title: isSchedule ? scheduleItem?.name : event?.name,
-        color: colors.color1,
+        color: appointment.isDeadline ? colors.red : colors.color1,
         allDay: appointment.allDay,
         image: isSchedule ? scheduleItem?.imageId : event?.imageId,
         start: dateIni,

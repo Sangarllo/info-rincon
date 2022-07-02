@@ -12,6 +12,7 @@ import { Appointment, IAppointment } from '@models/appointment';
 import { Place } from '@models/place';
 import { IPicture } from '@models/picture';
 import { SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
+import { ScheduleType } from '@models/shedule-type.enum';
 import { UtilsService, SwalMessage } from '@services/utils.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { PlaceService } from '@services/places.service';
@@ -59,7 +60,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-      console.log(`EventScheduleDialogComponent.ngOnInit(${this.event.extra})`);
+      // console.log(`EventScheduleDialogComponent.ngOnInit(${this.event.extra})`);
 
       const eventId = this.event.id;
       if ( eventId ) {
@@ -180,20 +181,23 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
 
     const timeIni = this.scheduleItemForm.controls.timeIni.value;
     const dateIniStr = `${this.dateIni} ${timeIni}`;
+    const name = this.scheduleItemForm.controls.name.value;
 
     const newBase: IBase = {
       id: this.thisScheduleId,
       order: this.orderId,
       active: true,
-      name: this.scheduleItemForm.controls.name.value,
+      name,
       imageId: this.pictureSelected.id,
       imagePath: this.pictureSelected.path,
       baseType: BaseType.EVENT,
       description: this.scheduleItemForm.controls.description.value,
       extra: dateIniStr,
+      extra2: name.toLowerCase().indexOf('inscrip') > -1 ?
+        ScheduleType.FechaLimite : ''
     };
 
-    if ( this.placeBaseSelected.id !== '0' ) {
+    if ( this.placeBaseSelected?.id !== '0' ) {
       newBase.place = this.placeBaseSelected;
     }
 
