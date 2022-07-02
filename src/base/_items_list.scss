@@ -8,12 +8,11 @@
         font-size: small;
         text-transform: uppercase;
         font-weight: bold;
-        margin-top: 6px;
+        margin: 6px !important;
     }
     .item--marked {
-        border-radius: 4%;
         background-color: $color2 !important;
-        border: 2px solid $color1;
+        border: 5px solid $color1;
     }
     .item--disabled {
         display: none;
