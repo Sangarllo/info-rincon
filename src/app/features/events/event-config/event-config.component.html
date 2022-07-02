@@ -211,9 +211,15 @@
                                                 <img class="circle" [src]="user.photoURL" [alt]="user.displayName">
                                             </div>
                                             <div class="item-body">
-                                                <div class="item-timestamp">🔑​ {{user.lastLogin}}</div>
-                                                <div class="item-heading-audit">​ ​{{ user.displayName }}</div>
-                                                <div class="item-title-audit">🏷️​ ​{{ user.role }}</div>
+                                                <div class="item-timestamp">
+                                                    <span class="icon">🔑​</span> {{user.lastLogin}}
+                                                </div>
+                                                <div class="item-title-audit">
+                                                    <span class="icon">🏷️</span>{{ user.role }}
+                                                </div>
+                                                <div class="item-heading-audit">
+                                                    {{ user.displayName }}
+                                                </div>
                                             </div>
 
                                         </section>

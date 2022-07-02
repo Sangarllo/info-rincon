@@ -69,11 +69,6 @@
                 @media screen and (min-width: 601px) {
                     font-size: smaller;
                 }
-                .icon {
-                    width: 32px;
-                    display: inline-block;
-                    text-align: center;
-                }
             }
             .item-timestamp {
                 color: $color1;
@@ -114,8 +109,18 @@
             display: inline;
             float: right;
             button {
-                min-width: 36px;
-                min-height: 36px;
+                @media screen and (max-width: 450px) {
+                    min-width: 28px;
+                    min-height: 28px;
+                }
+                @media screen and (min-width: 451px) and (max-width: 600px) {
+                    min-width: 32px;
+                    min-height: 32px;
+                }
+                @media screen and (min-width: 601px) {
+                    min-width: 36px;
+                    min-height: 36px;
+                }
                 &.button-image {
                     background-color: transparent;
                     background-repeat: no-repeat;
@@ -133,5 +138,11 @@
         .item-name {
             font-size: larger !important;
         }
+    }
+    .icon {
+        width: 32px;
+        display: inline-block;
+        text-align: center;
+        // background-color: red;
     }
 }

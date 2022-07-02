@@ -33,8 +33,12 @@
                 -->
 
                 <span class="name">{{ element.name }}</span>
-                <span *ngIf="element.extra" class="extra-data">🕑 {{ element.extra }}</span>
-                <span *ngIf="element.place" class="extra-data">📍 {{ element.place?.name }}</span>
+                <span *ngIf="element.extra" class="extra-data">
+                    <span class="icon">🕑</span> {{ element.extra }}
+                </span>
+                <span *ngIf="element.place" class="extra-data">
+                    <span class="icon">📍</span> {{ element.place?.name }}
+                </span>
                 <!-- <span *ngIf="element.description" class="extra-data">{{ element.description }}</span> -->
 
             </td>

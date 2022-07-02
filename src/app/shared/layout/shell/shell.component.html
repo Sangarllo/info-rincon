@@ -35,7 +35,7 @@
                 </a>
 
                 <a class="header__button header__button-fav" mat-button routerLink="/eventos/favoritos">
-                    <img *ngIf="userLogged?.favEvents?.length > 0;else noFavsTemplate" [src]="'assets/images/header/fav-logo-text.png'" alt="Fav" (click)="gotoFavs()" />
+                    <img *ngIf="(userLogged?.favEvents?.length > 0) || (userLogged?.favEntities?.length > 0);else noFavsTemplate" [src]="'assets/images/header/fav-logo-text.png'" alt="Fav" (click)="gotoFavs()" />
                     <!--<span>⭐</span>-->
                     <!--
                     <span class="text-extra" [matBadge]="userLogged?.favEvents?.length">Favs</span>

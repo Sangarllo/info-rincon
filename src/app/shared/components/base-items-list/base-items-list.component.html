@@ -18,8 +18,11 @@
 
             <div class="item-body" (click)="clickItem(baseItem)">
                 <div class="item-heading">{{ baseItem.name }}</div>
-                <div *ngIf="baseItem.extra" class="item-data">🕑 {{ baseItem.extra }}</div>
-                <div *ngIf="baseItem.place" class="item-data">📍 {{ baseItem.place?.name }}</div>
+                <div *ngIf="baseItem.extra" class="item-data">
+                    <span class="icon">🕑</span> {{ baseItem.extra }}
+                </div>
+                <div *ngIf="baseItem.place" class="item-data">
+                    <span class="icon">📍</span> {{ baseItem.place?.name }}</div>
                 <div *ngIf="baseItem.description && (baseItem.description !== 'Rincón de Soto')" class="item-text" [innerHtml]="baseItem.description"></div>
             </div>
 
