@@ -26,7 +26,8 @@ import { IEvent, Event } from '@models/event';
 export class EntityViewComponent implements OnInit, OnDestroy {
 
   public entity$: Observable<IEntity | undefined> | null = null;
-  events$: Observable<IEvent[]>;
+  lastEvents$: Observable<IEvent[]>;
+  nextEvents$: Observable<IEvent[]>;
   public idEntity: string;
   public entityName: string;
   public userLogged: IUser;
@@ -43,6 +44,8 @@ export class EntityViewComponent implements OnInit, OnDestroy {
       this.today.getFullYear()+1,
       this.today.getMonth(),
       this.today.getDay()).toISOString().substr(0, 10);
+  readonly DATE_TODAY = new Date(this.today)
+      .toISOString().substr(0, 10);
 
   private listOfObservers: Array<Subscription> = [];
 
@@ -92,10 +95,16 @@ export class EntityViewComponent implements OnInit, OnDestroy {
   }
 
   fetchEvents(): void {
-    this.events$ = this.eventsSrv.getEventsByEntityAndRange(
-        this.DATE_MIN, this.DATE_MAX,
+    this.lastEvents$ = this.eventsSrv.getEventsByEntityAndRange(
+        this.DATE_MIN, this.DATE_TODAY,
         this.idEntity
     );
+
+    this.nextEvents$ = this.eventsSrv.getEventsByEntityAndRange(
+      this.DATE_TODAY, this.DATE_MAX,
+      this.idEntity
+  );
+
   }
 
   public setEntityFav(isFav: boolean): void {
