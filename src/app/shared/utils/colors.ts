@@ -3,10 +3,11 @@ export const colors: any = {
     primary: '#003A59',
     secondary: '#DEEEEC'
   },
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
+  colorDeadline: {
+    primary: '#8b0000',
+    secondary: '#f08080'
   },
+
   blue: {
     primary: '#1e90ff',
     secondary: '#D1E8FF'
