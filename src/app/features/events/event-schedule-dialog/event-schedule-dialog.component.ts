@@ -121,7 +121,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
       name = `${scheduleType} ${this.orderId}`;
       this.imageIdSelected = this.event.imageId;
       this.imagePathSelected = this.event.imagePath;
-      this.placeBaseSelected = this.SECTION_BLANK;
+      this.placeBaseSelected = ( this.event.placeItems[0] as Base ) ?? this.SECTION_BLANK;
     } else {
       // -> Schedule Item ya existente
       this.thisScheduleId = this.event.extra;
@@ -156,6 +156,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChanged(event: any): void {
+    console.log(`onSelectionChanged: ${JSON.stringify(event.value)}`);
     this.placeBaseSelected = event.value;
   }
 

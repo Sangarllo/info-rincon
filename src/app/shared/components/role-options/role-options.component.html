@@ -75,9 +75,8 @@
         </mat-card>
     </div>
 
-    <!-- TODO REPENSAR UBICIACIÓN -->
     <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-3">
-        <mat-card [routerLink]="'../usuarios/' + currentUser?.uid + '/entidades'">
+        <mat-card (click)="gotoEntitiesOwnDashboard()">
             <mat-card-title>Tus<br/>entidades</mat-card-title>
             <div class="option-image">
                 <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" class="img-thumbnail" />

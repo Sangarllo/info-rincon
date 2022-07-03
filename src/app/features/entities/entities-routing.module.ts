@@ -7,6 +7,7 @@ import { AdminGuard } from '@guards/admin.guard';
 
 import { EntitiesComponent } from '@features/entities/entities.component';
 import { EntitiesFavComponent } from '@features/entities/entities-fav/entities-fav.component';
+import { EntitiesOwnComponent } from '@features/entities/entities-own/entities-own.component';
 import { EntityViewComponent } from '@features/entities/entity-view/entity-view.component';
 import { EntityEditComponent } from '@features/entities/entity-edit/entity-edit.component';
 
@@ -21,6 +22,12 @@ const routes: Routes = [
   {
     path: 'favoritas',
     component: EntitiesFavComponent,
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'propias',
+    component: EntitiesOwnComponent,
     canActivate: [ AngularFireAuthGuard ],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
   },

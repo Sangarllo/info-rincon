@@ -1,0 +1,33 @@
+<app-section-header [title]="'Tus entidades'"></app-section-header>
+
+<div *ngIf="entities?.length > 0; else noItemsTemplate">
+
+    <div class="section-wrapper">
+
+        <!-- CARDS View -->
+        <div>
+
+            <div class="form-group">
+                <input type="text" class="form-control mb-4" placeholder="Filtrar Búsqueda" [(ngModel)]="query" id="listSearch">
+            </div>
+
+            <div class="section-cards">
+                <div class="item-card" *ngFor="let entity of entities | searchFilter: query">
+
+                    <app-entity-card [entity]="entity"></app-entity-card>
+
+                </div>
+            </div>
+        </div>
+        <!-- CARDS View - End -->
+
+    </div>
+
+</div>
+
+
+<ng-template #noItemsTemplate>
+    <div class="m-3 alert alert-warning">
+        ¡No se han encontrado entidades!
+    </div>
+</ng-template>

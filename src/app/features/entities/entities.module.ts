@@ -7,6 +7,7 @@ import { EntityCardComponent } from '@features/entities/entity-card/entity-card.
 import { EntityViewComponent } from '@features/entities/entity-view/entity-view.component';
 import { EntityEditComponent } from '@features/entities/entity-edit/entity-edit.component';
 import { EntitiesFavComponent } from '@features/entities/entities-fav/entities-fav.component';
+import { EntitiesOwnComponent } from '@features/entities/entities-own/entities-own.component';
 import { EntitySocialComponent } from '@features/entities/entity-social/entity-social.component';
 import { SharedModule } from '@shared/shared.module';
 
@@ -18,6 +19,7 @@ import { SharedModule } from '@shared/shared.module';
     EntityEditComponent,
     EntitySocialComponent,
     EntitiesFavComponent,
+    EntitiesOwnComponent,
   ],
   imports: [
     CommonModule,

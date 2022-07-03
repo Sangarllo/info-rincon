@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Improve events-fav view width entity-favs.
 - `feature` Next and last events on entity-view.
 - `feature` New color for deadline appointments.
+- `feature` Add entities-own feature.
 
 ### Fix
 

@@ -82,6 +82,10 @@ export class RoleOptionsComponent implements OnDestroy {
     this.router.navigate([`entidades`]);
   }
 
+  gotoEntitiesOwnDashboard(): void {
+    this.router.navigate([`entidades/propias`]);
+  }
+
   gotoPlacesDashboard(): void {
     this.router.navigate([`lugares`]);
   }
