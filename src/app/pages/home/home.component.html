@@ -21,10 +21,27 @@
 
     </mat-expansion-panel>
 
-    <!-- Stories Panel -->
-    <div *ngIf="stories$ | async as stories">
+    <!-- Fixed Stories Panel -->
+    <div *ngIf="fixedStories$ | async as fixedStories">
 
-        <mat-expansion-panel *ngIf="stories.length > 0" class="expansion-panel" [expanded]="true" hideToggle>
+        <mat-expansion-panel *ngIf="fixedStories.length > 0" class="expansion-panel" [expanded]="true" hideToggle>
+
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <span class="expansion-panel__text">📌</span>&nbsp;&nbsp;
+                    <span class="expansion-panel__text">Eventos fijados en portada</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <app-stories-panel [stories]="fixedStories"></app-stories-panel>
+
+        </mat-expansion-panel>
+    </div>
+
+    <!-- Stories Panel -->
+    <div *ngIf="nextStories$ | async as nextStories">
+
+        <mat-expansion-panel *ngIf="nextStories.length > 0" class="expansion-panel" [expanded]="true" hideToggle>
 
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -33,7 +50,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <app-stories-panel [stories]="stories"></app-stories-panel>
+            <app-stories-panel [stories]="nextStories"></app-stories-panel>
 
         </mat-expansion-panel>
     </div>

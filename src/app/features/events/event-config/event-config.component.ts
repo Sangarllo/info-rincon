@@ -182,6 +182,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
         this.event.status = eventDialog.status;
         this.event.active = eventDialog.active;
         this.event.focused = eventDialog.focused;
+        this.event.fixed = eventDialog.fixed ?? false;
         this.eventSrv.updateEvent(this.event, AuditType.UPDATED_STATUS );
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);

@@ -30,6 +30,7 @@ export class EventStatusDialogComponent implements OnInit {
       status: [ this.data.status, []],
       active: [ this.data.active, []],
       focused: [ this.data.focused, []],
+      fixed: [ this.data.fixed, []],
   });
   }
 

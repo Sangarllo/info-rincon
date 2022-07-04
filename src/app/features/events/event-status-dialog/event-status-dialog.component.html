@@ -14,13 +14,18 @@
     </mat-form-field>
 
     <div class="row">
-        <div *appRole="['SUPER']" class="col-md-6 col-12">
+        <div *appRole="['SUPER']" class="col-12">
             <mat-slide-toggle formControlName="active">Evento activo</mat-slide-toggle>
         </div>
 
-        <div class="col-md-6 col-12">
+        <div class="col-12">
             <mat-slide-toggle appearance="outline" formControlName="focused">Mostrar evento en portada</mat-slide-toggle>
         </div>
+
+        <div *appRole="['SUPER']" class="col-12">
+            <mat-slide-toggle appearance="outline" formControlName="fixed">Fijar evento en portada</mat-slide-toggle>
+        </div>
+
     </div>
 
 </mat-dialog-content>

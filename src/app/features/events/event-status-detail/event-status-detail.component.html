@@ -10,15 +10,21 @@
         <div *ngSwitchCase="'VISIBLE'">Este evento está <b>en modo visible</b>, por lo que puede ser visto por cualquiera.</div>
     </div>
 
-    <div>El evento <b *ngIf="event.focused; else ngTemplateNoFocused">sería mostrado</b> en portada.</div>
+    <div *ngIf="event.fixed">
+        El evento está como fijo en portada.
+    </div>
+
+    <div *ngIf="!event.fixed && event.focused">
+        El evento sería temporalmente mostrado en portada.
+    </div>
+
+    <div *ngIf="!event.fixed && !event.focused">
+        El evento no sería mostrado en portada.
+    </div>
 
 </div>
 
 
 <ng-template #ngTemplateNoActive>
     <b>no está activo</b>
-</ng-template>
-
-<ng-template #ngTemplateNoFocused>
-    <b>no sería mostrado</b>
 </ng-template>

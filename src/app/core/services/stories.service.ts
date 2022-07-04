@@ -36,7 +36,7 @@ export class StoriesService {
     // console.log(`dateMaxStr: ${dateMaxStr}`);
 
     const appointments$ = this.appointmentSrv.getAppointmentsByRange(dateTodayStr, dateMaxStr, false);
-    const events$ = this.eventSrv.getAllEvents(true, true);
+    const events$ = this.eventSrv.getAllEvents(true, true, false);
 
     return combineLatest([
       appointments$,
@@ -54,6 +54,39 @@ export class StoriesService {
         map(data => data.filter(e => e?.id)),
     );
   }
+
+  getFixedStories(): Observable<IBase[]> {
+
+    const dateToday = new Date();
+    const DATE_MIN = new Date(
+      dateToday.getFullYear()-1,
+      dateToday.getMonth(),
+      dateToday.getDay()).toISOString().substr(0, 10);
+    const DATE_MAX = new Date(
+      dateToday.getFullYear()+1,
+      dateToday.getMonth(),
+      dateToday.getDay()).toISOString().substr(0, 10);
+
+    const appointments$ = this.appointmentSrv.getAppointmentsByRange(DATE_MIN, DATE_MAX, false);
+    const events$ = this.eventSrv.getAllEvents(true, true, true);
+
+    return combineLatest([
+      appointments$,
+      events$
+    ])
+      .pipe(
+        // tap(([appointments, events ]) => {
+        //   console.log(`Nº appointments: ${appointments.length}`);
+        //   console.log(`Nº events: ${events.length}`);
+        // }),
+        map(([appointments, events ]) =>
+            appointments.map(appointment =>
+              this.getEventBaseFromAppointment(appointment, events)
+            )),
+        map(data => data.filter(e => e?.id)),
+    );
+  }
+
 
   private getEventBaseFromAppointment(appointment: IAppointment, events: IEvent[]): IBase | null {
     const idData = appointment.id.split('_');

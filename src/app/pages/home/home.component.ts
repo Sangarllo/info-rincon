@@ -25,7 +25,8 @@ export class HomeComponent implements OnInit {
 
   public alertedNotice: INotice;
   public theAlertedNotice$: Observable<INotice>;
-  public stories$: Observable<IBase[]>;
+  public nextStories$: Observable<IBase[]>;
+  public fixedStories$: Observable<IBase[]>;
 
   view: CalendarView = CalendarView.Day;
   viewDate: Date = new Date();
@@ -52,7 +53,8 @@ export class HomeComponent implements OnInit {
         map( notices => notices[0] )
       );
 
-    this.stories$ = this.storiesSrv.getStories();
+    this.nextStories$ = this.storiesSrv.getStories();
+    this.fixedStories$ = this.storiesSrv.getFixedStories();
 
     this.seo.generateTags({
       title: 'Agenda Rinconera | Rincón de Soto',

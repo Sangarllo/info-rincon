@@ -21,14 +21,30 @@ table {
         .name {
             display: block;
             text-transform: uppercase;
+            margin: 4px 0px;
         }
         .extra-data {
             color: $colorExtraData;
             font-size: smaller;
+            margin: 2px 0px;
         }
         .name {
-            font-size: larger;
+            @media screen and (max-width: $maxMobileWidth) {
+                font-size: medium;
+            }
+            @media screen and (min-width: $minTabletWidth) {
+                font-size: larger;
+            }
             font-weight: bolder;
         }
+        .small-image {
+            margin: 0px 5px;
+        }
+    }
+    .icon {
+        width: 32px;
+        display: inline-block;
+        text-align: center;
+        // background-color: red;
     }
 }

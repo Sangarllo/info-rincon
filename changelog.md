@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Next and last events on entity-view.
 - `feature` New color for deadline appointments.
 - `feature` Add entities-own feature.
+- `feature` Add fixed events for dashboard.
 
 ### Fix
 

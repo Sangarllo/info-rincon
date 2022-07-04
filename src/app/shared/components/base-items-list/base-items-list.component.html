@@ -28,7 +28,7 @@
 
             <div class="item-fav-button" *ngIf="userLogged">
 
-                <button *ngIf="userLogged.favEntities.includes(baseItem.id); else noFavTemplateButton" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'" (click)="setEntityFav(false, baseItem)"></button>
+                <button *ngIf="userLogged.favEntities?.includes(baseItem.id); else noFavTemplateButton" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'" (click)="setEntityFav(false, baseItem)"></button>
 
                 <ng-template #noFavTemplateButton>
                     <button mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_OFF + ')'" (click)="setEntityFav(true, baseItem)"></button>

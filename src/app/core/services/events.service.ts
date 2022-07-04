@@ -49,17 +49,35 @@ export class EventService {
     this.eventCollection = afs.collection(EVENTS_COLLECTION);
   }
 
-  getAllEvents(showOnlyActive: boolean, modeDashboard: boolean, sizeDashboard?: number, entities?: string[]): Observable<IEvent[]> {
+  getAllEvents(
+      showOnlyActive: boolean,
+      modeDashboard: boolean,
+      fixedEvents: boolean,
+      sizeDashboard?: number,
+      entities?: string[]):
+  Observable<IEvent[]> {
 
     if ( modeDashboard ) {
-      this.eventCollection = this.afs.collection<IEvent>(
-        EVENTS_COLLECTION,
-        ref => ref.where('focused', '==', true)
-                  .where('active', '==', true)
-                  .where('status', '==', 'VISIBLE')
-                  .orderBy('timestamp', 'desc')
-                  .limit(sizeDashboard)
-      );
+      if ( fixedEvents ) {
+        this.eventCollection = this.afs.collection<IEvent>(
+          EVENTS_COLLECTION,
+          ref => ref.where('focused', '==', true)
+                    .where('fixed', '==', true)
+                    .where('active', '==', true)
+                    .where('status', '==', 'VISIBLE')
+                    .orderBy('timestamp', 'desc')
+                    .limit(sizeDashboard)
+        );
+      } else {
+        this.eventCollection = this.afs.collection<IEvent>(
+          EVENTS_COLLECTION,
+          ref => ref.where('focused', '==', true)
+                    .where('active', '==', true)
+                    .where('status', '==', 'VISIBLE')
+                    .orderBy('timestamp', 'desc')
+                    .limit(sizeDashboard)
+        );
+      }
     } else {
       if ( showOnlyActive ) {
 
@@ -131,7 +149,7 @@ export class EventService {
   getAllEventsWithAppointments(showOnlyActive: boolean,  addSocialInfo: boolean, userUid?: string): Observable<IEvent[]> {
     const events$ = ( userUid ) ?
         this.getAllEventsByAuthUser(userUid) :
-        this.getAllEvents(showOnlyActive, false, null, null);
+        this.getAllEvents(showOnlyActive, false, false, null, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
     const eventsSocial$ = ( addSocialInfo ) ? this.itemSocialSrv.getAllItemsSocial() : of([]);
     const pictures$ = this.pictureSrv.getAllPictures();
@@ -160,7 +178,7 @@ export class EventService {
 
   // TODO: is it senseless to get start time (for month view)
   getAllCalendarEventsAppointments(): Observable<CalendarEvent[]> {
-    const events$ = this.getAllEvents(true, false, null, null);
+    const events$ = this.getAllEvents(true, false, false, null, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
 
     return combineLatest([
@@ -191,7 +209,7 @@ export class EventService {
   }
 
   getEventsByEntityAndRange(dateMinStr: string, dateMaxStr: string, entityId: string): Observable<IEvent[]> {
-    const events$ = this.getAllEvents(true, false, null, [entityId]);
+    const events$ = this.getAllEvents(true, false, false, null, [entityId]);
     const appointments$ = this.appointmentSrv.getAppointmentsByRange(dateMinStr, dateMaxStr, true);
 
     return combineLatest([

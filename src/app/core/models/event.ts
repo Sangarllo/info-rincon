@@ -21,6 +21,7 @@ export interface IEvent {
   baseType: BaseType;
   status: Status;
   focused: boolean;
+  fixed: boolean;
   sanitizedUrl?: string;
   categories?: Category[];
   description?: string;
@@ -55,6 +56,7 @@ export class Event implements IEvent, IBase { // IAudit
     public pristine: boolean,
     public status: Status,
     public focused: boolean,
+    public fixed: boolean,
 
     public name: string,
     public imageId: string,
@@ -84,7 +86,7 @@ export class Event implements IEvent, IBase { // IAudit
   static InitDefault(): Event {
     return new Event(
       '0',
-      true, true, Status.Editing, true, // Status
+      true, true, Status.Editing, true, false, // Status
       '', // Name
       Event.IMAGE_DEFAULT, Event.IMAGE_DEFAULT, [ Event.IMAGE_DEFAULT ], // Image
       BaseType.EVENT, // BaseType
