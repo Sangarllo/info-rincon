@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `style` Add logo-image for mobile devices.
 - `style` Change fav-logo in header.
+- `style` Home view changes ext-panel-design by tab-design.
 
 ### Remove
 

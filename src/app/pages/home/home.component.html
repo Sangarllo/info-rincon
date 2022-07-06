@@ -1,76 +1,66 @@
 <app-section-header [title]="'Hoy en Rincón de Soto'"></app-section-header>
 
-<mat-accordion class="headers-align" multi>
+<div class="sections__container">
 
-    <!-- Alerted Notice Panel -->
-    <mat-expansion-panel *ngIf="theAlertedNotice$ | async as alertedNotice" class="alerted-notice-background expansion-panel" [expanded]="true" hideToggle>
-        <mat-expansion-panel-header class="alerted-notice-header">
-            <mat-panel-title>
-                <span class="expansion-panel__text">🔔</span>&nbsp;&nbsp;
-                <span class="expansion-panel__text expansion-panel__text--bolder">Hay activado un aviso importante</span>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
+    <!-- INI Section Alerted Notice -->
+    <div *ngIf="theAlertedNotice$ | async as alertedNotice" class="section-alerted-notice alerted-notice-background">
+
+        <div class="section__title alerted-notice-header">
+            <span class="section__title--icon">🔔</span>
+            <span class="section__title--text">Hay activado un aviso importante</span>
+        </div>
 
         <div class="alert">
             <app-notice-expansion-panel [notice]="alertedNotice"></app-notice-expansion-panel>
         </div>
 
-        <!--
-        <app-base-items-panel [baseItems]="[alertedNotice]" [alerted]="true"></app-base-items-panel>
-        -->
+    </div>
+    <!-- FIN Section Alerted Notice -->
 
-    </mat-expansion-panel>
 
-    <!-- Fixed Stories Panel -->
-    <div *ngIf="fixedStories$ | async as fixedStories">
+    <!-- INI Section FrontPage -->
+    <div class="section-frontpage">
+        <mat-tab-group mat-align-tabs="center">
+            <div *ngIf="fixedStories$ | async as fixedStories">
+                <mat-tab label="📌" *ngIf="fixedStories.length > 0">
+                    <div class="fixedStories">
+                        <div class="section__title">
+                            <span class="section__title--icon">📌</span>
+                            <span class="section__title--text">{{ (fixedStories.length === 1) ? "Evento fijado en portada" : fixedStories + " eventos fijados en portada" }}</span>
+                        </div>
+                        <app-stories-panel [stories]="fixedStories"></app-stories-panel>
+                    </div>
+                </mat-tab>
+            </div>
+            <div *ngIf="nextStories$ | async as nextStories">
+                <mat-tab label="📡" *ngIf="nextStories.length > 0">
+                    <div class="nextStories">
+                        <div class="section__title">
+                            <span class="section__title--icon">📡</span>
+                            <span class="section__title--text">{{ (nextStories.length === 1) ? "Evento destacado en portada" : nextStories + " eventos destacados en portada" }}</span>
+                        </div>
+                        <app-stories-panel [stories]="nextStories"></app-stories-panel>
+                    </div>
+                </mat-tab>
+            </div>
+        </mat-tab-group>
+    </div>
+    <!-- FIN Section FrontPage -->
 
-        <mat-expansion-panel *ngIf="fixedStories.length > 0" class="expansion-panel" [expanded]="true" hideToggle>
 
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <span class="expansion-panel__text">📌</span>&nbsp;&nbsp;
-                    <span class="expansion-panel__text">Eventos fijados en portada</span>
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <app-stories-panel [stories]="fixedStories"></app-stories-panel>
-
-        </mat-expansion-panel>
+    <!-- INI Section Calendar -->
+    <div class="section-calendar">
+        <div class="section__title">
+            <span class="section__title--icon">📆</span>
+            <span class="section__title--text">Hoy es {{ viewDate | date:'EEEE, d \'de\' MMMM \'de\' YYYY' }}</span>
+        </div>
     </div>
 
-    <!-- Stories Panel -->
-    <div *ngIf="nextStories$ | async as nextStories">
+    <app-calendar [showSectionHeader]="false" [showHeader]="true" [showFooter]="true"></app-calendar>
+    <!-- FIN Section Calendar -->
 
-        <mat-expansion-panel *ngIf="nextStories.length > 0" class="expansion-panel" [expanded]="true" hideToggle>
+</div>
 
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <span class="expansion-panel__text">📡</span>&nbsp;&nbsp;
-                    <span class="expansion-panel__text">Hoy destacamos en portada...</span>
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <app-stories-panel [stories]="nextStories"></app-stories-panel>
-
-        </mat-expansion-panel>
-    </div>
-
-    <!-- Events Panel -->
-    <mat-expansion-panel class="expansion-panel" [expanded]="true" hideToggle>
-
-        <!--*ngIf="calendarEvents$ | async as calendarEvents; else loading" -->
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <span class="expansion-panel__text">📆</span>&nbsp;&nbsp;
-                <span class="expansion-panel__text">{{ viewDate | date:'EEEE, d \'de\' MMMM \'de\' YYYY' }}</span>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <app-calendar [showSectionHeader]="false" [showHeader]="true" [showFooter]="true"></app-calendar>
-
-    </mat-expansion-panel>
-
-</mat-accordion>
 
 
 <ng-template #loading>

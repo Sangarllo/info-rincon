@@ -1,4 +1,6 @@
 @import '../../../base/variables';
+
+/*
 .mat-accordion {
     margin: 10px;
     .mat-expansion-panel-header.mat-expanded {
@@ -27,6 +29,40 @@
         .expansion-panel {
             .expansion-panel__text {
                 font-size: 0.9em;
+            }
+        }
+    }
+}
+*/
+
+.sections__container {
+    .section-alerted-notice,
+    .section-frontpage,
+    .section-calendar {
+        margin-top: 8px;
+        .section__title {
+            font-weight: bolder;
+            color: $color1;
+            text-transform: uppercase;
+            height: 45px;
+            padding: 12px 0px;
+            margin: 4px 6px;
+            .section__title--icon {
+                width: 32px;
+                display: inline-block;
+                text-align: center;
+                // background-color: red;
+            }
+            span {
+                @media screen and (max-width: 450px) {
+                    font-size: small;
+                }
+                @media screen and (min-width: 451px) and (max-width: 600px) {
+                    font-size: medium;
+                }
+                @media screen and (min-width: 601px) {
+                    font-size: larger;
+                }
             }
         }
     }
