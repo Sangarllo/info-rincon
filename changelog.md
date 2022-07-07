@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` New color for deadline appointments.
 - `feature` Add entities-own feature.
 - `feature` Add fixed events for dashboard.
+- `feature` Add link-items for post-events publications.
+- `feature` Add memories in frontpage.
 
 ### Fix
 

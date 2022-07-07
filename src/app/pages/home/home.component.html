@@ -32,6 +32,7 @@
                     </div>
                 </mat-tab>
             </div>
+
             <div *ngIf="nextStories$ | async as nextStories">
                 <mat-tab label="📡" *ngIf="nextStories.length > 0">
                     <div class="nextStories">
@@ -43,6 +44,20 @@
                     </div>
                 </mat-tab>
             </div>
+
+            <div *ngIf="lastMemories$ | async as lastMemories">
+                <mat-tab label="🖼️" *ngIf="lastMemories.length > 0">
+                    <div class="lastMemories">
+                        <div class="section__title">
+                            <span class="section__title--icon">🖼️</span>
+                            <span class="section__title--text">{{ (lastMemories.length === 1) ? "Artículo publicado" : lastMemories + " artículos publicados" }}</span>
+                        </div>
+                        <app-stories-panel [stories]="lastMemories"></app-stories-panel>
+                    </div>
+                </mat-tab>
+            </div>
+
+
         </mat-tab-group>
     </div>
     <!-- FIN Section FrontPage -->

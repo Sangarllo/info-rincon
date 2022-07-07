@@ -9,8 +9,10 @@ import { Base } from '@models/base';
 import { IEvent, Event } from '@models/event';
 import { IUser } from '@models/user';
 import { IAppointment } from '@models/appointment';
+import { ILinkItem } from '@models/link-item';
 import { IPicture } from '@models/picture';
 import { EventService } from '@services/events.service';
+import { LinksItemService } from '@services/links-item.service';
 import { UserService } from '@services/users.service';
 import { AppointmentsService } from '@services/appointments.service';
 
@@ -24,6 +26,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public userLogged: IUser;
   public configAllowed: boolean;
   public event: IEvent;
+  public linksItem = [];
   public idEventUrl: string;
   public idEvent: string;
   public idSubevent: string;
@@ -40,6 +43,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     private userSrv: UserService,
     private appointmentSrv: AppointmentsService,
     private eventSrv: EventService,
+    private linksItemSrv: LinksItemService,
   ) {
     this.configAllowed = false;
 
@@ -84,7 +88,15 @@ export class EventViewComponent implements OnInit, OnDestroy {
           this.event = event;
       });
 
+    // Link Items
+    const subs3$ = this.linksItemSrv.getLinksItemByItemId(idEvent)
+        .subscribe((linksItem: ILinkItem[]) => {
+          console.log(`linksItem: ${JSON.stringify(linksItem)}`);
+          this.linksItem = linksItem;
+        });
+
     this.listOfObservers.push( subs2$ );
+    this.listOfObservers.push( subs3$ );
   }
 
   public configItem(): void {

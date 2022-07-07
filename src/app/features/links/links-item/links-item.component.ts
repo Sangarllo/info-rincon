@@ -7,21 +7,22 @@ import { map } from 'rxjs/operators';
 import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-import { IAuditSocialItem } from '@models/audit-social';
+import { ILinkItem } from '@models/link-item';
 import { IUser } from '@models/user';
 import { Event } from '@models/event';
 import { BaseType } from '@models/base';
-import { AuditSocialService } from '@services/audit-social.service';
 import { SpinnerService } from '@services/spinner.service';
+import { LinksItemService } from '@services/links-item.service';
+
 
 @Component({
-  selector: 'app-events-audit-social',
-  templateUrl: './events-audit-social.component.html',
-  styleUrls: ['./events-audit-social.component.scss']
+  selector: 'app-links-item',
+  templateUrl: './links-item.component.html',
+  styleUrls: ['./links-item.component.css']
 })
-export class EventsAuditSocialComponent implements OnInit, OnDestroy {
+export class LinksItemComponent implements OnInit, OnDestroy {
 
-  public auditSocialItems: IAuditSocialItem[] = [];
+  public linkItems: ILinkItem[] = [];
   private listOfObservers: Array<Subscription> = [];
   private currentUser: IUser;
 
@@ -29,7 +30,7 @@ export class EventsAuditSocialComponent implements OnInit, OnDestroy {
     public auth: AngularFireAuth,
     private router: Router,
     private spinnerSvc: SpinnerService,
-    private auditSocialSrv: AuditSocialService,
+    private linksItemsSrv: LinksItemService,
   ) {
     this.spinnerSvc.show();
   }
@@ -39,25 +40,25 @@ export class EventsAuditSocialComponent implements OnInit, OnDestroy {
     const dateMin = '2022-01-01';
     const dateMax = '2025-01-01';
 
-      const subs2$ = this.auditSocialSrv.getAuditItemsByRange(dateMin, dateMax)
+      const subs2$ = this.linksItemsSrv.getLinksItemByRange(dateMin, dateMax)
 
       .pipe(
-        map(auditItems => auditItems.map(item => {
+        map(linksItems => linksItems.map(item => {
 
           item.timestamp = formatDistance(new Date(item.timestamp), new Date(), {locale: es});
 
           return { ...item };
         }))
       )
-      .subscribe( (auditSocialItems: IAuditSocialItem[]) => {
-          this.auditSocialItems = auditSocialItems;
+      .subscribe( (linkItems: ILinkItem[]) => {
+          this.linkItems = linkItems;
           this.spinnerSvc.hide();
       });
 
       this.listOfObservers.push(subs2$);
   }
 
-  gotoItem(item: IAuditSocialItem): void {
+  gotoItem(item: ILinkItem): void {
     switch ( item.itemType) {
       case BaseType.EVENT:
         this.router.navigate([Event.PATH_URL, item.itemId]);

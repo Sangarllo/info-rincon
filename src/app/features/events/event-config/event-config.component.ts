@@ -16,11 +16,13 @@ import { IUser } from '@models/user';
 import { AuditType } from '@models/audit';
 import { IComment } from '@models/comment';
 import { IPicture } from '@models/picture';
+import { ILinkItem } from '@models/link-item';
 import { CommentsService } from '@services/comments.service';
 import { EventService } from '@services/events.service';
 import { ItemSocialService } from '@services/items-social.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { SwalMessage, UtilsService } from '@services/utils.service';
+import { LinksItemService } from '@services/links-item.service';
 import { LogService } from '@services/log.service';
 import { PictureService } from '@services/pictures.service';
 import { UserService } from '@services/users.service';
@@ -32,6 +34,8 @@ import { EventImageDialogComponent } from '@features/events/event-image-dialog/e
 import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dialog/event-new-base-dialog.component';
 import { EventScheduleDialogComponent } from '@features/events/event-schedule-dialog/event-schedule-dialog.component';
 import { EventLinkDialogComponent } from '@features/events/event-link-dialog/event-link-dialog.component';
+import { LinkItemDialogComponent } from '@features/links/link-item-dialog/link-item-dialog.component';
+
 
 @Component({
   selector: 'app-event-config',
@@ -54,6 +58,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   public audit = environment.setAudit;
   public socialUsersFav = [];
   public socialNClaps = 0;
+  public linksItem = [];
   private currentUser: IUser;
   private listOfObservers: Array<Subscription> = [];
 
@@ -66,6 +71,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     private utilsSrv: UtilsService,
     private eventSrv: EventService,
     private itemSocialSrv: ItemSocialService,
+    private linksItemSrv: LinksItemService,
     private commentSrv: CommentsService,
     private pictureSrv: PictureService,
     private appointmentSrv: AppointmentsService,
@@ -116,6 +122,13 @@ export class EventConfigComponent implements OnInit, OnDestroy {
             this.socialUsersFav = [];
           }
       });
+
+      // Link Items
+      this.linksItemSrv.getLinksItemByItemId(idEvent)
+        .subscribe((linksItem: ILinkItem[]) => {
+          console.log(`linksItem: ${JSON.stringify(linksItem)}`);
+          this.linksItem = linksItem;
+        });
 
       this.shownAsAWholeControl.setValue(String(this.event.shownAsAWhole));
     });
@@ -301,6 +314,38 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  openLinkItemDialog(linkItemId: string): void {
+
+    console.log(`openLinkItemDialog ${linkItemId}`);
+
+    this.dialogConfig.width = '500px';
+    this.dialogConfig.height = '500px';
+    this.dialogConfig.data = {
+      event: this.event,
+      linkItemBase: this.event.linkItems.find(item => item.id === linkItemId)
+    };
+
+    const dialogRef = this.dialog.open(LinkItemDialogComponent, this.dialogConfig);
+
+    dialogRef.afterClosed().subscribe((linkItem: IBase) => {
+
+      if ( linkItem ) {
+
+        const eventBase = this.event as IBase;
+        const name = `Nuevo enlace`;
+
+        this.linksItemSrv.addLinkItem(
+          name,
+          eventBase
+        );
+
+      } else {
+        this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
+      }
+    });
+  }
+
 
   changeOrderBaseItemFromTable(base: IBase): void {
     this.logSrv.info(`changeOrderScheduleItem ${base.id}`);

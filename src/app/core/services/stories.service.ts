@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 
 import { Observable, combineLatest } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { environment } from '@environments/environment';
 
-import { EventService } from '@services/events.service';
-import { AppointmentsService } from '@services/appointments.service';
 import { IBase, BaseType } from '@models/base';
 import { IAppointment } from '@models/appointment';
 import { IEvent } from '@models/event';
-import { environment } from '@environments/environment';
+import { EventService } from '@services/events.service';
+import { AppointmentsService } from '@services/appointments.service';
+import { LinksItemService } from '@services/links-item.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +18,15 @@ export class StoriesService {
 
   public stories$: Observable<IEvent[]>;
   private readonly N_DAYS_AHEAD = environment.storiesNDaysAhead;
+  private readonly N_DAYS_BEHIND = environment.storiesNDaysBehind;
 
   constructor(
     private eventSrv: EventService,
     private appointmentSrv: AppointmentsService,
+    private linksItemSrv: LinksItemService
   ) { }
 
-  getStories(): Observable<IBase[]> {
+  getNextStories(): Observable<IBase[]> {
 
     const dateToday = new Date();
     const dateTodayStr = dateToday.toISOString().substr(0, 10);
@@ -85,6 +88,30 @@ export class StoriesService {
             )),
         map(data => data.filter(e => e?.id)),
     );
+  }
+
+
+  getLastMemories(): Observable<IBase[]> {
+
+    const dateToday = new Date();
+    const dateTodayStr = dateToday.toISOString().substr(0, 10);
+
+    const dateMin = new Date();
+    dateMin.setDate(dateMin.getDate() - this.N_DAYS_BEHIND);
+    const dateMinStr = dateMin.toISOString().substr(0, 10);
+
+    const dateMax = new Date();
+    dateMax.setDate(dateMax.getDate() + 1);
+    const dateMaxStr = dateMax.toISOString().substr(0, 10);
+
+
+    console.log(`dateMinStr: ${dateMinStr}`);
+    console.log(`dateTodayStr: ${dateTodayStr}`);
+    console.log(`dateMaxStr: ${dateMaxStr}`);
+
+    const memories$ = this.linksItemSrv.getLinksItemByRange(dateMinStr, dateMaxStr);
+
+    return memories$;
   }
 
 

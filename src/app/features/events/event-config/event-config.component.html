@@ -158,6 +158,23 @@
                     </fieldset>
 
 
+                    <!-- INI Event Memories -->
+                    <fieldset class="event-item-detail type-other">
+
+                        <legend>¿Cómo fue?</legend>
+
+                        <sh-base-items-list *ngIf="linksItem" [baseItems]="linksItem" [modeAdmin]="false"></sh-base-items-list>
+
+                        <div class="buttons">
+                            <button mat-fab class="btn-1" (click)="openLinkItemDialog('')" color="accent">
+                            <mat-icon>playlist_add</mat-icon>
+                        </button>
+                        </div>
+
+                    </fieldset>
+                    <!-- INI Event Memories -->
+
+
                     <div *appRole="['SUPER']">
                         <fieldset *ngIf="audit" class="event-audit-detail type-other">
 

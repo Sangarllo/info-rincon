@@ -1,7 +1,5 @@
 /* eslint-disable max-len */
 // eslint-disable-next-line no-shadow
-import firebase from 'firebase/compat/app';
-
 import { BaseType, IBase } from '@models/base';
 
 export enum AuditSocialType {

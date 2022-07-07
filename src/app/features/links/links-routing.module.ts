@@ -7,6 +7,7 @@ import { LinksComponent } from '@features/links/links.component';
 import { LinkViewComponent } from '@features/links/link-view/link-view.component';
 import { LinkEditComponent } from '@features/links/link-edit/link-edit.component';
 import { LinksDashboardComponent } from '@features/links/links-dashboard/links-dashboard.component';
+import { LinksItemComponent } from '@features/links/links-item/links-item.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
@@ -22,6 +23,10 @@ const routes: Routes = [
     component: LinksDashboardComponent,
     canActivate: [ AngularFireAuthGuard ],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'listado',
+    component: LinksItemComponent,
   },
   {
     path: ':id',

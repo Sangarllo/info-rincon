@@ -83,6 +83,15 @@
 
                     </fieldset>
 
+                    <fieldset class="type-other" *ngIf="linksItem?.length > 0">
+
+                        <legend>Cómo fue</legend>
+
+                        <sh-base-items-table [baseItems]="linksItem" [baseType]="'LINK'" [modeAdmin]="false ">
+                        </sh-base-items-table>
+
+                    </fieldset>
+
                 </mat-card-content>
 
                 <mat-card-actions class="buttons">
