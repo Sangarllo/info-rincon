@@ -1,3 +1,15 @@
 <div class="stories-wrapper" *ngIf="stories">
     <img *ngFor="let story of stories" (click)="gotoItem(story)" [alt]="story.name" [src]="story.imagePath" [ngClass]="story.baseType" />
 </div>
+
+<div class="memories-wrapper" *ngIf="memories">
+    <div class="memory-item" *ngFor="let memory of memories">
+        <img class="memory-img" (click)="gotoItem(memory)" [alt]="memory.name" [src]="memory.imagePath" [ngClass]="memory.baseType" />
+        <div class="memory-type" *ngIf="memory.linkItemType">{{memory.linkItemType}}</div>
+        <!--
+        <pre>
+          {{ memory | json }}
+        </pre>
+        -->
+    </div>
+</div>

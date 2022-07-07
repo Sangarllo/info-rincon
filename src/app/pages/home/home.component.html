@@ -26,7 +26,7 @@
                     <div class="fixedStories">
                         <div class="section__title">
                             <span class="section__title--icon">📌</span>
-                            <span class="section__title--text">{{ (fixedStories.length === 1) ? "Evento fijado en portada" : fixedStories + " eventos fijados en portada" }}</span>
+                            <span class="section__title--text">{{ (fixedStories.length === 1) ? "Evento fijado en portada" : fixedStories.length + " eventos fijados en portada" }}</span>
                         </div>
                         <app-stories-panel [stories]="fixedStories"></app-stories-panel>
                     </div>
@@ -38,7 +38,7 @@
                     <div class="nextStories">
                         <div class="section__title">
                             <span class="section__title--icon">📡</span>
-                            <span class="section__title--text">{{ (nextStories.length === 1) ? "Evento destacado en portada" : nextStories + " eventos destacados en portada" }}</span>
+                            <span class="section__title--text">{{ (nextStories.length === 1) ? "Evento destacado en portada" : nextStories.length + " eventos destacados en portada" }}</span>
                         </div>
                         <app-stories-panel [stories]="nextStories"></app-stories-panel>
                     </div>
@@ -50,9 +50,9 @@
                     <div class="lastMemories">
                         <div class="section__title">
                             <span class="section__title--icon">🖼️</span>
-                            <span class="section__title--text">{{ (lastMemories.length === 1) ? "Artículo publicado" : lastMemories + " artículos publicados" }}</span>
+                            <span class="section__title--text">{{ (lastMemories.length === 1) ? "Artículo publicado" : lastMemories.length + " artículos publicados" }}</span>
                         </div>
-                        <app-stories-panel [stories]="lastMemories"></app-stories-panel>
+                        <app-stories-panel [memories]="lastMemories"></app-stories-panel>
                     </div>
                 </mat-tab>
             </div>

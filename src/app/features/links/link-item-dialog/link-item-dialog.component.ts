@@ -6,7 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 
 import { IBase, Base, BaseType } from '@models/base';
 import { IEvent } from '@models/event';
-import { LinkType, LINK_TYPE_DEFAULT } from '@models/link-type.enum';
+import { LinkItemType, LINK_ITEM_TYPE_DEFAULT } from '@models/link-item-type.enum';
 import { IPicture } from '@models/picture';
 import { UtilsService, SwalMessage } from '@services/utils.service';
 import { PictureService } from '@services/pictures.service';
@@ -26,15 +26,18 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
   linkItemBase: IBase;
   linkItemForm: FormGroup;
   thisLinkId: string;
-  orderId: number;
-  linkType: LinkType;
   imageIdSelected: string;
   imagePathSelected: string;
   // public urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   public urlRegex = '^(https?://)(.*)';
   readonly IMAGE_BLANK: string = Base.IMAGE_DEFAULT;
-  readonly LINK_TYPE_URL = LinkType.UrlExterna;
-  readonly LINK_TYPE_IMAGE = LinkType.Imagen;
+  readonly LINK_ITEM_TYPE_IMAGE = LinkItemType.Imagen;
+
+  linkItemType = LINK_ITEM_TYPE_DEFAULT;
+  // linkItemTypeControl = new FormControl();
+  readonly LINK_ITEM_TYPES = LinkItemType;
+  readonly LINK_ITEM_TYPES_KEYS = Object.keys(LinkItemType);
+
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
@@ -59,46 +62,29 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
 
     this.linkItemForm = this.fb.group({
         id: [ {value: '', disabled: true}, []],
-        order: [ {value: '', disabled: true}, []],
         name: [ '', []],
-        linkType: [ this.LINK_TYPE_URL, []],
+        linkItemType: [ '', []],
         imageId: [ '', []],
         imagePath: [ '', []],
         sourceUrl: ['', [Validators.required, Validators.pattern(this.urlRegex)]]
     });
 
-    let name = '';
-    let description = '';
+    // this.linkItemTypeControl.setValue(LinkItemTypes.UrlExterna);
 
-    this.orderId = this.event.linkItems.length + 1;
-    if ( this.linkItemBase ) {
-      console.log(`linkItemBase: ${JSON.stringify(this.linkItemBase)}`);
-      this.title = `Edita los datos de ${this.linkItemBase?.name}`;
+    this.title = `Incluye un nuevo enlace de cómo fue el evento`;
 
-      this.thisLinkId = this.linkItemBase.id;
-      name = this.linkItemBase.name;
-      description = this.linkItemBase.description;
-      this.imageIdSelected = this.linkItemBase.imageId;
-      this.imagePathSelected = this.linkItemBase.imagePath;
-    } else {
-
-      this.title = `Incluye un nuevo enlace de cómo fue el evento`;
-
-      const GUID = this.utilsSrv.getGUID();
-      console.log(`GUID: ${GUID}`);
-      this.thisLinkId = `${GUID}`;
-      name = `Enlace ${this.orderId}`; // TODO is it senseless orderId?
-      description = '';
-      this.imageIdSelected = this.event.imageId;
-      this.imagePathSelected = this.event.imagePath;
-    }
+    const GUID = this.utilsSrv.getGUID();
+    console.log(`GUID: ${GUID}`);
+    this.thisLinkId = `${GUID}`;
+    const name = `Nuevo enlace`;
+    this.imageIdSelected = this.event.imageId;
+    this.imagePathSelected = this.event.imagePath;
 
     this.linkItemForm.patchValue({
       id: this.thisLinkId,
-      order: this.orderId,
+      name,
       imageId: this.imageIdSelected,
       imagePath: this.imagePathSelected,
-      name,
       sourceUrl: this.linkItemBase?.description,
     });
   }
@@ -122,6 +108,15 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
     });
   }
 
+
+  onLinkItemTypeChange(key: string){
+    // console.log(`linkItemType: ${key}`);
+    // console.log(`linkItemType value: ${this.LINK_ITEM_TYPES[key]}`);
+    this.linkItemForm.controls.linkItemType.setValue(key);
+    // this.linkItemTypeControl.setValue(key);
+    this.linkItemForm.controls.name.setValue(key);
+  }
+
   compareFunction(o1: any, o2: any): boolean {
     return (o1.name === o2.name && o1.id === o2.id);
   }
@@ -137,15 +132,17 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
 
   save(): void {
 
+    console.log(`saving: ${this.linkItemForm.controls.linkItemType.value}`);
+
     const newBase: IBase = {
       id: this.thisLinkId,
-      order: this.orderId,
       active: true,
       name: this.linkItemForm.controls.name.value,
       description: this.linkItemForm.controls.sourceUrl.value,
       imageId: this.pictureSelected.id,
       imagePath: this.pictureSelected.path,
       baseType: BaseType.LINK,
+      extra: this.linkItemForm.controls.linkItemType.value
     };
 
     this.dialogRef.close(newBase);

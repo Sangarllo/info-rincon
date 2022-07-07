@@ -4,44 +4,49 @@
 
 <mat-dialog-content [formGroup]="linkItemForm">
 
-    <div class="button-toggle-container">
-
-        <mat-button-toggle-group appearance="outline" formControlName="linkType">
-            <mat-button-toggle class="button__link-type" value="URL EXTERNA">
-                {{LINK_TYPE_URL}}
-            </mat-button-toggle>
-            <mat-button-toggle class="button__link-type" value="IMAGEN">
-                {{LINK_TYPE_IMAGE}}
+    <div class="base-container">
+        <mat-button-toggle-group class="link-item-type-container" appearance="outline" formControlName="linkItemType">
+            <mat-button-toggle *ngFor="let key of LINK_ITEM_TYPES_KEYS" (change)="onLinkItemTypeChange(key)" [value]="key" [aria-label]="key">
+                {{ LINK_ITEM_TYPES[key] }}
             </mat-button-toggle>
         </mat-button-toggle-group>
-
     </div>
 
-    <div class="base-container">
+    <div *ngIf="linkItemForm.controls.linkItemType.value; else noLinkItemTypeTemplate">
 
-        <mat-form-field class="name-field" appearance="outline">
-            <mat-label>Título</mat-label>
-            <input matInput placeholder="Título del enlace" formControlName="name">
-        </mat-form-field>
+        <div class="base-container">
 
-    </div>
-
-    <div *ngIf="linkItemForm.controls.linkType.value === LINK_TYPE_IMAGE" class="images-container">
-
-        <div *ngFor="let picture of pictures">
-            <img [alt]="picture.path" [src]="picture.path" (click)="onSelectedImage(picture)" [ngClass]="{'selected-image' : (pictureSelected.path === picture.path)}" />
-        </div>
-
-    </div>
-
-    <div *ngIf="linkItemForm.controls.linkType.value === LINK_TYPE_URL" class="base-container description-wrapper">
-        <div>
-            <mat-form-field appearance="outline">
-                <mat-label>URL original</mat-label>
-                <input matInput type="text" formControlName="sourceUrl" placeholder="URL del enlace">
+            <mat-form-field class="name-field" appearance="outline">
+                <mat-label>Título</mat-label>
+                <input matInput placeholder="Título del enlace" formControlName="name">
             </mat-form-field>
+
         </div>
+
+        <div *ngIf="linkItemForm.controls.linkItemType.value === LINK_ITEM_TYPE_IMAGE" class="images-container">
+
+            <div *ngFor="let picture of pictures">
+                <img [alt]="picture.path" [src]="picture.path" (click)="onSelectedImage(picture)" [ngClass]="{'selected-image' : (pictureSelected.path === picture.path)}" />
+            </div>
+
+        </div>
+
+        <div *ngIf="linkItemForm.controls.linkItemType.value !== LINK_ITEM_TYPE_IMAGE" class="base-container description-wrapper">
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>URL original</mat-label>
+                    <input matInput type="text" formControlName="sourceUrl" placeholder="URL del enlace">
+                </mat-form-field>
+            </div>
+        </div>
+
     </div>
+
+    <ng-template #noLinkItemTypeTemplate>
+        <div class="alert alert-warning mt-3 text-center">
+            Selecciona en primer lugar el tipo de enlace
+        </div>
+    </ng-template>
 
 </mat-dialog-content>
 

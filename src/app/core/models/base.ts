@@ -27,7 +27,7 @@ export interface IBase {
   timestamp?: string;
   place?: IPlace;
   order?: number;
-  extra?: string; // With Schedule, date + time
+  extra?: string; // With Schedule, date + time || With LinkItem, linktimeType
   extra2?: string; // With Schedule, ScheduleType
   userId?: string;
   auditType?: AuditType;

@@ -35,6 +35,7 @@ import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dia
 import { EventScheduleDialogComponent } from '@features/events/event-schedule-dialog/event-schedule-dialog.component';
 import { EventLinkDialogComponent } from '@features/events/event-link-dialog/event-link-dialog.component';
 import { LinkItemDialogComponent } from '@features/links/link-item-dialog/link-item-dialog.component';
+import { LinkItemType, LINK_ITEM_TYPES, LINK_ITEM_TYPE_DEFAULT } from '@models/link-item-type.enum';
 
 
 @Component({
@@ -126,7 +127,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       // Link Items
       this.linksItemSrv.getLinksItemByItemId(idEvent)
         .subscribe((linksItem: ILinkItem[]) => {
-          console.log(`linksItem: ${JSON.stringify(linksItem)}`);
+          // console.log(`linksItem: ${JSON.stringify(linksItem)}`);
           this.linksItem = linksItem;
         });
 
@@ -333,11 +334,12 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       if ( linkItem ) {
 
         const eventBase = this.event as IBase;
-        const name = `Nuevo enlace`;
+        const linkItemTypeKey = linkItem.extra;
 
         this.linksItemSrv.addLinkItem(
-          name,
-          eventBase
+          linkItem.name,
+          eventBase,
+          linkItemTypeKey
         );
 
       } else {
@@ -348,7 +350,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
 
   changeOrderBaseItemFromTable(base: IBase): void {
-    this.logSrv.info(`changeOrderScheduleItem ${base.id}`);
+    // this.logSrv.info(`changeOrderScheduleItem ${base.id}`);
     const baseId =  base.id;
     const input = baseId.split('|');
     const id1 = input[0];

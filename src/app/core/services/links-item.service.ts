@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { BaseType, IBase } from '@models/base';
 import { ILinkItem, LinkItem } from '@models/link-item';
 import { AppointmentsService } from '@services/appointments.service';
+import { LinkItemType, LINK_ITEM_TYPES } from '@models/link-item-type.enum';
 
 const LINKS_ITEM_COLLECTION = 'enlaces-item';
 
@@ -54,14 +55,15 @@ export class LinksItemService {
   }
 
   // TODO Add Source params
-  async addLinkItem(name: string, item: IBase ): Promise<void> {
+  async addLinkItem(name: string, item: IBase, linkItemTypeKey: string ): Promise<void> {
 
       const currentUser = await this.afAuth.currentUser;
+      const linkItemType = LinkItem.getLinkItemType(linkItemTypeKey);
+
       const linkItem = LinkItem.InitDefault(
         name,
         item,
-
-        // TODO: Source interface
+        linkItemType,
         currentUser.uid,
         currentUser.displayName,
         'Usuario registrado'
@@ -69,7 +71,6 @@ export class LinksItemService {
 
       linkItem.id = this.afs.createId();
       linkItem.timestamp = this.appointmentSrv.getTimestamp();
-      console.log(`linkItem: ${JSON.stringify(linkItem)}`);
       this.linksItemCollection.doc().set(Object.assign({}, linkItem));
   }
 }
