@@ -245,3 +245,24 @@ button:not(.mat-button-disabled) {
     background-color: $color1 !important;
     color: white !important;
 }
+
+.loading__container {
+    display: block;
+    margin: 48px;
+    .loading__text {
+        color: $color1;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 20px;
+        font-size: larger;
+        font-weight: bolder;
+    }
+    .loading__spinner {
+        margin: auto;
+    }
+}
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+    stroke: $color1;
+}

@@ -57,6 +57,17 @@
                 </mat-tab>
             </div>
 
+            <div *ngIf="favEvents$ | async as favEvents">
+                <mat-tab label="⭐​​" *ngIf="favEvents.length > 0">
+                    <div class="favEvents">
+                        <div class="section__title">
+                            <span class="section__title--icon">⭐​</span>
+                            <span class="section__title--text">{{ (favEvents.length === 1) ? "Próximo evento favorito" : "Próximos eventos favoritos" }}</span>
+                        </div>
+                        <app-stories-panel [favEvents]="favEvents"></app-stories-panel>
+                    </div>
+                </mat-tab>
+            </div>
 
         </mat-tab-group>
     </div>

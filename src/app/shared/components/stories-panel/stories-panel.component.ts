@@ -13,6 +13,7 @@ import { SwalMessage, UtilsService } from '@services/utils.service';
 export class StoriesPanelComponent implements OnInit {
 
   @Input() stories: IBase[];
+  @Input() favEvents: IBase[];
   @Input() memories: IBase[];
 
   constructor(
@@ -24,8 +25,8 @@ export class StoriesPanelComponent implements OnInit {
 
   }
 
-  gotoItem(story: IBase): void {
-    const baseItemUrl = Base.getUrl(story);
+  gotoItem(base: IBase): void {
+    const baseItemUrl = Base.getUrl(base);
     this.router.navigate([`${baseItemUrl}`]);
   }
 

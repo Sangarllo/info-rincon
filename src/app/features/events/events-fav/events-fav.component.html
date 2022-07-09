@@ -1,7 +1,7 @@
 <app-section-header [title]="'Tus Eventos Favoritos'" showViewMode="true" (viewMode)="setViewMode($event)"></app-section-header>
 
-<div *ngIf="favEntitiesStr.length > 0; else noEntitiesTemplate" class="m-3 alert alert-success items__container entities-container" (click)="gotoEntitiesFav()">
-    <div class="entities-container__title">Tienes {{ favEntitiesStr.length }} entidades marcadas como favoritas</div>
+<div *ngIf="favEntitiesStr?.length > 0; else noEntitiesTemplate" class="m-3 alert alert-success items__container entities-container" (click)="gotoEntitiesFav()">
+    <div class="entities-container__title">Tienes {{ favEntitiesStr?.length }} entidades marcadas como favoritas</div>
 
     <div>
         <section class="item" (click)="gotoEntitiesFav()">

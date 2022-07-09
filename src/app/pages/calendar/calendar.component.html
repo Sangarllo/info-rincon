@@ -26,7 +26,10 @@
 </div>
 
 <ng-template #loading>
-    <div>
-        Loading events...
+    <div class="loading__container">
+        <div class="loading__text">
+            cargando agenda
+        </div>
+        <mat-spinner [diameter]="40" class="loading__spinner"></mat-spinner>
     </div>
 </ng-template>

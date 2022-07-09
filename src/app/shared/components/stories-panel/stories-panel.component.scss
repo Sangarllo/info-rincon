@@ -1,5 +1,6 @@
     @import '../../../../base/variables';
     .memories-wrapper,
+    .favEvents-wrapper,
     .stories-wrapper {
         display: flex;
         flex-direction: row;
@@ -98,6 +99,7 @@
                 }
             }
         }
+        .favEvents-wrapper,
         .stories-wrapper {
             height: 80px;
             img {
@@ -119,6 +121,7 @@
                 margin: 10px;
             }
         }
+        .favEvents-wrapper,
         .stories-wrapper {
             height: 100px;
             img {

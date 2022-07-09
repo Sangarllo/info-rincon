@@ -6,12 +6,16 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 
+import { AuthService } from '@auth/auth.service';
 import { INotice } from '@models/notice';
 import { IBase } from '@models/base';
+import { IUser } from '@models/user';
 import { CalendarEventsService } from '@services/calendar-events.service';
+import { EventService } from '@services/events.service';
 import { NoticeService } from '@services/notices.service';
 import { StoriesService } from '@services/stories.service';
 import { SeoService } from '@services/seo.service';
+import { UserService } from '@services/users.service';
 
 @Component({
   selector: 'app-home',
@@ -23,11 +27,13 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
+  public userLogged: IUser;
   public alertedNotice: INotice;
   public theAlertedNotice$: Observable<INotice>;
   public nextStories$: Observable<IBase[]>;
   public fixedStories$: Observable<IBase[]>;
   public lastMemories$: Observable<IBase[]>;
+  public favEvents$: Observable<IBase[]>;
 
   view: CalendarView = CalendarView.Day;
   viewDate: Date = new Date();
@@ -41,6 +47,9 @@ export class HomeComponent implements OnInit {
     private noticesSrv: NoticeService,
     private storiesSrv: StoriesService,
     private seo: SeoService,
+    private eventSrv: EventService,
+    private userSrv: UserService,
+    public authSvc: AuthService,
     ) {
     }
 
@@ -57,6 +66,18 @@ export class HomeComponent implements OnInit {
     this.nextStories$ = this.storiesSrv.getNextStories();
     this.fixedStories$ = this.storiesSrv.getFixedStories();
     this.lastMemories$ = this.storiesSrv.getLastMemories();
+
+    const subs1$ = this.authSvc.afAuth.user
+    .subscribe( (user: any) => {
+        if ( user?.uid ) {
+          this.userSrv.getOneUser(user.uid)
+              .subscribe( (userLogged: any ) => {
+                  this.userLogged = userLogged;
+                  console.log(`cargando favEvents: ${this.userLogged?.favEvents?.length}`);
+                  this.favEvents$ = this.eventSrv.getSeveralEvent(this.userLogged.favEvents);
+              });
+        }
+    });
 
     this.seo.generateTags({
       title: 'Agenda Rinconera | Rincón de Soto',

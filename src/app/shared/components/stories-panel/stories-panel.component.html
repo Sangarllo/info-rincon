@@ -2,6 +2,10 @@
     <img *ngFor="let story of stories" (click)="gotoItem(story)" [alt]="story.name" [src]="story.imagePath" [ngClass]="story.baseType" />
 </div>
 
+<div class="favEvents-wrapper" *ngIf="favEvents">
+    <img *ngFor="let event of favEvents" (click)="gotoItem(event)" [alt]="event.name" [src]="event.imagePath" [ngClass]="event.baseType" />
+</div>
+
 <div class="memories-wrapper" *ngIf="memories">
     <div class="memory-item" *ngFor="let memory of memories">
         <div class="memory-point"></div>
@@ -13,6 +17,5 @@
         <div class="memory-badge" *ngIf="memory.linkItemType">{{memory.linkItemType}}</div>
         -->
         <img class="memory-img" (click)="previewItem(memory)" [alt]="memory.name" [src]="memory.imagePath" [ngClass]="memory.baseType" />
-
     </div>
 </div>
