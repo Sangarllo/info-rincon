@@ -7,14 +7,13 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 
 import { IUser, User } from '@models/user';
 import { UserRole } from '@models/user-role.enum';
 import { Avatar, IFile } from '@models/image';
 import { LogService } from '@services/log.service';
 import { UserService } from '@services/users.service';
-
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -40,7 +39,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private logSrv: LogService,
-    private usersSrv: UserService) { }
+    private usersSrv: UserService,
+    private utilsSvc: UtilsService,
+  ) { }
 
   ngOnInit(): void {
 
@@ -102,12 +103,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
  public onSaveComplete(): void {
    // Reset the form to clear the flags
    this.userForm.reset();
-   Swal.fire({
-     icon: 'success',
-     title: 'Datos guardados con éxito',
-     text: `Los datos de ${this.user.displayName} se han guardado correctamente`,
-     confirmButtonColor: '#003A59',
-   });
+   this.utilsSvc.swalFire(SwalMessage.OK_CHANGES, this.user.displayName);
    this.router.navigate([`/${User.PATH_URL}`]);
  }
 

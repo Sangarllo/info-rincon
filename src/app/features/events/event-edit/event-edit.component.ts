@@ -5,7 +5,6 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 
 import { AuthService } from '@auth/auth.service';
 import { Event, IEvent } from '@models/event';
@@ -15,6 +14,7 @@ import { IUser } from '@models/user';
 import { AuditType } from '@models/audit';
 import { EventService } from '@services/events.service';
 import { LogService } from '@services/log.service';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-event-edit',
@@ -41,7 +41,9 @@ export class EventEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private logSrv: LogService,
-    private eventSrv: EventService) { }
+    private eventSrv: EventService,
+    private utilsSvc: UtilsService,
+) { }
 
   ngOnInit(): void {
 
@@ -159,13 +161,7 @@ export class EventEditComponent implements OnInit, OnDestroy {
   private onSaveComplete(): void {
     // Reset the form to clear the flags
     this.eventForm.reset();
-    Swal.fire({
-      icon: 'success',
-      title: 'Datos guardados con éxito',
-      text: `Los datos de ${this.event.name} se han guardado correctamente`,
-      confirmButtonColor: '#003A59',
-      // footer: '<a href>Why do I have this issue?</a>'
-    });
+    this.utilsSvc.swalFire(SwalMessage.OK_CHANGES, this.event.name);
     this.router.navigate([`/${Event.PATH_URL}`]);
   }
 

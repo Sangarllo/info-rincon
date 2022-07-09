@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { Subscription } from 'rxjs';
-import Swal from 'sweetalert2';
 
 import { AuthService } from '@auth/auth.service';
 import { UserRole } from '@models/user-role.enum';

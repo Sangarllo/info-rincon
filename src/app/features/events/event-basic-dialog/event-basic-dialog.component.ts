@@ -2,11 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import Swal from 'sweetalert2';
-
 import { Base } from '@models/base';
 import { IEvent } from '@models/event';
 import { Category, EVENT_CATEGORIES } from '@models/category.enum';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-event-basic-dialog',
@@ -23,6 +22,7 @@ export class EventBasicDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EventBasicDialogComponent>,
+    private utilsSvc: UtilsService,
     @Inject(MAT_DIALOG_DATA) public data: IEvent) {
   }
 
@@ -37,22 +37,13 @@ export class EventBasicDialogComponent implements OnInit {
   }
 
    onNoClick(): void {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Datos no modificados',
-      text: `Has cerrado la ventana sin guardar ningún cambio`,
-      confirmButtonColor: '#003A59',
-    });
+    this.utilsSvc.swalFire(SwalMessage.NO_CHANGES);
     this.dialogRef.close();
+
   }
 
   save(): void {
-    Swal.fire({
-      icon: 'success',
-      title: 'Datos guardados con éxito',
-      text: `La entidad ha sido cambiada correctamente`,
-      confirmButtonColor: '#003A59',
-    });
+    this.utilsSvc.swalFire(SwalMessage.OK_CHANGES, 'la entidad');
     this.dialogRef.close(this.eventForm.value);
   }
 }

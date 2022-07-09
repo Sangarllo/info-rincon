@@ -5,7 +5,6 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 
 import { Notice, INotice } from '@models/notice';
 import { Status } from '@models/status.enum';
@@ -13,6 +12,7 @@ import { NOTICE_CATEGORIES, Category } from '@models/category.enum';
 import { AppointmentsService } from '@services/appointments.service';
 import { NoticeService } from '@services/notices.service';
 import { LogService } from '@services/log.service';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-notice-edit',
@@ -39,7 +39,9 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private logSrv: LogService,
     private appointmentSrv: AppointmentsService,
-    private NoticeSrv: NoticeService) { }
+    private NoticeSrv: NoticeService,
+    private utilsSvc: UtilsService,
+) { }
 
   public ngOnInit(): void {
 
@@ -97,12 +99,7 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
   public onSaveComplete(): void {
     // Reset the form to clear the flags
     this.noticeForm.reset();
-    Swal.fire({
-      icon: 'success',
-      title: 'Datos guardados con éxito',
-      text: `Los datos de ${this.notice.name} se han guardado correctamente`,
-      confirmButtonColor: '#003A59',
-    });
+    this.utilsSvc.swalFire(SwalMessage.OK_CHANGES, this.notice.name);
     this.router.navigate([`/${Notice.PATH_URL}`]);
   }
 

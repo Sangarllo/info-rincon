@@ -5,7 +5,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { Subscription } from 'rxjs';
-import Swal from 'sweetalert2';
 
 import { IUser } from '@models/user';
 import { UserService } from '@services/users.service';

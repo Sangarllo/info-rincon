@@ -4,13 +4,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import Swal from 'sweetalert2';
-
 import { IPicture, Picture } from '@models/picture';
 import { IEvent } from '@models/event';
 import { AuditType } from '@models/audit';
 import { EventService } from '@services/events.service';
 import { PictureService } from '@services/pictures.service';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-picture-info-dialog',
@@ -35,6 +34,7 @@ export class PictureInfoDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<PictureInfoDialogComponent>,
     public pictureSrv: PictureService,
     public eventSrv: EventService,
+    private utilsSvc: UtilsService,
     @Inject(MAT_DIALOG_DATA) public picture: IPicture) {
   }
 
@@ -59,13 +59,8 @@ export class PictureInfoDialogComponent implements OnInit {
   }
 
   onNoClick(): void {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Datos no modificados',
-        text: `Has cerrado la ventana sin guardar ningún cambio`,
-        confirmButtonColor: '#003A59',
-      });
-      this.dialogRef.close();
+    this.utilsSvc.swalFire(SwalMessage.NO_CHANGES);
+    this.dialogRef.close();
   }
 
   remove(): void {

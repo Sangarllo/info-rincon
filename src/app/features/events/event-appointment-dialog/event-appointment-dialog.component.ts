@@ -4,12 +4,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 import { Subscription } from 'rxjs';
-import Swal from 'sweetalert2';
 
 import { Base } from '@models/base';
 import { IEvent } from '@models/event';
 import { Appointment, IAppointment } from '@models/appointment';
 import { AppointmentsService } from '@services/appointments.service';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-event-appointment-dialog',
@@ -25,8 +25,9 @@ export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private appointmentSrv: AppointmentsService,
     public dialogRef: MatDialogRef<EventAppointmentDialogComponent>,
+    private appointmentSrv: AppointmentsService,
+    private utilsSvc: UtilsService,
     @Inject(MAT_DIALOG_DATA) public data: IEvent) {
   }
 
@@ -136,22 +137,12 @@ export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
   }
 
   onNoClick(): void {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Datos no modificados',
-      text: `Has cerrado la ventana sin guardar ningún cambio`,
-      confirmButtonColor: '#003A59',
-    });
+    this.utilsSvc.swalFire(SwalMessage.NO_CHANGES);
     this.dialogRef.close();
   }
 
   save(): void {
-    Swal.fire({
-      icon: 'success',
-      title: 'Datos guardados con éxito',
-      text: `El horario ha sido guardado correctamente`,
-      confirmButtonColor: '#003A59',
-    });
+    this.utilsSvc.swalFire(SwalMessage.OK_CHANGES, 'el horario');
 
     this.appointmentForm.controls.dateIni.setValue(this.appointment.dateIni);
     this.appointmentForm.controls.dateEnd.setValue(this.appointment.dateEnd);

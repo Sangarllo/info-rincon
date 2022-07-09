@@ -2,10 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import Swal from 'sweetalert2';
-
 import { Status } from '@models/status.enum';
 import { IEvent, Event } from '@models/event';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-event-status-dialog',
@@ -21,6 +20,7 @@ export class EventStatusDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EventStatusDialogComponent>,
+    private utilsSvc: UtilsService,
     @Inject(MAT_DIALOG_DATA) public data: IEvent) {
   }
 
@@ -35,22 +35,12 @@ export class EventStatusDialogComponent implements OnInit {
   }
 
    onNoClick(): void {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Datos no modificados',
-      text: `Has cerrado la ventana sin guardar ningún cambio`,
-      confirmButtonColor: '#003A59',
-    });
+    this.utilsSvc.swalFire(SwalMessage.NO_CHANGES);
     this.dialogRef.close();
   }
 
   save(): void {
-    Swal.fire({
-      icon: 'success',
-      title: 'Datos guardados con éxito',
-      text: `El estado del evento ha sido modificado`,
-      confirmButtonColor: '#003A59',
-    });
+    this.utilsSvc.swalFire(SwalMessage.OK_CHANGES, 'el estado');
     this.dialogRef.close(this.statusForm.value);
   }
 }

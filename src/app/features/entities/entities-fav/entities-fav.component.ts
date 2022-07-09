@@ -8,7 +8,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 
 import { IEntity } from '@models/entity';
 import { IUser } from '@models/user';

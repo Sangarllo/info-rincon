@@ -5,7 +5,6 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 
 import { Entity, IEntity } from '@models/entity';
 import { EVENT_CATEGORIES, Category } from '@models/category.enum';
@@ -15,6 +14,7 @@ import { ScheduleType, SCHEDULE_TYPES } from '@models/shedule-type.enum';
 import { EntityService } from '@services/entities.service';
 import { PlaceService } from '@services/places.service';
 import { LogService } from '@services/log.service';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-entity-edit',
@@ -46,7 +46,9 @@ export class EntityEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private logSrv: LogService,
     private entitiesSrv: EntityService,
-    private placeSrv: PlaceService) { }
+    private placeSrv: PlaceService,
+    private utilsSvc: UtilsService,
+  ) { }
 
   ngOnInit(): void {
 
@@ -167,13 +169,7 @@ export class EntityEditComponent implements OnInit, OnDestroy {
   onSaveComplete(): void {
     // Reset the form to clear the flags
     this.entityForm.reset();
-    Swal.fire({
-      icon: 'success',
-      title: 'Datos guardados con éxito',
-      text: `Los datos de ${this.entity.name} se han guardado correctamente`,
-      confirmButtonColor: '#003A59',
-      // footer: '<a href>Why do I have this issue?</a>'
-    });
+    this.utilsSvc.swalFire(SwalMessage.OK_CHANGES, this.entity.name);
     this.router.navigate([`/${Entity.PATH_URL}`]);
   }
 

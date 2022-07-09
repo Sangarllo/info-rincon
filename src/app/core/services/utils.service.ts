@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { Injectable } from '@angular/core';
 
@@ -38,7 +39,7 @@ export class UtilsService {
         Swal.fire({
             icon: 'success',
             title: 'Datos guardados con éxito',
-            text: `La información sobre ${extraInfo} ha sido guarda correctamente`,
+            text: `La información sobre ${extraInfo} ha sido guardada correctamente`,
             confirmButtonColor: '#003A59',
         });
         break;

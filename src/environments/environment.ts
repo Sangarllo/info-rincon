@@ -5,8 +5,8 @@ export const environment = {
   baseUrl: 'https://agendarinconera.es',
   // baseUrl: 'http://localhost:4200',
   setAudit: true,
-  storiesNDaysAhead: 3,
-  storiesNDaysBehind: 3,
+  storiesNDaysAhead: 8,
+  storiesNDaysBehind: 8,
   loginWithLogin: false,
   firebase: {
     apiKey: 'AIzaSyChFHMB9Kj4sEBdPKLRWu-JFVMg7gketuM',

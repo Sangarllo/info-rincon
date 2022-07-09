@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
-import Swal from 'sweetalert2';
 
 import { environment } from '@environments/environment';
 import { AuthService } from '@auth/auth.service';

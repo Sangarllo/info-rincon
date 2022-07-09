@@ -6,7 +6,6 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 
 import { INewsItem, NewsItem } from '@models/news';
 import { Status } from '@models/status.enum';
@@ -15,6 +14,7 @@ import { Category, NEWS_CATEGORIES } from '@models/category.enum';
 import { AppointmentsService } from '@services/appointments.service';
 import { NewsService } from '@services/news.services';
 import { LogService } from '@services/log.service';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-news-edit',
@@ -43,7 +43,9 @@ export class NewsEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private logSrv: LogService,
     private appointmentSrv: AppointmentsService,
-    private newsSrv: NewsService) { }
+    private newsSrv: NewsService,
+    private utilsSvc: UtilsService,
+  ) { }
 
   ngOnInit(): void {
 
@@ -167,15 +169,8 @@ export class NewsEditComponent implements OnInit, OnDestroy {
   }
 
   onSaveComplete(): void {
-    // Reset the form to clear the flags
     this.newsItemForm.reset();
-    Swal.fire({
-      icon: 'success',
-      title: 'Datos guardados con éxito',
-      text: `Los datos de ${this.newsItem.name} se han guardado correctamente`,
-      confirmButtonColor: '#003A59',
-      // footer: '<a href>Why do I have this issue?</a>'
-    });
+    this.utilsSvc.swalFire(SwalMessage.OK_CHANGES, this.newsItem.name);
     this.router.navigate([`/${NewsItem.PATH_URL}`]);
   }
 

@@ -91,7 +91,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     // Link Items
     const subs3$ = this.linksItemSrv.getLinksItemByItemId(idEvent)
         .subscribe((linksItem: ILinkItem[]) => {
-          console.log(`linksItem: ${JSON.stringify(linksItem)}`);
+          // console.log(`linksItem: ${JSON.stringify(linksItem)}`);
           this.linksItem = linksItem;
         });
 

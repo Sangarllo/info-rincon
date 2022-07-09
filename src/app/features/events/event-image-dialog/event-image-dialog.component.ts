@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
-import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
@@ -11,6 +10,7 @@ import { Base } from '@models/base';
 import { IPicture, Picture } from '@models/picture';
 import { PictureService } from '@services/pictures.service';
 import { LogService } from '@services/log.service';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-event-image-dialog',
@@ -39,6 +39,7 @@ export class EventImageDialogComponent implements OnInit {
     private fb: FormBuilder,
     private logSrv: LogService,
     private pictureSrv: PictureService,
+    private utilsSvc: UtilsService,
     @Inject(MAT_DIALOG_DATA) public data: [string, string[]]) {
   }
 
@@ -105,22 +106,12 @@ export class EventImageDialogComponent implements OnInit {
   }
 
   onNoClick(): void {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Datos no modificados',
-      text: `Has cerrado la ventana sin guardar ningún cambio`,
-      confirmButtonColor: '#003A59',
-    });
+    this.utilsSvc.swalFire(SwalMessage.NO_CHANGES);
     this.dialogRef.close();
   }
 
   save(): void {
-    Swal.fire({
-      icon: 'success',
-      title: 'Datos guardados con éxito',
-      text: `La imagen ha sido cambiada correctamente`,
-      confirmButtonColor: '#003A59',
-    });
+    this.utilsSvc.swalFire(SwalMessage.OK_CHANGES, 'la nueva imagen');
 
     const result: [IPicture, IPicture[]] = [
       this.pictureSelected,

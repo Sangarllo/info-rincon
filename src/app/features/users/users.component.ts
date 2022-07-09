@@ -22,11 +22,11 @@ export class UsersComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  private listOfObservers: Array<Subscription> = [];
   public loading = true;
   public users: IUser[];
   public dataSource: MatTableDataSource<IUser> = new MatTableDataSource();
   displayedColumns: string[] = [ 'role', 'uid', 'photoURL', 'collapsed-info', 'displayName', 'email', 'entities', 'actions3'];
+  private listOfObservers: Array<Subscription> = [];
 
   constructor(
     private router: Router,

@@ -5,13 +5,12 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 
 import { Place, IPlace } from '@models/place';
 import { PlaceType, PLACE_TYPES } from '@models/place-type.enum';
 import { PlaceService } from '@services/places.service';
 import { LogService } from '@services/log.service';
-import sub from 'date-fns/sub';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-place-edit',
@@ -35,7 +34,9 @@ export class PlaceEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private logSrv: LogService,
-    private placeSrv: PlaceService) { }
+    private placeSrv: PlaceService,
+    private utilsSvc: UtilsService,
+  ) { }
 
   ngOnInit(): void {
 
@@ -136,12 +137,7 @@ export class PlaceEditComponent implements OnInit, OnDestroy {
   onSaveComplete(): void {
     // Reset the form to clear the flags
     this.placeForm.reset();
-    Swal.fire({
-      icon: 'success',
-      title: 'Datos guardados con éxito',
-      text: `Los datos de ${this.place.name} se han guardado correctamente`,
-      confirmButtonColor: '#003A59',
-    });
+    this.utilsSvc.swalFire(SwalMessage.OK_CHANGES, this.place.name);
     this.router.navigate([`/${Place.PATH_URL}`]);
   }
 

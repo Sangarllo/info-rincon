@@ -6,7 +6,6 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 
 import { ILink, Link } from '@models/link';
 import { Status } from '@models/status.enum';
@@ -15,6 +14,7 @@ import { Category, LINK_CATEGORIES } from '@models/category.enum';
 import { AppointmentsService } from '@services/appointments.service';
 import { LinksService } from '@services/links.services';
 import { LogService } from '@services/log.service';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-link-edit',
@@ -43,7 +43,9 @@ export class LinkEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private logSrv: LogService,
     private appointmentSrv: AppointmentsService,
-    private linksSrv: LinksService) { }
+    private linksSrv: LinksService,
+    private utilsSvc: UtilsService,
+  ) { }
 
   ngOnInit(): void {
 
@@ -168,13 +170,7 @@ export class LinkEditComponent implements OnInit, OnDestroy {
   onSaveComplete(): void {
     // Reset the form to clear the flags
     this.linkForm.reset();
-    Swal.fire({
-      icon: 'success',
-      title: 'Datos guardados con éxito',
-      text: `Los datos de ${this.link.name} se han guardado correctamente`,
-      confirmButtonColor: '#003A59',
-      // footer: '<a href>Why do I have this issue?</a>'
-    });
+    this.utilsSvc.swalFire(SwalMessage.OK_CHANGES, this.link.name);
     this.router.navigate([`/${Link.PATH_URL}`]);
   }
 
