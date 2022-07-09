@@ -321,7 +321,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     console.log(`openLinkItemDialog ${linkItemId}`);
 
     this.dialogConfig.width = '500px';
-    this.dialogConfig.height = '500px';
+    this.dialogConfig.height = '600px';
     this.dialogConfig.data = {
       event: this.event,
       linkItemBase: this.event.linkItems.find(item => item.id === linkItemId)
@@ -336,10 +336,14 @@ export class EventConfigComponent implements OnInit, OnDestroy {
         const eventBase = this.event as IBase;
         const linkItemTypeKey = linkItem.extra;
 
+        console.log(`after closing: ${JSON.stringify(linkItem)}`);
+
         this.linksItemSrv.addLinkItem(
-          linkItem.name,
           eventBase,
-          linkItemTypeKey
+          linkItemTypeKey,
+          linkItem.name,
+          linkItem.description,
+          linkItem.sourceUrl
         );
 
       } else {

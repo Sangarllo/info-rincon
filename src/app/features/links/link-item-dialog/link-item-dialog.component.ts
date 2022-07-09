@@ -62,7 +62,8 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
 
     this.linkItemForm = this.fb.group({
         id: [ {value: '', disabled: true}, []],
-        name: [ '', []],
+        name: [ {value: '', disabled: true}, []],
+        description: [ '', []],
         linkItemType: [ '', []],
         imageId: [ '', []],
         imagePath: [ '', []],
@@ -83,6 +84,7 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
     this.linkItemForm.patchValue({
       id: this.thisLinkId,
       name,
+      description: name,
       imageId: this.imageIdSelected,
       imagePath: this.imagePathSelected,
       sourceUrl: this.linkItemBase?.description,
@@ -111,10 +113,9 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
 
   onLinkItemTypeChange(key: string){
     // console.log(`linkItemType: ${key}`);
-    // console.log(`linkItemType value: ${this.LINK_ITEM_TYPES[key]}`);
     this.linkItemForm.controls.linkItemType.setValue(key);
-    // this.linkItemTypeControl.setValue(key);
     this.linkItemForm.controls.name.setValue(key);
+    this.linkItemForm.controls.description.setValue(key);
   }
 
   compareFunction(o1: any, o2: any): boolean {
@@ -138,11 +139,12 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
       id: this.thisLinkId,
       active: true,
       name: this.linkItemForm.controls.name.value,
-      description: this.linkItemForm.controls.sourceUrl.value,
+      description: this.linkItemForm.controls.description.value,
+      sourceUrl: this.linkItemForm.controls.sourceUrl.value,
       imageId: this.pictureSelected.id,
       imagePath: this.pictureSelected.path,
       baseType: BaseType.LINK,
-      extra: this.linkItemForm.controls.linkItemType.value
+      extra: this.linkItemForm.controls.linkItemType.value // icons
     };
 
     this.dialogRef.close(newBase);

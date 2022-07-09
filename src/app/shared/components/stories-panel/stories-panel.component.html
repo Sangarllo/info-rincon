@@ -4,12 +4,15 @@
 
 <div class="memories-wrapper" *ngIf="memories">
     <div class="memory-item" *ngFor="let memory of memories">
-        <img class="memory-img" (click)="gotoItem(memory)" [alt]="memory.name" [src]="memory.imagePath" [ngClass]="memory.baseType" />
-        <div class="memory-type" *ngIf="memory.linkItemType">{{memory.linkItemType}}</div>
+        <div class="memory-point"></div>
+        <div class="memory-name">
+            <span class="icon">{{memory.linkItemType}}</span><span class="title">{{memory.name}}</span>
+        </div>
+        <div class="memory-timestamp">hace {{memory.timestamp}}</div>
         <!--
-        <pre>
-          {{ memory | json }}
-        </pre>
+        <div class="memory-badge" *ngIf="memory.linkItemType">{{memory.linkItemType}}</div>
         -->
+        <img class="memory-img" (click)="previewItem(memory)" [alt]="memory.name" [src]="memory.imagePath" [ngClass]="memory.baseType" />
+
     </div>
 </div>

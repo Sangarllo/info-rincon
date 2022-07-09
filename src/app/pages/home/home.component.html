@@ -46,10 +46,10 @@
             </div>
 
             <div *ngIf="lastMemories$ | async as lastMemories">
-                <mat-tab label="🖼️" *ngIf="lastMemories.length > 0">
+                <mat-tab label="🔗​" *ngIf="lastMemories.length > 0">
                     <div class="lastMemories">
                         <div class="section__title">
-                            <span class="section__title--icon">🖼️</span>
+                            <span class="section__title--icon">🔗​</span>
                             <span class="section__title--text">{{ (lastMemories.length === 1) ? "Artículo publicado" : lastMemories.length + " artículos publicados" }}</span>
                         </div>
                         <app-stories-panel [memories]="lastMemories"></app-stories-panel>

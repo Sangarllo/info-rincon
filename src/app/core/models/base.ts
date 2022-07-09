@@ -25,6 +25,7 @@ export interface IBase {
   baseType: BaseType;
   description?: string;
   timestamp?: string;
+  sourceUrl?: string;
   place?: IPlace;
   order?: number;
   extra?: string; // With Schedule, date + time || With LinkItem, linktimeType

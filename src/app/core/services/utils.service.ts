@@ -6,11 +6,13 @@ import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 import { IBase } from '@models/base';
+import { LinkItem } from '@models/link-item';
 
 // eslint-disable-next-line no-shadow
 export enum SwalMessage {
   NO_CHANGES = 'NO_CHANGES',
   OK_CHANGES = 'OK_CHANGES',
+  GOTO_URL = 'GOTO_WEB',
   OTHER_CHANGES = 'OTHER_CHANGES'
 }
 
@@ -21,7 +23,7 @@ export class UtilsService {
 
   constructor() { }
 
-  public swalFire(opt: SwalMessage, extraInfo?: string): void {
+  public swalFire(opt: SwalMessage, extraInfo?: string, base?: IBase): void {
     switch (opt) {
       case SwalMessage.NO_CHANGES:
         Swal.fire({
@@ -41,8 +43,28 @@ export class UtilsService {
         });
         break;
 
-        case SwalMessage.OTHER_CHANGES:
-          Swal.fire({
+      case SwalMessage.GOTO_URL:
+
+        const linkItemType = LinkItem.getLinkItemType(base.name);
+
+        Swal.fire({
+          title: `${linkItemType} ${base.name}`,
+          // eslint-disable-next-line max-len
+          html: `Si aceptas accederás a una web externa:<br/><br/><h1>${base.description}</h1><a href='${base.sourceUrl}' style='color:red'>${base.sourceUrl}</a>`,
+          imageUrl: base.name,
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: `Sí, acceder a ${base.name}`
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.open(base.sourceUrl, '_blank');
+          }
+        });
+        break;
+
+      case SwalMessage.OTHER_CHANGES:
+        Swal.fire({
               icon: 'success',
               title: extraInfo,
               confirmButtonColor: '#003A59',

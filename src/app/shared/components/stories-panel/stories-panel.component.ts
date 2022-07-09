@@ -1,7 +1,9 @@
+/* eslint-disable max-len */
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { IBase, BaseType, Base } from '@models/base';
+import { IBase, Base } from '@models/base';
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-stories-panel',
@@ -15,6 +17,7 @@ export class StoriesPanelComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private utilsSvc: UtilsService,
   ) { }
 
   ngOnInit(): void {
@@ -24,6 +27,10 @@ export class StoriesPanelComponent implements OnInit {
   gotoItem(story: IBase): void {
     const baseItemUrl = Base.getUrl(story);
     this.router.navigate([`${baseItemUrl}`]);
+  }
+
+  previewItem(base: IBase): void {
+    this.utilsSvc.swalFire(SwalMessage.GOTO_URL, '', base);
   }
 
 }

@@ -16,7 +16,9 @@ export interface ILinkItem {
   itemName: string;
   itemType: BaseType;
 
+  description?: string;
   timestamp?: string;
+  sourceUrl?: string;
 
   sourceUid?: string;
   sourceName?: string;
@@ -42,7 +44,9 @@ export class LinkItem implements ILinkItem, IBase {
     public itemName: string,
     public itemType: BaseType,
 
+    public description?: string,
     public timestamp?: string,
+    public sourceUrl?: string,
 
     public sourceUid?: string,
     public sourceName?: string,
@@ -51,15 +55,16 @@ export class LinkItem implements ILinkItem, IBase {
   ) {
   }
 
-  static InitDefault(name: string, item: IBase,
+  static InitDefault(item: IBase,
     linkItemType: LinkItemType,
+    name: string, description: string, sourceUrl: string,
     sourceUid: string, sourceName: string, sourceType: string ): LinkItem {
     return new LinkItem(
       '0', true, name,
       item.imageId, item.imagePath,
       BaseType.LINK, linkItemType, // BaseType, LinkItemType,
       item.id, item.name, item.baseType, // itemId, itemType
-      null, // Timestamp
+      description, null, sourceUrl, // desc, Timestamp, sourceUrl,
       sourceUid, sourceName, sourceType // Source
     );
   }
@@ -73,16 +78,20 @@ export class LinkItem implements ILinkItem, IBase {
     switch (key) {
       case 'Imagen':
           return LinkItemType.Imagen;
-      case 'UrlExterna':
-          return LinkItemType.UrlExterna;
-      case 'GaleriaFotos':
-          return LinkItemType.GaleriaFotos;
+      case 'Web':
+          return LinkItemType.Web;
+      case 'Fotos':
+          return LinkItemType.Fotos;
       case 'Video':
           return LinkItemType.Video;
       case 'Noticia':
           return LinkItemType.Noticia;
+      case 'Reportaje':
+          return LinkItemType.Reportaje;
       case 'Resultados':
           return LinkItemType.Resultados;
+      case 'Mapa':
+          return LinkItemType.Mapa;
       default:
             return LINK_ITEM_TYPE_DEFAULT;
     }

@@ -1,6 +1,9 @@
+/* eslint-disable max-len */
 import { Component, Input, OnChanges, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+
+import { SwalMessage, UtilsService } from '@services/utils.service';
 
 import { LogService } from '@services/log.service';
 import { BaseType, IBase } from '@models/base';
@@ -27,6 +30,7 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
 
   constructor(
     private logSrv: LogService,
+    private utilsSvc: UtilsService,
     private router: Router,
   ) {
   }
@@ -101,4 +105,7 @@ export class BaseItemsTableComponent implements OnInit, OnChanges {
     this.router.navigate([`eventos/${base.id}`]);
   }
 
+  previewItem(base: IBase): void {
+    this.utilsSvc.swalFire(SwalMessage.GOTO_URL, '', base);
+  }
 }

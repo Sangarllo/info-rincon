@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 import { BaseType, IBase } from '@models/base';
 import { ILinkItem, LinkItem } from '@models/link-item';
 import { AppointmentsService } from '@services/appointments.service';
-import { LinkItemType, LINK_ITEM_TYPES } from '@models/link-item-type.enum';
 
 const LINKS_ITEM_COLLECTION = 'enlaces-item';
 
@@ -55,15 +54,17 @@ export class LinksItemService {
   }
 
   // TODO Add Source params
-  async addLinkItem(name: string, item: IBase, linkItemTypeKey: string ): Promise<void> {
+  async addLinkItem(item: IBase, linkItemTypeKey: string, name: string, description: string, sourceUrl: string ): Promise<void> {
 
       const currentUser = await this.afAuth.currentUser;
       const linkItemType = LinkItem.getLinkItemType(linkItemTypeKey);
 
       const linkItem = LinkItem.InitDefault(
-        name,
         item,
         linkItemType,
+        name,
+        description,
+        sourceUrl,
         currentUser.uid,
         currentUser.displayName,
         'Usuario registrado'

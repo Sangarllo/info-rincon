@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from '@environments/environment';
+import { formatDistance } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 import { IBase, BaseType } from '@models/base';
 import { IAppointment } from '@models/appointment';
@@ -109,7 +111,16 @@ export class StoriesService {
     console.log(`dateTodayStr: ${dateTodayStr}`);
     console.log(`dateMaxStr: ${dateMaxStr}`);
 
-    const memories$ = this.linksItemSrv.getLinksItemByRange(dateMinStr, dateMaxStr);
+    const memories$ = this.linksItemSrv.getLinksItemByRange(dateMinStr, dateMaxStr)
+
+    .pipe(
+      map(linksItems => linksItems.map(item => {
+
+        item.timestamp = formatDistance(new Date(item.timestamp), new Date(), {locale: es});
+
+        return { ...item };
+      }))
+    );
 
     return memories$;
   }

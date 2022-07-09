@@ -16,9 +16,18 @@
 
         <div class="base-container">
 
+            <mat-form-field hidden="true" class="name-field" appearance="outline">
+                <mat-label>Tipo</mat-label>
+                <input matInput placeholder="Tipo de enlace" formControlName="name">
+            </mat-form-field>
+
+        </div>
+
+        <div class="base-container">
+
             <mat-form-field class="name-field" appearance="outline">
                 <mat-label>Título</mat-label>
-                <input matInput placeholder="Título del enlace" formControlName="name">
+                <input matInput placeholder="Título del enlace" formControlName="description">
             </mat-form-field>
 
         </div>

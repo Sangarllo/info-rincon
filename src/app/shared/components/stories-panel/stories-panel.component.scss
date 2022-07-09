@@ -1,91 +1,131 @@
-@import '../../../../base/variables';
-.stories-wrapper {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    overflow-x: auto;
-    width: 100%;
-    background-color: $color2;
-    img {
-        &.NEWS_ITEM,
-        &.LINK {
-            border: 1px solid $colorLinkFront;
-            background-color: $colorLinkBack;
-        }
-        &.NOTICE {
-            border: 1px solid $colorNoticeFront;
-            background-color: $colorNoticeBack;
-        }
-        &.EVENT {
-            border: 1px solid $colorEventFront;
-            background-color: $colorEventBack;
+    @import '../../../../base/variables';
+    .memories-wrapper,
+    .stories-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        overflow-x: auto;
+        width: 100%;
+        background-color: $color2;
+        img {
+            &.NEWS_ITEM,
+            &.LINK {
+                border: 1px solid $colorLinkFront;
+                background-color: $colorLinkBack;
+            }
+            &.NOTICE {
+                border: 1px solid $colorNoticeFront;
+                background-color: $colorNoticeBack;
+            }
+            &.EVENT {
+                border: 1px solid $colorEventFront;
+                background-color: $colorEventBack;
+            }
         }
     }
-}
 
-.memories-wrapper {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    overflow-x: auto;
-    width: 100%;
-    background-color: $color2;
-    .memory-item {
-        // .memory-img {
-        //     border: 1px solid blue;
-        //     background-color: white;
-        // }
-        // .memory-type {
-        //     border: 1px solid red;
-        //     background-color: white;
-        // }
-    }
-}
-
-@media screen and (max-width: $maxMobileWidth) {
     .memories-wrapper {
-        height: 80px;
+        overflow-y: hidden;
         .memory-item {
-            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 80px;
+            .memory-point {
+                display: inline-block;
+            }
+            .memory-name {
+                z-index: 1;
+                line-height: 1em;
+                text-transform: uppercase;
+                width: 100%;
+                text-align: center;
+                font-size: smaller;
+                color: $color2;
+                background-color: $color1;
+                border-radius: 3px;
+                .icon {
+                    font-size: large;
+                    padding-right: 4px;
+                }
+                .title {
+                    font-size: small;
+                    color: white;
+                }
+            }
+            // .memory-badge {
+            //     position: relative;
+            //     background-color: white;
+            //     color: white;
+            //     padding: 2px 2px;
+            //     text-align: center;
+            //     border-radius: 10px;
+            //     border: 1px solid $color1;
+            //     z-index: 1;
+            //     width: 32px;
+            //     top: -10px;
+            //     align-self: flex-start;
+            // }
+            .memory-timestamp {
+                z-index: 1;
+                line-height: 1em;
+                color: $color1;
+                align-self: flex-end;
+                z-index: 1;
+                border-radius: 5px;
+                padding: 0px 3px;
+                font-size: x-small;
+                margin-top: 4px;
+                margin-bottom: 2px;
+            }
+            .memory-img {
+                // position: relative;
+                top: -32px;
+            }
+        }
+    }
+
+    @media screen and (max-width: $maxMobileWidth) {
+        .memories-wrapper {
+            height: 80px;
+            .memory-item {
+                margin: 5px;
+                img {
+                    border-radius: 16%;
+                    width: 60px;
+                    padding: 4px;
+                }
+            }
+        }
+        .stories-wrapper {
+            height: 80px;
             img {
+                margin: 5px;
                 border-radius: 16%;
                 width: 60px;
                 padding: 4px;
             }
         }
     }
-    .stories-wrapper {
-        height: 80px;
-        img {
-            margin: 5px;
-            border-radius: 16%;
-            width: 60px;
-            padding: 4px;
-        }
-    }
-}
 
-@media screen and (min-width: $minTabletWidth) {
-    .memories-wrapper {
-        height: 100px;
-        .memory-item {
-            margin: 10px;
+    @media screen and (min-width: $minTabletWidth) {
+        .memories-wrapper {
+            height: 100px;
+            .memory-item img {
+                border-radius: 16%;
+                width: 80px;
+                padding: 4px;
+                margin: 10px;
+            }
+        }
+        .stories-wrapper {
+            height: 100px;
             img {
+                margin: 10px;
                 border-radius: 16%;
                 width: 80px;
                 padding: 4px;
             }
         }
     }
-    .stories-wrapper {
-        height: 100px;
-        img {
-            margin: 10px;
-            border-radius: 16%;
-            width: 80px;
-            padding: 4px;
-        }
-    }
-}
