@@ -39,6 +39,16 @@
         </mat-card>
     </div>
 
+    <!-- Tus entidades - For AUTOR/ADMIN -->
+    <div class="option-item col-3">
+        <mat-card *appRole="['AUTOR', 'ADMIN']" (click)="gotoEntitiesOwnDashboard()">
+            <mat-card-title>Tus<br/>entidades</mat-card-title>
+            <div class="option-image">
+                <img alt="'Tus entidades'" [src]="'assets/images/goto/my-entities.png'" class="img-thumbnail" />
+            </div>
+        </mat-card>
+    </div>
+
 </div>
 <!-- FIN DE CREACIÓN DE EVENTOS -->
 
@@ -75,7 +85,8 @@
         </mat-card>
     </div>
 
-    <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="option-item col-3">
+    <!-- Tus entidades - For SUPER -->
+    <div *appRole="['SUPER']" class="option-item col-3">
         <mat-card (click)="gotoEntitiesOwnDashboard()">
             <mat-card-title>Tus<br/>entidades</mat-card-title>
             <div class="option-image">

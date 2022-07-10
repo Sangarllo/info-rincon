@@ -10,11 +10,13 @@
             Te hemos enviado un correo electrónico para verificar tu cuenta ({{ user.email }}). Si no lo has recibido, por favor, revisa tu bandeja de correo no deseado o en la carpeta de spam, o haz clic <a href="{{ user.emailVerifiedLink }}">aquí</a>            para reenviar el correo electrónico.
         </h3>
 
-        <div class="section-main-info">Con tu rol de <span class="role">{{ user.role }}</span> en la aplicación puedes hacer lo siguiente:</div>
+        <div *appRole="['LECTOR']" class="section-main-info">Al estar registrado en la Agenda puedes suscribirte a eventos y entidades favoritas</div>
+
+        <div *appRole="['AUTOR', 'ADMIN', 'SUPER']" class="section-main-info">Con tu rol de <span class="role">{{ user.role }}</span> en la aplicación puedes hacer lo siguiente:</div>
 
         <div class="options-wrapper">
 
-            <div class="option-item col-3">
+            <div *appRole="['SUPER']" class="option-item col-3">
                 <mat-card [routerLink]="'../perfil'">
                     <mat-card-title>Cuenta<br/>Personal</mat-card-title>
                     <div class="option-image">
