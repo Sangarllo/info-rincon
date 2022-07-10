@@ -12,6 +12,7 @@ import { CalendarEventsService } from '@services/calendar-events.service';
 import { NoticeService } from '@services/notices.service';
 import { StoriesService } from '@services/stories.service';
 import { SeoService } from '@services/seo.service';
+import { SupportedItemsService } from '@services/supported-items.service';
 
 @Component({
   selector: 'app-home',
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit {
     private calEventsSrv: CalendarEventsService,
     private noticesSrv: NoticeService,
     private storiesSrv: StoriesService,
+    private supportedItemsSrv: SupportedItemsService,
     private seo: SeoService,
     ) {
     }
@@ -57,7 +59,7 @@ export class HomeComponent implements OnInit {
     this.nextStories$ = this.storiesSrv.getNextStories();
     this.fixedStories$ = this.storiesSrv.getFixedStories();
     this.lastMemories$ = this.storiesSrv.getLastMemories();
-
+    this.supportedItemsSrv.getSupportedData();
 
     this.seo.generateTags({
       title: 'Agenda Rinconera | Rincón de Soto',

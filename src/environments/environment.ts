@@ -1,12 +1,13 @@
 export const environment = {
   production: false,
-  appVersion: '2.0.2.056',
-  releaseDate: '2022-07-09 22:00',
+  appVersion: '2.0.2.057',
+  releaseDate: '2022-07-10 20:00',
   baseUrl: 'https://agendarinconera.es',
   // baseUrl: 'http://localhost:4200',
   setAudit: true,
   storiesNDaysAhead: 8,
   storiesNDaysBehind: 8,
+  supportedNDaysBehind: 7,
   loginWithLogin: false,
   firebase: {
     apiKey: 'AIzaSyChFHMB9Kj4sEBdPKLRWu-JFVMg7gketuM',
