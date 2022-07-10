@@ -15,6 +15,7 @@ import { IItemSocial } from '@models/item-social';
 import { AuditSocialType } from '@models/audit-social';
 import { BaseType } from '@models/base';
 import { AuditSocialService } from '@services/audit-social.service';
+import { SupportedItemsService } from './supported-items.service';
 
 const ITEMS_SOCIAL_COLLECTION = 'eventos-social'; // TODO rename items-social
 
@@ -29,6 +30,7 @@ export class ItemSocialService {
   constructor(
     private afs: AngularFirestore,
     private auditSocialSrv: AuditSocialService,
+    private supportedItemsService: SupportedItemsService,
   ) {
     this.itemSocialCollection = afs.collection(ITEMS_SOCIAL_COLLECTION);
   }
@@ -97,6 +99,12 @@ export class ItemSocialService {
     const itemId = itemSocial.id;
     this.itemSocialDoc = this.afs.doc<IItemSocial>(`${ITEMS_SOCIAL_COLLECTION}/${itemId}`);
     itemSocial.nClaps = ( itemSocial.nClaps ) ? itemSocial.nClaps+1 : 1;
+
+    // Support
+    this.supportedItemsService.addSupportedItem(
+      itemId,
+      baseType,
+    );
 
     // Audit
     this.auditSocialSrv.addAuditSocialItem(

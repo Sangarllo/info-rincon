@@ -7,6 +7,7 @@ export const environment = {
   setAudit: true,
   storiesNDaysAhead: 8,
   storiesNDaysBehind: 8,
+  supportedNDaysBehind: 7,
   loginWithLogin: false,
   firebase: {
     apiKey: 'AIzaSyChFHMB9Kj4sEBdPKLRWu-JFVMg7gketuM',
