@@ -131,6 +131,8 @@ export class EntityViewComponent implements OnInit, OnDestroy {
         confirmButtonColor: '#003A59',
       });
     }
+
+    this.userSrv.updateUser(this.userLogged);
   }
 
   public gotoList(): void {

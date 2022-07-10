@@ -72,6 +72,7 @@ export class BaseItemsListComponent {
 
   public setEntityFav(isFav: boolean, entityItem: IBase): void {
 
+    debugger;
     this.userLogged.favEntities = this.userLogged.favEntities ?? [];
     this.userLogged.favEntities = this.userLogged.favEntities.filter( (itemId: string) => itemId !== entityItem.id );
 
@@ -88,6 +89,7 @@ export class BaseItemsListComponent {
             });
 
     } else {
+
           this.itemSocialSrv.removeFavourite(entityId, BaseType.ENTITY, entityName, this.userLogged.uid, this.userLogged.displayName);
 
           Swal.fire({
