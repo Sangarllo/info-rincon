@@ -59,7 +59,8 @@ export class HomeComponent implements OnInit {
     this.nextStories$ = this.storiesSrv.getNextStories();
     this.fixedStories$ = this.storiesSrv.getFixedStories();
     this.lastMemories$ = this.storiesSrv.getLastMemories();
-    this.supportedItemsSrv.getSupportedData();
+    // TODO Show supported items
+    // this.supportedItemsSrv.getSupportedData();
 
     this.seo.generateTags({
       title: 'Agenda Rinconera | Rincón de Soto',

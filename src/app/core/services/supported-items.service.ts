@@ -52,7 +52,7 @@ export class SupportedItemsService {
     this.getAllSupportedItems()
       .subscribe((supported: ISupportedItem[]) => {
         for (const item of supported) {
-          console.log(`item: ${JSON.stringify(item)}`);
+          // console.log(`item: ${JSON.stringify(item)}`);
           const key = item.id;
           if ( data[item.id] ) {
             data[item.id]++;
