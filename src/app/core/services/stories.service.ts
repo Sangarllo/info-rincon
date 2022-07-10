@@ -106,10 +106,9 @@ export class StoriesService {
     dateMax.setDate(dateMax.getDate() + 1);
     const dateMaxStr = dateMax.toISOString().substr(0, 10);
 
-
-    console.log(`dateMinStr: ${dateMinStr}`);
-    console.log(`dateTodayStr: ${dateTodayStr}`);
-    console.log(`dateMaxStr: ${dateMaxStr}`);
+    // console.log(`dateMinStr: ${dateMinStr}`);
+    // console.log(`dateTodayStr: ${dateTodayStr}`);
+    // console.log(`dateMaxStr: ${dateMaxStr}`);
 
     const memories$ = this.linksItemSrv.getLinksItemByRange(dateMinStr, dateMaxStr)
 

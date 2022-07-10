@@ -13,7 +13,6 @@ import { SwalMessage, UtilsService } from '@services/utils.service';
 export class StoriesPanelComponent implements OnInit {
 
   @Input() stories: IBase[];
-  @Input() favEvents: IBase[];
   @Input() memories: IBase[];
 
   constructor(

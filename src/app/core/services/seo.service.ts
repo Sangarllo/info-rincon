@@ -21,7 +21,7 @@ export class SeoService {
   ) { }
 
   generateTags({ title = '', description = '', image = '' }): void {
-    console.log(`generating tags: ${title} | ${description} | ${image}`);
+    // console.log(`generating tags: ${title} | ${description} | ${image}`);
     this.title.setTitle(title);
 
     // Open Graph

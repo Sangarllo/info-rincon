@@ -316,7 +316,6 @@ export class EventService {
     return combineLatest(eventsObs);
   }
 
-
   async addEvent(event: IEvent): Promise<any> {
 
     const currentUser = await this.afAuth.currentUser;

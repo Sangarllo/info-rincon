@@ -53,7 +53,7 @@ export class CalendarHeaderComponent implements OnInit, OnDestroy {
       this.userSrv.getOneUser(uidUser)
       .subscribe( (user: IUser) => {
         this.userLogged = user;
-        this.favEntities = this.userLogged.favEntities;
+        this.favEntities = this.userLogged?.favEntities;
       });
     });
 

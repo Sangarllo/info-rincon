@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { LogService } from '@services/log.service';
@@ -63,7 +63,10 @@ export class UserService {
   }
 
   getOneUser(uidUser: string): Observable<IUser | undefined> {
-    return this.userCollection.doc(uidUser)
+    if ( uidUser === undefined ) {
+      return of(undefined);
+    } else {
+      return this.userCollection.doc(uidUser)
       .valueChanges({ uidField: 'uid' })
       .pipe(
         map(user => {
@@ -71,6 +74,7 @@ export class UserService {
           return { ...user };
         })
       );
+    }
   }
 
 
