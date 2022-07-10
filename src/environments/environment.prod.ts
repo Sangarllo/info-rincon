@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  appVersion: '2.0.2.057',
-  releaseDate: '2022-07-10 20:00',
+  appVersion: '2.0.2.058',
+  releaseDate: '2022-07-11 00:00',
   baseUrl: 'https://agendarinconera.es',
   setAudit: true,
   storiesNDaysAhead: 7,

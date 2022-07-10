@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `social` Fix name of variable for claps and favorites.
 - `feature` Reset tags in home page.
 - `feature` Lector Role has option to select fav entity.
+- `security` CanConfig depends also on entityArray.
 
 ### Update
 

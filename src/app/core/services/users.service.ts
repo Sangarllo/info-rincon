@@ -162,22 +162,37 @@ export class UserService {
     return userRef.set(data, { merge: true });
   }
 
-  canConfig( userLogged: IUser, usersArray: string[]): boolean {
+  canConfig( userLogged: IUser, eventUsersArray?: string[], eventEntitiesArray?: string[]): boolean {
 
     // console.log(`userLogged: ${userLogged.uid}|${userLogged.displayName}|${userLogged.role}`);
     // console.log(`event: ${usersArray}`);
 
+
+    // A) SUPER || ADMIN
     if (
         ( userLogged.role === UserRole.Super ) ||
         ( userLogged.role === UserRole.Admin ) ){
       return true;
     }
 
-    if ( usersArray &&
+    // B) AUTOR && event.eventUsersArray
+    if ( eventUsersArray &&
         (userLogged.role === UserRole.Autor ) &&
-        (usersArray?.includes(userLogged.uid))
+        (eventUsersArray?.includes(userLogged.uid))
     ) {
       return true;
+    }
+
+    // C) AUTOR && event.eventEntitesArray
+    if ( eventEntitiesArray &&
+        userLogged.entitiesAdmin &&
+        (userLogged.role === UserRole.Autor )
+    ) {
+      userLogged.entitiesAdmin.forEach( entityAdmin => {
+        if ( eventEntitiesArray.includes( entityAdmin.id ) ) {
+          return true;
+        }
+      });
     }
 
     return false;

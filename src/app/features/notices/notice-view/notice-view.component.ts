@@ -167,6 +167,6 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
   }
 
   private canConfig(userLogged: IUser): boolean {
-    return this.userSrv.canConfig(userLogged, null);
+    return this.userSrv.canConfig(userLogged, null, null);
   }
 }

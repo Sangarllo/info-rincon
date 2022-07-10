@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 /* eslint-disable max-len */
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
@@ -72,7 +71,6 @@ export class BaseItemsListComponent {
 
   public setEntityFav(isFav: boolean, entityItem: IBase): void {
 
-    debugger;
     this.userLogged.favEntities = this.userLogged.favEntities ?? [];
     this.userLogged.favEntities = this.userLogged.favEntities.filter( (itemId: string) => itemId !== entityItem.id );
 

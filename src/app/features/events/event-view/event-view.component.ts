@@ -53,7 +53,6 @@ export class EventViewComponent implements OnInit, OnDestroy {
             this.userSrv.getOneUser(user.uid)
                 .subscribe( (userLogged: any ) => {
                     this.userLogged = userLogged;
-                    this.configAllowed = this.canConfig(this.userLogged);
                 });
           }
       });
@@ -86,6 +85,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
     const subs2$ = this.eventSrv.getOneEvent(idEvent)
       .subscribe(async (event: IEvent) => {
           this.event = event;
+          this.configAllowed = this.canConfig(this.userLogged);
       });
 
     // Link Items
@@ -131,6 +131,10 @@ export class EventViewComponent implements OnInit, OnDestroy {
   }
 
   private canConfig(userLogged: IUser): boolean {
-    return this.userSrv.canConfig(userLogged, this.event?.usersArray);
+    if ( userLogged ) {
+      return this.userSrv.canConfig(userLogged, this.event.usersArray, this.event.entitiesArray);
+    } else {
+      return false;
+    }
   }
 }
