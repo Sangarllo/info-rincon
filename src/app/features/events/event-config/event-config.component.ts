@@ -511,24 +511,38 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       }
   }
 
-  deleteEntity(base: IBase): void {
-    this.logSrv.info(`deleteEntity: ${JSON.stringify(base)}`);
+  deleteBase(base: IBase): void {
+      // this.logSrv.info(`deleteBase: ${JSON.stringify(base)}`);
 
-    const entityId = base.id;
-    this.event.entityItems = this.event.entityItems.filter(item => item.id !== entityId);
-    this.event.entitiesArray = this.event.entitiesArray.filter(itemId => itemId !== entityId);
+      const itemId = base.id;
+      let auditMessage = '';
 
-    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizadas sus entidades');
+      switch ( base.baseType ){
+
+          case BaseType.ENTITY:
+
+              this.event.entityItems = this.event.entityItems.filter(item => item.id !== itemId);
+              this.event.entitiesArray = this.event.entitiesArray.filter(itemId => itemId !== itemId);
+              auditMessage = 'Actualizadas sus entidades'
+              break;
+
+          case BaseType.PLACE:
+
+              this.event.placeItems = this.event.placeItems.filter(item => item.id !== itemId);
+              auditMessage = 'Actualizadas sus ubicaciones'
+              break;
+
+          case BaseType.LINK:
+
+              this.linksItemSrv.deleteLinkItem(base.id);
+              auditMessage = 'Eliminado uno de sus links'
+      }
+
+      this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, auditMessage);
+
   }
 
-  deletePlace(base: IBase): void {
-    this.logSrv.info(`deletePlace: ${JSON.stringify(base)}`);
 
-    const placeId = base.id;
-    this.event.placeItems = this.event.placeItems.filter(item => item.id !== placeId);
-
-    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado placeItems');
-  }
 
   ngOnDestroy(): void {
     this.listOfObservers.forEach(sub => sub.unsubscribe());

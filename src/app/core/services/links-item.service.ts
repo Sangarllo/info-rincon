@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Observable } from 'rxjs';
@@ -17,6 +17,7 @@ const LINKS_ITEM_COLLECTION = 'enlaces-item';
 export class LinksItemService {
 
   private linksItemCollection!: AngularFirestoreCollection<ILinkItem>;
+  private linkItemDoc!: AngularFirestoreDocument<ILinkItem>;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -70,8 +71,16 @@ export class LinksItemService {
         'Usuario registrado'
         );
 
-      linkItem.id = this.afs.createId();
+      const id = this.afs.createId();
+      linkItem.id = id;
       linkItem.timestamp = this.appointmentSrv.getTimestamp();
-      this.linksItemCollection.doc().set(Object.assign({}, linkItem));
+      this.linksItemCollection.doc(id)
+        .set(Object.assign({}, linkItem));
   }
+
+  deleteLinkItem(linkItemid: string): void {
+      this.linkItemDoc = this.afs.doc<ILinkItem>(`${LINKS_ITEM_COLLECTION}/${linkItemid}`);
+      this.linkItemDoc.delete();
+  }
+
 }

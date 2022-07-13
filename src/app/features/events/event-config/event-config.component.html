@@ -117,7 +117,7 @@
 
                         <legend>¿Dónde?</legend>
 
-                        <sh-base-items-list [baseItems]="event.placeItems" [modeAdmin]="true" (deleteBase)="deletePlace($event)"></sh-base-items-list>
+                        <sh-base-items-list [baseItems]="event.placeItems" [modeAdmin]="true" (deleteBase)="deleteBase($event)"></sh-base-items-list>
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="openPlaceDialog()">
@@ -131,7 +131,7 @@
 
                         <legend>¿Quiénes?</legend>
 
-                        <sh-base-items-list [baseItems]="event.entityItems" [modeAdmin]="true" (deleteBase)="deleteEntity($event)"></sh-base-items-list>
+                        <sh-base-items-list [baseItems]="event.entityItems" [modeAdmin]="true" (deleteBase)="deleteBase($event)"></sh-base-items-list>
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="openEntityDialog()">
@@ -163,7 +163,7 @@
 
                         <legend>¿Cómo fue?</legend>
 
-                        <sh-base-items-list *ngIf="linksItem" [baseItems]="linksItem" [modeAdmin]="false"></sh-base-items-list>
+                        <sh-base-items-list *ngIf="linksItem" [baseItems]="linksItem" [modeAdmin]="true" (deleteBase)="deleteBase($event)"></sh-base-items-list>
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="openLinkItemDialog('')" color="accent">
