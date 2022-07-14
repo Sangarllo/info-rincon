@@ -25,7 +25,7 @@
             }
         }
     }
-
+    
     .memories-wrapper {
         overflow-y: hidden;
         .memory-item {
@@ -38,7 +38,7 @@
             }
             .memory-name {
                 z-index: 1;
-                line-height: 1em;
+                line-height: 2em;
                 text-transform: uppercase;
                 width: 100%;
                 text-align: center;
@@ -51,7 +51,7 @@
                     padding-right: 4px;
                 }
                 .title {
-                    font-size: small;
+                    font-size: x-large;
                     color: white;
                 }
             }
@@ -70,7 +70,7 @@
             // }
             .memory-timestamp {
                 z-index: 1;
-                line-height: 1em;
+                line-height: 2em;
                 color: $color1;
                 align-self: flex-end;
                 z-index: 1;
@@ -86,48 +86,48 @@
             }
         }
     }
-
+    
     @media screen and (max-width: $maxMobileWidth) {
         .memories-wrapper {
-            height: 80px;
+            height: 300px; // last 80
             .memory-item {
                 margin: 5px;
                 img {
                     border-radius: 16%;
-                    width: 60px;
+                    width: 180px; // last 60px;
                     padding: 4px;
                 }
             }
         }
         .favEvents-wrapper,
         .stories-wrapper {
-            height: 80px;
+            height: 300px; // last 80
             img {
                 margin: 5px;
                 border-radius: 16%;
-                width: 60px;
+                // width: 60px;
                 padding: 4px;
             }
         }
     }
-
+    
     @media screen and (min-width: $minTabletWidth) {
         .memories-wrapper {
-            height: 100px;
+            height: 300px; // last 80
             .memory-item img {
                 border-radius: 16%;
-                width: 80px;
+                width: 180px; // last 80
                 padding: 4px;
                 margin: 10px;
             }
         }
         .favEvents-wrapper,
         .stories-wrapper {
-            height: 100px;
+            height: 300px; // last 80
             img {
                 margin: 10px;
                 border-radius: 16%;
-                width: 80px;
+                // width: 80px;
                 padding: 4px;
             }
         }
