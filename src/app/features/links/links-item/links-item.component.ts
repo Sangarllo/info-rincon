@@ -8,6 +8,7 @@ import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 import { ILinkItem } from '@models/link-item';
+import { LinkType } from '@models/link-item-type.enum';
 import { IUser } from '@models/user';
 import { Event } from '@models/event';
 import { BaseType } from '@models/base';
@@ -22,7 +23,8 @@ import { LinksItemService } from '@services/links-item.service';
 })
 export class LinksItemComponent implements OnInit, OnDestroy {
 
-  public linkItems: ILinkItem[] = [];
+  public linkItemsInfo: ILinkItem[] = [];
+  public linkItemsReport: ILinkItem[] = [];
   private listOfObservers: Array<Subscription> = [];
   private currentUser: IUser;
 
@@ -40,7 +42,7 @@ export class LinksItemComponent implements OnInit, OnDestroy {
     const dateMin = '2022-01-01';
     const dateMax = '2025-01-01';
 
-      const subs2$ = this.linksItemsSrv.getLinksItemByRange(dateMin, dateMax)
+    const subs2$ = this.linksItemsSrv.getLinksItemByRange(dateMin, dateMax, LinkType.INFO)
 
       .pipe(
         map(linksItems => linksItems.map(item => {
@@ -51,11 +53,31 @@ export class LinksItemComponent implements OnInit, OnDestroy {
         }))
       )
       .subscribe( (linkItems: ILinkItem[]) => {
-          this.linkItems = linkItems;
+          this.linkItemsInfo = linkItems;
           this.spinnerSvc.hide();
       });
 
       this.listOfObservers.push(subs2$);
+
+
+    const subs3$ = this.linksItemsSrv.getLinksItemByRange(dateMin, dateMax, LinkType.REPORT)
+
+      .pipe(
+        map(linksItems => linksItems.map(item => {
+
+          item.timestamp = formatDistance(new Date(item.timestamp), new Date(), {locale: es});
+
+          return { ...item };
+        }))
+      )
+      .subscribe( (linkItems: ILinkItem[]) => {
+          this.linkItemsReport = linkItems;
+          this.spinnerSvc.hide();
+      });
+
+      this.listOfObservers.push(subs3$);
+
+
   }
 
   gotoItem(item: ILinkItem): void {

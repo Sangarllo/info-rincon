@@ -17,6 +17,7 @@ import { AuditType } from '@models/audit';
 import { IComment } from '@models/comment';
 import { IPicture } from '@models/picture';
 import { ILinkItem } from '@models/link-item';
+import { LinkType } from '@models/link-item-type.enum'
 import { CommentsService } from '@services/comments.service';
 import { EventService } from '@services/events.service';
 import { ItemSocialService } from '@services/items-social.service';
@@ -59,7 +60,10 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   public audit = environment.setAudit;
   public socialUsersFav = [];
   public socialNClaps = 0;
-  public linksItem = [];
+  public linksItemInfo = [];
+  public LINK_TYPE_INFO = LinkType.INFO;
+  public linksItemReport = [];
+  public LINK_TYPE_REPORT = LinkType.REPORT;
   private currentUser: IUser;
   private listOfObservers: Array<Subscription> = [];
 
@@ -125,10 +129,14 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       });
 
       // Link Items
-      this.linksItemSrv.getLinksItemByItemId(idEvent)
+      this.linksItemSrv.getLinksItemByItemId(idEvent, LinkType.INFO)
         .subscribe((linksItem: ILinkItem[]) => {
-          // console.log(`linksItem: ${JSON.stringify(linksItem)}`);
-          this.linksItem = linksItem;
+          this.linksItemInfo = linksItem;
+        });
+
+      this.linksItemSrv.getLinksItemByItemId(idEvent, LinkType.REPORT)
+        .subscribe((linksItem: ILinkItem[]) => {
+          this.linksItemReport = linksItem;
         });
 
       this.shownAsAWholeControl.setValue(String(this.event.shownAsAWhole));
@@ -284,6 +292,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     });
   }
 
+  /*
   openLinkDialog(linkItemId: string): void {
 
     console.log(`openLinkDialog ${linkItemId}`);
@@ -315,10 +324,11 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       }
     });
   }
+  */
 
-  openLinkItemDialog(linkItemId: string): void {
+  openLinkItemDialog(linkItemId: string, linkType: LinkType): void {
 
-    console.log(`openLinkItemDialog ${linkItemId}`);
+    console.log(`openLinkItemDialog ${linkItemId}, ${linkType}`);
 
     this.dialogConfig.width = '500px';
     this.dialogConfig.height = '600px';
@@ -341,6 +351,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
         this.linksItemSrv.addLinkItem(
           eventBase,
           linkItemTypeKey,
+          linkType,
           linkItem.name,
           linkItem.description,
           linkItem.sourceUrl
@@ -464,12 +475,6 @@ export class EventConfigComponent implements OnInit, OnDestroy {
             this.logSrv.info(`editBaseItemFromTable: ${JSON.stringify(base.baseType)}`);
             this.openScheduleDialog(base.id);
             break;
-
-        case BaseType.LINK:
-            this.logSrv.info(`editBaseItemFromTable: ${JSON.stringify(base.baseType)}`);
-            this.openLinkDialog(base.id);
-            break;
-
     }
   }
 

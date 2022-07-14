@@ -9,6 +9,7 @@ import { es } from 'date-fns/locale';
 import { IBase, BaseType } from '@models/base';
 import { IAppointment } from '@models/appointment';
 import { IEvent } from '@models/event';
+import { LinkType } from '@models/link-item-type.enum';
 import { EventService } from '@services/events.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { LinksItemService } from '@services/links-item.service';
@@ -110,7 +111,7 @@ export class StoriesService {
     // console.log(`dateTodayStr: ${dateTodayStr}`);
     // console.log(`dateMaxStr: ${dateMaxStr}`);
 
-    const memories$ = this.linksItemSrv.getLinksItemByRange(dateMinStr, dateMaxStr)
+    const memories$ = this.linksItemSrv.getLinksItemByRange(dateMinStr, dateMaxStr, LinkType.REPORT)
 
     .pipe(
       map(linksItems => linksItems.map(item => {

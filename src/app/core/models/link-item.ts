@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { BaseType, IBase } from '@models/base';
-import { LinkItemType, LINK_ITEM_TYPE_DEFAULT } from '@models/link-item-type.enum';
+import { LinkItemType, LinkType, LINK_ITEM_TYPE_DEFAULT } from '@models/link-item-type.enum';
 
 export interface ILinkItem {
   id: string;
@@ -11,6 +11,7 @@ export interface ILinkItem {
 
   baseType: BaseType;
   linkItemType: LinkItemType;
+  linkType: LinkType;
 
   itemId: string;
   itemName: string;
@@ -39,6 +40,7 @@ export class LinkItem implements ILinkItem, IBase {
 
     public baseType: BaseType,
     public linkItemType: LinkItemType,
+    public linkType: LinkType,
 
     public itemId: string,
     public itemName: string,
@@ -56,13 +58,13 @@ export class LinkItem implements ILinkItem, IBase {
   }
 
   static InitDefault(item: IBase,
-    linkItemType: LinkItemType,
+    linkItemType: LinkItemType, linkType: LinkType,
     name: string, description: string, sourceUrl: string,
     sourceUid: string, sourceName: string, sourceType: string ): LinkItem {
     return new LinkItem(
       '0', true, name,
       item.imageId, item.imagePath,
-      BaseType.LINK, linkItemType, // BaseType, LinkItemType,
+      BaseType.LINK, linkItemType, linkType, // BaseType, LinkItemType, Linktype,
       item.id, item.name, item.baseType, // itemId, itemType
       description, null, sourceUrl, // desc, Timestamp, sourceUrl,
       sourceUid, sourceName, sourceType // Source

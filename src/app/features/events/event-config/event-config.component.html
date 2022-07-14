@@ -145,14 +145,12 @@
 
                         <legend>¿Más info?</legend>
 
-                        <sh-base-items-table [baseItems]="event.linkItems" [baseType]="baseType" [modeAdmin]="true" (changeOrderBase)="changeOrderBaseItemFromTable($event)" (addBase)="addBaseItemFromTable($event)" (deleteBase)="deleteBaseItemFromTable($event)" (editBase)="editBaseItemFromTable($event)"
-                            (deleteForeverBase)="deleteForeverBaseItemFromTable($event)">
-                        </sh-base-items-table>
+                        <sh-base-items-list *ngIf="linksItemInfo" [baseItems]="linksItemInfo" [modeAdmin]="true" (deleteBase)="deleteBase($event)"></sh-base-items-list>
 
                         <div class="buttons">
-                            <button mat-fab class="btn-1" (click)="openLinkDialog('')" color="accent">
-                              <mat-icon>playlist_add</mat-icon>
-                          </button>
+                            <button mat-fab class="btn-1" (click)="openLinkItemDialog('', LINK_TYPE_INFO)" color="accent">
+                                <mat-icon>playlist_add</mat-icon>
+                            </button>
                         </div>
 
                     </fieldset>
@@ -163,12 +161,12 @@
 
                         <legend>¿Cómo fue?</legend>
 
-                        <sh-base-items-list *ngIf="linksItem" [baseItems]="linksItem" [modeAdmin]="true" (deleteBase)="deleteBase($event)"></sh-base-items-list>
+                        <sh-base-items-list *ngIf="linksItemReport" [baseItems]="linksItemReport" [modeAdmin]="true" (deleteBase)="deleteBase($event)"></sh-base-items-list>
 
                         <div class="buttons">
-                            <button mat-fab class="btn-1" (click)="openLinkItemDialog('')" color="accent">
-                            <mat-icon>playlist_add</mat-icon>
-                        </button>
+                            <button mat-fab class="btn-1" (click)="openLinkItemDialog('', LINK_TYPE_REPORT)" color="accent">
+                                <mat-icon>playlist_add</mat-icon>
+                            </button>
                         </div>
 
                     </fieldset>

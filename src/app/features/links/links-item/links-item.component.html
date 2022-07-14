@@ -1,6 +1,27 @@
 <app-section-header [title]="'Panel de enlaces de eventos'"></app-section-header>
 
-<div class="items__container" *ngFor="let item of linkItems">
+<div class="items__container" *ngFor="let item of linkItemsInfo">
+
+    <section class="item">
+
+        <div class="item-image" href="#">
+            <img class="circle" [src]="item.imagePath" [alt]="item.name">
+        </div>
+        <div class="item-body">
+            <div class="item-timestamp">hace {{item.timestamp}}</div>
+            <div class="item-heading-audit">{{item.name}}</div>
+            <div class="item-title-audit" (click)="gotoItem(item)">🏷️​ {{item.itemName}}</div>
+            <div *ngIf="item.sourceName" class="item-data">🙂​ {{item.sourceName}}</div>
+            <div *ngIf="item.text" class="item-data">💬 {{item.text}}</div>
+            ​
+        </div>
+
+    </section>
+
+</div>
+
+
+<div class="items__container" *ngFor="let item of linkItemsReport">
 
     <section class="item">
 

@@ -5,8 +5,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Observable } from 'rxjs';
 
-import { BaseType, IBase } from '@models/base';
+import { IBase } from '@models/base';
 import { ILinkItem, LinkItem } from '@models/link-item';
+import { LinkType } from '@models/link-item-type.enum';
 import { AppointmentsService } from '@services/appointments.service';
 
 const LINKS_ITEM_COLLECTION = 'enlaces-item';
@@ -27,12 +28,13 @@ export class LinksItemService {
     this.linksItemCollection = afs.collection(LINKS_ITEM_COLLECTION);
   }
 
-  getLinksItemByItemId(itemId: string): Observable<ILinkItem[]> {
+  getLinksItemByItemId(itemId: string, linkType: LinkType): Observable<ILinkItem[]> {
 
     this.linksItemCollection = this.afs.collection<ILinkItem>(
       LINKS_ITEM_COLLECTION,
       ref => ref.where('itemId', '==', itemId)
                 .where('active', '==', true)
+                .where('linkType', '==', linkType)
                 .orderBy('timestamp', 'desc')
   );
 
@@ -40,13 +42,14 @@ export class LinksItemService {
 }
 
 
-  getLinksItemByRange(dateMin: string, dateMax: string): Observable<ILinkItem[]> {
+  getLinksItemByRange(dateMin: string, dateMax: string, linkType: LinkType): Observable<ILinkItem[]> {
 
       this.linksItemCollection = this.afs.collection<ILinkItem>(
         LINKS_ITEM_COLLECTION,
         ref => ref.where('active', '==', true)
                   .where('timestamp', '>=', dateMin)
                   .where('timestamp', '<=', dateMax)
+                  .where('linkType', '==', linkType)
                   .orderBy('timestamp', 'desc')
                   .limit(100)
     );
@@ -55,7 +58,10 @@ export class LinksItemService {
   }
 
   // TODO Add Source params
-  async addLinkItem(item: IBase, linkItemTypeKey: string, name: string, description: string, sourceUrl: string ): Promise<void> {
+  async addLinkItem(
+      item: IBase,
+      linkItemTypeKey: string, linkType: LinkType,
+      name: string, description: string, sourceUrl: string ): Promise<void> {
 
       const currentUser = await this.afAuth.currentUser;
       const linkItemType = LinkItem.getLinkItemType(linkItemTypeKey);
@@ -63,6 +69,7 @@ export class LinksItemService {
       const linkItem = LinkItem.InitDefault(
         item,
         linkItemType,
+        linkType,
         name,
         description,
         sourceUrl,

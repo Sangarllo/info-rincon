@@ -15,6 +15,7 @@ import { EventService } from '@services/events.service';
 import { LinksItemService } from '@services/links-item.service';
 import { UserService } from '@services/users.service';
 import { AppointmentsService } from '@services/appointments.service';
+import { LinkType } from '@models/link-item-type.enum';
 
 @Component({
   selector: 'app-event-view',
@@ -26,7 +27,8 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public userLogged: IUser;
   public configAllowed: boolean;
   public event: IEvent;
-  public linksItem = [];
+  public linksItemReport = [];
+  public linksItemInfo = [];
   public idEventUrl: string;
   public idEvent: string;
   public idSubevent: string;
@@ -89,11 +91,16 @@ export class EventViewComponent implements OnInit, OnDestroy {
       });
 
     // Link Items
-    const subs3$ = this.linksItemSrv.getLinksItemByItemId(idEvent)
+    const subs3$ = this.linksItemSrv.getLinksItemByItemId(idEvent, LinkType.INFO)
         .subscribe((linksItem: ILinkItem[]) => {
-          // console.log(`linksItem: ${JSON.stringify(linksItem)}`);
-          this.linksItem = linksItem;
+          this.linksItemInfo = linksItem;
         });
+
+    const subs4$ = this.linksItemSrv.getLinksItemByItemId(idEvent, LinkType.REPORT)
+        .subscribe((linksItem: ILinkItem[]) => {
+          this.linksItemReport = linksItem;
+        });
+
 
     this.listOfObservers.push( subs2$ );
     this.listOfObservers.push( subs3$ );

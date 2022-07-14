@@ -74,21 +74,21 @@
 
                     </fieldset>
 
-                    <fieldset class="type-other" *ngIf="event.linkItems?.length > 0">
+                    <fieldset class="type-other" *ngIf="linksItemInfo.length > 0">
 
                         <legend>Más info</legend>
 
-                        <sh-base-items-table [baseItems]="event.linkItems" [baseType]="'LINK'" [modeAdmin]="false">
-                        </sh-base-items-table>
+                        <sh-base-items-list [baseItems]="linksItemInfo" [baseType]="'LINK'" [modeAdmin]="false">
+                        </sh-base-items-list>
 
                     </fieldset>
 
-                    <fieldset class="type-other" *ngIf="linksItem?.length > 0">
+                    <fieldset class="type-other" *ngIf="linksItemReport?.length > 0">
 
                         <legend>Cómo fue</legend>
 
-                        <sh-base-items-table [baseItems]="linksItem" [baseType]="'LINK'" [modeAdmin]="false">
-                        </sh-base-items-table>
+                        <sh-base-items-list [baseItems]="linksItemReport" [baseType]="'LINK'" [modeAdmin]="false">
+                        </sh-base-items-list>
 
                     </fieldset>
 

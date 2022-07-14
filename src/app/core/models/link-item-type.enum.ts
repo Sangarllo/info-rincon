@@ -9,7 +9,6 @@ export enum LinkItemType {
   Mapa = '🧭​',
 }
 
-
 const LINK_ITEM_TYPE_DEFAULT = LinkItemType.Web;
 const LINK_ITEM_TYPES: LinkItemType[] = [
   LinkItemType.Imagen,
@@ -22,5 +21,17 @@ const LINK_ITEM_TYPES: LinkItemType[] = [
   LinkItemType.Mapa
 ];
 
-export { LINK_ITEM_TYPES, LINK_ITEM_TYPE_DEFAULT };
+export enum LinkType {
+  INFO = 'INFO',
+  REPORT = 'REPORT',
+}
+
+const LINK_TYPES: LinkType[] = [
+  LinkType.INFO,
+  LinkType.REPORT,
+];
+
+
+
+export { LINK_ITEM_TYPES, LINK_ITEM_TYPE_DEFAULT, LINK_TYPES };
 
