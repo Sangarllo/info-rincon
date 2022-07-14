@@ -23,7 +23,6 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
 
   title = 'Crea un enlace para este evento';
   event: IEvent;
-  linkItemBase: IBase;
   linkItemForm: FormGroup;
   thisLinkId: string;
   imageIdSelected: string;
@@ -56,7 +55,6 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.event = this.data.event;
-    this.linkItemBase = this.data.linkItemBase;
 
     this.getPictures();
 
@@ -87,7 +85,7 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
       description: name,
       imageId: this.imageIdSelected,
       imagePath: this.imagePathSelected,
-      sourceUrl: this.linkItemBase?.description,
+      sourceUrl: '',
     });
   }
 

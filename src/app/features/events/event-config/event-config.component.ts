@@ -34,9 +34,7 @@ import { EventAppointmentDialogComponent } from '@features/events/event-appointm
 import { EventImageDialogComponent } from '@features/events/event-image-dialog/event-image-dialog.component';
 import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dialog/event-new-base-dialog.component';
 import { EventScheduleDialogComponent } from '@features/events/event-schedule-dialog/event-schedule-dialog.component';
-import { EventLinkDialogComponent } from '@features/events/event-link-dialog/event-link-dialog.component';
 import { LinkItemDialogComponent } from '@features/links/link-item-dialog/link-item-dialog.component';
-import { LinkItemType, LINK_ITEM_TYPES, LINK_ITEM_TYPE_DEFAULT } from '@models/link-item-type.enum';
 
 
 @Component({
@@ -292,40 +290,6 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     });
   }
 
-  /*
-  openLinkDialog(linkItemId: string): void {
-
-    console.log(`openLinkDialog ${linkItemId}`);
-
-    this.dialogConfig.width = '500px';
-    this.dialogConfig.height = '500px';
-    this.dialogConfig.data = {
-      event: this.event,
-      linkItemBase: this.event.linkItems.find(item => item.id === linkItemId)
-    };
-
-    const dialogRef = this.dialog.open(EventLinkDialogComponent, this.dialogConfig);
-
-    dialogRef.afterClosed().subscribe((linkItem: IBase) => {
-
-      if ( linkItem ) {
-
-        const index = this.event.linkItems.findIndex(item => item.id === linkItem.id);
-        if ( index < 0 ) { // Adding new LinkItem
-          this.event.linkItems.push(linkItem);
-        } else {
-          this.event.linkItems[index] = linkItem;
-        }
-
-        this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado enlace');
-
-      } else {
-        this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
-      }
-    });
-  }
-  */
-
   openLinkItemDialog(linkItemId: string, linkType: LinkType): void {
 
     console.log(`openLinkItemDialog ${linkItemId}, ${linkType}`);
@@ -334,7 +298,6 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     this.dialogConfig.height = '600px';
     this.dialogConfig.data = {
       event: this.event,
-      linkItemBase: this.event.linkItems.find(item => item.id === linkItemId)
     };
 
     const dialogRef = this.dialog.open(LinkItemDialogComponent, this.dialogConfig);
@@ -399,28 +362,6 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
           this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
           break;
-
-      case BaseType.LINK:
-
-          order1 = this.event.linkItems.find(item => item.id === baseId).order;
-          order2 = order1 + change;
-          id2 = this.event.linkItems.find(item => item.order === order2).id;
-
-          // Reestablish
-          this.event.linkItems.find(item => item.id === baseId).id = id1;
-
-          // Exchange
-          this.event.linkItems.find(item => item.id === id1).order = order2;
-          this.event.linkItems.find(item => item.id === id2).order = order1;
-
-          // Order
-          this.event.linkItems = this.event.linkItems.sort((item1: IBase, item2: IBase) => {
-            if (item1.order > item2.order) { return 1; }
-            if (item1.order < item2.order) { return -1; }
-            return 0;
-          });
-
-          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
     }
   }
 
@@ -441,13 +382,6 @@ export class EventConfigComponent implements OnInit, OnDestroy {
                   ShowMode.SHOWED_AS_SLICE
           );
           break;
-
-      case BaseType.LINK:
-
-          this.event.linkItems.find(item => item.id === base.id).active = true;
-          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado enlace');
-          break;
-
     }
   }
 
@@ -459,11 +393,6 @@ export class EventConfigComponent implements OnInit, OnDestroy {
           this.event.scheduleItems.find(item => item.id === base.id).active = false;
           this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
           this.appointmentSrv.enableAppointment(base.id, false);
-          break;
-
-      case BaseType.LINK:
-          this.event.linkItems.find(item => item.id === base.id).active = false;
-          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado links');
           break;
     }
   }
@@ -500,19 +429,6 @@ export class EventConfigComponent implements OnInit, OnDestroy {
           this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
           this.appointmentSrv.deleteAppointment(baseItemId);
           break;
-
-      case BaseType.LINK:
-
-            this.event.linkItems = this.event.linkItems.filter(item => item.id !== baseItemId);
-
-            this.event.linkItems.forEach( item => {
-                if ( +item.id > +baseItemId ) {
-                    item.id = String(+item.id - 1);
-                };
-            });
-
-            this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Eliminado enlace');
-            break;
       }
   }
 

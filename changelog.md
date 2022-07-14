@@ -50,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Remove
 
 - `arch` Remove angular universal.
+- `feature` Remove EventLink component.
 
 ## [2.0.1] - Ready for release
 

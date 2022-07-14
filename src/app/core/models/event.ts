@@ -1,6 +1,5 @@
 import { CalendarEvent } from 'angular-calendar';
 
-import { AuditItem } from '@models/audit';
 import { IBase, BaseType } from '@models/base';
 import { Status, STATUS_MODES } from '@models/status.enum';
 import { Category } from '@models/category.enum';
@@ -33,7 +32,6 @@ export interface IEvent {
   placeItems?: IBase[];
   entityItems?: IBase[];
   entitiesArray?: string[];
-  linkItems?: IBase[];
   auditItems?: IBase[];
   userId?: string;
   usersArray?: string[];
@@ -74,7 +72,6 @@ export class Event implements IEvent, IBase { // IAudit
     public placeItems: IBase[],
     public entityItems: IBase[],
     public entitiesArray: string[],
-    public linkItems: IBase[],
     public auditItems: IBase[],
     public userId: string,
     public usersArray: string[],
@@ -98,7 +95,6 @@ export class Event implements IEvent, IBase { // IAudit
       null, true, [], // Appointment, HowIsShown, scheduleItems
       [], // Place
       [], [], // Entity
-      [], // Links
       [],  // Audit
       null, [], // UserId,
       null, null, // Extra, Extra2

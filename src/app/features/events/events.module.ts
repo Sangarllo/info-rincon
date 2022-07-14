@@ -10,7 +10,6 @@ import { EventsRoutingModule } from '@features/events/events-routing.module';
 import { EventsComponent } from '@features/events/events.component';
 import { EventsFavComponent } from '@features/events/events-fav/events-fav.component';
 import { EventsAuditComponent } from '@features/events/events-audit/events-audit.component';
-import { EventsAuditSocialComponent } from '@features/events/events-audit-social/events-audit-social.component';
 import { EventsOwnComponent } from '@features/events/events-own/events-own.component';
 import { EventViewComponent } from '@features/events/event-view/event-view.component';
 import { EventConfigComponent } from '@features/events/event-config/event-config.component';
@@ -32,8 +31,8 @@ import { EventsSearchDialogComponent } from '@features/events/events-search-dial
 import { CalendarEventItemsPanelComponent } from '@features/events/calendar-event-items-panel/calendar-event-items-panel.component';
 import { EventCardComponent } from '@features/events/event-card/event-card.component';
 import { EventWikiComponent } from '@features/events/event-wiki/event-wiki.component';
-import { EventLinkDialogComponent } from '@features/events/event-link-dialog/event-link-dialog.component';
 import { EventSocialComponent } from '@features/events/event-social/event-social.component';
+import { EventsAuditSocialComponent } from '@features/events/events-audit-social/events-audit-social.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +56,6 @@ import { EventSocialComponent } from '@features/events/event-social/event-social
     EventImageDetailComponent,
     EventNewBaseDialogComponent,
     EventScheduleDialogComponent,
-    EventLinkDialogComponent,
     EventCreationComponent,
     EventItemDetailComponent,
     EventItemDialogComponent,
