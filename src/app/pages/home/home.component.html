@@ -21,6 +21,19 @@
     <!-- INI Section FrontPage -->
     <div class="section-frontpage">
         <mat-tab-group mat-align-tabs="center">
+
+            <div *ngIf="nextStories$ | async as nextStories">
+                <mat-tab label="📡" *ngIf="nextStories.length > 0">
+                    <div class="nextStories">
+                        <div class="section__title">
+                            <span class="section__title--icon">📡</span>
+                            <span class="section__title--text">{{ (nextStories.length === 1) ? "Próximo evento destacado en portada" : "Próximos " + nextStories.length + " eventos destacados en portada" }}</span>
+                        </div>
+                        <app-stories-panel [stories]="nextStories"></app-stories-panel>
+                    </div>
+                </mat-tab>
+            </div>
+
             <div *ngIf="fixedStories$ | async as fixedStories">
                 <mat-tab label="📌" *ngIf="fixedStories.length > 0">
                     <div class="fixedStories">
@@ -29,18 +42,6 @@
                             <span class="section__title--text">{{ (fixedStories.length === 1) ? "Evento fijado en portada" : fixedStories.length + " eventos fijados en portada" }}</span>
                         </div>
                         <app-stories-panel [stories]="fixedStories"></app-stories-panel>
-                    </div>
-                </mat-tab>
-            </div>
-
-            <div *ngIf="nextStories$ | async as nextStories">
-                <mat-tab label="📡" *ngIf="nextStories.length > 0">
-                    <div class="nextStories">
-                        <div class="section__title">
-                            <span class="section__title--icon">📡</span>
-                            <span class="section__title--text">{{ (nextStories.length === 1) ? "Evento destacado en portada" : nextStories.length + " eventos destacados en portada" }}</span>
-                        </div>
-                        <app-stories-panel [stories]="nextStories"></app-stories-panel>
                     </div>
                 </mat-tab>
             </div>

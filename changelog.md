@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` EventLinks are converted into linkItems.
 - `style` Enlarge size of images and space in frontpage.
 - `social` Autor can comments its own events.
+- `style` By default, next stories are shown in frontpage.
 
 ### Remove
 
