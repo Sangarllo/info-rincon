@@ -16,6 +16,7 @@ import { UserService } from '@services/users.service';
 
 import { CommentsDialogComponent } from '@shared/components/comments-dialog/comments-dialog.component';
 import { BaseType } from '@models/base';
+import { IEntity } from '@models/entity';
 
 @Component({
   selector: 'app-event-social',
@@ -85,6 +86,8 @@ export class EventSocialComponent implements OnInit {
 
     if ( nComments > 0 || ['SUPER', 'ADMIN', 'AUTOR'].includes(userRole)) {
 
+        const userEntities = this.userLogged?.entitiesAdmin.map( (entity: IEntity) => entity.id ) ?? [];
+
         this.dialogConfig.width = '600px';
         this.dialogConfig.height = '600px';
         this.dialogConfig.data = {
@@ -94,9 +97,11 @@ export class EventSocialComponent implements OnInit {
           UserName: this.userLogged?.displayName ?? '',
           UserImage: this.userLogged?.photoURL ?? '',
           UserRole: userRole,
+          UserEntities: userEntities,
           EntityId: ( this.userLogged?.entityDefault?.id ?? '' ),
           EntityName: ( this.userLogged?.entityDefault?.name ?? '' ),
           EntityImage: ( this.userLogged?.entityDefault?.imagePath ?? '' ),
+          EventEntities: this.event.entitiesArray ?? [],
           commentType: CommentType.Event,
         };
 

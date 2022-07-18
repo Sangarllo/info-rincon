@@ -5,7 +5,7 @@
     </button>
 </div>
 
-<div *appRole="['ADMIN', 'SUPER']">
+<div *appRole="['ADMIN', 'SUPER', 'AUTOR']">
     <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [(ngModel)]="commentator">
         <mat-radio-button [value]="commentatorAsUser">como {{ commentatorAsUser?.name }}</mat-radio-button>
         <mat-radio-button *ngIf="commentatorAsEntity" [value]="commentatorAsEntity">como {{ commentatorAsEntity?.name }}</mat-radio-button>
@@ -26,6 +26,21 @@
     </button>
 
 </mat-dialog-content>
+
+
+<mat-dialog-content *appRole="['AUTOR']" class="cointainer-form-inline" [formGroup]="commentForm">
+
+    <mat-form-field *ngIf="canCommentAsAutor(); else cantCommentAsAutorTemplate" appearance="outline">
+        <mat-label>Mensaje</mat-label>
+        <textarea matInput formControlName="message" placeholder="Mensaje"></textarea>
+    </mat-form-field>
+
+    <button [disabled]="!commentForm.controls.message.value" mat-mini-fab class="dialog__button" (click)="sendComment()" cdkFocusInitial>
+      <mat-icon>add</mat-icon>
+  </button>
+
+</mat-dialog-content>
+
 
 <div class="items__container" *ngFor="let comment of comments$ | async">
 
@@ -48,3 +63,10 @@
     </section>
 
 </div>
+
+
+<ng-template #cantCommentAsAutorTemplate>
+    <div class="alert alert-warning m-3">
+        A pesar de ser autor, no puedes comentar puesto que no tienes permisos sobre las entidades de este evento.
+    </div>
+</ng-template>

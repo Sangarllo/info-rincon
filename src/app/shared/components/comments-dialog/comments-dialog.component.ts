@@ -25,6 +25,9 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
   commentForm: FormGroup;
   public userUid: string;
   public userRole: string;
+  public userEntities: string[] = [];
+  public eventEntities: string[] = [];
+  public entitiesIntersection: string[] = [];
   public commentType: CommentType;
   public comments$: Observable<IComment[]>;
   private listOfObservers: Array<Subscription> = [];
@@ -46,6 +49,8 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
     this.itemName = this.data.itemName;
     this.userUid = this.data.UserUid;
     this.userRole = this.data.UserRole;
+    this.userEntities = this.data.UserEntities;
+    this.eventEntities = this.data.EventEntities;
     this.commentType = this.data.commentType;
     this.comments$ = this.commentsSrv.getAllComments(this.itemId);
 
@@ -113,6 +118,13 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
 
   deleteComment(comment: IComment): void {
     this.commentsSrv.deleteComment(comment.id);
+  }
+
+  canCommentAsAutor(): boolean {
+    this.entitiesIntersection = this.userEntities.filter(entity => this.eventEntities.includes(entity));
+    console.log(`entitiesIntersection: ${JSON.stringify(this.entitiesIntersection)}`);
+
+    return ( this.entitiesIntersection.length > 0 );
   }
 
   ngOnDestroy(): void {

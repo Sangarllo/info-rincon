@@ -46,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `style` Home view changes ext-panel-design by tab-design.
 - `feature` EventLinks are converted into linkItems.
 - `style` Enlarge size of images and space in frontpage.
+- `social` Autor can comments its own events.
 
 ### Remove
 
