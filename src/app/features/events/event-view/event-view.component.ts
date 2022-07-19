@@ -139,7 +139,11 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
   private canConfig(userLogged: IUser): boolean {
     if ( userLogged ) {
-      return this.userSrv.canConfig(userLogged, this.event.usersArray, this.event.entitiesArray);
+      return this.userSrv.canConfig(
+        userLogged,
+        this.event.usersArray,
+        this.event.entitiesArray
+      );
     } else {
       return false;
     }

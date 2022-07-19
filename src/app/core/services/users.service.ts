@@ -165,7 +165,8 @@ export class UserService {
   canConfig( userLogged: IUser, eventUsersArray?: string[], eventEntitiesArray?: string[]): boolean {
 
     // console.log(`userLogged: ${userLogged.uid}|${userLogged.displayName}|${userLogged.role}`);
-    // console.log(`event: ${usersArray}`);
+    // console.log(`eventUsersArray: ${JSON.stringify(eventUsersArray)}`);
+    // console.log(`eventEntitiesArray: ${JSON.stringify(eventEntitiesArray)}`);
 
 
     // A) SUPER || ADMIN
