@@ -9,6 +9,7 @@ import { IBase } from '@models/base';
 import { ILinkItem, LinkItem } from '@models/link-item';
 import { LinkType } from '@models/link-item-type.enum';
 import { AppointmentsService } from '@services/appointments.service';
+import { ISource } from '@models/source';
 
 const LINKS_ITEM_COLLECTION = 'enlaces-item';
 
@@ -61,9 +62,20 @@ export class LinksItemService {
   async addLinkItem(
       item: IBase,
       linkItemTypeKey: string, linkType: LinkType,
-      name: string, description: string, sourceUrl: string ): Promise<void> {
+      name: string, description: string, sourceUrl: string,
+      source?: ISource): Promise<void> {
 
       const currentUser = await this.afAuth.currentUser;
+      let sourceUid = currentUser.uid;
+      let sourceName = currentUser.displayName;
+      let sourceType = 'Usuario registrado';
+
+      if ( source ) {
+        sourceUid = source.id;
+        sourceName = source.name;
+        sourceType = source.description;
+      }
+
       const linkItemType = LinkItem.getLinkItemType(linkItemTypeKey);
 
       const linkItem = LinkItem.InitDefault(
@@ -73,9 +85,9 @@ export class LinksItemService {
         name,
         description,
         sourceUrl,
-        currentUser.uid,
-        currentUser.displayName,
-        'Usuario registrado'
+        sourceUid,
+        sourceName,
+        sourceType
         );
 
       const id = this.afs.createId();

@@ -179,7 +179,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       if ( imagesDialog ) {
 
         this.eventPicture = imagesDialog[0];
-        console.log(`eventPicture: ${JSON.stringify(this.eventPicture)}`);
+        // console.log(`eventPicture: ${JSON.stringify(this.eventPicture)}`);
         this.event.imageId = this.eventPicture.id;
         this.event.imagePath = this.eventPicture.path;
 
@@ -267,7 +267,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
       if ( scheduleItem ) {
 
-        console.log(`scheduleItem: ${JSON.stringify(scheduleItem)}`);
+        // console.log(`scheduleItem: ${JSON.stringify(scheduleItem)}`);
 
         const index = this.event.scheduleItems.findIndex(item => item.id === scheduleItem.id);
         if ( index < 0 ) { // Adding new ScheduleItem and appointment
@@ -294,10 +294,16 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
     console.log(`openLinkItemDialog ${linkItemId}, ${linkType}`);
 
+    const dialogTitle = ( linkType === LinkType.INFO ) ?
+        'Incluye un nuevo enlace para este evento' :
+        'Incluye un nuevo enlace de cómo fue este evento';
+
     this.dialogConfig.width = '500px';
     this.dialogConfig.height = '600px';
     this.dialogConfig.data = {
       event: this.event,
+      dialogTitle,
+      dialogSourceName: this.currentUser.displayName,
     };
 
     const dialogRef = this.dialog.open(LinkItemDialogComponent, this.dialogConfig);
@@ -309,7 +315,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
         const eventBase = this.event as IBase;
         const linkItemTypeKey = linkItem.extra;
 
-        console.log(`after closing: ${JSON.stringify(linkItem)}`);
+        // console.log(`after closing: ${JSON.stringify(linkItem)}`);
 
         this.linksItemSrv.addLinkItem(
           eventBase,

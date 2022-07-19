@@ -55,6 +55,7 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.event = this.data.event;
+    this.title = this.data.dialogTitle;
 
     this.getPictures();
 
@@ -65,12 +66,11 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
         linkItemType: [ '', []],
         imageId: [ '', []],
         imagePath: [ '', []],
-        sourceUrl: ['', [Validators.required, Validators.pattern(this.urlRegex)]]
+        sourceUrl: ['', [Validators.required, Validators.pattern(this.urlRegex)]],
+        sourceName: [ '', []],
     });
 
     // this.linkItemTypeControl.setValue(LinkItemTypes.UrlExterna);
-
-    this.title = `Incluye un nuevo enlace de cómo fue el evento`;
 
     const GUID = this.utilsSrv.getGUID();
     console.log(`GUID: ${GUID}`);
@@ -78,6 +78,7 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
     const name = `Nuevo enlace`;
     this.imageIdSelected = this.event.imageId;
     this.imagePathSelected = this.event.imagePath;
+    const sourceName = this.data.dialogSourceName;
 
     this.linkItemForm.patchValue({
       id: this.thisLinkId,
@@ -86,6 +87,7 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
       imageId: this.imageIdSelected,
       imagePath: this.imagePathSelected,
       sourceUrl: '',
+      sourceName,
     });
   }
 
@@ -139,6 +141,7 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
       name: this.linkItemForm.controls.name.value,
       description: this.linkItemForm.controls.description.value,
       sourceUrl: this.linkItemForm.controls.sourceUrl.value,
+      sourceName: this.linkItemForm.controls.sourceName.value,
       imageId: this.pictureSelected.id,
       imagePath: this.pictureSelected.path,
       baseType: BaseType.LINK,
