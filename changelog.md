@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Reset tags in home page.
 - `feature` Lector Role has option to select fav entity.
 - `security` CanConfig depends also on entityArray.
+- `social` Standar item-social code for updating.
 
 ### Update
 

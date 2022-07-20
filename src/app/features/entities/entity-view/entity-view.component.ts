@@ -3,9 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { CalendarEvent } from 'angular-calendar';
-
-import Swal from 'sweetalert2';
 
 import { BaseType } from '@models/base';
 import { IEntity, Entity } from '@models/entity';
@@ -17,6 +14,7 @@ import { EntityService } from '@services/entities.service';
 import { EventService } from '@services/events.service';
 import { UserService } from '@services/users.service';
 import { IEvent, Event } from '@models/event';
+import { IItemSocial } from '@models/item-social';
 
 @Component({
   selector: 'app-entity-view',
@@ -28,6 +26,7 @@ export class EntityViewComponent implements OnInit, OnDestroy {
   public entity$: Observable<IEntity | undefined> | null = null;
   lastEvents$: Observable<IEvent[]>;
   nextEvents$: Observable<IEvent[]>;
+  public itemSocial: IItemSocial;
   public idEntity: string;
   public entityName: string;
   public userLogged: IUser;
@@ -73,8 +72,13 @@ export class EntityViewComponent implements OnInit, OnDestroy {
 
     this.idEntity = this.route.snapshot.paramMap.get('id');
     if ( this.idEntity ) {
-      this.getDetails(this.idEntity);
-      this.fetchEvents();
+        this.getDetails(this.idEntity);
+        this.fetchEvents();
+
+        this.itemSocialSrv.getItemSocial(this.idEntity)
+        .subscribe( (itemSocial: IItemSocial) => {
+            this.itemSocial = itemSocial;
+        });
     }
 
     this.listOfObservers.push( subs1$ );
@@ -107,32 +111,14 @@ export class EntityViewComponent implements OnInit, OnDestroy {
 
   }
 
-  public setEntityFav(isFav: boolean): void {
+  public setFav(isFav: boolean): void {
 
-    this.userLogged.favEntities = this.userLogged.favEntities ?? [];
-    this.userLogged.favEntities = this.userLogged.favEntities.filter( (eventId: string) => eventId !== this.idEntity );
+    this.itemSocialSrv.updateFavorite(
+      isFav, this.userLogged,
+      this.idEntity, this.entityName, BaseType.ENTITY,
+      this.itemSocial
+    );
 
-    const itemName = this.entityName;
-    const itemId = this.idEntity;
-
-    if ( isFav ) {
-      this.userLogged.favEntities.push(itemId);
-      this.itemSocialSrv.addFavourite(itemId, BaseType.ENTITY, itemName, this.userLogged.uid, this.userLogged.displayName);
-      Swal.fire({
-        icon: 'success',
-        title: 'Esta entidad se ha convertido en uno de tus favoritas',
-        confirmButtonColor: '#003A59',
-      });
-    } else {
-      this.itemSocialSrv.removeFavourite(itemId, BaseType.ENTITY, itemName, this.userLogged.uid, this.userLogged.displayName);
-      Swal.fire({
-        icon: 'success',
-        title: 'Esta entidad ha dejado de estar entre tus favoritas',
-        confirmButtonColor: '#003A59',
-      });
-    }
-
-    this.userSrv.updateUser(this.userLogged);
   }
 
   public gotoList(): void {

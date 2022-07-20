@@ -4,10 +4,10 @@
 
 <div class="fav-button" *ngIf="userLogged && itemSocial">
 
-    <button *ngIf="itemSocial.usersFavs?.includes(userLogged.uid); else noFavTemplateButton" [matBadge]="itemSocial?.usersFavs?.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'" (click)="setEntityFav(false)"></button>
+    <button *ngIf="itemSocial.usersFavs?.includes(userLogged.uid); else noFavTemplateButton" [matBadge]="itemSocial?.usersFavs?.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'" (click)="setFav(false)"></button>
 
     <ng-template #noFavTemplateButton>
-        <button [matBadge]="itemSocial?.usersFavs?.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_OFF + ')'" (click)="setEntityFav(true)"></button>
+        <button [matBadge]="itemSocial?.usersFavs?.length" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_OFF + ')'" (click)="setFav(true)"></button>
     </ng-template>
 
 </div>

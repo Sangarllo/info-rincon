@@ -116,32 +116,13 @@ export class EventSocialComponent implements OnInit {
       }
   }
 
-  public setEntityFav(isFav: boolean): void {
+  public setFav(isFav: boolean): void {
 
-    this.userLogged.favEvents = this.userLogged.favEvents ?? [];
-    this.userLogged.favEvents = this.userLogged.favEvents.filter( (eventId: string) => eventId !== this.event.id );
-
-    const itemName = this.event.name;
-    const itemId = this.event.id;
-
-    if ( isFav ) {
-      this.userLogged.favEvents.push(itemId);
-      this.itemSocialSrv.addFavourite(itemId, BaseType.EVENT, itemName, this.userLogged.uid, this.userLogged.displayName);
-      Swal.fire({
-        icon: 'success',
-        title: 'Este evento se ha convertido en uno de tus favoritos',
-        confirmButtonColor: '#003A59',
-      });
-    } else {
-      this.itemSocialSrv.removeFavourite(itemId, BaseType.EVENT, itemName, this.userLogged.uid, this.userLogged.displayName);
-      Swal.fire({
-        icon: 'success',
-        title: 'Este evento ha dejado de estar entre tus favoritos',
-        confirmButtonColor: '#003A59',
-      });
-    }
-
-    this.userSrv.updateUser(this.userLogged);
+    this.itemSocialSrv.updateFavorite(
+      isFav, this.userLogged,
+      this.event.id, this.event.name, BaseType.EVENT,
+      this.itemSocial
+    );
   }
 
   public clap(applause: boolean): void {

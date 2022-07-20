@@ -15,10 +15,10 @@
 
                     <div class="fav-button" *ngIf="userLogged">
 
-                        <button *ngIf="userLogged.favEntities?.includes(entity.id); else noFavTemplateButton" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'" (click)="setEntityFav(false)"></button>
+                        <button *ngIf="userLogged.favEntities?.includes(entity.id); else noFavTemplateButton" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'" (click)="setFav(false)"></button>
 
                         <ng-template #noFavTemplateButton>
-                            <button mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_OFF + ')'" (click)="setEntityFav(true)"></button>
+                            <button mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_OFF + ')'" (click)="setFav(true)"></button>
                         </ng-template>
 
                     </div>

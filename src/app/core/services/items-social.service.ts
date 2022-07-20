@@ -6,16 +6,18 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/compat/firestore';
 
-import { updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
 
+import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 
 import { IItemSocial } from '@models/item-social';
 import { AuditSocialType } from '@models/audit-social';
 import { BaseType } from '@models/base';
+import { IUser } from '@models/user';
 import { AuditSocialService } from '@services/audit-social.service';
-import { SupportedItemsService } from './supported-items.service';
+import { SupportedItemsService } from '@services/supported-items.service';
+import { UserService } from '@services/users.service';
 
 const ITEMS_SOCIAL_COLLECTION = 'eventos-social'; // TODO rename items-social
 
@@ -31,6 +33,7 @@ export class ItemSocialService {
     private afs: AngularFirestore,
     private auditSocialSrv: AuditSocialService,
     private supportedItemsService: SupportedItemsService,
+    private userSrv: UserService,
   ) {
     this.itemSocialCollection = afs.collection(ITEMS_SOCIAL_COLLECTION);
   }
@@ -64,35 +67,98 @@ export class ItemSocialService {
     return this.itemSocialDoc.set(itemSocial, { merge: true });
   }
 
+  public async updateFavorite(
+    isFav: boolean, userLogged: IUser,
+    itemId: string, itemName: string, baseType: BaseType,
+    itemSocial?: IItemSocial
+    ): Promise<void> {
 
-  public async addFavourite(itemSocialId: string, baseType: BaseType, itemName: string, userUid: string, userName: string): Promise<void> {
+      this.itemSocialDoc = this.afs.doc<IItemSocial>(`${ITEMS_SOCIAL_COLLECTION}/${itemId}`);
 
-    this.itemSocialDoc = this.afs.doc<IItemSocial>(`${ITEMS_SOCIAL_COLLECTION}/${itemSocialId}`);
+      // 1. Update list of favorite-items
+      let favItems = [];
+      switch(baseType) {
+          case BaseType.EVENT:
+              favItems = userLogged.favEvents;
+              break;
+          case BaseType.ENTITY:
+              favItems = userLogged.favEntities;
+              break;
+      }
+      favItems = favItems.filter( (id: string) => id !== itemId );
 
-    this.itemSocialDoc.ref.update({ usersFavs: firebase.firestore.FieldValue.arrayUnion(userUid) });
+      // 2. Update item-social element
+      if ( isFav ) {
 
-    // Audit
-    this.auditSocialSrv.addAuditSocialItem(
-      AuditSocialType.FAV_ON,
-      itemSocialId, itemName, baseType,
-      userUid, userName,
-      ''
-    );
-  }
+          favItems.push(itemId);
 
-  public async removeFavourite(itemSocialId: string, baseType: BaseType, itemName: string, userUid: string, userName: string): Promise<void> {
+          // -> ItemSocial
+          if ( itemSocial ) {
+            if ( itemSocial.usersFavs ) {
+                itemSocial.usersFavs = itemSocial.usersFavs.filter( (id: string) => id !== userLogged.uid );
+                itemSocial.usersFavs.push(userLogged.uid);
+            } else {
+                itemSocial.usersFavs = [userLogged.uid];
+            }
+            this.itemSocialDoc.set(itemSocial, { merge: true });
+          } else {
+            this.itemSocialDoc.ref.update({
+              usersFavs: firebase.firestore.FieldValue.arrayUnion(userLogged.uid)
+            });
+          }
 
-    this.itemSocialDoc = this.afs.doc<IItemSocial>(`${ITEMS_SOCIAL_COLLECTION}/${itemSocialId}`);
+          // -> AuditSocial
+          this.auditSocialSrv.addAuditSocialItem(
+            AuditSocialType.FAV_ON,
+            itemId, itemName, baseType,
+            userLogged.uid, userLogged.displayName,
+            ''
+          );
 
-    this.itemSocialDoc.ref.update({ usersFavs: firebase.firestore.FieldValue.arrayRemove(userUid) });
+          Swal.fire({
+              icon: 'success',
+              title: 'Se ha convertido en uno de tus favoritos',
+              confirmButtonColor: '#003A59',
+          });
+      } else {
 
-    // Audit
-    this.auditSocialSrv.addAuditSocialItem(
-      AuditSocialType.FAV_OFF,
-      itemSocialId, itemName, baseType,
-      userUid, userName,
-      ''
-    );
+          // -> ItemSocial
+          if ( itemSocial ) {
+              itemSocial.usersFavs = itemSocial.usersFavs.filter( (uid: string) => uid !== userLogged.uid );
+              itemSocial.usersFavs = favItems;
+              this.itemSocialDoc.set(itemSocial, { merge: true });
+          } else {
+                this.itemSocialDoc.ref.update({
+                    usersFavs: firebase.firestore.FieldValue.arrayRemove(userLogged.uid)
+                });
+
+          };
+
+          // -> AuditSocial
+          this.auditSocialSrv.addAuditSocialItem(
+            AuditSocialType.FAV_OFF,
+            itemId, itemName, baseType,
+            userLogged.uid, userLogged.displayName,
+            ''
+          );
+
+          Swal.fire({
+              icon: 'success',
+              title: 'Ha dejado de estar entre tus favoritos',
+              confirmButtonColor: '#003A59',
+          });
+      }
+
+      // 3. Update user element
+      switch(baseType) {
+          case BaseType.EVENT:
+              userLogged.favEvents = favItems;
+              break;
+          case BaseType.ENTITY:
+              userLogged.favEntities = favItems;
+              break;
+      }
+      this.userSrv.updateUser(userLogged);
   }
 
   public async addClaps(itemSocial: IItemSocial, baseType: BaseType, itemName: string, userUid: string, userName: string): Promise<void> {

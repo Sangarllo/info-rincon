@@ -69,35 +69,11 @@ export class BaseItemsListComponent {
     }
   }
 
-  public setEntityFav(isFav: boolean, entityItem: IBase): void {
+  public setFav(isFav: boolean, entityItem: IBase): void {
 
-    this.userLogged.favEntities = this.userLogged.favEntities ?? [];
-    this.userLogged.favEntities = this.userLogged.favEntities.filter( (itemId: string) => itemId !== entityItem.id );
-
-    const entityName = entityItem.name;
-    const entityId = entityItem.id;
-
-    if ( isFav ) {
-            this.userLogged.favEntities.push(entityItem.id);
-            this.itemSocialSrv.addFavourite(entityId, BaseType.ENTITY, entityName, this.userLogged.uid, this.userLogged.displayName);
-            Swal.fire({
-                  icon: 'success',
-                  title: 'Esta entidad se ha convertido en una de tus favoritas',
-                  confirmButtonColor: '#003A59',
-            });
-
-    } else {
-
-          this.itemSocialSrv.removeFavourite(entityId, BaseType.ENTITY, entityName, this.userLogged.uid, this.userLogged.displayName);
-
-          Swal.fire({
-            icon: 'success',
-            title: 'Esta entidad ha dejado de estar entre tus favoritas',
-            confirmButtonColor: '#003A59',
-          });
-    }
-
-    this.userSrv.updateUser(this.userLogged);
+            this.itemSocialSrv.updateFavorite(
+              isFav, this.userLogged,
+              entityItem.id, entityItem.name, entityItem.baseType );
   }
 
   deleteBaseItem(base: IBase): void {
