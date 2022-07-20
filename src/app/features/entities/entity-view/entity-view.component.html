@@ -41,30 +41,38 @@
 
                         <mat-tab class="tab-card-detail" label="Eventos">
 
-                            <div *ngFor="let event of nextEvents$ | async as events; index as i" class="items__container">
+                            <div *ngIf="nextEvents$ | async as nextEvents">
 
-                                <div *ngIf="i===0" class="item--title">
-                                    🔜​ Próximo evento
+                                <div *ngIf="nextEvents.length === 0" class="alert alert-warning text-center items__container">
+                                    De momento, no hay eventos programados
                                 </div>
 
-                                <section (click)="clickItem(event)" class="item" [ngClass]="{'item--marked' : (i === 0)}">
+                                <div *ngFor="let event of nextEvents; index as i" class="items__container">
 
-                                    <div class="item-image" href="#">
-                                        <img class="square img-thumbnail" [src]="event.imagePath" [alt]="event.name">
-                                    </div>
-                                    <div class="item-body">
-                                        <div class="item-heading"> {{event.name}}</div>
-                                        <div *ngIf="event.extra" class="item-data">
-                                            <span class="icon">🕑</span> {{ event.extra | date:'EEEE, d \'de\' MMMM' }} </div>
-                                        <div *ngIf="event.placeItems?.length > 0" class="item-data">
-                                            <span class="icon">📍</span> {{ event.placeItems[0].name }}
-                                        </div>
-                                        <div *ngIf="event.extra2" class="item-data">
-                                            <span class="icon">🏷️</span> {{event.extra2}}
-                                        </div>
+                                    <div *ngIf="i===0" class="item--title">
+                                        🔜​ Próximo evento
                                     </div>
 
-                                </section>
+                                    <section (click)="clickItem(event)" class="item" [ngClass]="{'item--marked' : (i === 0)}">
+
+                                        <div class="item-image" href="#">
+                                            <img class="square img-thumbnail" [src]="event.imagePath" [alt]="event.name">
+                                        </div>
+                                        <div class="item-body">
+                                            <div class="item-heading"> {{event.name}}</div>
+                                            <div *ngIf="event.extra" class="item-data">
+                                                <span class="icon">🕑</span> {{ event.extra | date:'EEEE, d \'de\' MMMM' }} </div>
+                                            <div *ngIf="event.placeItems?.length > 0" class="item-data">
+                                                <span class="icon">📍</span> {{ event.placeItems[0].name }}
+                                            </div>
+                                            <div *ngIf="event.extra2" class="item-data">
+                                                <span class="icon">🏷️</span> {{event.extra2}}
+                                            </div>
+                                        </div>
+
+                                    </section>
+
+                                </div>
 
                             </div>
 
@@ -72,31 +80,39 @@
 
                         <mat-tab class="tab-card-detail" label="Archivo">
 
-                            <div *ngFor="let event of (lastEvents$ | async)?.slice().reverse(); index as i" class="items__container">
+                            <div *ngIf="lastEvents$ | async as lastEvents">
 
-                                <div *ngIf="i===0" class="item--title">
-                                    🆕​​ Último evento
+                                <div *ngIf="lastEvents.length === 0" class="alert alert-warning text-center items__container">
+                                    No hay eventos archivados actualmente
                                 </div>
 
-                                <section (click)="clickItem(event)" class="item" [ngClass]="{'item--marked' : (i === 0)}">
+                                <div *ngFor="let event of lastEvents?.slice().reverse(); index as i" class="items__container">
 
-                                    <div class="item-image" href="#">
-                                        <img class="square img-thumbnail" [src]="event.imagePath" [alt]="event.name">
-                                    </div>
-                                    <div class="item-body">
-                                        <div class="item-heading"> {{event.name}}</div>
-                                        <div *ngIf="event.extra" class="item-data">
-                                            <span class="icon">🕑</span> {{ event.extra | date:'EEEE, d \'de\' MMMM' }} </div>
-                                        <div *ngIf="event.placeItems?.length > 0" class="item-data">
-                                            <span class="icon">📍</span> {{ event.placeItems[0].name }}
-                                        </div>
-
-                                        <div *ngIf="event.extra2" class="item-data">
-                                            <span class="icon">🏷️</span> {{event.extra2}}
-                                        </div>
+                                    <div *ngIf="i===0" class="item--title">
+                                        🆕​​ Último evento
                                     </div>
 
-                                </section>
+                                    <section (click)="clickItem(event)" class="item" [ngClass]="{'item--marked' : (i === 0)}">
+
+                                        <div class="item-image" href="#">
+                                            <img class="square img-thumbnail" [src]="event.imagePath" [alt]="event.name">
+                                        </div>
+                                        <div class="item-body">
+                                            <div class="item-heading"> {{event.name}}</div>
+                                            <div *ngIf="event.extra" class="item-data">
+                                                <span class="icon">🕑</span> {{ event.extra | date:'EEEE, d \'de\' MMMM' }} </div>
+                                            <div *ngIf="event.placeItems?.length > 0" class="item-data">
+                                                <span class="icon">📍</span> {{ event.placeItems[0].name }}
+                                            </div>
+
+                                            <div *ngIf="event.extra2" class="item-data">
+                                                <span class="icon">🏷️</span> {{event.extra2}}
+                                            </div>
+                                        </div>
+
+                                    </section>
+
+                                </div>
 
                             </div>
 

@@ -127,10 +127,9 @@ export class EntitiesFavComponent implements OnInit, OnDestroy {
     // console.log(`Ver Solo Favoritos: ${optionsMode[1]}`);
 
     if ( !optionsMode[1] ) {
-        this.entities = this.ENTITIES_BACKUP.filter(entity => {
-          console.log(`${this.favEntities} -> ${entity.id}`);
-          return this.favEntities.includes(entity.id);
-      });
+        this.entities = this.ENTITIES_BACKUP.filter(entity =>
+           this.favEntities.includes(entity.id)
+      );
     } else {
       this.entities = this.ENTITIES_BACKUP;
     }
