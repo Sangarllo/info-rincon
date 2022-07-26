@@ -41,7 +41,7 @@ export class StoriesService {
     // console.log(`dateTodayStr: ${dateTodayStr}`);
     // console.log(`dateMaxStr: ${dateMaxStr}`);
 
-    const appointments$ = this.appointmentSrv.getAppointmentsByRange(dateTodayStr, dateMaxStr, false);
+    const appointments$ = this.appointmentSrv.getAppointmentsByRange(dateTodayStr, dateMaxStr, true);
     const events$ = this.eventSrv.getAllEvents(true, true, false);
 
     return combineLatest([
