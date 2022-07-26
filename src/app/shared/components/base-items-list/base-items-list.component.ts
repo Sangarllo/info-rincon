@@ -60,7 +60,8 @@ export class BaseItemsListComponent {
     switch (baseItem.baseType) {
 
       case BaseType.EVENT:
-          window.open(baseItem.imagePath, '_blank');
+          this.router.navigate([`/${Event.PATH_URL}/${baseItem.id}`]);
+          // window.open(baseItem.imagePath, '_blank');
           break;
 
       case BaseType.ENTITY:
