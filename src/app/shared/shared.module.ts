@@ -24,6 +24,7 @@ import { StoriesPanelComponent } from '@shared/components/stories-panel/stories-
 import { CommentsDialogComponent } from '@shared/components/comments-dialog/comments-dialog.component';
 import { AuditItemsListComponent } from '@shared/components/audit-items-list/audit-items-list.component';
 import { BaseItemViewComponent } from '@shared/components/base-item-view/base-item-view.component';
+import { EventsRefListComponent } from '@shared/components/events-ref-list/events-ref-list.component';
 
 const components = [
   ShellComponent,
@@ -37,6 +38,7 @@ const components = [
   BaseItemsTableComponent,
   BaseItemDetailComponent,
   BaseItemsPanelComponent,
+  EventsRefListComponent,
   AuditItemsListComponent,
   CommentsDialogComponent,
   StoriesPanelComponent,

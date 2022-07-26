@@ -19,12 +19,17 @@
         </div>
 
         <div class="col-12">
-            <mat-slide-toggle appearance="outline" formControlName="focused">Mostrar evento en portada</mat-slide-toggle>
+            <mat-slide-toggle appearance="outline" formControlName="focused">Anunciar evento en portada</mat-slide-toggle>
         </div>
 
-        <div *appRole="['SUPER']" class="col-12">
+        <div *appRole="['ADMIN','SUPER']" class="col-12">
             <mat-slide-toggle appearance="outline" formControlName="fixed">Fijar evento en portada</mat-slide-toggle>
         </div>
+
+        <div *appRole="['ADMIN', 'SUPER']" class="col-12">
+            <mat-slide-toggle appearance="outline" formControlName="isSuperevent">¿Es un superevento?</mat-slide-toggle>
+        </div>
+
 
     </div>
 

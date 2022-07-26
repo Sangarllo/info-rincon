@@ -31,6 +31,7 @@ export class EventStatusDialogComponent implements OnInit {
       active: [ this.data.active, []],
       focused: [ this.data.focused, []],
       fixed: [ this.data.fixed, []],
+      isSuperevent: [ this.data.isSuperevent, []],
   });
   }
 

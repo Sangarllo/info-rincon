@@ -120,13 +120,28 @@
 
                     </fieldset>
 
-                    <fieldset class="type-other" *ngIf="event.scheduleItems?.length > 0">
+                    <!-- AS NOT SUPEREVENT, THE EVENT CONTAINS SCHEDULE/SESSIONS -->
+                    <div *ngIf="!event.isSuperevent">
+                        <fieldset class="type-other" *ngIf="event.scheduleItems?.length > 0">
 
-                        <legend>¿Cómo?</legend>
+                            <legend>¿Cómo?</legend>
 
-                        <sh-base-items-list [baseItems]="event.scheduleItems" [baseItemSelected]="idEventUrl"></sh-base-items-list>
+                            <sh-base-items-list [baseItems]="event.scheduleItems" [baseItemSelected]="idEventUrl"></sh-base-items-list>
 
-                    </fieldset>
+                        </fieldset>
+                    </div>
+
+                    <!-- AS NOT SUPEREVENT, THE EVENT CONTAINS SCHEDULE/SESSIONS -->
+                    <div *ngIf="event.isSuperevent">
+                        <fieldset class="type-other" *ngIf="event.eventsRef?.length > 0">
+
+                            <legend>¿Cómo?</legend>
+
+                            <sh-events-ref-list [eventsRef]="event.eventsRef"></sh-events-ref-list>
+
+                        </fieldset>
+                    </div>
+
 
                     <fieldset class="type-other" *ngIf="event.entityItems?.length > 0">
 

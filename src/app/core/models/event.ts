@@ -4,6 +4,7 @@ import { IBase, BaseType } from '@models/base';
 import { Status, STATUS_MODES } from '@models/status.enum';
 import { Category } from '@models/category.enum';
 import { ScheduleType, SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
+import { IEventRef } from '@models/event-ref';
 
 
 export interface CalendarEventExtended extends CalendarEvent {
@@ -21,6 +22,7 @@ export interface IEvent {
   status: Status;
   focused: boolean;
   fixed: boolean;
+  isSuperevent: boolean;
   sanitizedUrl?: string;
   categories?: Category[];
   description?: string;
@@ -32,6 +34,7 @@ export interface IEvent {
   placeItems?: IBase[];
   entityItems?: IBase[];
   entitiesArray?: string[];
+  eventsRef?: IEventRef[];
   auditItems?: IBase[];
   userId?: string;
   usersArray?: string[];
@@ -56,6 +59,7 @@ export class Event implements IEvent, IBase { // IAudit
     public focused: boolean,
     public fixed: boolean,
 
+    public isSuperevent: boolean,
     public name: string,
     public imageId: string,
     public imagePath: string,
@@ -72,6 +76,7 @@ export class Event implements IEvent, IBase { // IAudit
     public placeItems: IBase[],
     public entityItems: IBase[],
     public entitiesArray: string[],
+    public eventsRef: IEventRef[],
     public auditItems: IBase[],
     public userId: string,
     public usersArray: string[],
@@ -84,6 +89,7 @@ export class Event implements IEvent, IBase { // IAudit
     return new Event(
       '0',
       true, true, Status.Editing, true, false, // Status
+      false, // IsSuperevent
       '', // Name
       Event.IMAGE_DEFAULT, Event.IMAGE_DEFAULT, [ Event.IMAGE_DEFAULT ], // Image
       BaseType.EVENT, // BaseType
@@ -95,6 +101,7 @@ export class Event implements IEvent, IBase { // IAudit
       null, true, [], // Appointment, HowIsShown, scheduleItems
       [], // Place
       [], [], // Entity
+      [], // EventsRef
       [],  // Audit
       null, [], // UserId,
       null, null, // Extra, Extra2

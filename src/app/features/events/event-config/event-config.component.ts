@@ -11,6 +11,7 @@ import { AuthService } from '@auth/auth.service';
 import { Base, IBase, BaseType } from '@models/base';
 import { IAppointment, Appointment, ShowMode } from '@models/appointment';
 import { IEvent, Event } from '@models/event';
+import { IEventRef } from '@models/event-ref';
 import { IItemSocial } from '@models/item-social';
 import { IUser } from '@models/user';
 import { AuditType } from '@models/audit';
@@ -35,6 +36,7 @@ import { EventImageDialogComponent } from '@features/events/event-image-dialog/e
 import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dialog/event-new-base-dialog.component';
 import { EventScheduleDialogComponent } from '@features/events/event-schedule-dialog/event-schedule-dialog.component';
 import { LinkItemDialogComponent } from '@features/links/link-item-dialog/link-item-dialog.component';
+import { EventRefDialogComponent } from '@features/events/event-ref-dialog/event-ref-dialog.component';
 
 
 @Component({
@@ -203,6 +205,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
         this.event.active = eventDialog.active;
         this.event.focused = eventDialog.focused;
         this.event.fixed = eventDialog.fixed ?? false;
+        this.event.isSuperevent = eventDialog.isSuperevent ?? false;
         this.eventSrv.updateEvent(this.event, AuditType.UPDATED_STATUS );
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
@@ -289,6 +292,30 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+
+
+  addEventRefDialog(): void {
+
+    this.dialogConfig.data = this.event;
+    const dialogRef = this.dialog.open(EventRefDialogComponent, this.dialogConfig);
+
+    dialogRef.afterClosed().subscribe((eventRef: IEventRef) => {
+
+      if ( eventRef ) {
+
+          console.log(`eventRef: ${JSON.stringify(eventRef)}`);
+
+          this.event.eventsRef.push(eventRef);
+
+          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
+
+      } else {
+        this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
+      }
+    });
+  }
+
 
   openLinkItemDialog(linkItemId: string, linkType: LinkType): void {
 
@@ -469,6 +496,18 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
   }
 
+
+  deleteRef(eventRef: IEventRef): void {
+    this.logSrv.info(`deleteRef: ${JSON.stringify(eventRef)}`);
+
+    const eventRefId = eventRef.id;
+    let auditMessage = '';
+
+    this.event.eventsRef = this.event.eventsRef.filter(item => item.id !== eventRefId);
+    auditMessage = 'Actualizados sus eventos';
+
+    this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, auditMessage);
+}
 
 
   ngOnDestroy(): void {

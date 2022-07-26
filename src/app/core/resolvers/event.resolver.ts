@@ -32,7 +32,7 @@ export class EventResolver implements Resolve<Observable<any>> {
     const eventUrl = route.params.id;
     const eventId = eventUrl.split('_')[0];
     const subeventId = eventUrl.split('_')[1];
-    console.log(`subeventId: ${subeventId}`);
+    // console.log(`subeventId: ${subeventId}`);
 
     let subevent: IBase;
 

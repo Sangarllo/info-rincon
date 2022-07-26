@@ -97,7 +97,8 @@
                     </fieldset>
 
 
-                    <fieldset class="event-item-detail type-other">
+                    <!-- AS NOT SUPEREVENT, THE EVENT CONTAINS SCHEDULE/SESSIONS -->
+                    <fieldset *ngIf="!event.isSuperevent" class="event-item-detail type-other">
 
                         <legend>¿Cómo?</legend>
 
@@ -112,6 +113,23 @@
                         </div>
 
                     </fieldset>
+
+
+                    <!-- AS NOT SUPEREVENT, THE EVENT CONTAINS SCHEDULE/SESSIONS -->
+                    <fieldset *ngIf="event.isSuperevent" class="event-item-detail type-other">
+
+                        <legend>¿Cómo?</legend>
+
+                        <sh-events-ref-list [eventsRef]="event.eventsRef" [modeAdmin]="true" (deleteRef)="deleteRef($event)"></sh-events-ref-list>
+
+                        <div class="buttons">
+                            <button mat-fab class="btn-1" (click)="addEventRefDialog()" color="accent">
+                              <mat-icon>alarm_add</mat-icon>
+                          </button>
+                        </div>
+
+                    </fieldset>
+
 
                     <fieldset class="event-item-detail type-other">
 

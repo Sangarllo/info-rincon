@@ -1,0 +1,30 @@
+div.base-container {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    .mat-form-field.name-field {
+        width: 300px;
+    }
+    .mat-form-field.date-field {
+        width: 130px;
+    }
+    .mat-form-field.time-field {
+        width: 100px;
+    }
+}
+
+.description-wrapper {
+    flex-direction: column;
+}
+
+.option-img {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+[dir='rtl'] .option-img {
+    margin-right: 0;
+    margin-left: 8px;
+}

@@ -24,6 +24,7 @@ import { EventImageDialogComponent } from '@features/events/event-image-dialog/e
 import { EventImageDetailComponent } from '@features/events/event-image-detail/event-image-detail.component';
 import { EventNewBaseDialogComponent } from '@features/events/event-new-base-dialog/event-new-base-dialog.component';
 import { EventScheduleDialogComponent } from '@features/events/event-schedule-dialog/event-schedule-dialog.component';
+import { EventRefDialogComponent } from '@features/events/event-ref-dialog/event-ref-dialog.component';
 import { EventCreationComponent } from '@features/events/event-creation/event-creation.component';
 import { EventItemDetailComponent } from '@features/events/event-item-detail/event-item-detail.component';
 import { EventItemDialogComponent } from '@features/events/event-item-dialog/event-item-dialog.component';
@@ -56,6 +57,7 @@ import { EventsAuditSocialComponent } from '@features/events/events-audit-social
     EventImageDetailComponent,
     EventNewBaseDialogComponent,
     EventScheduleDialogComponent,
+    EventRefDialogComponent,
     EventCreationComponent,
     EventItemDetailComponent,
     EventItemDialogComponent,

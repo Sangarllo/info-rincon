@@ -1,0 +1,39 @@
+<div *ngIf="eventsRef.length > 0; else noEventRefsTemplate" class="items__container">
+
+    <div *ngFor="let eventRef of eventsRef">
+
+        <section *ngIf="eventRef" class="item">
+
+            <!--
+            <pre>
+                {{ eventRef | json }}
+            </pre>
+            -->
+
+            <div class="item-body" (click)="gotoEventRef(eventsRef)">
+                <div class="item-heading">{{ eventRef.name }}</div>
+
+                <div *ngIf="eventRef.dateStr" class="item-data">
+                    <span class="icon">📅​</span> {{ eventRef.dateStr }}
+                </div>
+
+                <div *ngIf="eventRef.timeStr" class="item-data">
+                    <span class="icon">🕑</span> {{ eventRef.timeStr }}
+                </div>
+            </div>
+
+            <button *ngIf="modeAdmin === true" class="item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteEventRef(eventRef)">
+                <mat-icon class="btn-1" aria-label="Delete">
+                    remove_circle_outline
+                </mat-icon>
+            </button>
+
+        </section>
+
+    </div>
+
+</div>
+
+<ng-template #noEventRefsTemplate>
+    No hay elementos asociados
+</ng-template>

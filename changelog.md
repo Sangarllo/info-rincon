@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Add SourceName for link-items.
 - `feature` Show Subevent in event-view when needed.
 - `feature` TODO Temporal. Show slices as next-events stories.
+- `feature` Create superevents for events, and eventRef lists.
 
 ### Fix
 

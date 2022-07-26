@@ -34,12 +34,17 @@
 
                                 </mat-form-field>
 
-                                <mat-slide-toggle *appRole="['SUPER']" class="col-12 col-md-4" formControlName="active">Evento activo</mat-slide-toggle>
+                                <mat-slide-toggle *appRole="['SUPER']" class="col-12" formControlName="active">Evento activo</mat-slide-toggle>
 
-                                <mat-slide-toggle class="col-12 col-md-6" formControlName="focused">Evento temporal en portada</mat-slide-toggle>
+                                <mat-slide-toggle class="col-12" formControlName="focused">Evento anunciado en portada</mat-slide-toggle>
 
+                                <div *appRole="['ADMIN','SUPER']" class="col-12">
+                                    <mat-slide-toggle formControlName="fixed">Evento fijo en portada</mat-slide-toggle>
+                                </div>
 
-                                <mat-slide-toggle class="col-12 col-md-6" formControlName="fixed">Evento fijo en portada</mat-slide-toggle>
+                                <div *appRole="['ADMIN', 'SUPER']" class="col-12">
+                                    <mat-slide-toggle appearance="outline" formControlName="isSuperevent">¿Es un superevento?</mat-slide-toggle>
+                                </div>
 
                             </div>
 
