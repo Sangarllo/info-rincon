@@ -100,9 +100,9 @@ export class Appointment implements IAppointment {
     try {
 
       const DMYdateIni = this.from_YYYYMMDD_to_DDMMYYYY(appointment.dateIni);
-      console.log(`${appointment.dateIni} -> ${DMYdateIni}`);
+      // console.log(`${appointment.dateIni} -> ${DMYdateIni}`);
       const DMYdateEnd = this.from_YYYYMMDD_to_DDMMYYYY(appointment.dateEnd);
-      console.log(`${appointment.dateEnd} -> ${DMYdateEnd}`);
+      // console.log(`${appointment.dateEnd} -> ${DMYdateEnd}`);
 
       if ( appointment.allDay ) {
         if ( appointment.withEnd && ( appointment.dateIni !== appointment.dateEnd )) {
@@ -126,6 +126,22 @@ export class Appointment implements IAppointment {
           return `el día ${DMYdateIni} a las ${appointment.timeIni}`;
         }
       }
+    }
+    catch (exception) {
+      return '# no se ha podido calcular #';
+    }
+  }
+
+
+
+  static computeSimpleDesc(appointmentDesc: string): string {
+    try {
+      const dateDesc = appointmentDesc.substring(0,10);
+      const hourDesc = appointmentDesc.substring(11,16);
+
+      const DMYdateIni = this.from_YYYYMMDD_to_DDMMYYYY(dateDesc);
+
+      return `el día ${DMYdateIni} a las ${hourDesc}`;
     }
     catch (exception) {
       return '# no se ha podido calcular #';

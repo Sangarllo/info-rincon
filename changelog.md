@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Add memories in frontpage.
 - `feature` Add service for supported events (TODO).
 - `feature` Add SourceName for link-items.
+- `feature` Show Subevent in event-view when needed.
 
 ### Fix
 

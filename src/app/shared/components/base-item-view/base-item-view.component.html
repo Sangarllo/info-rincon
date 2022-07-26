@@ -1,0 +1,49 @@
+<div class="items__container">
+
+    <div>
+
+        <section *ngIf="baseItem" [ngClass]="{
+            'item': (baseItem.active),
+            'item--disabled' : !(baseItem.active),
+            'item--selected' : (baseItem.id === baseItemSelected)
+          }">
+
+            <div class="item-image" href="#" (click)="clickItem(baseItem)">
+                <img [src]="baseItem.imagePath" class="square img-thumbnail">
+            </div>
+
+            <div class="item-body" (click)="clickItem(baseItem)">
+                <div class="item-heading">{{ baseItem.name }}</div>
+                <div *ngIf="baseItem.extra" class="item-data">
+                    <span class="icon">🕑</span> {{ baseItem.extra }}
+                </div>
+                <div *ngIf="baseItem.place" class="item-data">
+                    <span class="icon">📍</span> {{ baseItem.place?.name }}</div>
+                <div *ngIf="baseItem.description && (baseItem.description !== 'Rincón de Soto')" class="item-text" [innerHtml]="baseItem.description"></div>
+            </div>
+
+            <div class="item-fav-button" *ngIf="userLogged">
+
+                <button *ngIf="userLogged.favEntities?.includes(baseItem.id); else noFavTemplateButton" mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_ON + ')'" (click)="setFav(false, baseItem)"></button>
+
+                <ng-template #noFavTemplateButton>
+                    <button mat-button class="button-image" [style.backgroundImage]="'url(' + BTN_IMG_FAVORITE_OFF + ')'" (click)="setFav(true, baseItem)"></button>
+                </ng-template>
+
+            </div>
+
+            <button *ngIf="modeAdmin === true" class="item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteBaseItem(baseItem)">
+                <mat-icon class="btn-1" aria-label="Delete">
+                    remove_circle_outline
+                </mat-icon>
+            </button>
+
+        </section>
+
+    </div>
+
+</div>
+
+<ng-template #noBaseItemsTemplate>
+    No hay elementos asociados
+</ng-template>

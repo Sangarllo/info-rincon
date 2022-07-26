@@ -23,6 +23,7 @@ import { RoleOptionsComponent } from '@shared/components/role-options/role-optio
 import { StoriesPanelComponent } from '@shared/components/stories-panel/stories-panel.component';
 import { CommentsDialogComponent } from '@shared/components/comments-dialog/comments-dialog.component';
 import { AuditItemsListComponent } from '@shared/components/audit-items-list/audit-items-list.component';
+import { BaseItemViewComponent } from '@shared/components/base-item-view/base-item-view.component';
 
 const components = [
   ShellComponent,
@@ -31,6 +32,7 @@ const components = [
   SectionFooterComponent,
   BaseItemDetailComponent,
   BaseItemDialogComponent,
+  BaseItemViewComponent,
   BaseItemsListComponent,
   BaseItemsTableComponent,
   BaseItemDetailComponent,

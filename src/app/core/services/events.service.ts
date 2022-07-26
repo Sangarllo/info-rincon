@@ -263,6 +263,10 @@ export class EventService {
     return this.eventCollection.doc(idEvent).valueChanges({ idField: 'id' });
   }
 
+  getOneSubEvent(idEvent: string): Observable<IEvent | undefined> {
+    return this.eventCollection.doc(idEvent).valueChanges({ idField: 'id' });
+  }
+
   async getOneEventAsync(idEvent: string): Promise<IEvent | undefined> {
     const firstValue = await firstValueFrom(
         this.eventCollection.doc(idEvent).valueChanges()

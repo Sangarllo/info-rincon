@@ -5,10 +5,10 @@ import { Observable, Subscription } from 'rxjs';
 
 import { environment } from '@environments/environment';
 import { AuthService } from '@auth/auth.service';
-import { Base } from '@models/base';
+import { Base, IBase } from '@models/base';
 import { IEvent, Event } from '@models/event';
 import { IUser } from '@models/user';
-import { IAppointment } from '@models/appointment';
+import { IAppointment, Appointment } from '@models/appointment';
 import { ILinkItem } from '@models/link-item';
 import { IPicture } from '@models/picture';
 import { EventService } from '@services/events.service';
@@ -31,9 +31,13 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public linksItemInfo = [];
   public idEventUrl: string;
   public idEvent: string;
-  public idSubevent: string;
   public eventPicture: IPicture;
   public appointment$: Observable<IAppointment>;
+  // Subevent = Schedule View
+  public idSubevent: string;
+  public subEvent: IEvent;
+  public appointmentSubEvent: IAppointment;
+
 
   readonly SECTION_BLANK: Base = Base.InitDefault();
   private listOfObservers: Array<Subscription> = [];
@@ -88,6 +92,18 @@ export class EventViewComponent implements OnInit, OnDestroy {
       .subscribe(async (event: IEvent) => {
           this.event = event;
           this.configAllowed = this.canConfig(this.userLogged);
+
+          if ( this.idSubevent ) {
+            this.event.scheduleItems.forEach( (schedule: IBase) => {
+              if ( schedule.id.split('_')[1] === this.idSubevent ) {
+                // console.log(`found! ${JSON.stringify(schedule)}`);
+                this.subEvent = schedule as IEvent;
+
+                this.appointmentSubEvent = Appointment.InitDefault(this.idSubevent);
+                this.appointmentSubEvent.description = Appointment.computeSimpleDesc(this.subEvent.extra);
+              }
+            });
+          }
       });
 
     // Link Items
@@ -101,9 +117,9 @@ export class EventViewComponent implements OnInit, OnDestroy {
           this.linksItemReport = linksItem;
         });
 
-
     this.listOfObservers.push( subs2$ );
     this.listOfObservers.push( subs3$ );
+    this.listOfObservers.push( subs4$ );
   }
 
   public configItem(): void {

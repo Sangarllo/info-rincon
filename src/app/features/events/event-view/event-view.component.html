@@ -1,10 +1,11 @@
 <div class="section-wrapper">
 
-    <mat-card class="item-view" *ngIf="event; else loadingTemplate">
+    <!-- INI Simple Event -->
+    <mat-card class="item-view" *ngIf="subEvent; else loadingTemplate">
 
         <div *ngIf="event.status === 'VISIBLE'; else noVisibleTemplate" class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
-                <app-event-image-detail [imagePath]="event.imagePath"></app-event-image-detail>
+                <app-event-image-detail [imagePath]="subEvent.imagePath"></app-event-image-detail>
             </div>
 
             <div class="col-lg-9 col-md-8 col-12">
@@ -26,6 +27,75 @@
                             <span class="share-button">
                             </span>
 
+                            <app-event-social [event]="subEvent" [userLogged]="userLogged"></app-event-social>
+
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+
+                        <app-event-basic-detail [event]="subEvent"></app-event-basic-detail>
+
+                    </fieldset>
+
+                    <fieldset class="type-other">
+
+                        <legend>¿Cuándo?</legend>
+
+                        <app-event-appointment-detail *ngIf="appointmentSubEvent" [showImage]="true" [appointment]="appointmentSubEvent"></app-event-appointment-detail>
+
+                    </fieldset>
+
+                    <fieldset class="type-other" *ngIf="subEvent?.place">
+
+                        <legend>¿Dónde?</legend>
+
+                        <sh-base-item-view [baseItem]="subEvent?.place"></sh-base-item-view>
+
+                    </fieldset>
+
+                </mat-card-content>
+
+
+            </div>
+        </div>
+
+        <span class="section-title">🧩 Este evento forma parte de...</span>
+
+    </mat-card>
+    <!-- END Simple Event -->
+
+
+
+
+    <!-- INI Complex Event -->
+    <mat-card class="item-view" *ngIf="event; else loadingTemplate">
+
+        <div *ngIf="event.status === 'VISIBLE'; else noVisibleTemplate" class="row">
+            <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+                <app-event-image-detail [imagePath]="event.imagePath"></app-event-image-detail>
+            </div>
+
+            <div class="col-lg-9 col-md-8 col-12">
+
+                <mat-card-content class="item-view">
+
+                    <fieldset class="type-social">
+
+                        <!--
+                      <legend>¡Comparte!</legend>
+                      -->
+
+                        <div class="buttons">
+
+                            <img [src]="'assets/svg/twitter.svg'" (click)="shareLink('twitter')" class="share-button">
+                            <img [src]="'assets/svg/facebook.svg'" (click)="shareLink('facebook')" class="share-button">
+                            <img [src]="'assets/svg/whatsapp.svg'" (click)="shareLink('whatsapp')" class="share-button">
+
+                            <span class="share-button">
+                          </span>
+
                             <app-event-social [event]="event" [userLogged]="userLogged"></app-event-social>
 
                         </div>
@@ -35,8 +105,8 @@
                     <fieldset>
 
                         <!--
-                        <legend>¿Qué?</legend>
-                        -->
+                      <legend>¿Qué?</legend>
+                      -->
 
                         <app-event-basic-detail [event]="event"></app-event-basic-detail>
 
@@ -97,8 +167,8 @@
                 <mat-card-actions class="buttons">
 
                     <button *ngIf="configAllowed" mat-fab class="btn-1" (click)="configItem()">
-                        <mat-icon>build</mat-icon>
-                    </button>
+                      <mat-icon>build</mat-icon>
+                  </button>
 
                 </mat-card-actions>
 
@@ -106,6 +176,7 @@
         </div>
 
     </mat-card>
+    <!-- END Complex Event -->
 
 </div>
 
