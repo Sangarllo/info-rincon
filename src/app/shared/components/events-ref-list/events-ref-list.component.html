@@ -20,6 +20,12 @@
                 <div *ngIf="eventRef.timeStr" class="item-data">
                     <span class="icon">🕑</span> {{ eventRef.timeStr }}
                 </div>
+
+                <div *ngIf="eventRef.description" class="item-description" [innerHTML]="eventRef.description">
+                    <span class="icon"></span> <span [innerHTML]="eventRef.description"></span>
+                </div>
+
+
             </div>
 
             <button *ngIf="modeAdmin === true" class="item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteEventRef(eventRef)">

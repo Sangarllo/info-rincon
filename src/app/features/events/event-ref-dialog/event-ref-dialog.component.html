@@ -34,6 +34,20 @@
         </mat-form-field>
     </div>
 
+    <div class="base-container row">
+        <mat-form-field class="col-12" appearance="outline">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="description" placeholder="Descripción"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div class="base-container row">
+        <div class="col-12" *ngIf="eventRefForm.controls.description.value">
+            <span class="title">Así se visualizaría la Descripción:</span>
+            <div class="preview" [innerHTML]="eventRefForm.controls.description.value"></div>
+        </div>
+    </div>
+
 </mat-dialog-content>
 
 <div mat-dialog-actions class="buttons buttons-center">

@@ -55,6 +55,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
           dateStr: [ '', []],
           timeStr: [ Appointment.HOUR_DEFAULT, []],
           eventId: [ '', []],
+          description: [ '', []],
       });
   }
 
@@ -78,6 +79,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
       dateStr: this.appointment.dateIni,
       timeStr: this.appointment.timeIni,
       eventId: '',
+      description: '',
     });
   }
 
@@ -97,6 +99,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
     const timeStr = this.eventRefForm.controls.timeStr.value;
     const dateStr = this.eventRefForm.controls.dateStr.value;
     const eventId = this.eventRefForm.controls.eventId.value;
+    const description = this.eventRefForm.controls.description.value;
 
     const newEventRef: IEventRef = {
       id: this.utilsSrv.getGUID(),
@@ -104,6 +107,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
       dateStr,
       timeStr,
       eventId,
+      description
     };
 
     this.dialogRef.close(newEventRef);

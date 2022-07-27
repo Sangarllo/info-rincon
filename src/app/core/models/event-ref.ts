@@ -4,6 +4,7 @@ export interface IEventRef {
   dateStr: string;
   timeStr: string;
   eventId?: string;
+  description?: string;
 }
 
 export class EventRef implements IEventRef {
@@ -14,6 +15,7 @@ export class EventRef implements IEventRef {
     public dateStr: string,
     public timeStr: string,
     public eventId?: string,
+    public description?: string,
   ) { }
 }
 
