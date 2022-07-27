@@ -100,7 +100,7 @@
                     <!-- AS NOT SUPEREVENT, THE EVENT CONTAINS SCHEDULE/SESSIONS -->
                     <fieldset *ngIf="!event.isSuperevent" class="event-item-detail type-other">
 
-                        <legend>¿Cómo?</legend>
+                        <legend>¿Cómo? (Sesiones)</legend>
 
                         <sh-base-items-table [baseItems]="event.scheduleItems" [baseType]="baseType" [modeAdmin]="true" (changeOrderBase)="changeOrderBaseItemFromTable($event)" (addBase)="addBaseItemFromTable($event)" (deleteBase)="deleteBaseItemFromTable($event)" (editBase)="editBaseItemFromTable($event)"
                             (deleteForeverBase)="deleteForeverBaseItemFromTable($event)">
@@ -118,9 +118,9 @@
                     <!-- AS NOT SUPEREVENT, THE EVENT CONTAINS SCHEDULE/SESSIONS -->
                     <fieldset *ngIf="event.isSuperevent" class="event-item-detail type-other">
 
-                        <legend>¿Cómo?</legend>
+                        <legend>¿Cómo? (Programación)</legend>
 
-                        <sh-events-ref-list [eventsRef]="event.eventsRef" [modeAdmin]="true" (deleteRef)="deleteRef($event)"></sh-events-ref-list>
+                        <sh-events-ref-list [eventsRef]="event.eventsRef" [modeAdmin]="true" (deleteRef)="deleteRef($event)" (changeOrderRef)="changeOrderRef($event)"></sh-events-ref-list>
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="addEventRefDialog()" color="accent">

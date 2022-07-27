@@ -11,6 +11,16 @@
         </mat-form-field>
     </div>
 
+    <div class="buttons buttons-center">
+        <button mat-fab class="btn-1" (click)="search()" [disabled]="eventRefForm.controls.eventId.value.length !== 20" cdkFocusInitial>
+          <mat-icon>search</mat-icon>
+      </button>
+        <button mat-fab class="btn-1" (click)="discard()" [disabled]="!eventMapped">
+          <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+
     <div class="base-container row">
         <mat-form-field class="col-12" appearance="outline">
             <mat-label>Nombre</mat-label>
@@ -51,7 +61,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions class="buttons buttons-center">
-    <button mat-fab class="btn-1" (click)="save()" cdkFocusInitial>
+    <button mat-fab class="btn-1" (click)="save()" [disabled]="!eventRefForm.valid" type="submit">
         <mat-icon>done</mat-icon>
     </button>
     <button mat-fab class="btn-1" (click)="onNoClick()">

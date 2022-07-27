@@ -11,7 +11,7 @@ import { AuthService } from '@auth/auth.service';
 import { Base, IBase, BaseType } from '@models/base';
 import { IAppointment, Appointment, ShowMode } from '@models/appointment';
 import { IEvent, Event } from '@models/event';
-import { IEventRef } from '@models/event-ref';
+import { EventRef, IEventRef } from '@models/event-ref';
 import { IItemSocial } from '@models/item-social';
 import { IUser } from '@models/user';
 import { AuditType } from '@models/audit';
@@ -493,21 +493,38 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       }
 
       this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, auditMessage);
-
   }
 
 
   deleteRef(eventRef: IEventRef): void {
-    this.logSrv.info(`deleteRef: ${JSON.stringify(eventRef)}`);
+      this.logSrv.info(`deleteRef: ${JSON.stringify(eventRef)}`);
 
-    const eventRefId = eventRef.id;
-    let auditMessage = '';
+      const eventRefId = eventRef.id;
+      let auditMessage = '';
 
-    this.event.eventsRef = this.event.eventsRef.filter(item => item.id !== eventRefId);
-    auditMessage = 'Actualizados sus eventos';
+      this.event.eventsRef = this.event.eventsRef.filter(item => item.id !== eventRefId);
+      auditMessage = 'Actualizados sus eventos';
+
+      this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, auditMessage);
+  }
+
+
+  changeOrderRef(changeRequest: string): void {
+    // this.logSrv.info(`changeOrderScheduleItem ${base.id}`);
+    const input = changeRequest.split('|');
+    const id1 = input[0];
+    const change = +input[1];
+
+    const index1 = this.event.eventsRef.findIndex(item => item.id === id1);
+
+    // this.logSrv.info(`changeOrderRef ${id1} | ${index1} | ${change}`);
+
+    this.event.eventsRef = EventRef.arrayMove(this.event.eventsRef, index1, index1 + change);
+    const auditMessage = 'Actualizados sus eventos';
 
     this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, auditMessage);
-}
+
+  }
 
 
   ngOnDestroy(): void {
@@ -557,4 +574,6 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+
 }

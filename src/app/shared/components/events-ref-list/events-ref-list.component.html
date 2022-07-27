@@ -1,6 +1,10 @@
-<div *ngIf="eventsRef.length > 0; else noEventRefsTemplate" class="items__container">
+<div *ngIf="eventsRef.length > 0; else noEventRefsTemplate" class="items-ref__container">
 
-    <div *ngFor="let eventRef of eventsRef">
+    <pre>
+        length: {{ eventsRef.length }}
+    </pre>
+
+    <div *ngFor="let eventRef of eventsRef; index as i">
 
         <section *ngIf="eventRef" class="item">
 
@@ -14,7 +18,7 @@
                 <div class="item-heading">{{ eventRef.name }}</div>
 
                 <div *ngIf="eventRef.dateStr" class="item-data">
-                    <span class="icon">📅​</span> {{ eventRef.dateStr }}
+                    <span class="icon">📅​</span> {{ eventRef.dateStr | date:'EEEE, d \'de\' MMMM' }}
                 </div>
 
                 <div *ngIf="eventRef.timeStr" class="item-data">
@@ -28,11 +32,27 @@
 
             </div>
 
-            <button *ngIf="modeAdmin === true" class="item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteEventRef(eventRef)">
-                <mat-icon class="btn-1" aria-label="Delete">
-                    remove_circle_outline
-                </mat-icon>
-            </button>
+            <div class="item-buttons" *ngIf="modeAdmin === true">
+
+                <button class="item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteEventRef(eventRef)">
+                    <mat-icon class="btn-1" aria-label="Delete">
+                        remove_circle_outline
+                    </mat-icon>
+                </button>
+
+                <button [disabled]="i === 0" mat-icon-button matTooltip="Subir orden" class="iconbutton" (click)="changeOrderElement(eventRef, -1)">
+                  <mat-icon class="btn-1" aria-label="Subir Orden">
+                      arrow_circle_up
+                  </mat-icon>
+                </button>
+
+                <button [disabled]="i === ( eventsRef.length - 1 )" mat-icon-button matTooltip="Bajar orden" class="iconbutton" (click)="changeOrderElement(eventRef, 1)">
+                    <mat-icon class="btn-1" aria-label="Bajar Orden">
+                        arrow_circle_down
+                    </mat-icon>
+                </button>
+
+            </div>
 
         </section>
 

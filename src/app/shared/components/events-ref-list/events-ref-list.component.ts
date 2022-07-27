@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { IEventRef } from '@models/event-ref';
 import { Event } from '@models/event';
 import { IUser } from '@models/user';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'sh-events-ref-list',
@@ -18,8 +19,11 @@ export class EventsRefListComponent implements OnInit {
   @Input() modeAdmin: boolean;
   @Input() userLogged: IUser;
   @Output() deleteRef = new EventEmitter<IEventRef>();
+  @Output() changeOrderRef = new EventEmitter<string>();
+
 
   constructor(
+    private logSrv: LogService,
     private router: Router,
   ) {
   }
@@ -49,5 +53,11 @@ export class EventsRefListComponent implements OnInit {
 
   deleteEventRef(eventRef: IEventRef): void {
     this.deleteRef.emit(eventRef);
+  }
+
+  changeOrderElement(eventRef: IEventRef, change: number): void {
+    // this.logSrv.info(`changeOrderBase: ${JSON.stringify(eventRef)}`);
+    const changeRequest = `${eventRef.id}|${change}`;
+    this.changeOrderRef.emit(changeRequest);
   }
 }

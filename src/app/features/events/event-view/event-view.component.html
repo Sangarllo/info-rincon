@@ -124,7 +124,7 @@
                     <div *ngIf="!event.isSuperevent">
                         <fieldset class="type-other" *ngIf="event.scheduleItems?.length > 0">
 
-                            <legend>¿Cómo?</legend>
+                            <legend>Sesiones</legend>
 
                             <sh-base-items-list [baseItems]="event.scheduleItems" [baseItemSelected]="idEventUrl"></sh-base-items-list>
 
@@ -135,7 +135,7 @@
                     <div *ngIf="event.isSuperevent">
                         <fieldset class="type-other" *ngIf="event.eventsRef?.length > 0">
 
-                            <legend>¿Cómo?</legend>
+                            <legend>Programación</legend>
 
                             <sh-events-ref-list [eventsRef]="event.eventsRef"></sh-events-ref-list>
 
