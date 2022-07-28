@@ -1,15 +1,4 @@
 @import './variables';
-.items__container .item {
-    flex-direction: row;
-    align-items: center;
-}
-
-.items-ref__container .item {
-    flex-direction: column;
-    align-items: center;
-}
-
-.items-ref__container,
 .items__container {
     div {
         margin-bottom: 0px !important;
@@ -31,6 +20,8 @@
     .item--selected,
     .item {
         display: flex;
+        flex-direction: row;
+        align-items: flex-start;
         box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.1);
         padding: 5px;
         margin-bottom: 10px;
@@ -115,10 +106,11 @@
                 margin-right: -12px;
                 color: $color1;
             }
-        }
-        .item-buttons {
-            width: 100%;
-            text-align: end;
+            .item-admin-buttons {
+                width: 100%;
+                text-align: center;
+                padding-bottom: 10px;
+            }
         }
         .item-fav-button {
             display: inline;

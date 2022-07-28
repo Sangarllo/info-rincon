@@ -1,6 +1,8 @@
 export interface IEventRef {
   id: string;
   name: string;
+  imageId: string;
+  imagePath: string;
   dateStr: string;
   timeStr: string;
   eventId?: string;
@@ -12,6 +14,8 @@ export class EventRef implements IEventRef {
     constructor(
       public id: string,
       public name: string,
+      public imageId: string,
+      public imagePath: string,
       public dateStr: string,
       public timeStr: string,
       public eventId?: string,
@@ -30,4 +34,3 @@ export class EventRef implements IEventRef {
   };
 
 }
-

@@ -7,10 +7,12 @@ import { Observable, Subscription } from 'rxjs';
 
 import { IEvent } from '@models/event';
 import { Appointment, IAppointment } from '@models/appointment';
+import { IPicture } from '@models/picture';
 import { IEventRef } from '@models/event-ref';
 import { EventService } from '@services/events.service';
 import { UtilsService, SwalMessage } from '@services/utils.service';
 import { AppointmentsService } from '@services/appointments.service';
+import { PictureService } from '@services/pictures.service';
 
 @Component({
   selector: 'app-event-ref-dialog',
@@ -18,6 +20,9 @@ import { AppointmentsService } from '@services/appointments.service';
   styleUrls: ['./event-ref-dialog.component.scss']
 })
 export class EventRefDialogComponent implements OnInit, OnDestroy {
+
+  pictureSelected: IPicture;
+  pictures: IPicture[];
 
   title = 'Añade un nuevo evento de este superevento';
   appointment: IAppointment;
@@ -35,6 +40,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private utilsSrv: UtilsService,
     private appointmentSrv: AppointmentsService,
+    private pictureSrv: PictureService,
     private eventSrv: EventService,
     public dialogRef: MatDialogRef<EventRefDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public event: IEvent) {
@@ -55,8 +61,12 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
         this.getDetails(eventId);
       }
 
+      this.getPictures();
+
       this.eventRefForm = this.fb.group({
           name: [ '', [Validators.required]],
+          imageId: [ '', []],
+          imagePath: [ '', []],
           dateStr: [ '', []],
           timeStr: [ Appointment.HOUR_DEFAULT, []],
           eventId: [ '', []],
@@ -64,6 +74,18 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
       });
   }
 
+
+  getPictures(): void {
+    this.pictureSrv.getPictureFromImage(this.event.imageId)
+      .subscribe((picture: IPicture) => {
+        this.pictureSelected = picture;
+      });
+
+    this.pictureSrv.getSeveralPicturesFromImages(this.event.images)
+      .subscribe((pictures: IPicture[]) => {
+        this.pictures = pictures;
+      });
+  }
 
   getDetails(eventId: string): void {
     const subs1$ = this.appointmentSrv.getOneAppointment(eventId)
@@ -78,14 +100,22 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
   displayDetails(): void {
 
     const name = '';
+    this.imageIdSelected = this.event.imageId;
+    this.imagePathSelected = this.event.imagePath;
 
     this.eventRefForm.patchValue({
       name,
+      imageId: this.imageIdSelected,
+      imagePath: this.imagePathSelected,
       dateStr: this.appointment.dateIni,
       timeStr: this.appointment.timeIni,
       eventId: '',
       description: '',
     });
+  }
+
+  onSelectedImage(picture: IPicture): void {
+    this.pictureSelected = picture;
   }
 
   onDateIniChange(type: string, event: MatDatepickerInputEvent<Date>): void {
@@ -114,6 +144,8 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
 
                     this.eventRefForm.patchValue({
                       name: eventName,
+                      imageId: event.imageId,
+                      imagePath: event.imageId,
                       dateStr: this.appointment.dateIni,
                       timeStr: this.appointment.timeIni,
                       eventId,
@@ -123,6 +155,12 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
                     this.eventMapped = true;
                 });
             this.listOfObservers.push(subs2$);
+
+            const subs3$ = this.pictureSrv.getPictureFromImage(event.imageId)
+            .subscribe((picture: IPicture) => {
+              this.pictureSelected = picture;
+            });
+            this.listOfObservers.push(subs3$);
         });
 
       this.listOfObservers.push(subs1$);
@@ -144,6 +182,8 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
     const newEventRef: IEventRef = {
       id: this.utilsSrv.getGUID(),
       name,
+      imageId: this.pictureSelected.id,
+      imagePath: this.pictureSelected.path,
       dateStr: dateStr.substring(0, 10),
       timeStr,
       eventId,

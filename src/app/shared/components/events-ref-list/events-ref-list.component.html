@@ -1,4 +1,4 @@
-<div *ngIf="eventsRef.length > 0; else noEventRefsTemplate" class="items-ref__container">
+<div *ngIf="eventsRef.length > 0; else noEventRefsTemplate" class="items__container">
 
     <pre>
         length: {{ eventsRef.length }}
@@ -14,43 +14,57 @@
             </pre>
             -->
 
-            <div class="item-body" (click)="gotoEventRef(eventsRef)">
-                <div class="item-heading">{{ eventRef.name }}</div>
+            <div class="item-image" href="#">
+                <img class="square img-thumbnail" [src]="eventRef?.imagePath">
+            </div>
 
-                <div *ngIf="eventRef.dateStr" class="item-data">
+
+
+            <div class="item-body" (click)="gotoEventRef(eventsRef)">
+
+                <div class="item-admin-buttons" *ngIf="modeAdmin === true">
+
+                    <button class="iconbutton" mat-icon-button matTooltip="Eliminar" (click)="deleteEventRef(eventRef)">
+                        <mat-icon class="btn-1" aria-label="Eliminar">
+                            remove_circle_outline
+                        </mat-icon>
+                    </button>
+
+                    <button [disabled]="i === 0" mat-icon-button matTooltip="Subir orden" class="iconbutton" (click)="changeOrderElement(eventRef, -1)">
+                      <mat-icon class="btn-1" aria-label="Subir Orden">
+                          arrow_circle_up
+                      </mat-icon>
+                    </button>
+
+                    <button [disabled]="i === ( eventsRef.length - 1 )" mat-icon-button matTooltip="Bajar orden" class="iconbutton" (click)="changeOrderElement(eventRef, 1)">
+                        <mat-icon class="btn-1" aria-label="Bajar Orden">
+                            arrow_circle_down
+                        </mat-icon>
+                    </button>
+
+                </div>
+
+
+                <div class="item-heading-audit">{{ eventRef?.name }}</div>
+
+                <div class="item-title-audit">📅​ {{ eventRef.dateStr | date:'EEEE, d \'de\' MMMM' }} | {{ eventRef.timeStr }}</div>
+
+                <!--
+                <div *ngIf="eventRef?.dateStr" class="item-data">
                     <span class="icon">📅​</span> {{ eventRef.dateStr | date:'EEEE, d \'de\' MMMM' }}
                 </div>
 
-                <div *ngIf="eventRef.timeStr" class="item-data">
+                <div *ngIf="eventRef?.timeStr" class="item-data">
                     <span class="icon">🕑</span> {{ eventRef.timeStr }}
                 </div>
+                -->
 
                 <div *ngIf="eventRef.description" class="item-description" [innerHTML]="eventRef.description">
                     <span class="icon"></span> <span [innerHTML]="eventRef.description"></span>
                 </div>
 
 
-            </div>
 
-            <div class="item-buttons" *ngIf="modeAdmin === true">
-
-                <button class="item-button-delete iconbutton" mat-icon-button matTooltip="Click to Delete" (click)="deleteEventRef(eventRef)">
-                    <mat-icon class="btn-1" aria-label="Delete">
-                        remove_circle_outline
-                    </mat-icon>
-                </button>
-
-                <button [disabled]="i === 0" mat-icon-button matTooltip="Subir orden" class="iconbutton" (click)="changeOrderElement(eventRef, -1)">
-                  <mat-icon class="btn-1" aria-label="Subir Orden">
-                      arrow_circle_up
-                  </mat-icon>
-                </button>
-
-                <button [disabled]="i === ( eventsRef.length - 1 )" mat-icon-button matTooltip="Bajar orden" class="iconbutton" (click)="changeOrderElement(eventRef, 1)">
-                    <mat-icon class="btn-1" aria-label="Bajar Orden">
-                        arrow_circle_down
-                    </mat-icon>
-                </button>
 
             </div>
 

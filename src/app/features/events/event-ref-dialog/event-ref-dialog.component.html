@@ -4,6 +4,12 @@
 
 <mat-dialog-content [formGroup]="eventRefForm">
 
+    <div class="images-container">
+        <div *ngFor="let picture of pictures">
+            <img [alt]="picture.path" [src]="picture.path" (click)="onSelectedImage(picture)" [ngClass]="{'selected-image' : (pictureSelected.path === picture.path)}" />
+        </div>
+    </div>
+
     <div class="base-container row">
         <mat-form-field class="col-12" appearance="outline">
             <mat-label>Evento Asociado</mat-label>
