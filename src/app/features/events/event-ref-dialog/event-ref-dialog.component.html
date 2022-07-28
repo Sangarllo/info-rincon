@@ -2,30 +2,32 @@
     <span mat-dialog-title>{{ title }}</span>
 </div>
 
+
 <mat-dialog-content [formGroup]="eventRefForm">
+
+    <div class="base-container row">
+        <mat-form-field class="col-12" appearance="outline">
+            <mat-label>Evento Asociado</mat-label>
+            <input [disabled]="eventMapped" matInput placeholder="Evento Asociado" formControlName="eventId">
+        </mat-form-field>
+    </div>
+
+    <div class="buttons buttons-center">
+        <button mat-fab class="btn-1" (click)="search()" [disabled]="eventRefForm.controls.eventId.value.length !== 20" cdkFocusInitial>
+            <mat-icon>search</mat-icon>
+        </button>
+        <button mat-fab class="btn-1" (click)="discard()" [disabled]="!eventMapped">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+
+    <hr/>
 
     <div class="images-container">
         <div *ngFor="let picture of pictures">
             <img [alt]="picture.path" [src]="picture.path" (click)="onSelectedImage(picture)" [ngClass]="{'selected-image' : (pictureSelected.path === picture.path)}" />
         </div>
     </div>
-
-    <div class="base-container row">
-        <mat-form-field class="col-12" appearance="outline">
-            <mat-label>Evento Asociado</mat-label>
-            <input matInput placeholder="Evento Asociado" formControlName="eventId">
-        </mat-form-field>
-    </div>
-
-    <div class="buttons buttons-center">
-        <button mat-fab class="btn-1" (click)="search()" [disabled]="eventRefForm.controls.eventId.value.length !== 20" cdkFocusInitial>
-          <mat-icon>search</mat-icon>
-      </button>
-        <button mat-fab class="btn-1" (click)="discard()" [disabled]="!eventMapped">
-          <mat-icon>delete</mat-icon>
-      </button>
-    </div>
-
 
     <div class="base-container row">
         <mat-form-field class="col-12" appearance="outline">
@@ -37,7 +39,7 @@
     <div class="base-container row">
         <mat-form-field class="col-12" appearance="outline">
             <mat-label>Fecha</mat-label>
-            <input matInput [matDatepicker]="picker1" placeholder="Fecha" formControlName="dateStr" (dateChange)="onDateIniChange('change', $event)">
+            <input matInput [matDatepicker]="picker1" placeholder="Fecha" formControlName="dateIni" (dateChange)="onDateIniChange('change', $event)">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
@@ -46,9 +48,27 @@
     <div class="base-container row">
         <mat-form-field class="col-12" appearance="outline">
             <mat-label>Hora</mat-label>
-            <input matInput type="time" formControlName="timeStr" placeholder="Hora">
+            <input matInput type="time" formControlName="timeIni" placeholder="Hora">
         </mat-form-field>
     </div>
+
+    <div class="base-container row">
+
+        <mat-form-field class="col-12" appearance="outline">
+            <mat-label>Lugar</mat-label>
+            <mat-select placeholder="Lugar" formControlName="place" [compareWith]="compareFunction" (selectionChange)="onSelectionChanged($event)">
+                <mat-option [value]="SECTION_BLANK">
+                    SIN ESPECIFICAR
+                </mat-option>
+                <mat-option *ngFor="let place of places$ | async as places" [value]="place">
+                    <img class="option-img" aria-hidden [src]="place.imagePath" height="25">
+                    <span>{{place.name}}</span>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+
 
     <div class="base-container row">
         <mat-form-field class="col-12" appearance="outline">

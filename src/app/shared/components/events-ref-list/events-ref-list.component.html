@@ -47,17 +47,18 @@
 
                 <div class="item-heading-audit">{{ eventRef?.name }}</div>
 
-                <div class="item-title-audit">📅​ {{ eventRef.dateStr | date:'EEEE, d \'de\' MMMM' }} | {{ eventRef.timeStr }}</div>
-
-                <!--
-                <div *ngIf="eventRef?.dateStr" class="item-data">
-                    <span class="icon">📅​</span> {{ eventRef.dateStr | date:'EEEE, d \'de\' MMMM' }}
+                <div class="item-title-audit">
+                    <span class="icon">📅</span>​ {{ eventRef.dateIni | date:'EEEE, d \'de\' MMMM' }} | {{ eventRef.timeIni }}
                 </div>
 
-                <div *ngIf="eventRef?.timeStr" class="item-data">
-                    <span class="icon">🕑</span> {{ eventRef.timeStr }}
+                <div *ngIf="eventRef.place" class="item-data">
+                    <span class="icon">📍</span> {{ eventRef.place?.name }}
                 </div>
-                -->
+
+                <div *ngIf="eventRef.eventId" class="item-link" (click)="gotoEventRef(eventRef)">
+                    <span class="icon">🔎</span>
+                    <span class="text">Visitar el evento</span>
+                </div>
 
                 <div *ngIf="eventRef.description" class="item-description" [innerHTML]="eventRef.description">
                     <span class="icon"></span> <span [innerHTML]="eventRef.description"></span>

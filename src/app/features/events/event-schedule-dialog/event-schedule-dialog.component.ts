@@ -59,8 +59,6 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-      // console.log(`EventScheduleDialogComponent.ngOnInit(${this.event.extra})`);
-
       const eventId = this.event.id;
       if ( eventId ) {
         this.getDetails(eventId);
@@ -155,7 +153,6 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChanged(event: any): void {
-    console.log(`onSelectionChanged: ${JSON.stringify(event.value)}`);
     this.placeBaseSelected = event.value;
   }
 

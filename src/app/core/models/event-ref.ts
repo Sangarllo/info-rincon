@@ -1,12 +1,14 @@
+import { IPlace } from '@models/place';
 export interface IEventRef {
   id: string;
   name: string;
   imageId: string;
   imagePath: string;
-  dateStr: string;
-  timeStr: string;
+  dateIni: string;
+  timeIni: string;
   eventId?: string;
   description?: string;
+  place?: IPlace;
 }
 
 export class EventRef implements IEventRef {
@@ -16,10 +18,11 @@ export class EventRef implements IEventRef {
       public name: string,
       public imageId: string,
       public imagePath: string,
-      public dateStr: string,
-      public timeStr: string,
+      public dateIni: string,
+      public timeIni: string,
       public eventId?: string,
       public description?: string,
+      public place?: IPlace,
     ) { }
 
     static arrayMove(array: IEventRef[], oldIndex: number, newIndex: number): IEventRef[] {

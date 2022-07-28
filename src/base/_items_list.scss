@@ -93,6 +93,15 @@
             .item-data {
                 margin: 2px 4px;
             }
+            .item-link {
+                text-align: right;
+                padding-top: 6px;
+                span.text {
+                    color: $color1;
+                    background-color: $color2;
+                    border-bottom: dotted 1px $color1;
+                }
+            }
             .item-description {
                 margin: 8px 40px;
             }

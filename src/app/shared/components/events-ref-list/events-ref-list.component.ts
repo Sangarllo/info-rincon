@@ -31,13 +31,13 @@ export class EventsRefListComponent implements OnInit {
   ngOnInit(): void {
     this.eventsRef.sort(
       function(a: IEventRef, b: IEventRef) {
-        if ( a.dateStr < b.dateStr ) {
+        if ( a.dateIni < b.dateIni ) {
           return -1;
-        } else if ( a.dateStr > b.dateStr ) {
+        } else if ( a.dateIni > b.dateIni ) {
           return 1;
-        } else if ( a.timeStr < b.timeStr ) {
+        } else if ( a.timeIni < b.timeIni ) {
           return -1;
-        } else if ( a.timeStr > b.timeStr ) {
+        } else if ( a.timeIni > b.timeIni ) {
           return 1;
         } else {
           return 0;
@@ -46,9 +46,10 @@ export class EventsRefListComponent implements OnInit {
   }
 
   gotoEventRef(eventRef: IEventRef): void {
-    if ( eventRef.eventId ) {
-      this.router.navigate([`/${Event.PATH_URL}/${eventRef.eventId}`]);
-    }
+      const route = `/${Event.PATH_URL}/${eventRef.eventId}`;
+      if ( eventRef.eventId ) {
+        this.router.navigate([route]);
+      }
   }
 
   deleteEventRef(eventRef: IEventRef): void {

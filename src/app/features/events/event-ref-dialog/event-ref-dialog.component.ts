@@ -5,14 +5,17 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 import { Observable, Subscription } from 'rxjs';
 
+import { IBase, Base } from '@models/base';
 import { IEvent } from '@models/event';
 import { Appointment, IAppointment } from '@models/appointment';
 import { IPicture } from '@models/picture';
+import { Place } from '@models/place';
 import { IEventRef } from '@models/event-ref';
 import { EventService } from '@services/events.service';
 import { UtilsService, SwalMessage } from '@services/utils.service';
 import { AppointmentsService } from '@services/appointments.service';
 import { PictureService } from '@services/pictures.service';
+import { PlaceService } from '@services/places.service';
 
 @Component({
   selector: 'app-event-ref-dialog',
@@ -32,8 +35,12 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
   orderId: number;
   imageIdSelected: string;
   imagePathSelected: string;
-  dateStr: string;
-  timeStr: string;
+  dateIni: string;
+  timeIni: string;
+  placeBaseSelected: Base;
+  readonly IMAGE_BLANK: string = Base.IMAGE_DEFAULT;
+  readonly SECTION_BLANK: Base = Place.InitDefault();
+  places$: Observable<IBase[]>;
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
@@ -41,18 +48,15 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
     private utilsSrv: UtilsService,
     private appointmentSrv: AppointmentsService,
     private pictureSrv: PictureService,
+    private placeSrv: PlaceService,
     private eventSrv: EventService,
     public dialogRef: MatDialogRef<EventRefDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public event: IEvent) {
+
+      this.places$ = this.placeSrv.getAllPlacesBase();
   }
 
-  // Using desc to swich operation:
-  //  '' -> CREATE SCHEDULE ITEM
-  //  'X' -> EDIT SCHEDULE X
-
   ngOnInit(): void {
-
-      // console.log(`EventScheduleDialogComponent.ngOnInit(${this.event.extra})`);
 
       this.eventMapped = false;
 
@@ -61,29 +65,33 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
         this.getDetails(eventId);
       }
 
-      this.getPictures();
+      this.getPictures(this.event, false);
 
       this.eventRefForm = this.fb.group({
-          name: [ '', [Validators.required]],
+          eventId: [ '', []],
           imageId: [ '', []],
           imagePath: [ '', []],
-          dateStr: [ '', []],
-          timeStr: [ Appointment.HOUR_DEFAULT, []],
-          eventId: [ '', []],
+          name: [ '', [Validators.required]],
           description: [ '', []],
+          dateIni: [ '', []],
+          timeIni: [ Appointment.HOUR_DEFAULT, []],
+          place: [this.SECTION_BLANK, [Validators.required]],
       });
   }
 
-
-  getPictures(): void {
-    this.pictureSrv.getPictureFromImage(this.event.imageId)
+  getPictures(event: IEvent, eventMapped: boolean): void {
+    this.pictureSrv.getPictureFromImage(event.imageId)
       .subscribe((picture: IPicture) => {
-        this.pictureSelected = picture;
-      });
+          this.pictureSelected = picture;
 
-    this.pictureSrv.getSeveralPicturesFromImages(this.event.images)
-      .subscribe((pictures: IPicture[]) => {
-        this.pictures = pictures;
+          if ( eventMapped ) {
+              this.pictures = [picture];
+          } else {
+              this.pictureSrv.getSeveralPicturesFromImages(event.images)
+                  .subscribe((pictures: IPicture[]) => {
+                      this.pictures = pictures;
+              });
+          }
       });
   }
 
@@ -102,15 +110,17 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
     const name = '';
     this.imageIdSelected = this.event.imageId;
     this.imagePathSelected = this.event.imagePath;
+    this.placeBaseSelected = ( this.event.placeItems[0] as Base ) ?? this.SECTION_BLANK;
 
     this.eventRefForm.patchValue({
-      name,
+      eventId: '',
       imageId: this.imageIdSelected,
       imagePath: this.imagePathSelected,
-      dateStr: this.appointment.dateIni,
-      timeStr: this.appointment.timeIni,
-      eventId: '',
+      name,
       description: '',
+      dateIni: this.appointment.dateIni,
+      timeIni: this.appointment.timeIni,
+      place: this.placeBaseSelected,
     });
   }
 
@@ -118,10 +128,17 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
     this.pictureSelected = picture;
   }
 
+  onSelectionChanged(event: any): void {
+    this.placeBaseSelected = event.value;
+  }
+
+  compareFunction(o1: IBase, o2: IBase): boolean {
+    return (o1.id === o2.id && o1.name === o2.name);
+  }
+
   onDateIniChange(type: string, event: MatDatepickerInputEvent<Date>): void {
     const newDate = this.appointmentSrv.formatDate(event.value);
-    console.log(`onDateIniChange(${event.value} --> ${newDate})`);
-    this.dateStr = newDate;
+    this.dateIni = newDate;
   }
 
   onNoClick(): void {
@@ -142,14 +159,22 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
                 .subscribe((appointment: IAppointment) => {
                     this.appointment = appointment;
 
+                    this.placeBaseSelected = this.SECTION_BLANK;
+                    if ( event.placeItems[0] ) {
+                      this.placeBaseSelected = event.placeItems[0] as Base;
+                    }
+
+                    this.getPictures(event, true);
+
                     this.eventRefForm.patchValue({
                       name: eventName,
                       imageId: event.imageId,
                       imagePath: event.imageId,
-                      dateStr: this.appointment.dateIni,
-                      timeStr: this.appointment.timeIni,
+                      dateIni: this.appointment.dateIni,
+                      timeIni: this.appointment.timeIni,
                       eventId,
-                      description: event.description
+                      description: '',
+                      place: this.placeBaseSelected,
                     });
 
                     this.eventMapped = true;
@@ -174,21 +199,25 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
   save(): void {
 
     const name = this.eventRefForm.controls.name.value;
-    const timeStr = this.eventRefForm.controls.timeStr.value;
-    const dateStr: string = this.eventRefForm.controls.dateStr.value.toString();
+    const timeIni = this.eventRefForm.controls.timeIni.value;
+    const dateIni: string = this.eventRefForm.controls.dateIni.value.toString();
     const eventId = this.eventRefForm.controls.eventId.value;
     const description = this.eventRefForm.controls.description.value;
 
     const newEventRef: IEventRef = {
       id: this.utilsSrv.getGUID(),
-      name,
       imageId: this.pictureSelected.id,
       imagePath: this.pictureSelected.path,
-      dateStr: dateStr.substring(0, 10),
-      timeStr,
+      name,
+      dateIni: dateIni.substring(0, 10),
+      timeIni,
       eventId,
       description
     };
+
+    if ( this.placeBaseSelected?.id !== '0' ) {
+      newEventRef.place = this.placeBaseSelected;
+    }
 
     this.dialogRef.close(newEventRef);
   }
