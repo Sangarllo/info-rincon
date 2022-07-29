@@ -57,6 +57,9 @@ export class BaseItemsListComponent {
   }
 
   public clickItem(baseItem: IBase): void {
+
+    console.log(`clickItem: ${JSON.stringify(baseItem)}`);
+
     switch (baseItem.baseType) {
 
       case BaseType.EVENT:

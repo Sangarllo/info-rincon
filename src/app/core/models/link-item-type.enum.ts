@@ -1,6 +1,7 @@
 export enum LinkItemType {
   Imagen = '🖼️​',
   Web = '🌐​',
+  Horario = '📋​',
   Fotos = '​📷',
   Video = '🎬​',
   Noticia = '📰',
@@ -13,6 +14,7 @@ const LINK_ITEM_TYPE_DEFAULT = LinkItemType.Web;
 const LINK_ITEM_TYPES: LinkItemType[] = [
   LinkItemType.Imagen,
   LinkItemType.Web,
+  LinkItemType.Horario,
   LinkItemType.Fotos,
   LinkItemType.Video,
   LinkItemType.Noticia,
