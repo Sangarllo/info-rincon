@@ -1,6 +1,6 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 import { IEventRef } from '@models/event-ref';
 import { Event } from '@models/event';
@@ -26,6 +26,19 @@ export class EventsRefListComponent implements OnInit {
     private logSrv: LogService,
     private router: Router,
   ) {
+      // override the route reuse strategy
+      this.router.routeReuseStrategy.shouldReuseRoute = function(){
+        return false;
+      };
+      this.router.events.subscribe((evt) => {
+        if (evt instanceof NavigationEnd) {
+          // trick the Router into believing it's last link wasn't previously loaded
+          this.router.navigated = false;
+          // if you need to scroll back to top, here is the right place
+          window.scrollTo(0, 0);
+        }
+      });
+
   }
 
   ngOnInit(): void {

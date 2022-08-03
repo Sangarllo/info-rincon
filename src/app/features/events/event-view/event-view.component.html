@@ -1,7 +1,7 @@
 <div class="section-wrapper">
 
     <!-- INI Simple Event -->
-    <mat-card class="item-view" *ngIf="subEvent; else loadingTemplate">
+    <mat-card class="item-view" *ngIf="subEvent">
 
         <div *ngIf="event.status === 'VISIBLE'; else noVisibleTemplate" class="row">
             <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
