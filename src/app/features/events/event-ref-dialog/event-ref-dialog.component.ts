@@ -30,8 +30,8 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
   title = 'Añade un nuevo evento de este superevento';
   appointment: IAppointment;
   eventRefForm: FormGroup;
+  thisRefId: string;
   eventMapped: boolean;
-  thisScheduleId: string;
   orderId: number;
   imageIdSelected: string;
   imagePathSelected: string;
@@ -108,19 +108,48 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
 
   displayDetails(): void {
 
-    const name = '';
-    this.imageIdSelected = this.event.imageId;
-    this.imagePathSelected = this.event.imagePath;
-    this.placeBaseSelected = ( this.event.placeItems[0] as Base ) ?? this.SECTION_BLANK;
+    let name = '';
+    let description = ''; // TODO REVIEW
+    let dateIni = '';
+    let timeIni = '';
+
+    if ( this.event.extra === '' ) {
+        // -> EventRef Nuevo
+        this.thisRefId = this.utilsSrv.getGUID();
+        this.imageIdSelected = this.event.imageId;
+        this.imagePathSelected = this.event.imagePath;
+        this.placeBaseSelected = ( this.event.placeItems[0] as Base ) ?? this.SECTION_BLANK;
+
+        dateIni = this.appointment.dateIni;
+        timeIni = this.appointment.timeIni;
+    } else {
+        // -> EventRef ya existente
+        this.thisRefId = this.event.extra;
+
+        const refEdited = this.event.eventsRef.find( item => item.id === this.thisRefId );
+
+        name = refEdited.name;
+        description = refEdited.description;
+        this.imageIdSelected = refEdited.imageId;
+        this.imagePathSelected = refEdited.imagePath;
+        // const datetimeIni = refEdited.
+        // this.appointment.dateIni = datetimeIni[0];
+        // this.appointment.timeIni = datetimeIni[1];
+        this.placeBaseSelected = refEdited.place as Base;
+
+        dateIni = refEdited.dateIni;
+        timeIni = refEdited.timeIni;
+    }
 
     this.eventRefForm.patchValue({
+      id: this.thisRefId,
       eventId: '',
       imageId: this.imageIdSelected,
       imagePath: this.imagePathSelected,
       name,
-      description: '',
-      dateIni: this.appointment.dateIni,
-      timeIni: this.appointment.timeIni,
+      description,
+      dateIni,
+      timeIni,
       place: this.placeBaseSelected,
     });
   }
@@ -206,7 +235,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
     const description = this.eventRefForm.controls.description.value;
 
     const newEventRef: IEventRef = {
-      id: this.utilsSrv.getGUID(),
+      id: this.thisRefId,
       imageId: this.pictureSelected.id,
       imagePath: this.pictureSelected.path,
       name,

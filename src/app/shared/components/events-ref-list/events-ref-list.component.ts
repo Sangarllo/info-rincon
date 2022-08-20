@@ -20,7 +20,7 @@ export class EventsRefListComponent implements OnInit {
   @Input() userLogged: IUser;
   @Output() deleteRef = new EventEmitter<IEventRef>();
   @Output() changeOrderRef = new EventEmitter<string>();
-
+  @Output() editRef = new EventEmitter<IEventRef>();
 
   constructor(
     private logSrv: LogService,
@@ -67,6 +67,10 @@ export class EventsRefListComponent implements OnInit {
 
   deleteEventRef(eventRef: IEventRef): void {
     this.deleteRef.emit(eventRef);
+  }
+
+  editEventRef(eventRef: IEventRef): void {
+    this.editRef.emit(eventRef);
   }
 
   changeOrderElement(eventRef: IEventRef, change: number): void {

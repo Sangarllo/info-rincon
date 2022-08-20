@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `feature` Create superevents for events, and eventRef lists.
 - `feature` Improve eventRef model and dialog for superevents.
 - `feature` Add LinkType timetable.
+- `feature` Add edit button for eventRef.
 
 ### Fix
 

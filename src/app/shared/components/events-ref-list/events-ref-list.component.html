@@ -26,6 +26,12 @@
                         </mat-icon>
                     </button>
 
+                    <button class="iconbutton" mat-icon-button matTooltip="Editar" (click)="editEventRef(eventRef)">
+                        <mat-icon class="btn-1" aria-label="Editar">
+                            edit
+                        </mat-icon>
+                    </button>
+
                     <button [disabled]="i === 0" mat-icon-button matTooltip="Subir orden" class="iconbutton" (click)="changeOrderElement(eventRef, -1)">
                       <mat-icon class="btn-1" aria-label="Subir Orden">
                           arrow_circle_up

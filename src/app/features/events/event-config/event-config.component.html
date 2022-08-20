@@ -120,10 +120,10 @@
 
                         <legend>¿Cómo? (Programación)</legend>
 
-                        <sh-events-ref-list [eventsRef]="event.eventsRef" [modeAdmin]="true" (deleteRef)="deleteRef($event)" (changeOrderRef)="changeOrderRef($event)"></sh-events-ref-list>
+                        <sh-events-ref-list [eventsRef]="event.eventsRef" [modeAdmin]="true" (deleteRef)="deleteRef($event)" (changeOrderRef)="changeOrderRef($event)" (editRef)="editRef($event)"></sh-events-ref-list>
 
                         <div class="buttons">
-                            <button mat-fab class="btn-1" (click)="addEventRefDialog()" color="accent">
+                            <button mat-fab class="btn-1" (click)="openEventRefDialog('')" color="accent">
                               <mat-icon>alarm_add</mat-icon>
                           </button>
                         </div>

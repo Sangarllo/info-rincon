@@ -293,9 +293,13 @@ export class EventConfigComponent implements OnInit, OnDestroy {
     });
   }
 
+  openEventRefDialog(eventRefId: string): void {
 
-
-  addEventRefDialog(): void {
+    if ( eventRefId === '' ) {
+      this.event.extra = ''; // New Item
+    } else {
+      this.event.extra = eventRefId; // Edit existing item
+    }
 
     this.dialogConfig.data = this.event;
     const dialogRef = this.dialog.open(EventRefDialogComponent, this.dialogConfig);
@@ -306,9 +310,14 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
           console.log(`eventRef: ${JSON.stringify(eventRef)}`);
 
-          this.event.eventsRef.push(eventRef);
+          const index = this.event.eventsRef.findIndex(item => item.id === eventRef.id);
+          if ( index < 0 ) { // Adding new eventRef and appointment
+            this.event.eventsRef.push(eventRef);
+          } else {
+            this.event.eventsRef[index] = eventRef;
+          }
 
-          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizado horario');
+          this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Actualizada programación');
 
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
@@ -506,6 +515,10 @@ export class EventConfigComponent implements OnInit, OnDestroy {
       auditMessage = 'Actualizados sus eventos';
 
       this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, auditMessage);
+  }
+
+  editRef(eventRef: IEventRef): void {
+      this.openEventRefDialog(eventRef.id);
   }
 
 
