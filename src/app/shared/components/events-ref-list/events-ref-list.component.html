@@ -1,9 +1,5 @@
 <div *ngIf="eventsRef.length > 0; else noEventRefsTemplate" class="items__container">
 
-    <pre>
-        length: {{ eventsRef.length }}
-    </pre>
-
     <div *ngFor="let eventRef of eventsRef; index as i">
 
         <section *ngIf="eventRef" class="item">

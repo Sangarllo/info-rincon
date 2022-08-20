@@ -46,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `security` CanConfig depends also on entityArray.
 - `social` Standar item-social code for updating.
 - `route` Fix problem navigating go same component.
+- `feature` Fix problem saving dateIni in event-ref model.
 
 ### Update
 

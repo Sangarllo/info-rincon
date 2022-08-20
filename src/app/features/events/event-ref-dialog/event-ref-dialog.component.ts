@@ -99,6 +99,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
     const subs1$ = this.appointmentSrv.getOneAppointment(eventId)
       .subscribe((appointment: IAppointment) => {
           this.appointment = appointment;
+          this.dateIni = this.appointment.dateIni;
           this.displayDetails();
       });
 
@@ -139,6 +140,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
   onDateIniChange(type: string, event: MatDatepickerInputEvent<Date>): void {
     const newDate = this.appointmentSrv.formatDate(event.value);
     this.dateIni = newDate;
+    console.log(`datIni: ${newDate}`);
   }
 
   onNoClick(): void {
@@ -200,7 +202,6 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
 
     const name = this.eventRefForm.controls.name.value;
     const timeIni = this.eventRefForm.controls.timeIni.value;
-    const dateIni: string = this.eventRefForm.controls.dateIni.value.toString();
     const eventId = this.eventRefForm.controls.eventId.value;
     const description = this.eventRefForm.controls.description.value;
 
@@ -209,7 +210,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
       imageId: this.pictureSelected.id,
       imagePath: this.pictureSelected.path,
       name,
-      dateIni: dateIni.substring(0, 10),
+      dateIni: this.dateIni,
       timeIni,
       eventId,
       description
