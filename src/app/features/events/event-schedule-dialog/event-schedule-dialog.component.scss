@@ -5,18 +5,35 @@ div.base-container {
     flex-wrap: nowrap;
     justify-content: space-between;
     .mat-form-field.name-field {
-        width: 300px;
+        width: 100%;
+    }
+    .mat-form-field.description-field {
+        width: 100%;
+        margin: -30px 0px;
     }
     .mat-form-field.date-field {
-        width: 130px;
+        width: 200px;
     }
     .mat-form-field.time-field {
-        width: 100px;
+        margin-left: 10px;
     }
 }
 
 .description-wrapper {
     flex-direction: column;
+}
+
+.section-wrapper {
+    border: 1px dashed lightgray;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+#images-wrapper {
+    .images-container {
+        border: 0px solid lightgray;
+        margin: -10px;
+    }
 }
 
 .option-img {
