@@ -32,6 +32,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
   eventRefForm: FormGroup;
   thisRefId: string;
   eventMapped: boolean;
+  eventMappedName: string;
   orderId: number;
   imageIdSelected: string;
   imagePathSelected: string;
@@ -59,6 +60,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
       this.eventMapped = false;
+      this.eventMappedName = '';
 
       const eventId = this.event.id;
       if ( eventId ) {
@@ -147,11 +149,8 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
         timeIni = refEdited.timeIni;
     }
 
-    console.log(`--> timeIni: ${timeIni}`);
-
     const timeRegex = new RegExp('^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$');
     const test = timeRegex.test(timeIni);
-    console.log(`Rest: ${test}`);
 
     this.eventRefForm.patchValue({
       id: this.thisRefId,
@@ -182,7 +181,6 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
   onDateIniChange(type: string, event: MatDatepickerInputEvent<Date>): void {
     const newDate = this.appointmentSrv.formatDate(event.value);
     this.dateIni = newDate;
-    console.log(`datIni: ${newDate}`);
   }
 
   onNoClick(): void {
@@ -193,12 +191,10 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
   search(): void {
     const eventId = this.eventRefForm.controls.eventId.value;
     let eventName = '';
-    console.log(`buscando ${eventId}`);
 
     const subs1$ = this.eventSrv.getOneEvent(eventId)
         .subscribe((event: IEvent) => {
             eventName = event.name;
-            console.log(`evento encontrado ${eventName}`);
             const subs2$ = this.appointmentSrv.getOneAppointment(eventId)
                 .subscribe((appointment: IAppointment) => {
                     this.appointment = appointment;
@@ -223,6 +219,8 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
                     });
 
                     this.eventMapped = true;
+                    this.eventMappedName = eventName;
+                    this.eventRefForm.controls.eventId.disable();
                 });
             this.listOfObservers.push(subs2$);
 
@@ -236,7 +234,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
       this.listOfObservers.push(subs1$);
   }
 
-  discard(): void {
+  clearMapped(): void {
     this.ngOnInit();
   }
 

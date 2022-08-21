@@ -11,17 +11,27 @@
             ¿Se corresponde con un evento ya creado?
         </legend>
 
+
+        <div *ngIf="eventMappedName" class="event-mapped-row">
+
+            <span>
+                ✅​ Evento: <b>{{eventMappedName}}</b>
+            </span>
+
+            <button mat-mini-fab class="btn-1" (click)="clearMapped()" [disabled]="!eventMapped">
+                <mat-icon>clear</mat-icon>
+          </button>
+
+        </div>
+
         <div class="base-container row">
-            <mat-form-field class="event-id-field" appearance="outline">
+            <mat-form-field *ngIf="!eventMapped" class="event-id-field" appearance="outline">
                 <mat-label>Evento Asociado</mat-label>
-                <input [disabled]="eventMapped" matInput placeholder="Evento Asociado" formControlName="eventId">
+                <input matInput placeholder="Evento Asociado" formControlName="eventId">
             </mat-form-field>
 
-            <button mat-fab class="btn-1" (click)="search()" [disabled]="eventRefForm.controls.eventId.value.length !== 20" cdkFocusInitial>
+            <button *ngIf="!eventMapped" mat-mini-fab class="btn-1" (click)="search()" [disabled]="(eventRefForm.controls.eventId.value.length !== 20)" cdkFocusInitial>
                 <mat-icon>search</mat-icon>
-            </button>
-            <button mat-fab class="btn-1" (click)="discard()" [disabled]="!eventMapped">
-                <mat-icon>delete</mat-icon>
             </button>
         </div>
 
