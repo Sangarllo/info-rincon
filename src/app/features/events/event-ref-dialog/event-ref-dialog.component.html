@@ -23,7 +23,7 @@
 
     <hr/>
 
-    <div class="images-container">
+    <div *ngIf="pictures" class="images-container">
         <div *ngFor="let picture of pictures">
             <img [alt]="picture.path" [src]="picture.path" (click)="onSelectedImage(picture)" [ngClass]="{'selected-image' : (pictureSelected.path === picture.path)}" />
         </div>

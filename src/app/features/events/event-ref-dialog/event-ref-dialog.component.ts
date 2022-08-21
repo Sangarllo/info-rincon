@@ -109,13 +109,16 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
   displayDetails(): void {
 
     let name = '';
-    let description = ''; // TODO REVIEW
+    let description = '';
     let dateIni = '';
     let timeIni = '';
 
     if ( this.event.extra === '' ) {
         // -> EventRef Nuevo
         this.thisRefId = this.utilsSrv.getGUID();
+
+        this.title = 'Añade un nuevo evento de este superevento';
+
         this.imageIdSelected = this.event.imageId;
         this.imagePathSelected = this.event.imagePath;
         this.placeBaseSelected = ( this.event.placeItems[0] as Base ) ?? this.SECTION_BLANK;
@@ -125,6 +128,8 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
     } else {
         // -> EventRef ya existente
         this.thisRefId = this.event.extra;
+
+        this.title = 'Editando evento en el superevento';
 
         const refEdited = this.event.eventsRef.find( item => item.id === this.thisRefId );
 

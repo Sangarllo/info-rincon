@@ -308,8 +308,6 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
       if ( eventRef ) {
 
-          console.log(`eventRef: ${JSON.stringify(eventRef)}`);
-
           const index = this.event.eventsRef.findIndex(item => item.id === eventRef.id);
           if ( index < 0 ) { // Adding new eventRef and appointment
             this.event.eventsRef.push(eventRef);
