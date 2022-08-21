@@ -75,6 +75,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
           description: [ '', []],
           dateIni: [ '', []],
           timeIni: [ Appointment.HOUR_DEFAULT, []],
+          isTimeIni: [ true, []],
           place: [this.SECTION_BLANK, [Validators.required]],
       });
   }
@@ -146,6 +147,12 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
         timeIni = refEdited.timeIni;
     }
 
+    console.log(`--> timeIni: ${timeIni}`);
+
+    const timeRegex = new RegExp('^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$');
+    const test = timeRegex.test(timeIni);
+    console.log(`Rest: ${test}`);
+
     this.eventRefForm.patchValue({
       id: this.thisRefId,
       eventId: '',
@@ -155,6 +162,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
       description,
       dateIni,
       timeIni,
+      isTimeIni: timeRegex.test(timeIni),
       place: this.placeBaseSelected,
     });
   }
@@ -208,6 +216,7 @@ export class EventRefDialogComponent implements OnInit, OnDestroy {
                       imagePath: event.imageId,
                       dateIni: this.appointment.dateIni,
                       timeIni: this.appointment.timeIni,
+                      isTimeIni: true,
                       eventId,
                       description: '',
                       place: this.placeBaseSelected,
