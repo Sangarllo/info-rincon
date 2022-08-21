@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 
 import { IAppointment, Appointment, ShowMode } from '@models/appointment';
+import { AppointmentType } from '@models/appointment-type';
 import { IBase } from '@models/base';
 import { ScheduleType } from '@models/shedule-type.enum';
 
@@ -50,8 +51,8 @@ export class AppointmentsService {
   }
 
 
-  addAppointment(idAppointment: string): void {
-    const newAppointment = Appointment.InitDefault(idAppointment);
+  addAppointment(idAppointment: string, appointmentType: AppointmentType): void {
+    const newAppointment = Appointment.InitDefault(idAppointment, appointmentType);
     this.appointmentCollection.doc(idAppointment).set({
       id: idAppointment,
       active: newAppointment.active,
@@ -64,6 +65,7 @@ export class AppointmentsService {
       dateEnd: newAppointment.dateEnd,
       timeEnd: newAppointment.timeEnd,
       description: newAppointment.description,
+      appointmentType: newAppointment.appointmentType,
     });
   }
 
@@ -71,7 +73,6 @@ export class AppointmentsService {
     const idAppointment = scheduleItem.id;
     const dateTime = scheduleItem.extra.split(' ');
     const isDeadline: boolean = ( scheduleItem.extra2 === ScheduleType.FechaLimite );
-
 
     this.appointmentCollection.doc(idAppointment).set({
       id: idAppointment,
@@ -85,7 +86,7 @@ export class AppointmentsService {
       dateEnd: '',
       timeEnd: '',
       description: '',
-      isDeadline,
+      appointmentType: isDeadline ? AppointmentType.DEADLINE : AppointmentType.SCHEDULE,
     });
   }
 

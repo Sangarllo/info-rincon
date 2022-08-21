@@ -1,0 +1,44 @@
+@import '../../../../base/variables';
+div.button-toggle-container {
+    margin-bottom: 30px;
+    .mat-button-toggle-group {
+        flex-wrap: wrap;
+        display: grid;
+        .mat-button-toggle.button__link-type {
+            white-space: normal;
+        }
+    }
+}
+
+.mat-button-toggle-checked {
+    border: 2px solid $color1 !important;
+    border-radius: 5px !important;
+    background-color: $color2 !important;
+}
+
+.appointment-type-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+    padding: 4px 0px;
+    margin: 0px 0px 20px 0px;
+    .appointment-type {
+        padding-top: 4px;
+        flex: 1 1 0;
+        width: 0;
+        span.icon {
+            font-size: xx-large;
+        }
+        .explication {
+            font-size: smaller;
+        }
+    }
+}
+
+.section-wrapper {
+    border: 1px dashed lightgray;
+    padding: 10px;
+    border-radius: 25px;
+}

@@ -8,12 +8,14 @@ import { Subscription } from 'rxjs';
 import { Base } from '@models/base';
 import { IEvent } from '@models/event';
 import { Appointment, IAppointment } from '@models/appointment';
+import { AppointmentType, APPOINTMENT_ICON_TYPES, IAppointmentTypeIcon } from '@models/appointment-type';
 import { AppointmentsService } from '@services/appointments.service';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
   selector: 'app-event-appointment-dialog',
-  templateUrl: './event-appointment-dialog.component.html'
+  templateUrl: './event-appointment-dialog.component.html',
+  styleUrls: ['./event-appointment-dialog.component.scss']
 })
 export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
   title = 'Indica el horario de este evento';
@@ -21,6 +23,8 @@ export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
   appointment: IAppointment;
   appointmentForm: FormGroup;
   readonly SECTION_BLANK: Base = Base.InitDefault();
+  readonly APPOINTMENT_TYPES: IAppointmentTypeIcon[] = APPOINTMENT_ICON_TYPES;
+
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
@@ -35,26 +39,27 @@ export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
 
     const idAppointment = this.data.appointmentId;
     if ( idAppointment ) {
-      this.getDetails(idAppointment);
+        this.getDetails(idAppointment);
 
-      this.appointmentForm = this.fb.group({
-        id: [ idAppointment, []],
-        allDay: [ true, []],
-        dateIni: [ '', []],
-        timeIni: [ '', []],
-        withEnd: [ false, []],
-        dateEnd: [ '', []],
-        timeEnd: [ '', []],
-        description: [ '', []],
-      });
+        this.appointmentForm = this.fb.group({
+          id: [ idAppointment, []],
+          allDay: [ true, []],
+          dateIni: [ '', []],
+          timeIni: [ '', []],
+          withEnd: [ false, []],
+          dateEnd: [ '', []],
+          timeEnd: [ '', []],
+          description: [ '', []],
+          appointmentType: [ '', []],
+        });
     }
   }
 
   getDetails(idAppointment: string): void {
 
     if ( idAppointment === '0' ) { // TODO: No debería suceder
-      this.title = 'Creación de una nueva entidad';
-      this.appointment = Appointment.InitDefault(this.data.id);
+      this.title = 'Creación de un nuevo horario';
+      this.appointment = Appointment.InitDefault(this.data.id, AppointmentType.EVENT);
     } else {
       const subs1$ = this.appointmentSrv.getOneAppointment(idAppointment)
       .subscribe({
@@ -90,6 +95,33 @@ export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
     });
 
     this.appointmentForm.controls.id.setValue(this.appointment.id);
+  }
+
+  onAppointmentTypeChange(appointmentType: IAppointmentTypeIcon){
+      console.log(`appointmentType: ${JSON.stringify(appointmentType.type)}`);
+      this.appointmentForm.controls.appointmentType.setValue(appointmentType.type);
+
+      switch (appointmentType.type) {
+          case AppointmentType.EVENT_DATE:
+            this.appointmentForm.controls.allDay.setValue(true);
+            this.appointmentForm.controls.timeIni.setValue(Appointment.HOUR_DEFAULT);
+            break;
+          case AppointmentType.EVENT_DATETIME:
+            this.appointmentForm.controls.allDay.setValue(false);
+            break;
+          case AppointmentType.DEADLINE:
+            this.appointmentForm.controls.allDay.setValue(false);
+            break;
+          case AppointmentType.PROVISIONAL:
+            this.appointmentForm.controls.allDay.setValue(true);
+            this.appointmentForm.controls.timeIni.setValue(Appointment.HOUR_DEFAULT);
+            break;
+      }
+
+      this.appointment.timeIni = this.appointmentForm.controls.timeIni.value;
+      this.appointment.allDay = this.appointmentForm.controls.allDay.value;
+
+      this.updateTemporalDesc();
   }
 
   onDateIniChange(type: string, event: MatDatepickerInputEvent<Date>): void {

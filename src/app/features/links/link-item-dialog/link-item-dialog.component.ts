@@ -110,7 +110,6 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
     });
   }
 
-
   onLinkItemTypeChange(key: string){
     // console.log(`linkItemType: ${key}`);
     this.linkItemForm.controls.linkItemType.setValue(key);

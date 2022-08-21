@@ -9,6 +9,7 @@ import { Base, IBase } from '@models/base';
 import { IEvent, Event } from '@models/event';
 import { IUser } from '@models/user';
 import { IAppointment, Appointment } from '@models/appointment';
+import { AppointmentType } from '@models/appointment-type';
 import { ILinkItem } from '@models/link-item';
 import { IPicture } from '@models/picture';
 import { EventService } from '@services/events.service';
@@ -99,7 +100,7 @@ export class EventViewComponent implements OnInit, OnDestroy {
                 // console.log(`found! ${JSON.stringify(schedule)}`);
                 this.subEvent = schedule as IEvent;
 
-                this.appointmentSubEvent = Appointment.InitDefault(this.idSubevent);
+                this.appointmentSubEvent = Appointment.InitDefault(this.idSubevent, AppointmentType.SCHEDULE);
                 this.appointmentSubEvent.description = Appointment.computeSimpleDesc(this.subEvent.extra);
               }
             });

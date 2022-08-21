@@ -16,7 +16,6 @@ import { environment } from '@environments/environment';
 import { colors } from '@shared/utils/colors';
 import { BaseType, IBase } from '@models/base';
 import { CalendarEventExtended, IEvent } from '@models/event';
-import { IUser } from '@models/user';
 import { AuditItem, AuditType } from '@models/audit';
 import { IEntity } from '@models/entity';
 import { ITags } from '@models/tags';
@@ -25,9 +24,9 @@ import { Status } from '@models/status.enum';
 import { AppointmentsService } from '@services/appointments.service';
 import { ItemSocialService } from '@services/items-social.service';
 import { PictureService } from '@services/pictures.service';
-import { UserRole } from '@models/user-role.enum';
 import { Place } from '@models/place';
 import { IAppointment } from '@models/appointment';
+import { AppointmentType } from '@models/appointment-type';
 
 const EVENTS_COLLECTION = 'eventos';
 
@@ -327,7 +326,7 @@ export class EventService {
     const eventId: string = this.afs.createId();
     const timestamp = this.appointmentSrv.getTimestamp();
     const auditItem = AuditItem.InitDefault(AuditType.CREATED, currentUser, timestamp);
-    this.appointmentSrv.addAppointment(eventId);
+    this.appointmentSrv.addAppointment(eventId, AppointmentType.EVENT);
 
     return this.eventCollection.doc(eventId).set({
       ...event,
@@ -371,7 +370,7 @@ export class EventService {
       event.images.push(newImage);
     }
 
-    this.appointmentSrv.addAppointment(eventId);
+    this.appointmentSrv.addAppointment(eventId, AppointmentType.EVENT);
 
     const place = entity.place;
     if ( place ) {

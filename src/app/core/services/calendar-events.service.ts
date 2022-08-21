@@ -12,6 +12,7 @@ import { IEvent } from '@models/event';
 import { IPlace } from '@models/place';
 import { IBase, BaseType, Base } from '@models/base';
 import { IAppointment } from '@models/appointment';
+import { AppointmentType } from '@models/appointment-type';
 import { EventItemDialogComponent } from '@features/events/event-item-dialog/event-item-dialog.component';
 
 @Injectable({
@@ -141,10 +142,21 @@ export class CalendarEventsService {
       const dateIni = new Date(`${appointment.dateIni}T${appointment.timeIni}`);
       const dateEnd = new Date(`${appointment.dateEnd}T${appointment.timeEnd}`);
 
+      let color = colors.color1;
+      switch ( appointment.appointmentType ) {
+        case AppointmentType.DEADLINE:
+          color = colors.colorDeadline;
+          break;
+        case AppointmentType.PROVISIONAL:
+          color = colors.colorProvisional;
+          break;
+        // TODO
+      }
+
       const theCalendarEvent = ({
         id: appointment.id,
         title: isSchedule ? scheduleItem?.name : event?.name,
-        color: appointment.isDeadline ? colors.colorDeadline : colors.color1,
+        color,
         allDay: appointment.allDay,
         image: isSchedule ? scheduleItem?.imageId : event?.imageId,
         start: dateIni,
