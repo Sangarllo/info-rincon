@@ -15,7 +15,6 @@ import { SwalMessage, UtilsService } from '@services/utils.service';
 @Component({
   selector: 'app-event-image-dialog',
   templateUrl: './event-image-dialog.component.html',
-  styleUrls: ['./event-image-dialog.component.scss']
 })
 export class EventImageDialogComponent implements OnInit {
 

@@ -3,9 +3,9 @@
 </div>
 
 
-<mat-dialog-content [formGroup]="eventRefForm">
+<mat-dialog-content class="dialog__content" [formGroup]="eventRefForm">
 
-    <fieldset class="section-wrapper" id="event-id-wrapper">
+    <fieldset class="dialog__section-wrapper" id="dialog__event-id-wrapper">
 
         <legend>
             ¿Se corresponde con un evento ya creado?
@@ -38,7 +38,7 @@
     </fieldset>
 
 
-    <fieldset class="section-wrapper" id="images-wrapper">
+    <fieldset class="dialog__section-wrapper" id="dialog__images-wrapper">
 
         <div *ngIf="pictures" class="images-container">
 
@@ -51,7 +51,7 @@
     </fieldset>
 
 
-    <fieldset class="section-wrapper">
+    <fieldset class="dialog__section-wrapper">
 
         <legend>
             ¿Qué?
@@ -81,7 +81,7 @@
     </fieldset>
 
 
-    <fieldset class="section-wrapper">
+    <fieldset class="dialog__section-wrapper">
 
         <legend>
             ¿Cuándo?
@@ -116,7 +116,7 @@
 
     </fieldset>
 
-    <fieldset class="section-wrapper">
+    <fieldset class="dialog__section-wrapper">
 
         <legend>
             ¿Dónde?

@@ -12,6 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.3] - After fiestas-2022
+
+### Add
+
+- `feature` Add appointment-type.
+
+### Update
+
+- `style` Refactor dialog styles.
+
 ## [2.0.2] - After first release (without SSR because of performance issues at deploying)
 
 ### Add

@@ -14,7 +14,6 @@ import { PictureService } from '@services/pictures.service';
 @Component({
   selector: 'app-link-item-dialog',
   templateUrl: './link-item-dialog.component.html',
-  styleUrls: ['./link-item-dialog.component.scss']
 })
 export class LinkItemDialogComponent implements OnInit, OnDestroy {
 

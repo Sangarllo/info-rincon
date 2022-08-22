@@ -2,17 +2,21 @@
     <span mat-dialog-title>{{ title }}</span>
 </div>
 
-<mat-dialog-content class="dialog-wrapper" [formGroup]="baseItemForm">
+<mat-dialog-content class="dialog__content" [formGroup]="baseItemForm">
 
-    <div *ngIf="baseItemSelected.imagePath; else noBaseItemTemplate">
-        <img class="container__image" [src]="baseItemSelected.imagePath">
-    </div>
+    <fieldset class="dialog__section-wrapper" id="dialog__images-wrapper">
 
-    <ng-template #noBaseItemTemplate>
-        <div>
-            <img class="container__image" [src]="SECTION_BLANK.imagePath">
+        <div *ngIf="baseItemSelected.imagePath; else noBaseItemTemplate">
+            <img class="dialog__image" [src]="baseItemSelected.imagePath">
         </div>
-    </ng-template>
+
+        <ng-template #noBaseItemTemplate>
+            <div>
+                <img class="dialog__image" [src]="SECTION_BLANK.imagePath">
+            </div>
+        </ng-template>
+
+    </fieldset>
 
     <mat-form-field appearance="outline">
         <mat-label>{{ baseItemName }}</mat-label>

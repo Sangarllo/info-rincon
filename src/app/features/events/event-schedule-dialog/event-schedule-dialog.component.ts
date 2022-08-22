@@ -20,7 +20,6 @@ import { PictureService } from '@services/pictures.service';
 @Component({
   selector: 'app-event-schedule-dialog',
   templateUrl: './event-schedule-dialog.component.html',
-  styleUrls: ['./event-schedule-dialog.component.scss']
 })
 export class EventScheduleDialogComponent implements OnInit, OnDestroy {
 

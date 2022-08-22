@@ -2,11 +2,11 @@
     <span mat-dialog-title>{{ title }}</span>
 </div>
 
-<mat-dialog-content [formGroup]="linkItemForm">
+<mat-dialog-content class="dialog__content" [formGroup]="linkItemForm">
 
     <div class="base-container">
-        <mat-button-toggle-group class="link-item-type-container" appearance="outline" formControlName="linkItemType">
-            <mat-button-toggle *ngFor="let key of LINK_ITEM_TYPES_KEYS" (change)="onLinkItemTypeChange(key)" [value]="key" [aria-label]="key">
+        <mat-button-toggle-group class="dialog__section-type-wrapper" appearance="outline" formControlName="linkItemType">
+            <mat-button-toggle class="dialog__item-type" *ngFor="let key of LINK_ITEM_TYPES_KEYS" (change)="onLinkItemTypeChange(key)" [value]="key" [aria-label]="key">
                 {{ LINK_ITEM_TYPES[key] }}
             </mat-button-toggle>
         </mat-button-toggle-group>

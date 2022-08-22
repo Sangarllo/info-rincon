@@ -100,7 +100,8 @@ export class EventViewComponent implements OnInit, OnDestroy {
                 // console.log(`found! ${JSON.stringify(schedule)}`);
                 this.subEvent = schedule as IEvent;
 
-                this.appointmentSubEvent = Appointment.InitDefault(this.idSubevent, AppointmentType.SCHEDULE);
+                this.appointmentSubEvent = Appointment.InitDefault(this.idSubevent, AppointmentType.EVENT_DATETIME);
+                // TODO review when schedule let complex appointments
                 this.appointmentSubEvent.description = Appointment.computeSimpleDesc(this.subEvent.extra);
               }
             });

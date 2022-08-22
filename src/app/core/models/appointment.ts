@@ -1,5 +1,4 @@
 import { IBase } from '@models/base';
-import { ScheduleType } from '@models/shedule-type.enum';
 import { AppointmentType } from '@models/appointment-type';
 
 // eslint-disable-next-line no-shadow
@@ -65,7 +64,7 @@ export class Appointment implements IAppointment {
       todayStr,
       Appointment.HOUR_DEFAULT,
       '',
-      AppointmentType.EVENT,
+      AppointmentType.EVENT_DATE,
     );
 
     basicAppointment.description = Appointment.computeDesc(basicAppointment);
@@ -75,7 +74,6 @@ export class Appointment implements IAppointment {
 
   static InitFromSchedule(scheduleItem: IBase, enable: boolean): Appointment {
     const dateTime = scheduleItem.extra.split(' ');
-    const isDeadline: boolean = ( scheduleItem.extra2 === ScheduleType.FechaLimite );
 
     const scheduleAppointment = new Appointment(
       scheduleItem.id,
@@ -89,7 +87,7 @@ export class Appointment implements IAppointment {
       dateTime[0],
       Appointment.HOUR_DEFAULT,
       '',
-      isDeadline ? AppointmentType.DEADLINE : AppointmentType.SCHEDULE,
+      AppointmentType.EVENT_DATETIME, // TODO when schedule let do complex appointments
     );
 
     return scheduleAppointment;

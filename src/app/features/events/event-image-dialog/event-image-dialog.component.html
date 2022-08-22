@@ -2,9 +2,9 @@
     <span mat-dialog-title>{{ title }}</span>
 </div>
 
-<mat-dialog-content class="mat-typography">
+<mat-dialog-content class="dialog__content">
 
-    <div class="main-image" *ngIf="pictureSelected; else noImageTemplate">
+    <div id="dialog__main-image-wrapper" *ngIf="pictureSelected; else noImageTemplate">
 
         <img class="main-image" [src]="pictureSelected.path">
         <div class="buttons buttons-center">
@@ -24,7 +24,7 @@
         </div>
     </ng-template>
 
-    <div *ngIf="pictures">
+    <div id="dialog__several-images-wrapper" *ngIf="pictures">
 
         <div class="images-container-text">
             <span>Imágenes Disponibles ({{pictures.length}}):</span>

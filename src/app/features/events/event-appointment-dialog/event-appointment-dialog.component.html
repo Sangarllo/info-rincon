@@ -2,14 +2,12 @@
     <span mat-dialog-title>{{ title }}</span>
 </div>
 
-<mat-dialog-content class="cointainer" [formGroup]="appointmentForm">
+<mat-dialog-content class="dialog__content" [formGroup]="appointmentForm">
 
-    <mat-button-toggle-group class="appointment-type-container" appearance="outline" formControlName="appointmentType">
-        <mat-button-toggle class="appointment-type" *ngFor="let appointmentType of APPOINTMENT_TYPES" (change)="onAppointmentTypeChange(appointmentType)" [value]="appointmentType.type" [aria-label]="appointmentType.icon">
+    <mat-button-toggle-group class="dialog__section-type-wrapper" appearance="outline" formControlName="appointmentType">
+        <mat-button-toggle class="dialog__item-type" *ngFor="let appointmentType of APPOINTMENT_TYPES" (change)="onAppointmentTypeChange(appointmentType)" [value]="appointmentType.type" [aria-label]="appointmentType.icon">
             <span class="icon">{{ appointmentType.icon }}</span>
-            <div class="explication">
-                {{ appointmentType.explication }}
-            </div>
+            <div class="explication" [innerHTML]="appointmentType.explication"></div>
         </mat-button-toggle>
     </mat-button-toggle-group>
 
@@ -29,7 +27,7 @@
     </div>
     -->
 
-    <fieldset class="section-wrapper">
+    <fieldset class="dialog__section-wrapper">
 
         <legend>
             ¿Cuándo?

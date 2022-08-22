@@ -11,7 +11,6 @@ import { BaseService } from '@services/base.service';
 @Component({
   selector: 'app-event-new-base-dialog',
   templateUrl: './event-new-base-dialog.component.html',
-  styleUrls: ['./event-new-base-dialog.component.scss']
 })
 export class EventNewBaseDialogComponent implements OnInit {
 

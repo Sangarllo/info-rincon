@@ -20,7 +20,6 @@ import { PlaceService } from '@services/places.service';
 @Component({
   selector: 'app-event-ref-dialog',
   templateUrl: './event-ref-dialog.component.html',
-  styleUrls: ['./event-ref-dialog.component.scss']
 })
 export class EventRefDialogComponent implements OnInit, OnDestroy {
 

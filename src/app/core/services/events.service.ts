@@ -326,7 +326,7 @@ export class EventService {
     const eventId: string = this.afs.createId();
     const timestamp = this.appointmentSrv.getTimestamp();
     const auditItem = AuditItem.InitDefault(AuditType.CREATED, currentUser, timestamp);
-    this.appointmentSrv.addAppointment(eventId, AppointmentType.EVENT);
+    this.appointmentSrv.addAppointment(eventId, AppointmentType.EVENT_DATE);
 
     return this.eventCollection.doc(eventId).set({
       ...event,
@@ -370,7 +370,7 @@ export class EventService {
       event.images.push(newImage);
     }
 
-    this.appointmentSrv.addAppointment(eventId, AppointmentType.EVENT);
+    this.appointmentSrv.addAppointment(eventId, AppointmentType.EVENT_DATE);
 
     const place = entity.place;
     if ( place ) {

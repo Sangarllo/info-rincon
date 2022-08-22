@@ -15,7 +15,6 @@ import { SwalMessage, UtilsService } from '@services/utils.service';
 @Component({
   selector: 'app-event-appointment-dialog',
   templateUrl: './event-appointment-dialog.component.html',
-  styleUrls: ['./event-appointment-dialog.component.scss']
 })
 export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
   title = 'Indica el horario de este evento';
@@ -59,7 +58,7 @@ export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
 
     if ( idAppointment === '0' ) { // TODO: No debería suceder
       this.title = 'Creación de un nuevo horario';
-      this.appointment = Appointment.InitDefault(this.data.id, AppointmentType.EVENT);
+      this.appointment = Appointment.InitDefault(this.data.id, AppointmentType.EVENT_DATE);
     } else {
       const subs1$ = this.appointmentSrv.getOneAppointment(idAppointment)
       .subscribe({
@@ -103,19 +102,39 @@ export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
 
       switch (appointmentType.type) {
           case AppointmentType.EVENT_DATE:
-            this.appointmentForm.controls.allDay.setValue(true);
-            this.appointmentForm.controls.timeIni.setValue(Appointment.HOUR_DEFAULT);
-            break;
+              this.appointmentForm.controls.allDay.setValue(true);
+              this.appointmentForm.controls.timeIni.setValue(Appointment.HOUR_DEFAULT);
+              this.appointmentForm.controls.withEnd.setValue(false);
+              this.appointmentForm.controls.timeEnd.setValue(Appointment.HOUR_DEFAULT);
+              break;
+
           case AppointmentType.EVENT_DATETIME:
-            this.appointmentForm.controls.allDay.setValue(false);
-            break;
+              this.appointmentForm.controls.allDay.setValue(false);
+              this.appointmentForm.controls.withEnd.setValue(false);
+              this.appointmentForm.controls.timeEnd.setValue(Appointment.HOUR_DEFAULT);
+              break;
+
+          case AppointmentType.RANGE_DATES:
+              this.appointmentForm.controls.allDay.setValue(true);
+              this.appointmentForm.controls.withEnd.setValue(true);
+              this.appointmentForm.controls.dateEnd.setValue(
+                  this.appointmentForm.controls.dateIni.value
+              );
+              this.appointmentForm.controls.timeEnd.setValue(Appointment.HOUR_DEFAULT);
+              break;
+
           case AppointmentType.DEADLINE:
-            this.appointmentForm.controls.allDay.setValue(false);
-            break;
+              this.appointmentForm.controls.allDay.setValue(false);
+              this.appointmentForm.controls.withEnd.setValue(false);
+              this.appointmentForm.controls.timeEnd.setValue(Appointment.HOUR_DEFAULT);
+              break;
+
           case AppointmentType.PROVISIONAL:
-            this.appointmentForm.controls.allDay.setValue(true);
-            this.appointmentForm.controls.timeIni.setValue(Appointment.HOUR_DEFAULT);
-            break;
+              this.appointmentForm.controls.allDay.setValue(true);
+              this.appointmentForm.controls.timeIni.setValue(Appointment.HOUR_DEFAULT);
+              this.appointmentForm.controls.withEnd.setValue(false);
+              this.appointmentForm.controls.timeEnd.setValue(Appointment.HOUR_DEFAULT);
+              break;
       }
 
       this.appointment.timeIni = this.appointmentForm.controls.timeIni.value;

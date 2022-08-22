@@ -2,9 +2,9 @@
     <span mat-dialog-title>{{ title }}</span>
 </div>
 
-<mat-dialog-content [formGroup]="scheduleItemForm">
+<mat-dialog-content class="dialog__content" [formGroup]="scheduleItemForm">
 
-    <fieldset class="section-wrapper" id="images-wrapper">
+    <fieldset class="dialog__section-wrapper" id="dialog__images-wrapper">
 
         <div *ngIf="pictures" class="images-container">
             <div *ngFor="let picture of pictures">
@@ -15,7 +15,7 @@
     </fieldset>
 
 
-    <fieldset class="section-wrapper">
+    <fieldset class="dialog__section-wrapper">
 
         <legend>
             ¿Qué?
@@ -40,7 +40,7 @@
     </fieldset>
 
 
-    <fieldset class="section-wrapper">
+    <fieldset class="dialog__section-wrapper">
 
         <legend>
             ¿Cuándo?
@@ -63,7 +63,7 @@
     </fieldset>
 
 
-    <fieldset class="section-wrapper">
+    <fieldset class="dialog__section-wrapper">
 
         <legend>
             ¿Dónde?

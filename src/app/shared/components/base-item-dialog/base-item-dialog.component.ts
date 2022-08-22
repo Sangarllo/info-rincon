@@ -6,7 +6,6 @@ import { IBase } from '@models/base';
 @Component({
   selector: 'app-base-item-dialog',
   templateUrl: './base-item-dialog.component.html',
-  styleUrls: ['./base-item-dialog.component.scss']
 })
 export class BaseItemDialogComponent {
 

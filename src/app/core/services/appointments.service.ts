@@ -72,7 +72,6 @@ export class AppointmentsService {
   addScheduleAppointment(scheduleItem: IBase, active: boolean): void {
     const idAppointment = scheduleItem.id;
     const dateTime = scheduleItem.extra.split(' ');
-    const isDeadline: boolean = ( scheduleItem.extra2 === ScheduleType.FechaLimite );
 
     this.appointmentCollection.doc(idAppointment).set({
       id: idAppointment,
@@ -86,7 +85,7 @@ export class AppointmentsService {
       dateEnd: '',
       timeEnd: '',
       description: '',
-      appointmentType: isDeadline ? AppointmentType.DEADLINE : AppointmentType.SCHEDULE,
+      appointmentType: AppointmentType.EVENT_DATETIME // TODO when schedule let do complex appointments
     });
   }
 

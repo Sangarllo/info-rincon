@@ -243,6 +243,9 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   }
 
   openAppointmentDialog(): void {
+
+    this.dialogConfig.width = '600px';
+    this.dialogConfig.height = '800px';
     this.dialogConfig.data = this.event;
     const dialogRef = this.dialog.open(EventAppointmentDialogComponent, this.dialogConfig);
 
