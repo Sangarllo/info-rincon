@@ -9,6 +9,38 @@ export enum AppointmentType {
   PROVISIONAL = 'PROVISIONAL',
 }
 
+export const COLORS: any = {
+  DATE: {
+    primary: '#003A59',
+    secondary: '#DEEEEC'
+  },
+  DATETIME: {
+    primary: '#460FF1', // '#ff00ff',
+    secondary: '#460FF1', // '#ffb3ff'
+  },
+  DEADLINE: {
+    primary: '#8b0000',
+    secondary: '#f08080'
+  },
+  PROVISIONAL: {
+    primary: '#e3bc08',
+    secondary: '#FDF1BA'
+  },
+  blue: {
+    primary: '#1e90ff',
+    secondary: '#D1E8FF'
+  },
+  yellow: {
+    primary: '#e3bc08',
+    secondary: '#FDF1BA'
+  },
+  INDIGO: {
+    primary: '#3f51b5',
+    secondary: '#c6cceb'
+  },
+};
+
+
 export interface IAppointmentTypeIcon {
   type: AppointmentType;
   icon: string;

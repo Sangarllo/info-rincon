@@ -5,14 +5,13 @@ import { CalendarEvent } from 'angular-calendar';
 import { Observable, Subscription, combineLatest } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 
-import { colors } from '@shared/utils/colors';
 import { AppointmentsService } from '@services/appointments.service';
 import { EventService } from '@services/events.service';
 import { IEvent } from '@models/event';
 import { IPlace } from '@models/place';
 import { IBase, BaseType, Base } from '@models/base';
 import { IAppointment } from '@models/appointment';
-import { AppointmentType } from '@models/appointment-type';
+import { AppointmentType, COLORS } from '@models/appointment-type';
 import { EventItemDialogComponent } from '@features/events/event-item-dialog/event-item-dialog.component';
 
 @Injectable({
@@ -142,13 +141,16 @@ export class CalendarEventsService {
       const dateIni = new Date(`${appointment.dateIni}T${appointment.timeIni}`);
       const dateEnd = new Date(`${appointment.dateEnd}T${appointment.timeEnd}`);
 
-      let color = colors.color1;
+      let color = COLORS.DATE;
       switch ( appointment.appointmentType ) {
+        case AppointmentType.EVENT_DATETIME:
+          color = COLORS.DATETIME;
+          break;
         case AppointmentType.DEADLINE:
-          color = colors.colorDeadline;
+          color = COLORS.DEADLINE;
           break;
         case AppointmentType.PROVISIONAL:
-          color = colors.colorProvisional;
+          color = COLORS.PROVISIONAL;
           break;
         // TODO
       }

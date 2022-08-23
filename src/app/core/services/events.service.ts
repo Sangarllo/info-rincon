@@ -13,7 +13,6 @@ import { formatDistance } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 import { environment } from '@environments/environment';
-import { colors } from '@shared/utils/colors';
 import { BaseType, IBase } from '@models/base';
 import { CalendarEventExtended, IEvent } from '@models/event';
 import { AuditItem, AuditType } from '@models/audit';
@@ -26,7 +25,7 @@ import { ItemSocialService } from '@services/items-social.service';
 import { PictureService } from '@services/pictures.service';
 import { Place } from '@models/place';
 import { IAppointment } from '@models/appointment';
-import { AppointmentType } from '@models/appointment-type';
+import { AppointmentType, COLORS } from '@models/appointment-type';
 
 const EVENTS_COLLECTION = 'eventos';
 
@@ -188,7 +187,7 @@ export class EventService {
         map(([events, appointments]) => events.map(event => ({
           id: event.id,
           title: event.name,
-          color: colors.indigo,
+          color: COLORS.INDIGO,
           allDay: appointments.find(a => a.id === event.id)?.allDay,
           start: new Date(appointments.find(a => a.id === event.id)?.timeIni)
         }) as CalendarEvent)),

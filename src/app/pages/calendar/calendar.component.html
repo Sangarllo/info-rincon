@@ -19,6 +19,23 @@
             </mwl-calendar-day-view>
         </div>
 
+        <mat-accordion>
+            <mat-expansion-panel class="calendar-caption">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="calendar-caption__title">
+                        Se han encontrado {{ events.length }} eventos {{ infoEventsFooter }}:
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="calendar-caption__item color-date"></div> Día Completo |
+                <div class="calendar-caption__item color-datetime"></div> Día y Fecha |
+                <!--
+                    <div class="calendar-caption__item color-deadline"></div>
+                -->
+                <div class="calendar-caption__item color-provisional"></div> Provisional
+            </mat-expansion-panel>
+        </mat-accordion>
+
         <app-section-footer *ngIf="showFooter" [text]="'Se han encontrado ' + events.length + ' eventos ' + infoEventsFooter"></app-section-footer>
 
     </div>

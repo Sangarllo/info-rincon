@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Update
 
 - `style` Refactor dialog styles.
+- `style` Move colors to AppointmentType class.
+- `style` Add Calendar Caption.
 
 ## [2.0.2] - After first release (without SSR because of performance issues at deploying)
 

@@ -137,7 +137,7 @@ export class CalendarHeaderComponent implements OnInit, OnDestroy {
 
     public applyEntityFilteredStyles() {
         const styles = {
-          background: `url('${this.entityFiltered.imagePath}') center no-repeat`,
+          background: `url('${this.entityFiltered?.imagePath}') center no-repeat`,
         };
         return styles;
     }

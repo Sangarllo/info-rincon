@@ -1,0 +1,42 @@
+@import '../../../base/variables';
+.calendar-title {
+    text-align: center;
+    padding-top: 10px;
+    text-transform: uppercase;
+}
+
+.calendar-caption {
+    margin-top: 10px;
+    .calendar-caption__title {
+        margin: 10px;
+        font-weight: bolder;
+        color: $color1;
+    }
+    .calendar-caption__item {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 2px;
+        &.color-date {
+            color: #003A59 !important;
+            border: 1px solid #003A59;
+            background-color: #003A59;
+        }
+        &.color-datetime {
+            color: #460FF1 !important;
+            border: 1px solid #460FF1;
+            background-color: #460FF1;
+        }
+        &.color-deadline {
+            color: #8b0000 !important;
+            border: 1px solid #8b0000;
+            background-color: #8b0000;
+        }
+        &.color-provisional {
+            color: #e3bc08 !important;
+            border: 1px solid #e3bc08;
+            background-color: #e3bc08;
+        }
+    }
+}
