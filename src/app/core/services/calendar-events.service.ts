@@ -163,9 +163,6 @@ export class CalendarEventsService {
         image: isSchedule ? scheduleItem?.imageId : event?.imageId,
         start: dateIni,
         end: ( dateEnd < dateIni ) ? dateIni : dateEnd,
-        // end: isSchedule ?
-        //   new Date(`${appointment.dateIni}T${appointment.timeIni}`) : // TODO: revisar
-        //   new Date(`${appointment.dateEnd}T${appointment.timeEnd}`)
       }) as CalendarEvent;
       // console.log(`CalendarEvent (${isSchedule}): ${JSON.stringify(theCalendarEvent)}`);
       return theCalendarEvent;
