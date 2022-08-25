@@ -140,6 +140,9 @@
             }
         }
     }
+    .dialog__section-wrapper+.dialog__section-wrapper {
+        margin-top: 8px;
+    }
     .mat-button-toggle-checked {
         border: 2px solid $color1 !important;
         border-radius: 5px !important;

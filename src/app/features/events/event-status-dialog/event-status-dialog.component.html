@@ -2,7 +2,7 @@
     <span mat-dialog-title>{{ title }}</span>
 </div>
 
-<mat-dialog-content [formGroup]="statusForm">
+<mat-dialog-content class="dialog__content" [formGroup]="statusForm">
 
     <mat-form-field appearance="outline">
         <mat-label>Estado</mat-label>
@@ -13,25 +13,39 @@
         </mat-select>
     </mat-form-field>
 
-    <div class="row">
+    <fieldset class="dialog__section-wrapper">
+
+        <legend>
+            Visualización en portada
+        </legend>
+
+        <!--
         <div *appRole="['SUPER']" class="col-12">
             <mat-slide-toggle formControlName="active">Evento activo</mat-slide-toggle>
         </div>
+        -->
 
-        <div class="col-12">
-            <mat-slide-toggle appearance="outline" formControlName="focused">Anunciar evento en portada</mat-slide-toggle>
+        <div class="base-container row">
+            <mat-slide-toggle appearance="outline" formControlName="focused">Anunciar {{ N_DAYS_AHEAD }} días antes</mat-slide-toggle>
         </div>
 
-        <div *appRole="['ADMIN','SUPER']" class="col-12">
-            <mat-slide-toggle appearance="outline" formControlName="fixed">Fijar evento en portada</mat-slide-toggle>
+        <div *appRole="['ADMIN','SUPER']" class="base-container row">
+            <mat-slide-toggle appearance="outline" formControlName="fixed">Mostrar fijo en portada</mat-slide-toggle>
         </div>
+
+    </fieldset>
+
+    <fieldset class="dialog__section-wrapper">
+
+        <legend>
+            Tipo de Evento
+        </legend>
 
         <div *appRole="['ADMIN', 'SUPER']" class="col-12">
             <mat-slide-toggle appearance="outline" formControlName="isSuperevent">¿Es un superevento?</mat-slide-toggle>
         </div>
 
-
-    </div>
+    </fieldset>
 
 </mat-dialog-content>
 

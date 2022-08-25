@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { environment } from '@environments/environment';
 import { Status } from '@models/status.enum';
 import { IEvent, Event } from '@models/event';
 import { SwalMessage, UtilsService } from '@services/utils.service';
@@ -16,6 +17,7 @@ export class EventStatusDialogComponent implements OnInit {
   statusForm: FormGroup;
 
   public STATUS: Status[] = Event.STATUS;
+  public readonly N_DAYS_AHEAD = environment.storiesNDaysAhead;
 
   constructor(
     private fb: FormBuilder,
