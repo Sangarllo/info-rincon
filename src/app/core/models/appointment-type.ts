@@ -11,8 +11,8 @@ export enum AppointmentType {
 
 export const COLORS: any = {
   DATE: {
-    primary: '#FFFFFF', // '#003A59',
-    secondary: '#FFFFFF', //'#DEEEEC'
+    primary: '#003A59', // '#FFFFFF',
+    secondary: '#DEEEEC', // '#FFFFFF',
   },
   DATETIME: {
     primary: '#460FF1', // '#ff00ff',

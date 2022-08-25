@@ -40,12 +40,12 @@ mwl-calendar-month-cell.cal-cell.cal-day-cell.cal-today.cal-in-month.ng-star-ins
     .cal-month-view .cal-event {
         width: 14px;
         height: 14px;
-        margin: 4px;
-        font-size: larger;
+        // margin: 4px;
+        // font-size: larger;
     }
-    .cal-month-view .cal-event::before {
-        content: "🍇​";
-    }
+    // .cal-month-view .cal-event::before {
+    //     // content: "🍇​";
+    // }
 }
 
 @media screen and (min-width: 501px) {
