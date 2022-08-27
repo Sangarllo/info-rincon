@@ -4,14 +4,41 @@
 
 <mat-dialog-content class="dialog__content" [formGroup]="statusForm">
 
-    <mat-form-field appearance="outline">
-        <mat-label>Estado</mat-label>
-        <mat-select formControlName="status" [value]="statusForm.get('status')">
-            <mat-option *ngFor="let status of STATUS" [value]="status">
-                {{ status | status }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+    <fieldset class="dialog__section-wrapper">
+
+        <legend>
+            Estado de visualización del evento
+        </legend>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="status" [value]="statusForm.get('status')">
+                <mat-option *ngFor="let status of STATUS" [value]="status">
+                    {{ status | status }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </fieldset>
+
+
+    <fieldset class="dialog__section-wrapper">
+
+        <legend>
+            Tipo de Evento
+        </legend>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Tipo</mat-label>
+            <mat-select formControlName="eventType" [value]="statusForm.get('eventType')">
+                <mat-option *ngFor="let eventType of EVENT_TYPES" [value]="eventType">
+                    {{ eventType | eventType }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </fieldset>
+
 
     <fieldset class="dialog__section-wrapper">
 
@@ -30,19 +57,7 @@
         </div>
 
         <div *appRole="['ADMIN','SUPER']" class="base-container row">
-            <mat-slide-toggle appearance="outline" formControlName="fixed">Mostrar fijo en portada</mat-slide-toggle>
-        </div>
-
-    </fieldset>
-
-    <fieldset class="dialog__section-wrapper">
-
-        <legend>
-            Tipo de Evento
-        </legend>
-
-        <div *appRole="['ADMIN', 'SUPER']" class="col-12">
-            <mat-slide-toggle appearance="outline" formControlName="isSuperevent">¿Es un superevento?</mat-slide-toggle>
+            <mat-slide-toggle *appRole="['ADMIN','SUPER']" appearance="outline" formControlName="fixed">Mostrar fijo en portada</mat-slide-toggle>
         </div>
 
     </fieldset>

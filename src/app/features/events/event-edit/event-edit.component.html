@@ -34,8 +34,6 @@
 
                                 </mat-form-field>
 
-                                <mat-slide-toggle *appRole="['SUPER']" class="col-12" formControlName="active">Evento activo</mat-slide-toggle>
-
                                 <mat-slide-toggle class="col-12" formControlName="focused">Evento anunciado en portada</mat-slide-toggle>
 
                                 <div *appRole="['ADMIN','SUPER']" class="col-12">
@@ -43,7 +41,16 @@
                                 </div>
 
                                 <div *appRole="['ADMIN', 'SUPER']" class="col-12">
-                                    <mat-slide-toggle appearance="outline" formControlName="isSuperevent">¿Es un superevento?</mat-slide-toggle>
+
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Tipo</mat-label>
+                                        <mat-select formControlName="eventType" [value]="statusForm.get('eventType')">
+                                            <mat-option *ngFor="let eventType of EVENT_TYPES" [value]="eventType">
+                                                {{ eventType | eventType }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
                                 </div>
 
                             </div>

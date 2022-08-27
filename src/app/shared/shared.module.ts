@@ -7,6 +7,7 @@ import { MaterialModule } from '@shared/material/material.module';
 
 import { SearchFilterPipe } from '@pipes/search-filter.pipe';
 import { StatusPipe } from '@pipes/status.pipe';
+import { EventTypePipe } from '@pipes/eventType.pipe';
 
 import { RoleDirective } from '@shared/directives/role.directive';
 import { ShellComponent } from '@shared/layout/shell/shell.component';
@@ -49,6 +50,7 @@ const components = [
 const pipes = [
   SearchFilterPipe,
   StatusPipe,
+  EventTypePipe,
 ];
 
 const directives = [

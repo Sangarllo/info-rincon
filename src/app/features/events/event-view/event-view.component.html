@@ -121,7 +121,7 @@
                     </fieldset>
 
                     <!-- AS NOT SUPEREVENT, THE EVENT CONTAINS SCHEDULE/SESSIONS -->
-                    <div *ngIf="!event.isSuperevent">
+                    <div *ngIf="event.eventType === EVENT_TYPE_SPLITTED">
                         <fieldset class="type-other" *ngIf="event.scheduleItems?.length > 0">
 
                             <legend>Sesiones</legend>
@@ -132,7 +132,7 @@
                     </div>
 
                     <!-- AS NOT SUPEREVENT, THE EVENT CONTAINS SCHEDULE/SESSIONS -->
-                    <div *ngIf="event.isSuperevent">
+                    <div *ngIf="event.eventType === EVENT_TYPE_SUPEREVENT">
                         <fieldset class="type-other" *ngIf="event.eventsRef?.length > 0">
 
                             <legend>Programación</legend>

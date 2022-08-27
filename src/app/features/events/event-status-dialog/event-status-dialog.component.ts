@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from '@environments/environment';
 import { Status } from '@models/status.enum';
 import { IEvent, Event } from '@models/event';
+import { EventType, EVENT_TYPE_DEFAULT } from '@models/event-type.enum';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class EventStatusDialogComponent implements OnInit {
   statusForm: FormGroup;
 
   public STATUS: Status[] = Event.STATUS;
+  public EVENT_TYPES: EventType[] = Event.EVENT_TYPES;
   public readonly N_DAYS_AHEAD = environment.storiesNDaysAhead;
 
   constructor(
@@ -33,7 +35,7 @@ export class EventStatusDialogComponent implements OnInit {
       active: [ this.data.active, []],
       focused: [ this.data.focused, []],
       fixed: [ this.data.fixed, []],
-      isSuperevent: [ this.data.isSuperevent, []],
+      eventType: [ this.data.eventType || EVENT_TYPE_DEFAULT, []],
   });
   }
 

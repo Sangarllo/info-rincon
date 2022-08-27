@@ -15,6 +15,7 @@ import { AuditType } from '@models/audit';
 import { EventService } from '@services/events.service';
 import { LogService } from '@services/log.service';
 import { SwalMessage, UtilsService } from '@services/utils.service';
+import { EventType, EVENT_TYPE_DEFAULT } from '@models/event-type.enum';
 
 @Component({
   selector: 'app-event-edit',
@@ -31,6 +32,7 @@ export class EventEditComponent implements OnInit, OnDestroy {
 
   public event!: IEvent | undefined;
   public STATUS: Status[] = Event.STATUS;
+  public EVENT_TYPES: EventType[] = Event.EVENT_TYPES;
   public CATEGORIES: Category[] = EVENT_CATEGORIES;
   private listOfObservers: Array<Subscription> = [];
 
@@ -63,7 +65,7 @@ export class EventEditComponent implements OnInit, OnDestroy {
       status: [ Status.Editing, Validators.required],
       focused: true,
       fixed: false,
-      isSuperevent: false,
+      eventType: EventType.SIMPLE,
       name: ['', [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)]],
@@ -122,7 +124,7 @@ export class EventEditComponent implements OnInit, OnDestroy {
       status: this.event.status,
       focused: this.event.focused,
       fixed: this.event.fixed,
-      isSuperevent: this.event.isSuperevent,
+      eventType: this.event.eventType ?? EVENT_TYPE_DEFAULT,
       name: this.event.name,
       imageId: this.event.imageId ?? Event.IMAGE_DEFAULT,
       imagePath: this.event.imagePath ?? Event.IMAGE_DEFAULT,

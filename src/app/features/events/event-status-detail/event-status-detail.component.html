@@ -22,8 +22,8 @@
         El evento no sería mostrado en portada.
     </div>
 
-    <div *ngIf="event.isSuperevent">
-        Este evento es un superevento.
+    <div *ngIf="event.eventType">
+        Es de tipo {{ event.eventType | eventType }}
     </div>
 
 

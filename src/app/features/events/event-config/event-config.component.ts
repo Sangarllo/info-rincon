@@ -11,6 +11,7 @@ import { AuthService } from '@auth/auth.service';
 import { Base, IBase, BaseType } from '@models/base';
 import { IAppointment, Appointment, ShowMode } from '@models/appointment';
 import { IEvent, Event } from '@models/event';
+import { EventType } from '@models/event-type.enum';
 import { EventRef, IEventRef } from '@models/event-ref';
 import { IItemSocial } from '@models/item-social';
 import { IUser } from '@models/user';
@@ -64,6 +65,8 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   public LINK_TYPE_INFO = LinkType.INFO;
   public linksItemReport = [];
   public LINK_TYPE_REPORT = LinkType.REPORT;
+  readonly EVENT_TYPE_SPLITTED = EventType.SPLITTED;
+  readonly EVENT_TYPE_SUPEREVENT = EventType.SUPEREVENT;
   private currentUser: IUser;
   private listOfObservers: Array<Subscription> = [];
 
@@ -205,7 +208,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
         this.event.active = eventDialog.active;
         this.event.focused = eventDialog.focused;
         this.event.fixed = eventDialog.fixed ?? false;
-        this.event.isSuperevent = eventDialog.isSuperevent ?? false;
+        this.event.eventType = eventDialog.eventType ?? EventType.SIMPLE;
         this.eventSrv.updateEvent(this.event, AuditType.UPDATED_STATUS );
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);

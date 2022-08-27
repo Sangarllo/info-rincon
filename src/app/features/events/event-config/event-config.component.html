@@ -98,7 +98,7 @@
 
 
                     <!-- AS NOT SUPEREVENT, THE EVENT CONTAINS SCHEDULE/SESSIONS -->
-                    <fieldset *ngIf="!event.isSuperevent" class="event-item-detail type-other">
+                    <fieldset *ngIf="event.eventType === EVENT_TYPE_SPLITTED" class="event-item-detail type-other">
 
                         <legend>¿Cómo? (Sesiones)</legend>
 
@@ -116,7 +116,7 @@
 
 
                     <!-- AS NOT SUPEREVENT, THE EVENT CONTAINS SCHEDULE/SESSIONS -->
-                    <fieldset *ngIf="event.isSuperevent" class="event-item-detail type-other">
+                    <fieldset *ngIf="event.eventType === EVENT_TYPE_SUPEREVENT" class="event-item-detail type-other">
 
                         <legend>¿Cómo? (Programación)</legend>
 

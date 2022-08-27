@@ -11,19 +11,19 @@ export class StatusPipe implements PipeTransform {
     switch(value) {
 
       case Status.Visible:
-        return "VISIBLE";
+        return 'VISIBLE';
 
       case Status.Blocked:
-        return "BLOQUEADO";
+        return 'BLOQUEADO';
 
       case Status.Editing:
-        return "EDITANDO";
+        return 'EDITANDO';
 
       case Status.Deleted:
-        return "BORRADO";
+        return 'BORRADO';
 
       default:
-        return "*** ERROR ***";
+        return '*** ERROR ***';
     }
   }
 

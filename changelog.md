@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Add
 
 - `feature` Add appointment-type.
+- `feature` Add eventType as simple, splitted or superevent.
 
 ### Update
 

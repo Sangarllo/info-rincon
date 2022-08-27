@@ -5,6 +5,7 @@ import { Status, STATUS_MODES } from '@models/status.enum';
 import { Category } from '@models/category.enum';
 import { ScheduleType, SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
 import { IEventRef } from '@models/event-ref';
+import { EventType, EVENT_TYPES, EVENT_TYPE_DEFAULT } from '@models/event-type.enum';
 
 
 export interface CalendarEventExtended extends CalendarEvent {
@@ -22,7 +23,7 @@ export interface IEvent {
   status: Status;
   focused: boolean;
   fixed: boolean;
-  isSuperevent: boolean;
+  eventType: EventType;
   sanitizedUrl?: string;
   categories?: Category[];
   description?: string;
@@ -49,6 +50,7 @@ export class Event implements IEvent, IBase { // IAudit
   public static IMAGE_DEFAULT = 'assets/images/events/default.png';
   public static PATH_URL = 'eventos';
   public static STATUS: Status[] = STATUS_MODES;
+  public static EVENT_TYPES: EventType[] = EVENT_TYPES;
 
   constructor(
     public id: string,
@@ -59,7 +61,7 @@ export class Event implements IEvent, IBase { // IAudit
     public focused: boolean,
     public fixed: boolean,
 
-    public isSuperevent: boolean,
+    public eventType: EventType,
     public name: string,
     public imageId: string,
     public imagePath: string,
@@ -89,7 +91,7 @@ export class Event implements IEvent, IBase { // IAudit
     return new Event(
       '0',
       true, true, Status.Editing, true, false, // Status
-      false, // IsSuperevent
+      EVENT_TYPE_DEFAULT,
       '', // Name
       Event.IMAGE_DEFAULT, Event.IMAGE_DEFAULT, [ Event.IMAGE_DEFAULT ], // Image
       BaseType.EVENT, // BaseType
