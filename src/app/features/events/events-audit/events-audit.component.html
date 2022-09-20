@@ -86,6 +86,37 @@
                         <td mat-cell class="td-extra-lg" *matCellDef="let event"><span *ngIf="event.auditItems?.length > 1" style="font-size: smaller;">{{ event.auditItems?.length }} modifs.</span></td>
                     </ng-container>
 
+                    <ng-container matColumnDef="actions2">
+                        <th mat-header-cell class="td-extra-md" *matHeaderCellDef>Acciones </th>
+                        <td mat-cell class="td-extra-md" *matCellDef="let event">
+
+                            <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" (click)="gotoItemConfig(event)">
+                                <mat-icon class="btn-1" aria-label="Edit">
+                                    build_circle
+                                </mat-icon>
+                            </button>
+
+                            <button *ngIf="event.status === 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(event)">
+                                <mat-icon class="btn-1" aria-label="View">
+                                    remove_red_eye
+                                </mat-icon>
+                            </button>
+
+                            <button *ngIf="event.status === 'EDITING'" mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(event)">
+                                <mat-icon class="btn-1" aria-label="Delete">
+                                    delete
+                                </mat-icon>
+                            </button>
+
+                            <button *ngIf="event.status==='DELETED'" mat-icon-button class="iconbutton" (click)="deleteForeverItem(event)">
+                                <mat-icon class="btn-1" aria-label="Delete Forever">
+                                    delete_forever
+                                </mat-icon>
+                            </button>
+
+                        </td>
+                    </ng-container>
+
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>

@@ -187,7 +187,7 @@ export class EventService {
         map(([events, appointments]) => events.map(event => ({
           id: event.id,
           title: event.name,
-          color: COLORS.INDIGO,
+          color: COLORS.DATE,
           allDay: appointments.find(a => a.id === event.id)?.allDay,
           start: new Date(appointments.find(a => a.id === event.id)?.timeIni)
         }) as CalendarEvent)),

@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `feature` Add appointment-type.
 - `feature` Add eventType as simple, splitted or superevent.
+- `feature` Add delete-forever button for events in events-audit.
 
 ### Update
 

@@ -27,7 +27,7 @@ export class PlacesComponent implements OnInit, OnDestroy {
   public loading = true;
   public places: IPlace[];
   public dataSource: MatTableDataSource<IPlace> = new MatTableDataSource();
-  displayedColumns: string[] = [ 'id', 'image', 'collapsed-info', 'name', 'types', 'locality',  'actions3'];
+  displayedColumns: string[] = [ 'id', 'image', 'collapsed-info', 'name', 'types', 'locality', 'actions3'];
   private listOfObservers: Array<Subscription> = [];
 
   constructor(

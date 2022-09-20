@@ -3,17 +3,19 @@ import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
+import { IBase } from '@models/base';
 import { IEvent } from '@models/event';
 import { IUser } from '@models/user';
 import { Status } from '@models/status.enum';
 import { EventService } from '@services/events.service';
 import { SpinnerService } from '@services/spinner.service';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { IBase } from '@models/base';
+import { LogService } from '@services/log.service';
 
 @Component({
   selector: 'app-events-audit',
@@ -38,7 +40,8 @@ export class EventsAuditComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
       'status', 'timestamp',
       'image', 'collapsed-info', 'name',
-      'auditCreation', 'auditLastItem', 'nAuditItems'
+      'auditCreation', 'auditLastItem', 'nAuditItems',
+      'actions2'
 ];
   private listOfObservers: Array<Subscription> = [];
   private currentUser: IUser;
@@ -48,6 +51,7 @@ export class EventsAuditComponent implements OnInit, OnDestroy {
     private router: Router,
     private spinnerSvc: SpinnerService,
     private eventSrv: EventService,
+    private logSrv: LogService,
   ) {
     this.spinnerSvc.show();
   }
@@ -96,6 +100,33 @@ export class EventsAuditComponent implements OnInit, OnDestroy {
 
   public gotoItemConfig(event: IEvent): void {
     this.router.navigate([`eventos/${event.id}/config`]);
+  }
+
+  public deleteItem(event: IEvent): void {
+      this.eventSrv.deleteEvent(event);
+  }
+
+  public deleteForeverItem(event: IEvent): void {
+    this.logSrv.info(`deleting forever ${event.id}`);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'No podrás deshacer esta acción de borrado!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, bórralo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.eventSrv.deleteForeverEvent(event);
+        Swal.fire({
+          title: '¡Borrado!',
+          text: `${event.name} ha sido borrado`,
+          icon: 'success',
+          confirmButtonColor: '#003A59',
+        });
+      }
+    });
   }
 
   ngOnDestroy(): void {

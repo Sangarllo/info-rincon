@@ -15,8 +15,8 @@ export const COLORS: any = {
     secondary: '#DEEEEC', // '#FFFFFF',
   },
   DATETIME: {
-    primary: '#460FF1', // '#ff00ff',
-    secondary: '#460FF1', // '#ffb3ff'
+    primary: '#3E8B82', // '#ff00ff', 460FF1
+    secondary: '#b9dfdb', // '#ffb3ff' 460FF1
   },
   DEADLINE: {
     primary: '#8b0000',
