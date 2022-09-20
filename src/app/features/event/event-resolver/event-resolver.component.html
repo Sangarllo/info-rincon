@@ -1,19 +1,9 @@
-<p>event-resolver works!</p>
-
-<h1>
-    URL: {{urlEvent}}
-</h1>
-
-
 <div class="section-wrapper">
 
     <mat-card class="item-view" *ngIf="event; else loadingTemplate">
 
         <div *ngIf="event.status === 'VISIBLE'; else noVisibleTemplate" class="row">
-
-            <img [src]="event.imagePath" [alt]="event.name" />
             <h1>{{ event.name }}</h1>
-
         </div>
 
     </mat-card>

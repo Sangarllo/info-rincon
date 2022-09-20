@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `style` Move colors to AppointmentType class.
 - `style` Add Calendar Caption.
 
+### Update
+
+- Delete no needed text in event-resolver.
+
 ## [2.0.2] - After first release (without SSR because of performance issues at deploying)
 
 ### Add
