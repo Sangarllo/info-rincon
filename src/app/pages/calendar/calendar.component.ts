@@ -104,7 +104,7 @@ export class CalendarComponent implements OnInit {
         console.log(` -> varias entidades`);
         this.entityId = '0';
         this.entities = entities;
-        this.infoEventsFooter = ` para estos eventos`;
+        this.infoEventsFooter = ` para estas ${entities.length} entidades`;
       }
 
       this.fetchEvents();

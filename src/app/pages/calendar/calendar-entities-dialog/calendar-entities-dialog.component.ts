@@ -5,7 +5,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Observable } from 'rxjs';
 
 import { IBase, Base, BaseType } from '@models/base';
+import { IEntity } from '@models/entity';
 import { BaseService } from '@services/base.service';
+import { EntityService } from '@services/entities.service';
 
 @Component({
   selector: 'app-calendar-entities-dialog',
@@ -21,16 +23,21 @@ export class CalendarEntitiesDialogComponent {
   baseItemCtrl = new FormControl();
   baseItemSelected: IBase;
   baseItems$: Observable<IBase[]>;
-  favEntities: string[] = [];
+  favEntitiesStr: string[] = [];
+  favEntities$: Observable<IEntity[]>;
 
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<CalendarEntitiesDialogComponent>,
     private baseSrv: BaseService,
+    private entitySrv: EntityService,
     @Inject(MAT_DIALOG_DATA) public data: any, // DialogData,
   ) {
 
-    this.favEntities = this.data.favEntities;
+    this.favEntitiesStr = this.data.favEntities;
+    if ( this.favEntitiesStr?.length > 0 ) {
+      this.favEntities$ = this.entitySrv.getSeveralEntities(this.favEntitiesStr);
+    };
 
     this.baseItems$ = this.baseSrv.getAllItemsBase(BaseType.ENTITY);
 
@@ -48,6 +55,7 @@ export class CalendarEntitiesDialogComponent {
 
   onSelectionChanged(event: any): void {
     this.baseItemSelected = event.value;
+    console.log(`onSelectionChanged: ${this.baseItemSelected}`);
     this.baseItemForm.controls.baseItemDesc.setValue(this.baseItemSelected.description);
   }
 

@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `style` Refactor dialog styles.
 - `style` Move colors to AppointmentType class.
 - `style` Add Calendar Caption.
+- `feature` Show fav entities in filter at home.
 
 ### Update
 
