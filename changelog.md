@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `arch` Update Angular Core from 13 to [14.2](https://github.com/mauriciovigolo/keycloak-angular/issues/411).
 - `arch` Update Angular CDK + Material from 13 to 14.
 - `arch` Update Angular/fire from 7.3 to 7.4.1.
+- `arch` Update Firebase Tools from 10.6 to 10.9.
 
 ### Update
 
