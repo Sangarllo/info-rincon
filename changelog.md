@@ -26,8 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `style` Move colors to AppointmentType class.
 - `style` Add Calendar Caption.
 - `feature` Show fav entities in filter at home.
-- `arch` Update from Angular 13 to [Angular 14.2](https://github.com/mauriciovigolo/keycloak-angular/issues/411).
-- `arch` Update Updated Angular Material to version 14.
+- `arch` Update Angular Core from 13 to [14.2](https://github.com/mauriciovigolo/keycloak-angular/issues/411).
+- `arch` Update Angular CDK + Material from 13 to 14.
+- `arch` Update Angular/fire from 7.3 to 7.4.1.
 
 ### Update
 
