@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { Observable, Subscription } from 'rxjs';
 
@@ -22,7 +22,7 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
 
   title = 'Crea un enlace para este evento';
   event: IEvent;
-  linkItemForm: FormGroup;
+  linkItemForm: UntypedFormGroup;
   thisLinkId: string;
   imageIdSelected: string;
   imagePathSelected: string;
@@ -39,7 +39,7 @@ export class LinkItemDialogComponent implements OnInit, OnDestroy {
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private utilsSrv: UtilsService,
     private pictureSrv: PictureService,
     public dialogRef: MatDialogRef<LinkItemDialogComponent>,

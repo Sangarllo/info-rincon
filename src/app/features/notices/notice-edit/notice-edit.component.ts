@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
@@ -21,7 +21,7 @@ import { SwalMessage, UtilsService } from '@services/utils.service';
 })
 export class NoticeEditComponent implements OnInit, OnDestroy {
 
-  noticeForm!: FormGroup;
+  noticeForm!: UntypedFormGroup;
   pageTitle = 'Creación de un nuevo aviso';
   errorMessage = '';
   uploadPercent: Observable<number>;
@@ -34,7 +34,7 @@ export class NoticeEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private afStorage: AngularFireStorage,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private logSrv: LogService,

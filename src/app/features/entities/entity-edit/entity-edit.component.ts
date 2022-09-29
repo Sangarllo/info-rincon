@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
@@ -23,7 +23,7 @@ import { SwalMessage, UtilsService } from '@services/utils.service';
 })
 export class EntityEditComponent implements OnInit, OnDestroy {
 
-  entityForm!: FormGroup;
+  entityForm!: UntypedFormGroup;
   pageTitle = 'Creación de una nueva entidad';
   errorMessage = '';
   uploadPercent: Observable<number>;
@@ -41,7 +41,7 @@ export class EntityEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private afStorage: AngularFireStorage,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private logSrv: LogService,

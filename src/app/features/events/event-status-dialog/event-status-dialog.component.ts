@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 import { environment } from '@environments/environment';
 import { Status } from '@models/status.enum';
@@ -15,14 +15,14 @@ import { SwalMessage, UtilsService } from '@services/utils.service';
 export class EventStatusDialogComponent implements OnInit {
 
   title = 'Configura el estado del evento';
-  statusForm: FormGroup;
+  statusForm: UntypedFormGroup;
 
   public STATUS: Status[] = Event.STATUS;
   public EVENT_TYPES: EventType[] = Event.EVENT_TYPES;
   public readonly N_DAYS_AHEAD = environment.storiesNDaysAhead;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public dialogRef: MatDialogRef<EventStatusDialogComponent>,
     private utilsSvc: UtilsService,
     @Inject(MAT_DIALOG_DATA) public data: IEvent) {

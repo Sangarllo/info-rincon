@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Observable } from 'rxjs';
@@ -22,7 +22,7 @@ export class EventImageDialogComponent implements OnInit {
   readonly PICTURE_BLANK: IPicture = Picture.InitDefault();
 
   title = 'Configura la imagen del evento';
-  pictureForm: FormGroup;
+  pictureForm: UntypedFormGroup;
 
   pictureId: string;
   picturesIds: string[];
@@ -35,7 +35,7 @@ export class EventImageDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EventImageDialogComponent>,
     private afStorage: AngularFireStorage,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private logSrv: LogService,
     private pictureSrv: PictureService,
     private utilsSvc: UtilsService,

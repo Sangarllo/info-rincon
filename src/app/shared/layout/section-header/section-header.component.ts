@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 
 import { Status } from '@models/status.enum';
 
@@ -30,9 +30,9 @@ export class SectionHeaderComponent implements OnInit {
     { name: 'ELIMINADO', value: Status.Deleted, selected: true },
   ];
 
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
-  constructor(formBuilder: FormBuilder) {
+  constructor(formBuilder: UntypedFormBuilder) {
   }
 
   ngOnInit(): void {

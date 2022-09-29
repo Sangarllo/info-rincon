@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 import { Observable, Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -22,7 +22,7 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
   public itemId: string;
   public itemName: string;
   comment: IComment;
-  commentForm: FormGroup;
+  commentForm: UntypedFormGroup;
   public userUid: string;
   public userRole: string;
   public userEntities: string[] = [];
@@ -38,7 +38,7 @@ export class CommentsDialogComponent implements OnInit, OnDestroy {
   commentatorAsSuper: any;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private commentsSrv: CommentsService,
     public dialogRef: MatDialogRef<CommentsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {

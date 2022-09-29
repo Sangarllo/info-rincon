@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 import { Observable, Subscription } from 'rxjs';
@@ -28,7 +28,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
 
   title = 'Configura un nuevo acto para este evento';
   appointment: IAppointment;
-  scheduleItemForm: FormGroup;
+  scheduleItemForm: UntypedFormGroup;
   thisScheduleId: string;
   orderId: number;
   imageIdSelected: string;
@@ -41,7 +41,7 @@ export class EventScheduleDialogComponent implements OnInit, OnDestroy {
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private utilsSrv: UtilsService,
     private appointmentSrv: AppointmentsService,
     private pictureSrv: PictureService,

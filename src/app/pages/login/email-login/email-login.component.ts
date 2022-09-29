@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -15,7 +15,7 @@ import { AuditType } from '@models/audit';
   styleUrls: ['./email-login.component.scss']
 })
 export class EmailLoginComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   type: 'login' | 'signup' | 'reset' = 'login';
   loading = false;
@@ -24,7 +24,7 @@ export class EmailLoginComponent implements OnInit {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private auditSrv: AuditService,
     private usersSrv: UserService,

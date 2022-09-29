@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -22,7 +22,7 @@ import { SwalMessage, UtilsService } from '@services/utils.service';
 })
 export class UserEditComponent implements OnInit, OnDestroy {
 
-  userForm!: FormGroup;
+  userForm!: UntypedFormGroup;
   pageTitle = 'Creación de un nuevo usuario';
   errorMessage = '';
   uploadPercent: Observable<number>;
@@ -35,7 +35,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
   constructor(
     private afAuth: AngularFireAuth,
     private afStorage: AngularFireStorage,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private logSrv: LogService,

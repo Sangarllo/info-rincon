@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 import { Base } from '@models/base';
 import { IEvent } from '@models/event';
@@ -14,13 +14,13 @@ import { SwalMessage, UtilsService } from '@services/utils.service';
 export class EventBasicDialogComponent implements OnInit {
 
   title = 'Modifica los datos básicos del evento';
-  eventForm: FormGroup;
+  eventForm: UntypedFormGroup;
   eventBaseSelected: Base;
   public CATEGORIES: Category[] = EVENT_CATEGORIES;
   readonly SECTION_BLANK: Base = Base.InitDefault();
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public dialogRef: MatDialogRef<EventBasicDialogComponent>,
     private utilsSvc: UtilsService,
     @Inject(MAT_DIALOG_DATA) public data: IEvent) {

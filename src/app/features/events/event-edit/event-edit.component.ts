@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
@@ -25,7 +25,7 @@ import { EventType, EVENT_TYPE_DEFAULT } from '@models/event-type.enum';
 export class EventEditComponent implements OnInit, OnDestroy {
 
   currentUser: IUser;
-  eventForm!: FormGroup;
+  eventForm!: UntypedFormGroup;
   pageTitle = 'Creación de un nuevo evento';
   errorMessage = '';
   uploadPercent: Observable<number>;
@@ -39,7 +39,7 @@ export class EventEditComponent implements OnInit, OnDestroy {
   constructor(
     private authSrv: AuthService,
     private afStorage: AngularFireStorage,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private logSrv: LogService,

@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 import { Subscription } from 'rxjs';
@@ -20,14 +20,14 @@ export class EventAppointmentDialogComponent implements OnInit, OnDestroy {
   title = 'Indica el horario de este evento';
   errorMessage = '';
   appointment: IAppointment;
-  appointmentForm: FormGroup;
+  appointmentForm: UntypedFormGroup;
   readonly SECTION_BLANK: Base = Base.InitDefault();
   readonly APPOINTMENT_TYPES: IAppointmentTypeIcon[] = APPOINTMENT_ICON_TYPES;
 
   private listOfObservers: Array<Subscription> = [];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public dialogRef: MatDialogRef<EventAppointmentDialogComponent>,
     private appointmentSrv: AppointmentsService,
     private utilsSvc: UtilsService,

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
@@ -19,15 +19,15 @@ export class CalendarEntitiesDialogComponent {
   readonly SECTION_BLANK: Base = Base.InitDefault();
   baseItemName: string;
   baseItemDesc: string;
-  baseItemForm: FormGroup;
-  baseItemCtrl = new FormControl();
+  baseItemForm: UntypedFormGroup;
+  baseItemCtrl = new UntypedFormControl();
   baseItemSelected: IBase;
   baseItems$: Observable<IBase[]>;
   favEntitiesStr: string[] = [];
   favEntities$: Observable<IEntity[]>;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public dialogRef: MatDialogRef<CalendarEntitiesDialogComponent>,
     private baseSrv: BaseService,
     private entitySrv: EntityService,

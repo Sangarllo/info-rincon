@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
@@ -18,13 +18,13 @@ export class EventNewBaseDialogComponent implements OnInit {
   title: string;
   baseItemName: string;
   baseItemDesc: string;
-  baseItemForm: FormGroup;
-  baseItemCtrl = new FormControl();
+  baseItemForm: UntypedFormGroup;
+  baseItemCtrl = new UntypedFormControl();
   baseItemSelected: IBase;
   baseItems$: Observable<IBase[]>;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private utilsSrv: UtilsService,
     private baseSrv: BaseService,
     public dialogRef: MatDialogRef<EventNewBaseDialogComponent>,

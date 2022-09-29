@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 
 import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -23,8 +23,8 @@ export class UserAdminEntitiesComponent implements OnInit, OnDestroy {
   public user: IUser;
   public filteredEntities: Observable<IEntity[]>;
   entities: IEntity[];
-  entityCtrl = new FormControl();
-  entityForm!: FormGroup;
+  entityCtrl = new UntypedFormControl();
+  entityForm!: UntypedFormGroup;
   selectedEntity: IEntity;
   displayedColumns: string[] = [ 'image', 'name', 'actions2' ];
   private listOfObservers: Array<Subscription> = [];

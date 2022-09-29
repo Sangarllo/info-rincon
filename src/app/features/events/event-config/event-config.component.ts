@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import { Observable, Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -48,7 +48,7 @@ import { EventRefDialogComponent } from '@features/events/event-ref-dialog/event
 export class EventConfigComponent implements OnInit, OnDestroy {
 
   panelOpenState = false;
-  shownAsAWholeControl = new FormControl();
+  shownAsAWholeControl = new UntypedFormControl();
   public event: IEvent;
   public eventSocial: IItemSocial;
   public comments$: Observable<IComment[]>;
