@@ -144,7 +144,7 @@ export class CalendarEventsService {
       let color = COLORS.DATE;
       switch ( appointment.appointmentType ) {
         case AppointmentType.EVENT_DATETIME:
-          color = COLORS.DATETIME;
+          color = COLORS.DATE;
           break;
         case AppointmentType.DEADLINE:
           color = COLORS.DEADLINE;

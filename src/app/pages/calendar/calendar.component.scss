@@ -24,10 +24,15 @@
             background-color: #003A59;
         }
         &.color-datetime {
+            color: #003A59 !important;
+            border: 1px solid #003A59;
+            background-color: #003A59;
+        }
+        /* &.color-datetime {
             color: #460FF1 !important;
             border: 1px solid #460FF1;
             background-color: #460FF1;
-        }
+        } */
         &.color-deadline {
             color: #8b0000 !important;
             border: 1px solid #8b0000;
