@@ -347,3 +347,10 @@ td.mat-column-collapsed-info {
     float: left;
     margin: 10px !important;
 }
+
+.make-deleted {
+    background-color: #000000;
+    * {
+        color: lightgray !important;
+    }
+}
