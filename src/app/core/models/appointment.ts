@@ -14,7 +14,6 @@ export interface IAppointment {
   id: string;
   active: boolean;
   allDay: boolean;
-  isSlice: boolean;
   showMode: ShowMode;
   dateIni: string;
   timeIni?: string;
@@ -35,7 +34,6 @@ export class Appointment implements IAppointment {
     public id: string,
     public active: boolean,
     public allDay: boolean,
-    public isSlice: boolean, // <-- TODO delete
     public showMode: ShowMode,
     public dateIni: string,
     public timeIni?: string,
@@ -56,7 +54,6 @@ export class Appointment implements IAppointment {
       id,
       true,
       true,
-      false, // <- isSlice
       ShowMode.SHOWED_AS_WHOLE,
       todayStr,
       Appointment.HOUR_DEFAULT,
@@ -79,7 +76,6 @@ export class Appointment implements IAppointment {
       scheduleItem.id,
       enable,
       false,
-      true, // <- isSlice
       ShowMode.SHOWED_AS_SLICE,
       dateTime[0],
       dateTime[1],

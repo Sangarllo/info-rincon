@@ -50,25 +50,21 @@
 
                     <ng-container matColumnDef="name">
                         <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Evento</th>
-                        <td mat-cell class="td-extra-lg" *matCellDef="let event">{{ event.name }}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="eventType">
-                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Tipo</th>
                         <td mat-cell class="td-extra-lg" *matCellDef="let event">
+
                             <div>
                                 <div class="inside"></div>
-                                <div style="font-size: smaller;color:black">
+                                <div style="font-size: smaller;font-weight:bolder;text-transform:uppercase;color:black">
+                                    {{ event.name }}
+                                </div>
+                                <div style="font-size: smaller;color:#808080">
                                     {{ ( event.eventType ? '⚙️ ​' : '' ) + (event.eventType | eventType) }}
                                 </div>
-                                <div style="font-size: smaller;color:#808080">​{{ event.fixed ? '📌 Fijado' : '' }}</div>
-                                <!--
-                                <div style="font-size: smaller;color:#303030"> {{ event.focused ? '📢 Anunciado' : '' }}</div>
-                                -->
+                                <div style="font-size: smaller;font-weight:bolder;text-transform:uppercase;color:red">​{{ event.fixed ? '📌 Fijado' : '' }}</div>
                             </div>
+
                         </td>
                     </ng-container>
-
 
                     <ng-container matColumnDef="auditCreation">
                         <th mat-header-cell class="td-audit" *matHeaderCellDef mat-sort-header>Creación</th>

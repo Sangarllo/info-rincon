@@ -39,7 +39,7 @@ export class EventsAuditComponent implements OnInit, OnDestroy {
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   displayedColumns: string[] = [
       'status', 'timestamp',
-      'image', 'collapsed-info', 'name', 'eventType',
+      'image', 'collapsed-info', 'name',
       'auditCreation', 'auditLastItem', 'nAuditItems',
       'actions2'
 ];

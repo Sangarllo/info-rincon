@@ -64,7 +64,20 @@
 
                     <ng-container matColumnDef="name">
                         <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Nombre del evento</th>
-                        <td mat-cell class="td-extra-lg" *matCellDef="let event">{{ event.name }}</td>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let event">
+
+                            <div>
+                                <div class="inside"></div>
+                                <div style="font-size: smaller;font-weight:bolder;text-transform:uppercase;color:black">
+                                    {{ event.name }}
+                                </div>
+                                <div style="font-size: smaller;color:#808080">
+                                    {{ ( event.eventType ? '⚙️ ​' : '' ) + (event.eventType | eventType) }}
+                                </div>
+                                <div style="font-size: smaller;font-weight:bolder;text-transform:uppercase;color:red">​{{ event.fixed ? '📌 Fijado' : '' }}</div>
+                            </div>
+
+                        </td>
                     </ng-container>
 
                     <ng-container matColumnDef="categories">

@@ -32,9 +32,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `arch` Update Firebase Tools from 10.6 to 10.9.
 - `arch` Update angular-calendar from 0.29 to 0.30.1.
 
-### Update
+### Delete
 
 - Delete no needed text in event-resolver.
+- Delete isSlice in appointment model.
 
 ## [2.0.2] - After first release (without SSR because of performance issues at deploying)
 
