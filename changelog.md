@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `arch` Update Angular/fire from 7.3 to 7.4.1.
 - `arch` Update Firebase Tools from 10.6 to 10.9.
 - `arch` Update angular-calendar from 0.29 to 0.30.1.
+- `feature` Next Stories don't include slices.
 
 ### Delete
 
