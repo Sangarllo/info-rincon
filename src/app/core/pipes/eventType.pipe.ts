@@ -21,7 +21,7 @@ export class EventTypePipe implements PipeTransform {
 
 
       default:
-        return '*** ERROR ***';
+        return '🚧​​ TIPO NO DEFINIDO 🚧​';
     }
   }
 
