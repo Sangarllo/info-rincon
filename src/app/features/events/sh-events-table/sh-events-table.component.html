@@ -1,6 +1,6 @@
-<app-section-header [title]="'Tus eventos creados'" showStatusFilter="true" showViewMode="true" (viewMode)="setViewMode($event)" (statusFiltered)="setStatusFiltered($event)"></app-section-header>
+<span class="section-subtitle">{{ title }}</span>
 
-<div *ngIf="events.length > 0; else noEventsTemplate">
+<div *ngIf="dataSource?.data?.length > 0; else noEventsTemplate">
 
     <div class="section-wrapper">
 
@@ -13,12 +13,6 @@
                     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
-
-                <div class="buttons">
-                    <button mat-mini-fab class="btn-1" (click)="addItem()">
-                          <mat-icon>add</mat-icon>
-                  </button>
-                </div>
             </div>
 
             <div class="mat-elevation-z8">
@@ -78,52 +72,29 @@
 
                     <ng-container matColumnDef="categories">
                         <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header>Categorías</th>
-                        <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.extra2 }}</td>
+                        <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.description }}</td>
                     </ng-container>
 
-                    <ng-container matColumnDef="dateIni">
-                        <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header>Inicio</th>
-                        <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="actions4">
+                    <ng-container matColumnDef="actions1">
                         <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones </th>
                         <td mat-cell class="td-extra-lg" *matCellDef="let event">
 
                             <button [disabled]="event.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(event)">
-                                  <mat-icon class="btn-1" aria-label="View">
-                                      remove_red_eye
-                                  </mat-icon>
-                              </button>
+                            <mat-icon class="btn-1" aria-label="View">
+                                remove_red_eye
+                            </mat-icon>
+                        </button>
 
-                            <button mat-icon-button matTooltip="Click to Config" class="iconbutton" (click)="gotoItemConfig(event)">
-                                  <mat-icon class="btn-1" aria-label="Config">
-                                      build_circle
-                                  </mat-icon>
-                              </button>
-
-                            <button [disabled]="event.status === 'DELETED'" mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(event)">
-                                <mat-icon class="btn-1" aria-label="Delete">
-                                      delete
-                                </mat-icon>
-                            </button>
-
-                            <button *ngIf="event.status === 'DELETED'" mat-icon-button matTooltip="Click to Remove" class="iconbutton" (click)="deleteForeverElement(event)">
-                                <mat-icon class="btn-1" aria-label="Delete Forever">cancel</mat-icon>
-                            </button>
-
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="social">
-                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Social</th>
-                        <td mat-cell class="td-extra-lg" *matCellDef="let event">
-                            {{ event.extra }}
+                            <button mat-icon-button matTooltip="Click to quit from favourite" class="iconbutton" (click)="removeFav(event)">
+                            <mat-icon class="btn-1" aria-label="Favourite off">
+                                gps_off
+                            </mat-icon>
+                        </button>
                         </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'make-deleted': ( row.status === 'DELETED' ) }"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
                 </table>
 
                 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
@@ -136,13 +107,12 @@
 
         <!-- CARDS View -->
         <div *ngIf="viewMode === 'cards'">
-
             <div class="form-group">
                 <input type="text" class="form-control mb-4" placeholder="Filtrar Búsqueda" [(ngModel)]="query" id="listSearch">
             </div>
 
             <div class="section-cards">
-                <div class="item-card" *ngFor="let event of events | searchFilter: query">
+                <div class="item-card" *ngFor="let event of dataSource.data | searchFilter: query">
 
                     <app-event-card [event]="event"></app-event-card>
 
@@ -155,9 +125,11 @@
 
 </div>
 
-
 <ng-template #noEventsTemplate>
-    <div class="m-3 alert alert-warning">
-        ¡No se han encontrado eventos a tu nombre!
+    <div class="m-3 alert alert-warning events-container">
+        <div class="events-text">
+            <div class="events-text__title">Aún no tienes eventos marcados como favoritos</div>
+            <div class="events-text__expl">Si estás interesado en seguir algún evento, pulsa la estrella que aparece junto a él</div>
+        </div>
     </div>
 </ng-template>

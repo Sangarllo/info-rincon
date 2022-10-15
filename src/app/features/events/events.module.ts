@@ -34,6 +34,7 @@ import { EventCardComponent } from '@features/events/event-card/event-card.compo
 import { EventWikiComponent } from '@features/events/event-wiki/event-wiki.component';
 import { EventSocialComponent } from '@features/events/event-social/event-social.component';
 import { EventsAuditSocialComponent } from '@features/events/events-audit-social/events-audit-social.component';
+import { ShEventsTableComponent } from '@features/events/sh-events-table/sh-events-table.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { EventsAuditSocialComponent } from '@features/events/events-audit-social
     EventsSearchDialogComponent,
     CalendarEventItemsPanelComponent,
     EventWikiComponent,
+    ShEventsTableComponent,
   ],
   imports: [
     HttpClientModule,

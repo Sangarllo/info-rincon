@@ -38,6 +38,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Delete no needed text in event-resolver.
 - Delete isSlice in appointment model.
 
+### Refactor
+
+- Add sh-events-table component, used for events-fav.
+
+
 ## [2.0.2] - After first release (without SSR because of performance issues at deploying)
 
 ### Add

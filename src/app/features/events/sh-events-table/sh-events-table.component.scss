@@ -1,0 +1,22 @@
+@import '../../../../base/variables';
+.events-container {
+    .events-text {
+        .events-text__title {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .events-text__expl {
+            margin-top: 12px;
+            font-size: 1em;
+        }
+    }
+}
+
+.entities-container {
+    min-height: 160px;
+    .entities-container__title {
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-bottom: 20px !important;
+    }
+}
