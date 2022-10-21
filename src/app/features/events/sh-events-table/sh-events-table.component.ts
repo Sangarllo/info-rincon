@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, ViewChild, OnInit, OnDestroy, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
@@ -15,9 +16,9 @@ import { UserService } from '@services/users.service';
 })
 export class ShEventsTableComponent implements OnInit, OnDestroy {
 
-  @Input() set events(value:IEvent[]) {
+  @Input() set events(value: IEvent[]) {
     // console.log(value);
-    this.dataSource = new MatTableDataSource<IEvent>(value)
+    this.dataSource = new MatTableDataSource<IEvent>(value);
   };
   dataSource: MatTableDataSource<IEvent> ;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
