@@ -1,5 +1,5 @@
-<app-section-header [title]="'Tus eventos creados'" showStatusFilter="true" showViewMode="true" (viewMode)="setViewMode($event)" (statusFiltered)="setStatusFiltered($event)"></app-section-header>
+<app-section-header [title]="'Tus propios eventos'" showStatusFilter="true" showViewMode="true" (viewMode)="setViewMode($event)" (statusFiltered)="setStatusFiltered($event)"></app-section-header>
 
 <div class="section-wrapper">
-    <sh-events-table [events]="events" [title]="'Tus Eventos Propios'" [viewMode]="viewMode" [displayedColumns]="displayedColumns" (deleteEvent)="deleteEvent($event)" (deleteForeverEvent)="deleteForeverEvent($event)"></sh-events-table>
+    <sh-events-table [addEvent]="true" [events]="events" [title]="'Tus propios eventos'" [viewMode]="viewMode" [displayedColumns]="displayedColumns" (deleteEvent)="deleteEvent($event)" (deleteForeverEvent)="deleteForeverEvent($event)"></sh-events-table>
 </div>

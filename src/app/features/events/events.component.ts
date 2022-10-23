@@ -37,7 +37,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   public EVENTS_BACKUP: IEvent[];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   displayedColumns: string[] = [
-      'status', 'id', 'timestamp',
+      'status', 'timestamp', // 'id',
       'image', 'collapsed-info', 'name', 'categories', 'dateIni',
       'actions4', 'social'
 ];
@@ -68,7 +68,7 @@ export class EventsComponent implements OnInit, OnDestroy {
           map(events => events.map(event => {
             const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
 
-            event.extra2 = ( event.categories ) ? event.categories.reduce(reducer, '') : '';
+            event.description = ( event.categories ) ? event.categories.reduce(reducer, '') : '';
             event.extra = this.formatSocialInfo(event.extra);
             return { ...event };
           }))
@@ -106,7 +106,7 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.router.navigate([`eventos/${event.id}/config`]);
   }
 
-  public deleteItem(event: IEvent): void {
+  public deleteEvent(event: IEvent): void {
     this.logSrv.info(`deleting ${event.id}`);
     Swal.fire({
       title: '¿Estás seguro?',
@@ -129,13 +129,9 @@ export class EventsComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteForeverElement(event: IEvent): void {
-    this.logSrv.info(`deleteForeverElement: ${JSON.stringify(event.id)}`);
+  deleteForeverEvent(event: IEvent): void {
+    this.logSrv.info(`deleteForeverEvent: ${JSON.stringify(event.id)}`);
     this.eventSrv.deleteForeverEvent(event);
-  }
-
-  public addItem(): void {
-    this.router.navigate([`eventos/0/editar`]);
   }
 
   ngOnDestroy(): void {

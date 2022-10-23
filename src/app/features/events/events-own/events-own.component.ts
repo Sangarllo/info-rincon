@@ -74,8 +74,6 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
                   map(events => events.map(event => {
                     const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
 
-                    // event.timestamp = formatDistance(new Date(event.timestamp), new Date(), {locale: es});
-
                     event.description = ( event.categories ) ? event.categories.reduce(reducer, '') : '';
                     event.extra = this.formatSocialInfo(event.extra);
                     return { ...event };

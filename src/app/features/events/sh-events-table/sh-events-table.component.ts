@@ -27,6 +27,7 @@ export class ShEventsTableComponent implements OnInit, OnDestroy {
   @Input() viewMode: string;
   @Input() title: string;
   @Input() displayedColumns: string[];
+  @Input() addEvent = false;
   @Output() deleteEvent = new EventEmitter<IEvent>();
   @Output() deleteForeverEvent = new EventEmitter<IEvent>();
   @Output() removeFavEvent = new EventEmitter<IEvent>();
@@ -48,6 +49,10 @@ export class ShEventsTableComponent implements OnInit, OnDestroy {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  public addItem(): void {
+    this.router.navigate([`eventos/0/editar`]);
   }
 
   public gotoItem(event: IEvent): void {

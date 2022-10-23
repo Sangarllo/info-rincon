@@ -13,6 +13,12 @@
                     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
+
+                <div class="buttons" *ngIf="addEvent">
+                    <button mat-mini-fab class="btn-1" (click)="addItem()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
             </div>
 
             <div class="mat-elevation-z8">
