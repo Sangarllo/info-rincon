@@ -96,11 +96,7 @@ export class StoriesService {
     );
   }
 
-
   getLastMemories(): Observable<IBase[]> {
-
-    const dateToday = new Date();
-    const dateTodayStr = dateToday.toISOString().substring(0, 10);
 
     const dateMin = new Date();
     dateMin.setDate(dateMin.getDate() - this.LAST_MEMORIES_N_DAYS_BEHIND);
@@ -111,7 +107,6 @@ export class StoriesService {
     const dateMaxStr = dateMax.toISOString().substring(0, 10);
 
     // console.log(`dateMinStr: ${dateMinStr}`);
-    // console.log(`dateTodayStr: ${dateTodayStr}`);
     // console.log(`dateMaxStr: ${dateMaxStr}`);
 
     const memories$ = this.linksItemSrv.getLinksItemByRange(dateMinStr, dateMaxStr, LinkType.REPORT)

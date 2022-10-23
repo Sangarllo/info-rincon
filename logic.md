@@ -18,23 +18,27 @@
 
 :: Work with EventsRef as ScheduleItems?
 
-## FrontPage (Home Page)
+## FrontPage - Dashboard (Home Page)
+
+### Calendar Displayed (getCalendarEventsByRange)
+
+- Appointments => year - 1, year + 1, with slices.
+- Events => Active, Dashboard, no fixed.
 
 ### Alerted Notice
 
 ### Next Stories
 
-- Appointments => today, today + N_DAYS_AHEAD, no slices.
+- Appointments => today, today + DAYS(7), no slices.
 - Events => Active, Dashboard, no fixed.
 
 ### Fixed Stories
 
-- Appointments => ON, today - N_DAYS_AHEAD, no slices.
-- Events => Active, Dashboard, no fixed.
+- Appointments => today - DAYS(3), today + DAYS(14), no slices.
+- Events => Active, Dashboard, with fixed.
 
+### Last Memories
 
-    const appointments$ = this.appointmentSrv.getAppointmentsByRange(DATE_MIN, DATE_MAX, false);
-    const events$ = this.eventSrv.getAllEvents(true, true, true);
-
+- LinkItems => today - DAYS(7), tomorrow, Linktype.REPORT.
 
 ### Last Memories

@@ -32,15 +32,15 @@ export class CalendarComponent implements OnInit {
   entities = [];
   events$: Observable<CalendarEvent[]>;
 
-  readonly today = new Date();
+  readonly NOW = new Date();
   readonly DATE_MIN = new Date(
-      this.today.getFullYear()-1,
-      this.today.getMonth(),
-      this.today.getDay()).toISOString().substr(0, 10);
+      this.NOW.getFullYear()-1,
+      this.NOW.getMonth(),
+      this.NOW.getDay()).toISOString().substring(0, 10);
   readonly DATE_MAX = new Date(
-      this.today.getFullYear()+1,
-      this.today.getMonth(),
-      this.today.getDay()).toISOString().substr(0, 10);
+      this.NOW.getFullYear()+1,
+      this.NOW.getMonth(),
+      this.NOW.getDay()).toISOString().substring(0, 10);
 
   constructor(
     private router: Router,

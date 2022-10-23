@@ -38,10 +38,10 @@ export class EventsAuditComponent implements OnInit, OnDestroy {
   public EVENTS_BACKUP: IEvent[];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   displayedColumns: string[] = [
-      'status', 'timestamp',
+      'status', 'timestampDetailed',
       'image', 'collapsed-info', 'name',
-      'auditCreation', 'auditLastItem', 'nAuditItems',
-      'actions2'
+      'auditCreation', // 'auditLastItem',
+      'actions4'
 ];
   private listOfObservers: Array<Subscription> = [];
   private currentUser: IUser;
@@ -102,11 +102,11 @@ export class EventsAuditComponent implements OnInit, OnDestroy {
     this.router.navigate([`eventos/${event.id}/config`]);
   }
 
-  public deleteItem(event: IEvent): void {
+  public deleteEvent(event: IEvent): void {
       this.eventSrv.deleteEvent(event);
   }
 
-  public deleteForeverItem(event: IEvent): void {
+  public deleteForeverEvent(event: IEvent): void {
     this.logSrv.info(`deleting forever ${event.id}`);
     Swal.fire({
       title: '¿Estás seguro?',

@@ -75,6 +75,11 @@ table {
     padding-right: 30px !important;
 }
 
+.mat-column-timestampDetailed {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
+
 .mat-column-timestamp span {
     color: red;
     display: inline-block;
@@ -186,7 +191,7 @@ td.mat-column-baseDescHorario {
 td.mat-column-types,
 td.mat-column-categories {
     text-align: left;
-    width: 140px;
+    width: 180px;
     font-size: large;
     line-height: 1.9rem;
     padding-left: 5px !important;

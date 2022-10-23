@@ -175,6 +175,7 @@ export class EventService {
   }
 
   // TODO: is it senseless to get start time (for month view)
+  /*
   getAllCalendarEventsAppointments(): Observable<CalendarEvent[]> {
     const events$ = this.getAllEvents(true, false, false, null, null);
     const appointments$ = this.appointmentSrv.getAllAppointments();
@@ -194,6 +195,7 @@ export class EventService {
         // tap(data => console.log('event:  ', JSON.stringify(data))),
     );
   }
+  */
 
   getAllEventsByEntity(entityId: string): Observable<IEvent[]> {
 
@@ -206,6 +208,7 @@ export class EventService {
     return this.eventCollection.valueChanges();
   }
 
+  // -> Called from EntityView
   getEventsByEntityAndRange(dateMinStr: string, dateMaxStr: string, entityId: string): Observable<IEvent[]> {
     const events$ = this.getAllEvents(true, false, false, null, [entityId]);
     const appointments$ = this.appointmentSrv.getAppointmentsByRange(dateMinStr, dateMaxStr, true);

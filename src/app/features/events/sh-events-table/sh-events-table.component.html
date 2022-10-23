@@ -30,7 +30,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="status">
-                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Estado</th>
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>ESTADO</th>
                         <td mat-cell [class]="event.status" class="td-extra-lg" *matCellDef="let event">
                             <div class="inside">{{ event.status | status }}</div>
                         </td>
@@ -39,6 +39,24 @@
                     <ng-container matColumnDef="timestamp">
                         <th mat-header-cell class="td-extra-lg" *matHeaderCellDef mat-sort-header>Actualizado</th>
                         <td mat-cell class="td-extra-lg" *matCellDef="let event">hace {{ event.timestamp }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="timestampDetailed">
+                        <th mat-header-cell class="td-audit" *matHeaderCellDef mat-sort-header>Última Modificación</th>
+                        <td mat-cell class="td-audit" *matCellDef="let event">
+                            <div *ngIf="event.auditLastItem">
+                                <div class="inside"></div>
+                                <div style="font-size: smaller;color:#303030">#️⃣​ {{ event.auditItems?.length }} modificaciones</div>
+                                <div style="font-size: smaller;color:gray">
+                                    🕑 {{ event.auditLastItem?.timestamp | date:'EEEE, d \'de\' MMMM hh:mm' }}
+                                </div>
+                                <div style="font-size: smaller;color:gray">
+                                    🗃️ ​hace {{ event.timestamp }}
+                                </div>
+                                <div style="font-size: smaller;color:#808080">😀 {{ event.auditLastItem?.userName }}</div>
+                                <div style="font-size: smaller;color:#303030">🟡 {{ event.auditLastItem?.description }}</div>
+                            </div>
+                        </td>
                     </ng-container>
 
                     <ng-container matColumnDef="image">
@@ -86,8 +104,22 @@
                         <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}</td>
                     </ng-container>
 
+                    <ng-container matColumnDef="auditCreation">
+                        <th mat-header-cell class="td-audit" *matHeaderCellDef mat-sort-header>Creación</th>
+                        <td mat-cell class="td-audit" *matCellDef="let event">
+                            <div *ngIf="event.auditCreation">
+                                <div class="inside"></div>
+                                <div style="font-size: smaller;color:gray">
+                                    🕑 {{ event.auditCreation?.timestamp | date:'EEEE, d \'de\' MMMM hh:mm' }}
+                                </div>
+                                <div style="font-size: smaller;color:#808080">😀 {{ event.auditCreation?.userName }}</div>
+                                <div style="font-size: smaller;color:#303030">🟢 {{ event.auditCreation?.name }}</div>
+                            </div>
+                        </td>
+                    </ng-container>
+
                     <ng-container matColumnDef="actions1">
-                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones </th>
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef></th>
                         <td mat-cell class="td-extra-lg" *matCellDef="let event">
 
                             <button [disabled]="event.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(event)">
@@ -105,7 +137,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="actions4">
-                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones </th>
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef></th>
                         <td mat-cell class="td-extra-lg" *matCellDef="let event">
 
                             <button [disabled]="event.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(event)">
@@ -120,13 +152,13 @@
                                   </mat-icon>
                               </button>
 
-                            <button [disabled]="event.status === 'DELETED'" mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(event)">
+                            <button [disabled]="( event.status === 'VISIBLE' ) || ( event.status === 'DELETED' )" mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(event)">
                                 <mat-icon class="btn-1" aria-label="Delete">
                                       delete
                                 </mat-icon>
                             </button>
 
-                            <button *ngIf="event.status === 'DELETED'" mat-icon-button matTooltip="Click to Remove" class="iconbutton" (click)="deleteForeverItem(event)">
+                            <button [disabled]="event.status !== 'DELETED'" mat-icon-button matTooltip="Click to Remove" class="iconbutton" (click)="deleteForeverItem(event)">
                                 <mat-icon class="btn-1" aria-label="Delete Forever">cancel</mat-icon>
                             </button>
 

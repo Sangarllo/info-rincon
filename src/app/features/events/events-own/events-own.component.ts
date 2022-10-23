@@ -7,8 +7,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import { formatDistance } from 'date-fns';
-import { es } from 'date-fns/locale';
 
 import { IEvent } from '@models/event';
 import { IUser } from '@models/user';
