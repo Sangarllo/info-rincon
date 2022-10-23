@@ -4,9 +4,12 @@ export const environment = {
   releaseDate: '2022-10-06 23:00',
   baseUrl: 'https://agendarinconera.es',
   setAudit: true,
-  storiesNDaysAhead: 7,
-  storiesNDaysBehind: 7,
-  supportedNDaysBehind: 7,
+  // FrontPage configuration
+  lastMemoriesNDaysBehind: 7,
+  nextStoriesNDaysAhead: 7,
+  fixedStoriesNDaysBehind: 3,
+  fixedStoriesNDaysAhead: 14,
+  // TODO supportedNDaysBehind: 7,
   loginWithLogin: false,
   firebase: {
     apiKey: 'AIzaSyChFHMB9Kj4sEBdPKLRWu-JFVMg7gketuM',

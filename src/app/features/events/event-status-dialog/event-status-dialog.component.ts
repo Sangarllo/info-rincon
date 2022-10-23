@@ -19,7 +19,7 @@ export class EventStatusDialogComponent implements OnInit {
 
   public STATUS: Status[] = Event.STATUS;
   public EVENT_TYPES: EventType[] = Event.EVENT_TYPES;
-  public readonly N_DAYS_AHEAD = environment.storiesNDaysAhead;
+  public readonly N_DAYS_AHEAD = environment.nextStoriesNDaysAhead;
 
   constructor(
     private fb: UntypedFormBuilder,

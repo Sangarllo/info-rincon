@@ -23,7 +23,7 @@ export class SupportedItemsService {
   private SupportedItemsCollection!: AngularFirestoreCollection<ISupportedItem>;
   private supportedItemDoc!: AngularFirestoreDocument<ISupportedItem>;
 
-  private readonly N_DAYS_AHEAD = environment.supportedNDaysBehind;
+  // TODO private readonly N_DAYS_AHEAD = environment.supportedNDaysBehind;
 
   constructor(
     private afs: AngularFirestore,
@@ -33,11 +33,12 @@ export class SupportedItemsService {
   }
 
   // TODO GetAll by BaseType
+  /*
   public getAllSupportedItems(): Observable<ISupportedItem[]> {
 
     const dateMin = new Date();
     dateMin.setDate(dateMin.getDate() - this.N_DAYS_AHEAD);
-    const dateMinStr = dateMin.toISOString().substr(0, 10);
+    const dateMinStr = dateMin.toISOString().substring(0, 10);
 
     this.SupportedItemsCollection = this.afs.collection<ISupportedItem>(
       SUPPORTED_ITEMS_COLLECTION,
@@ -46,7 +47,10 @@ export class SupportedItemsService {
 
     return this.SupportedItemsCollection.valueChanges();
   }
+  */
 
+  // TODO
+  /*
   public getSupportedData(): void {
     const data = [];
     this.getAllSupportedItems()
@@ -63,6 +67,7 @@ export class SupportedItemsService {
         console.log(JSON.stringify(data));
       });
   }
+  */
 
   addSupportedItem(itemSupportedId: string, baseType: BaseType): void {
     const timestamp = this.appointmentSrv.getTimestamp();

@@ -20,8 +20,10 @@ import { LinksItemService } from '@services/links-item.service';
 export class StoriesService {
 
   public stories$: Observable<IEvent[]>;
-  private readonly N_DAYS_AHEAD = environment.storiesNDaysAhead;
-  private readonly N_DAYS_BEHIND = environment.storiesNDaysBehind;
+  private readonly LAST_MEMORIES_N_DAYS_BEHIND = environment.lastMemoriesNDaysBehind;
+  private readonly NEXT_STORIES_N_DAYS_AHEAD = environment.nextStoriesNDaysAhead;
+  private readonly FIXED_STORIES_N_DAYS_AHEAD = environment.fixedStoriesNDaysAhead;
+  private readonly FIXED_STORIES_N_DAYS_BEHIND = environment.fixedStoriesNDaysBehind;
 
   constructor(
     private eventSrv: EventService,
@@ -32,11 +34,11 @@ export class StoriesService {
   getNextStories(): Observable<IBase[]> {
 
     const dateToday = new Date();
-    const dateTodayStr = dateToday.toISOString().substr(0, 10);
+    const dateTodayStr = dateToday.toISOString().substring(0, 10);
 
     const dateMax = new Date();
-    dateMax.setDate(dateMax.getDate() + this.N_DAYS_AHEAD);
-    const dateMaxStr = dateMax.toISOString().substr(0, 10);
+    dateMax.setDate(dateMax.getDate() + this.NEXT_STORIES_N_DAYS_AHEAD);
+    const dateMaxStr = dateMax.toISOString().substring(0, 10);
 
     // console.log(`dateTodayStr: ${dateTodayStr}`);
     // console.log(`dateMaxStr: ${dateMaxStr}`);
@@ -63,15 +65,16 @@ export class StoriesService {
 
   getFixedStories(): Observable<IBase[]> {
 
-    const dateToday = new Date();
+    const NOW = new Date();
     const DATE_MIN = new Date(
-      dateToday.getFullYear()-1,
-      dateToday.getMonth(),
-      dateToday.getDay()).toISOString().substr(0, 10);
+        NOW.getTime() - this.FIXED_STORIES_N_DAYS_BEHIND * 24 * 60 * 60 * 1000
+      ).toISOString().substring(0, 10);
     const DATE_MAX = new Date(
-      dateToday.getFullYear()+1,
-      dateToday.getMonth(),
-      dateToday.getDay()).toISOString().substr(0, 10);
+        NOW.getTime() + this.FIXED_STORIES_N_DAYS_AHEAD * 24 * 60 * 60 * 1000
+      ).toISOString().substring(0, 10);
+
+    // console.log(`DATE_MIN: ${DATE_MIN}`);
+    // console.log(`DATE_MAX: ${DATE_MAX}`);
 
     const appointments$ = this.appointmentSrv.getAppointmentsByRange(DATE_MIN, DATE_MAX, false);
     const events$ = this.eventSrv.getAllEvents(true, true, true);
@@ -97,15 +100,15 @@ export class StoriesService {
   getLastMemories(): Observable<IBase[]> {
 
     const dateToday = new Date();
-    const dateTodayStr = dateToday.toISOString().substr(0, 10);
+    const dateTodayStr = dateToday.toISOString().substring(0, 10);
 
     const dateMin = new Date();
-    dateMin.setDate(dateMin.getDate() - this.N_DAYS_BEHIND);
-    const dateMinStr = dateMin.toISOString().substr(0, 10);
+    dateMin.setDate(dateMin.getDate() - this.LAST_MEMORIES_N_DAYS_BEHIND);
+    const dateMinStr = dateMin.toISOString().substring(0, 10);
 
     const dateMax = new Date();
     dateMax.setDate(dateMax.getDate() + 1);
-    const dateMaxStr = dateMax.toISOString().substr(0, 10);
+    const dateMaxStr = dateMax.toISOString().substring(0, 10);
 
     // console.log(`dateMinStr: ${dateMinStr}`);
     // console.log(`dateTodayStr: ${dateTodayStr}`);
