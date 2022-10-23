@@ -161,6 +161,23 @@ export class ItemSocialService {
       this.userSrv.updateUser(userLogged);
   }
 
+  public async removeFavUser(itemId: string, itemName: string, userLogged: IUser): Promise<void> {
+
+    // console.log(`removeUserFav: ${itemId} -> ${userLogged.uid}`);
+    this.itemSocialDoc = this.afs.doc<IItemSocial>(`${ITEMS_SOCIAL_COLLECTION}/${itemId}`);
+    this.itemSocialDoc.ref.update({
+        usersFavs: firebase.firestore.FieldValue.arrayRemove(userLogged.uid)
+    });
+
+    // -> AuditSocial
+    this.auditSocialSrv.addAuditSocialItem(
+        AuditSocialType.FAV_OFF,
+        itemId, itemName, BaseType.EVENT,
+        userLogged.uid, userLogged.displayName,
+        ''
+    );
+  }
+
   public async addClaps(itemSocial: IItemSocial, baseType: BaseType, itemName: string, userUid: string, userName: string): Promise<void> {
     const itemId = itemSocial.id;
     this.itemSocialDoc = this.afs.doc<IItemSocial>(`${ITEMS_SOCIAL_COLLECTION}/${itemId}`);

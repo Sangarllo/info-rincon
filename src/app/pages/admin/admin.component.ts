@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Observable, Subscription } from 'rxjs';
@@ -18,6 +19,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   constructor(
     public auth: AngularFireAuth,
+    private router: Router,
     private userSrv: UserService
   ) { }
 
@@ -32,5 +34,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.listOfObservers.forEach(sub => sub.unsubscribe());
+  }
+
+  gotoFavourites(): void {
+    this.router.navigate([`eventos/favoritos`]);
   }
 }

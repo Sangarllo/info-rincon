@@ -75,6 +75,11 @@
                         <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.description }}</td>
                     </ng-container>
 
+                    <ng-container matColumnDef="dateIni">
+                        <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header>Inicio</th>
+                        <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}</td>
+                    </ng-container>
+
                     <ng-container matColumnDef="actions1">
                         <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones </th>
                         <td mat-cell class="td-extra-lg" *matCellDef="let event">
@@ -87,9 +92,45 @@
 
                             <button mat-icon-button matTooltip="Click to quit from favourite" class="iconbutton" (click)="removeFav(event)">
                             <mat-icon class="btn-1" aria-label="Favourite off">
-                                gps_off
+                                star
                             </mat-icon>
                         </button>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions4">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Acciones </th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let event">
+
+                            <button [disabled]="event.status !== 'VISIBLE'" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="gotoItem(event)">
+                                  <mat-icon class="btn-1" aria-label="View">
+                                      remove_red_eye
+                                  </mat-icon>
+                              </button>
+
+                            <button mat-icon-button matTooltip="Click to Config" class="iconbutton" (click)="gotoItemConfig(event)">
+                                  <mat-icon class="btn-1" aria-label="Config">
+                                      build_circle
+                                  </mat-icon>
+                              </button>
+
+                            <button [disabled]="event.status === 'DELETED'" mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteItem(event)">
+                                <mat-icon class="btn-1" aria-label="Delete">
+                                      delete
+                                </mat-icon>
+                            </button>
+
+                            <button *ngIf="event.status === 'DELETED'" mat-icon-button matTooltip="Click to Remove" class="iconbutton" (click)="deleteForeverItem(event)">
+                                <mat-icon class="btn-1" aria-label="Delete Forever">cancel</mat-icon>
+                            </button>
+
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="social">
+                        <th mat-header-cell class="td-extra-lg" *matHeaderCellDef>Social</th>
+                        <td mat-cell class="td-extra-lg" *matCellDef="let event">
+                            {{ event.extra }}
                         </td>
                     </ng-container>
 

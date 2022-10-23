@@ -7,8 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { formatDistance } from 'date-fns';
+import { es } from 'date-fns/locale';
 
-import { AuthService } from '@auth/auth.service';
 import { IEvent } from '@models/event';
 import { IUser } from '@models/user';
 import { Status } from '@models/status.enum';
@@ -16,6 +17,7 @@ import { LogService } from '@services/log.service';
 import { EventService } from '@services/events.service';
 import { SpinnerService } from '@services/spinner.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { UserService } from '@services/users.service';
 
 @Component({
   selector: 'app-events-own',
@@ -34,25 +36,24 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
     Status.Blocked,
     Status.Deleted
   ];
-  public uidUser: string;
   public events: IEvent[] = [];
   public EVENTS_BACKUP: IEvent[];
   public dataSource: MatTableDataSource<IEvent> = new MatTableDataSource();
   displayedColumns: string[] = [
-      'status', 'id', 'timestamp',
+      'status', 'timestamp', // 'id',
       'image', 'collapsed-info', 'name', 'categories', 'dateIni',
       'actions4', 'social'
-];
+  ];
+  public userLogged: IUser;
   private listOfObservers: Array<Subscription> = [];
-  private currentUser: IUser;
 
   constructor(
     public auth: AngularFireAuth,
     private router: Router,
-    private authSrv: AuthService,
     private logSrv: LogService,
     private spinnerSvc: SpinnerService,
     private eventSrv: EventService,
+    private userSrv: UserService,
   ) {
     this.spinnerSvc.show();
   }
@@ -61,13 +62,21 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
 
     const subs1$ = this.auth.user
         .subscribe((usr) => {
-            this.uidUser = usr?.uid;
-            const subs2$ = this.eventSrv.getAllEventsWithAppointments(false, true, this.uidUser)
+            const uidUser = usr?.uid;
+
+            const subs2$ = this.userSrv.getOneUser(uidUser)
+                .subscribe( (user: IUser) => {
+                    this.userLogged = user;
+            });
+
+            const subs3$ = this.eventSrv.getAllEventsWithAppointments(false, true, uidUser)
                 .pipe(
                   map(events => events.map(event => {
                     const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
 
-                    event.extra2 = ( event.categories ) ? event.categories.reduce(reducer, '') : '';
+                    // event.timestamp = formatDistance(new Date(event.timestamp), new Date(), {locale: es});
+
+                    event.description = ( event.categories ) ? event.categories.reduce(reducer, '') : '';
                     event.extra = this.formatSocialInfo(event.extra);
                     return { ...event };
                   }))
@@ -82,7 +91,7 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
                 this.dataSource.sort = this.sort;
             });
 
-            this.listOfObservers.push(subs1$, subs2$);
+            this.listOfObservers.push(subs1$, subs2$, subs3$);
       });
   }
 
@@ -102,8 +111,8 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
     this.router.navigate([`eventos/${event.id}/config`]);
   }
 
-  public deleteItem(event: IEvent): void {
-    this.logSrv.info(`deleting ${event.id}`);
+  public deleteEvent(event: IEvent): void {
+    this.logSrv.info(`deleteEvent ${event.id}`);
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás deshacer esta acción de borrado!',
@@ -125,8 +134,8 @@ export class EventsOwnComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteForeverElement(event: IEvent): void {
-    this.logSrv.info(`deleteForeverElement: ${JSON.stringify(event.id)}`);
+  deleteForeverEvent(event: IEvent): void {
+    this.logSrv.info(`deleteForeverEvent: ${JSON.stringify(event.id)}`);
     this.eventSrv.deleteForeverEvent(event);
   }
 

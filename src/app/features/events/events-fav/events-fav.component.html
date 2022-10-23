@@ -45,6 +45,6 @@
         </div>
     </ng-template>
 
-    <sh-events-table [events]="events" [userLogged]="userLogged" [title]="'Tus Eventos Favoritos'" [viewMode]="viewMode" [displayedColumns]="displayedColumns"></sh-events-table>
+    <sh-events-table [events]="events" [title]="'Tus Eventos Favoritos'" [viewMode]="viewMode" [displayedColumns]="displayedColumns" (removeFavEvent)="removeFavEvent($event)"></sh-events-table>
 
 </div>

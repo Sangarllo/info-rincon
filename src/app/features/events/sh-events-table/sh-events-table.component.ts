@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { Component, ViewChild, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -27,7 +27,9 @@ export class ShEventsTableComponent implements OnInit, OnDestroy {
   @Input() viewMode: string;
   @Input() title: string;
   @Input() displayedColumns: string[];
-  @Input() userLogged: IUser;
+  @Output() deleteEvent = new EventEmitter<IEvent>();
+  @Output() deleteForeverEvent = new EventEmitter<IEvent>();
+  @Output() removeFavEvent = new EventEmitter<IEvent>();
 
   constructor(
     private router: Router,
@@ -56,15 +58,23 @@ export class ShEventsTableComponent implements OnInit, OnDestroy {
     this.router.navigate([`entidades/favoritas`]);
   }
 
-  public removeFav(event: IEvent): void {
-    this.userLogged.favEvents = this.userLogged.favEvents.filter( (eventId: string) => eventId !== event.id );
-    this.userSrv.updateUser(this.userLogged);
-  }
-
   ngOnDestroy(): void {
   }
 
   setViewMode(mode: string): void {
     this.viewMode = mode;
+  }
+
+  deleteItem(item: IEvent): void {
+    this.deleteEvent.emit(item);
+  }
+
+  deleteForeverItem(item: IEvent): void {
+    this.deleteForeverEvent.emit(item);
+  }
+
+  // removeFav should be "deleteItem" (in favs)
+  removeFav(item: IEvent): void {
+    this.removeFavEvent.emit(item);
   }
 }
