@@ -44,9 +44,9 @@
 
                                     <mat-form-field appearance="outline">
                                         <mat-label>Tipo</mat-label>
-                                        <mat-select formControlName="eventType" [value]="statusForm.get('eventType')">
-                                            <mat-option *ngFor="let eventType of EVENT_TYPES" [value]="eventType">
-                                                {{ eventType | eventType }}
+                                        <mat-select formControlName="eventMode" [value]="eventForm.controls.eventMode.value">
+                                            <mat-option *ngFor="let eventMode of EVENT_MODES" [value]="eventMode">
+                                                {{ eventMode | eventMode }}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
@@ -68,7 +68,7 @@
 
                             <mat-form-field appearance="outline" *appRole="['ADMIN', 'SUPER']">
                                 <mat-label>URL Sanitizada</mat-label>
-                                <input matInput type="text" disabled formControlName="sanitizedUrl" placeholder="URL Sanitizada">
+                                <input matInput type="text" formControlName="sanitizedUrl" placeholder="URL Sanitizada">
                             </mat-form-field>
 
                             <mat-form-field appearance="outline">

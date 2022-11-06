@@ -10,6 +10,7 @@ import { EventsRoutingModule } from '@features/events/events-routing.module';
 import { EventsComponent } from '@features/events/events.component';
 import { EventsFavComponent } from '@features/events/events-fav/events-fav.component';
 import { EventsAuditComponent } from '@features/events/events-audit/events-audit.component';
+import { EventsEntitiesComponent } from '@features/events/events-entities/events-entities.component';
 import { EventsOwnComponent } from '@features/events/events-own/events-own.component';
 import { EventViewComponent } from '@features/events/event-view/event-view.component';
 import { EventConfigComponent } from '@features/events/event-config/event-config.component';
@@ -42,6 +43,7 @@ import { ShEventsTableComponent } from '@features/events/sh-events-table/sh-even
     EventsAuditComponent,
     EventsAuditSocialComponent,
     EventsFavComponent,
+    EventsEntitiesComponent,
     EventsOwnComponent,
     EventCardComponent,
     EventViewComponent,

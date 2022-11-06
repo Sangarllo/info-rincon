@@ -2,6 +2,7 @@ import { IBase, BaseType } from '@models/base';
 import { Category } from '@models/category.enum';
 import { IPlace } from '@models/place';
 import { EntityRole, ENTITY_ROLES } from '@models/entity-role.enum';
+import { EventMode, EVENT_MODE_DEFAULT } from '@models/event-mode.enum';
 import { ScheduleType, SCHEDULE_TYPES, SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
 
 export interface IEntity {
@@ -16,6 +17,7 @@ export interface IEntity {
   place?: IPlace;
   roleDefault?: EntityRole;
   scheduleTypeDefault?: ScheduleType;
+  eventModeDefault?: EventMode;
   extra?: string; // Extra field to pass info
 }
 
@@ -39,6 +41,7 @@ export class Entity implements IEntity, IBase {
     public place?: IPlace,
     public roleDefault?: EntityRole,
     public scheduleTypeDefault?: ScheduleType,
+    public eventModeDefault?: EventMode,
     public extra?: string,
      ) {
   }
@@ -57,7 +60,8 @@ export class Entity implements IEntity, IBase {
       null,
       null,
       null,
-      SCHEDULE_TYPE_DEFAULT
+      SCHEDULE_TYPE_DEFAULT,
+      EVENT_MODE_DEFAULT,
     );
   }
 }

@@ -130,6 +130,12 @@ td.mat-column-desc {
     padding-right: 5px !important;
 }
 
+.mat-column-event-entities {
+    padding-left: 10px !important;
+    vertical-align: top;
+    text-align: left;
+}
+
 .mat-column-entities {
     text-align: center;
     width: 300px;
@@ -357,5 +363,40 @@ td.mat-column-collapsed-info {
     background-color: #000000;
     * {
         color: lightgray !important;
+    }
+}
+
+.col-list-container {
+    margin-bottom: 2px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    .col-list-item {
+        display: flex;
+        flex-flow: row wrap;
+        .item-image {
+            width: 40px;
+            height: 40px;
+            float: left;
+            margin-right: 10px;
+        }
+        .item-texts {
+            display: flex;
+            flex-flow: column wrap;
+            .item-name {
+                font-size: smaller;
+                font-weight: bolder;
+                text-transform: uppercase;
+                color: black;
+            }
+            .item-desc {
+                font-size: smaller;
+                color: #808080;
+            }
+        }
+        .item-button {
+            order: -1;
+        }
     }
 }

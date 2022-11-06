@@ -1,22 +1,22 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { EventType } from '@models/event-type.enum';
+import { EventMode } from '@models/event-mode.enum';
 
 @Pipe({
-  name: 'eventType'
+  name: 'eventMode'
 })
-export class EventTypePipe implements PipeTransform {
+export class EventModePipe implements PipeTransform {
 
   transform(value: string): string {
     switch(value) {
 
-      case EventType.SIMPLE:
+      case EventMode.SIMPLE:
         return 'EVENTO SENCILLO';
 
-      case EventType.SPLITTED:
+      case EventMode.SPLITTED:
         return 'EVENTO DESGLOSADO';
 
-      case EventType.SUPEREVENT:
+      case EventMode.SUPEREVENT:
         return 'SUPER EVENTO';
 
 

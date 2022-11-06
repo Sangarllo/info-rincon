@@ -1,0 +1,5 @@
+<app-section-header [title]="'Tus propios eventos'" showStatusFilter="true" showViewMode="true" (viewMode)="setViewMode($event)" (statusFiltered)="setStatusFiltered($event)"></app-section-header>
+
+<div class="section-wrapper">
+    <sh-events-table [addEvent]="true" [events]="events" [title]="'Mantenimiento - Entidades de Eventos'" (setMainBase)="setMain($event)" [viewMode]="viewMode" [displayedColumns]="displayedColumns"></sh-events-table>
+</div>

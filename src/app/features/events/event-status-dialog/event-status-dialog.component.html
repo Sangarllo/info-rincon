@@ -25,14 +25,14 @@
     <fieldset class="dialog__section-wrapper">
 
         <legend>
-            Tipo de Evento
+            Modo del Evento
         </legend>
 
         <mat-form-field appearance="outline">
-            <mat-label>Tipo</mat-label>
-            <mat-select formControlName="eventType" [value]="statusForm.get('eventType')">
-                <mat-option *ngFor="let eventType of EVENT_TYPES" [value]="eventType">
-                    {{ eventType | eventType }}
+            <mat-label>Modo</mat-label>
+            <mat-select formControlName="eventMode" [value]="statusForm.get('eventMode')">
+                <mat-option *ngFor="let eventMode of EVENT_MODES" [value]="eventMode">
+                    {{ eventMode | eventMode }}
                 </mat-option>
             </mat-select>
         </mat-form-field>

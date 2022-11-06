@@ -5,7 +5,7 @@ import { Status, STATUS_MODES } from '@models/status.enum';
 import { Category } from '@models/category.enum';
 import { ScheduleType, SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
 import { IEventRef } from '@models/event-ref';
-import { EventType, EVENT_TYPES, EVENT_TYPE_DEFAULT } from '@models/event-type.enum';
+import { EventMode, EVENT_MODES, EVENT_MODE_DEFAULT } from '@models/event-mode.enum';
 
 
 export interface CalendarEventExtended extends CalendarEvent {
@@ -23,7 +23,7 @@ export interface IEvent {
   status: Status;
   focused: boolean;
   fixed: boolean;
-  eventType: EventType;
+  eventMode: EventMode;
   sanitizedUrl?: string;
   categories?: Category[];
   description?: string;
@@ -33,8 +33,11 @@ export interface IEvent {
   shownAsAWhole?: boolean;
   scheduleItems?: IBase[];
   placeItems?: IBase[];
+
+  entityMain?: IBase; // For Showing in Calendar
   entityItems?: IBase[];
   entitiesArray?: string[];
+
   eventsRef?: IEventRef[];
   auditItems?: IBase[];
   userId?: string;
@@ -50,7 +53,7 @@ export class Event implements IEvent, IBase { // IAudit
   public static IMAGE_DEFAULT = 'assets/images/events/default.png';
   public static PATH_URL = 'eventos';
   public static STATUS: Status[] = STATUS_MODES;
-  public static EVENT_TYPES: EventType[] = EVENT_TYPES;
+  public static EVENT_MODES: EventMode[] = EVENT_MODES;
 
   constructor(
     public id: string,
@@ -61,7 +64,7 @@ export class Event implements IEvent, IBase { // IAudit
     public focused: boolean,
     public fixed: boolean,
 
-    public eventType: EventType,
+    public eventMode: EventMode,
     public name: string,
     public imageId: string,
     public imagePath: string,
@@ -76,8 +79,11 @@ export class Event implements IEvent, IBase { // IAudit
     public shownAsAWhole: boolean,
     public scheduleItems: IBase[],
     public placeItems: IBase[],
+
+    public entityMain: IBase,
     public entityItems: IBase[],
     public entitiesArray: string[],
+
     public eventsRef: IEventRef[],
     public auditItems: IBase[],
     public userId: string,
@@ -91,7 +97,7 @@ export class Event implements IEvent, IBase { // IAudit
     return new Event(
       '0',
       true, true, Status.Editing, true, false, // Status
-      EVENT_TYPE_DEFAULT,
+      EVENT_MODE_DEFAULT,
       '', // Name
       Event.IMAGE_DEFAULT, Event.IMAGE_DEFAULT, [ Event.IMAGE_DEFAULT ], // Image
       BaseType.EVENT, // BaseType
@@ -102,7 +108,7 @@ export class Event implements IEvent, IBase { // IAudit
       null, // Timestamp
       null, true, [], // Appointment, HowIsShown, scheduleItems
       [], // Place
-      [], [], // Entity
+      null, [], [], // Entity
       [], // EventsRef
       [],  // Audit
       null, [], // UserId,

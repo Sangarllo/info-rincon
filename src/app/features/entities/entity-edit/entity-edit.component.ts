@@ -10,7 +10,8 @@ import { Entity, IEntity } from '@models/entity';
 import { EVENT_CATEGORIES, Category } from '@models/category.enum';
 import { IBase, Base } from '@models/base';
 import { EntityRole } from '@models/entity-role.enum';
-import { ScheduleType, SCHEDULE_TYPES } from '@models/shedule-type.enum';
+import { EventMode, EVENT_MODES, EVENT_MODE_DEFAULT } from '@models/event-mode.enum';
+import { ScheduleType, SCHEDULE_TYPES, SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
 import { EntityService } from '@services/entities.service';
 import { PlaceService } from '@services/places.service';
 import { LogService } from '@services/log.service';
@@ -32,6 +33,7 @@ export class EntityEditComponent implements OnInit, OnDestroy {
   public CATEGORIES: Category[] = EVENT_CATEGORIES;
   public ROLES: EntityRole[] = Entity.ROLES;
   public SCHEDULE_TYPES: ScheduleType[] = SCHEDULE_TYPES;
+  public EVENT_MODES: EventMode[] = EVENT_MODES;
 
   placeBaseSelected: Base;
   readonly SECTION_BLANK: Base = Base.InitDefault();
@@ -68,6 +70,7 @@ export class EntityEditComponent implements OnInit, OnDestroy {
         place: [this.SECTION_BLANK, [Validators.required]],
         roleDefault: [EntityRole.Default],
         scheduleTypeDefault: [''],
+        eventModeDefault: [''],
       });
 
       this.places$ = this.placeSrv.getAllPlacesBase();
@@ -125,7 +128,8 @@ export class EntityEditComponent implements OnInit, OnDestroy {
         imagePath: this.entity.place.imagePath
       } : this.SECTION_BLANK,
       roleDefault: this.entity.roleDefault,
-      scheduleTypeDefault: this.entity.scheduleTypeDefault,
+      scheduleTypeDefault: this.entity.scheduleTypeDefault ?? SCHEDULE_TYPE_DEFAULT,
+      eventModeDefault: this.entity.eventModeDefault ?? EVENT_MODE_DEFAULT,
     });
 
     // eslint-disable-next-line @typescript-eslint/dot-notation

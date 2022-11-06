@@ -18,14 +18,15 @@ import { CalendarEventExtended, IEvent } from '@models/event';
 import { AuditItem, AuditType } from '@models/audit';
 import { IEntity } from '@models/entity';
 import { ITags } from '@models/tags';
-import { ScheduleType } from '@models/shedule-type.enum';
+import { ScheduleType, SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
 import { Status } from '@models/status.enum';
-import { AppointmentsService } from '@services/appointments.service';
-import { ItemSocialService } from '@services/items-social.service';
-import { PictureService } from '@services/pictures.service';
 import { Place } from '@models/place';
 import { IAppointment } from '@models/appointment';
 import { AppointmentType, COLORS } from '@models/appointment-type';
+import { EventMode, EVENT_MODE_DEFAULT } from '@models/event-mode.enum';
+import { AppointmentsService } from '@services/appointments.service';
+import { ItemSocialService } from '@services/items-social.service';
+import { PictureService } from '@services/pictures.service';
 
 const EVENTS_COLLECTION = 'eventos';
 
@@ -394,13 +395,13 @@ export class EventService {
 
     console.log(`JSON.stringify(newPlaceItem): ${JSON.stringify(newPlaceItem)}`);
 
-
     if ( place ) {
       event.images.push(place.imageId ?? Place.IMAGE_DEFAULT);
     }
 
     const categories = entity.categories;
-    const scheduleType = entity.scheduleTypeDefault ?? ScheduleType.Acto;
+    const scheduleType = entity.scheduleTypeDefault ?? SCHEDULE_TYPE_DEFAULT;
+    const eventMode = entity.eventModeDefault ?? EVENT_MODE_DEFAULT;
 
     this.eventCollection.doc(eventId).set({
         ...event,
@@ -410,7 +411,9 @@ export class EventService {
         name: `Nuevo evento de ${entity.name}`,
         categories,
         scheduleType,
+        eventMode,
         placeItems: newPlaceItem ? [newPlaceItem] : [],
+        entityMain: newEntityItem,
         entityItems: [newEntityItem],
         entitiesArray: [ entity.id ],
         userId: currentUser.uid,

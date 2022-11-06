@@ -5,7 +5,7 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { environment } from '@environments/environment';
 import { Status } from '@models/status.enum';
 import { IEvent, Event } from '@models/event';
-import { EventType, EVENT_TYPE_DEFAULT } from '@models/event-type.enum';
+import { EventMode, EVENT_MODE_DEFAULT } from '@models/event-mode.enum';
 import { SwalMessage, UtilsService } from '@services/utils.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class EventStatusDialogComponent implements OnInit {
   statusForm: UntypedFormGroup;
 
   public STATUS: Status[] = Event.STATUS;
-  public EVENT_TYPES: EventType[] = Event.EVENT_TYPES;
+  public EVENT_MODES: EventMode[] = Event.EVENT_MODES;
   public readonly N_DAYS_AHEAD = environment.nextStoriesNDaysAhead;
 
   constructor(
@@ -35,7 +35,7 @@ export class EventStatusDialogComponent implements OnInit {
       active: [ this.data.active, []],
       focused: [ this.data.focused, []],
       fixed: [ this.data.fixed, []],
-      eventType: [ this.data.eventType || EVENT_TYPE_DEFAULT, []],
+      eventMode: [ this.data.eventMode || EVENT_MODE_DEFAULT, []],
   });
   }
 

@@ -6,8 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { IEvent } from '@models/event';
-import { IUser } from '@models/user';
 import { UserService } from '@services/users.service';
+import { IBase } from '@models/base';
 
 @Component({
   selector: 'sh-events-table',
@@ -31,6 +31,7 @@ export class ShEventsTableComponent implements OnInit, OnDestroy {
   @Output() deleteEvent = new EventEmitter<IEvent>();
   @Output() deleteForeverEvent = new EventEmitter<IEvent>();
   @Output() removeFavEvent = new EventEmitter<IEvent>();
+  @Output() setMainBase = new EventEmitter<{event: IEvent; base: IBase; main: boolean}>();
 
   constructor(
     private router: Router,
@@ -81,5 +82,10 @@ export class ShEventsTableComponent implements OnInit, OnDestroy {
   // removeFav should be "deleteItem" (in favs)
   removeFav(item: IEvent): void {
     this.removeFavEvent.emit(item);
+  }
+
+  setMain(event: IEvent, base: IBase, main: boolean): void {
+    console.log(`setMain: | ${event.name} | ${base.name} | main: ${main}`);
+    this.setMainBase.emit({event, base, main});
   }
 }

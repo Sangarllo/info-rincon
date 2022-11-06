@@ -11,7 +11,7 @@ import { AuthService } from '@auth/auth.service';
 import { Base, IBase, BaseType } from '@models/base';
 import { IAppointment, Appointment, ShowMode } from '@models/appointment';
 import { IEvent, Event } from '@models/event';
-import { EventType } from '@models/event-type.enum';
+import { EventMode } from '@models/event-mode.enum';
 import { EventRef, IEventRef } from '@models/event-ref';
 import { IItemSocial } from '@models/item-social';
 import { IUser } from '@models/user';
@@ -65,8 +65,8 @@ export class EventConfigComponent implements OnInit, OnDestroy {
   public LINK_TYPE_INFO = LinkType.INFO;
   public linksItemReport = [];
   public LINK_TYPE_REPORT = LinkType.REPORT;
-  readonly EVENT_TYPE_SPLITTED = EventType.SPLITTED;
-  readonly EVENT_TYPE_SUPEREVENT = EventType.SUPEREVENT;
+  readonly EVENT_MODE_SPLITTED = EventMode.SPLITTED;
+  readonly EVENT_MODE_SUPEREVENT = EventMode.SUPEREVENT;
   private currentUser: IUser;
   private listOfObservers: Array<Subscription> = [];
 
@@ -208,7 +208,7 @@ export class EventConfigComponent implements OnInit, OnDestroy {
         this.event.active = eventDialog.active;
         this.event.focused = eventDialog.focused;
         this.event.fixed = eventDialog.fixed ?? false;
-        this.event.eventType = eventDialog.eventType ?? EventType.SIMPLE;
+        this.event.eventMode = eventDialog.eventMode ?? EventMode.SIMPLE;
         this.eventSrv.updateEvent(this.event, AuditType.UPDATED_STATUS );
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
@@ -236,8 +236,16 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((newBase: IBase) => {
       if ( newBase ) {
+
         this.event.entityItems.push(newBase);
         this.event.entitiesArray.push(newBase.id);
+
+        console.log(`# Entities: ${this.event.entitiesArray.length} `);
+
+        if ( this.event.entitiesArray.length === 1 ) {
+          this.event.entityMain = newBase;
+        }
+
         this.eventSrv.updateEvent(this.event, AuditType.UPDATED_INFO, 'Añadida entidad');
       } else {
         this.utilsSrv.swalFire(SwalMessage.NO_CHANGES);
@@ -490,6 +498,15 @@ export class EventConfigComponent implements OnInit, OnDestroy {
 
               this.event.entityItems = this.event.entityItems.filter(item => item.id !== itemId);
               this.event.entitiesArray = this.event.entitiesArray.filter(item => itemId !== itemId);
+
+              if ( itemId === this.event.entityMain?.id ) {
+                if ( this.event.entityItems.length === 0 ) {
+                  this.event.entityMain = null;
+                } else {
+                  this.event.entityMain = this.event.entityItems[0];
+                }
+              }
+
               auditMessage = 'Actualizadas sus entidades';
               break;
 

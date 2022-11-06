@@ -52,6 +52,7 @@
                             </mat-select>
                         </mat-form-field>
 
+
                         <mat-form-field class="col-6" appearance="outline">
                             <mat-label>Rol por defecto</mat-label>
 
@@ -76,7 +77,19 @@
                             </mat-select>
 
                             <mat-hint>Tipos posibles ACTO, PARTIDO, CONCIERTO...</mat-hint>
+                        </mat-form-field>
 
+
+                        <mat-form-field class="col-6" appearance="outline">
+                            <mat-label>Tipo de acto por defecto</mat-label>
+
+                            <mat-select formControlName="eventModeDefault" [value]="entityForm.get('eventModeDefault').value">
+                                <mat-option *ngFor="let eventMode of EVENT_MODES" [value]="eventMode">
+                                    {{eventMode}}
+                                </mat-option>
+                            </mat-select>
+
+                            <mat-hint>Tipos posibles ACTO, PARTIDO, CONCIERTO...</mat-hint>
                         </mat-form-field>
 
                     </mat-card-content>

@@ -87,7 +87,7 @@
                                     {{ event.name }}
                                 </div>
                                 <div style="font-size: smaller;color:#808080">
-                                    {{ ( event.eventType ? '⚙️ ​' : '' ) + (event.eventType | eventType) }}
+                                    {{ ( event.eventMode ? '⚙️ ​' : '' ) + (event.eventMode | eventMode) }}
                                 </div>
                                 <div style="font-size: smaller;font-weight:bolder;text-transform:uppercase;color:red">​{{ event.fixed ? '📌 Fijado' : '' }}</div>
                             </div>
@@ -102,6 +102,60 @@
                     <ng-container matColumnDef="dateIni">
                         <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header>Inicio</th>
                         <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.dateIni | date:'EEEE, d \'de\' MMMM' }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="event-entities">
+                        <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header>Entidades</th>
+                        <td mat-cell class="td-extra-md" *matCellDef="let event">
+
+                            <div class="col-list-container" *ngFor="let entity of event.entityItems">
+                                <div class="col-list-item">
+
+                                    <button *ngIf="(event.entityMain?.id !== entity.id); else isMainTemplate" class="item-button" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="setMain(event, entity, true)">
+                                        <mat-icon class="btn-1" aria-label="View">
+                                          radio_button_unchecked
+                                        </mat-icon>
+                                    </button>
+
+                                    <ng-template #isMainTemplate>
+                                        <button class="item-button" mat-icon-button matTooltip="Click to View" class="iconbutton" (click)="setMain(event, entity, false)">
+                                          <mat-icon class="btn-1" aria-label="View">
+                                            radio_button_checked
+                                          </mat-icon>
+                                      </button>
+                                    </ng-template>
+
+
+                                    <img class="item-image" [src]="entity.imagePath" alt="entity.name">
+
+                                    <div class="item-texts">
+                                        <span class="item-name">
+                                            {{entity.name}}
+                                        </span>
+
+                                        <span class="item-desc">
+                                            {{entity.description}}
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="entities-info">
+                        <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header>Entidades JSON</th>
+                        <td mat-cell class="td-extra-md" *matCellDef="let event">
+                            <pre>
+                               {{ event.entityItems | json }}
+                            </pre>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="entity-main">
+                        <th mat-header-cell class="td-extra-md" *matHeaderCellDef mat-sort-header>Principal Entidad</th>
+                        <td mat-cell class="td-extra-md" *matCellDef="let event">{{ event.entityMain ?? 'no hay' }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="auditCreation">

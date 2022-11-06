@@ -7,7 +7,7 @@ import { environment } from '@environments/environment';
 import { AuthService } from '@auth/auth.service';
 import { Base, IBase } from '@models/base';
 import { IEvent, Event } from '@models/event';
-import { EventType } from '@models/event-type.enum';
+import { EventMode } from '@models/event-mode.enum';
 import { IUser } from '@models/user';
 import { IAppointment, Appointment } from '@models/appointment';
 import { AppointmentType } from '@models/appointment-type';
@@ -41,8 +41,8 @@ export class EventViewComponent implements OnInit, OnDestroy {
   public appointmentSubEvent: IAppointment;
 
   readonly SECTION_BLANK: Base = Base.InitDefault();
-  readonly EVENT_TYPE_SPLITTED = EventType.SPLITTED;
-  readonly EVENT_TYPE_SUPEREVENT = EventType.SUPEREVENT;
+  readonly EVENT_MODE_SPLITTED = EventMode.SPLITTED;
+  readonly EVENT_MODE_SUPEREVENT = EventMode.SUPEREVENT;
   private listOfObservers: Array<Subscription> = [];
 
   constructor(

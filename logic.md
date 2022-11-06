@@ -1,16 +1,16 @@
 # Event
 
-## EventType
+## EventMode
 
-### EventType = SIMPLE (sencillo)
+### EventMode = SIMPLE (sencillo)
 
-### EventType = SPLITTED (desglosado)
+### EventMode = SPLITTED (desglosado)
 
 - It has scheduleItems:
 - EventConfig: show as sh-base-items-table.
 - EventView: show as sh-base-items-list
 
-### EventType = SUPEREVENT (Superevento)
+### EventMode = SUPEREVENT (Superevento)
 
 - It has eventsRef:
 - EventConfig: show as sh-events-ref-list.

@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Add
 
 - `feature` Add appointment-type.
-- `feature` Add eventType as simple, splitted or superevent.
+- `feature` Add eventMode as simple, splitted or superevent.
 - `feature` Add delete-forever button for events in events-audit.
 - `feature` Config days for last, next and fixed stories.
 

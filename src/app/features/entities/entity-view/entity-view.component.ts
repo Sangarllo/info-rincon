@@ -15,6 +15,8 @@ import { EventService } from '@services/events.service';
 import { UserService } from '@services/users.service';
 import { IEvent, Event } from '@models/event';
 import { IItemSocial } from '@models/item-social';
+import { EVENT_MODE_DEFAULT } from '@models/event-mode.enum';
+import { SCHEDULE_TYPE_DEFAULT } from '@models/shedule-type.enum';
 
 @Component({
   selector: 'app-entity-view',
@@ -30,6 +32,8 @@ export class EntityViewComponent implements OnInit, OnDestroy {
   public idEntity: string;
   public entityName: string;
   public userLogged: IUser;
+  public SCHEDULE_TYPE_DEFAULT = SCHEDULE_TYPE_DEFAULT;
+  public EVENT_MODE_DEFAULT = EVENT_MODE_DEFAULT;
 
   public BTN_IMG_FAVORITE_ON = 'assets/svg/favorite-on.svg';
   public BTN_IMG_FAVORITE_OFF = 'assets/svg/favorite-off.svg';

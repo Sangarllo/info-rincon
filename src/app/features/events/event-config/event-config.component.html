@@ -98,7 +98,7 @@
 
 
                     <!-- AS SPLITTED (NOT SUPEREVENT), THE EVENT CONTAINS SCHEDULE/SESSIONS -->
-                    <fieldset *ngIf="event.eventType === EVENT_TYPE_SPLITTED" class="event-item-detail type-other">
+                    <fieldset *ngIf="event.eventMode === EVENT_MODE_SPLITTED" class="event-item-detail type-other">
 
                         <legend>¿Cómo? (Sesiones)</legend>
 
@@ -116,7 +116,7 @@
 
 
                     <!-- AS SUPEREVENT, THE EVENT CONTAINS EVENTS-REF -->
-                    <fieldset *ngIf="event.eventType === EVENT_TYPE_SUPEREVENT" class="event-item-detail type-other">
+                    <fieldset *ngIf="event.eventMode === EVENT_MODE_SUPEREVENT" class="event-item-detail type-other">
 
                         <legend>¿Cómo? (Programación)</legend>
 
@@ -149,7 +149,7 @@
 
                         <legend>¿Quiénes?</legend>
 
-                        <sh-base-items-list [baseItems]="event.entityItems" [modeAdmin]="true" (deleteBase)="deleteBase($event)"></sh-base-items-list>
+                        <sh-base-items-list [baseItems]="event.entityItems" [modeAdmin]="true" [baseItemSelected]="event.entityMain?.id" (deleteBase)="deleteBase($event)"></sh-base-items-list>
 
                         <div class="buttons">
                             <button mat-fab class="btn-1" (click)="openEntityDialog()">
