@@ -62,6 +62,7 @@ export class Entity implements IEntity, IBase {
       null,
       SCHEDULE_TYPE_DEFAULT,
       EVENT_MODE_DEFAULT,
+      null,
     );
   }
 }

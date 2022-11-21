@@ -77,6 +77,7 @@ export class EntityService {
 
   addEntity(entity: IEntity): void {
     entity.id = this.afs.createId();
+    console.log(`addEntity service: ${JSON.stringify(entity)}`);
     this.entityCollection.doc(entity.id).set(entity);
   }
 

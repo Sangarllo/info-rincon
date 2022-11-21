@@ -48,7 +48,7 @@ export class EntitiesComponent implements OnInit, OnDestroy {
       map(entities => entities.map(entity => {
         const reducer = (acc, value) => `${acc} ${value.substr(0, value.indexOf(' '))}`;
 
-        entity.description = entity.categories.reduce(reducer, '');
+        entity.description = entity.categories?.reduce(reducer, '');
         return { ...entity };
       }))
     )
