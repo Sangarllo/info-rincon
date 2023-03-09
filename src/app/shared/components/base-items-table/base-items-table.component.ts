@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { Component, Input, OnChanges, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 
 import { SwalMessage, UtilsService } from '@services/utils.service';
 

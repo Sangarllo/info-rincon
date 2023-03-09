@@ -2,7 +2,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Observable, Subscription, timer } from 'rxjs';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 
 import { AuthService } from '@auth/auth.service';
 import { IEvent } from '@models/event';

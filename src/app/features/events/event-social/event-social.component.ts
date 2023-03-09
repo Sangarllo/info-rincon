@@ -2,7 +2,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Observable, Subscription, timer } from 'rxjs';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import Swal from 'sweetalert2';
 
 import { AuthService } from '@auth/auth.service';

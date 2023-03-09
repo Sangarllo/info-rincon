@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { Subscription } from 'rxjs';

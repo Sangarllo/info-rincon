@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, ViewChild, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 
 import { IEvent } from '@models/event';
 import { UserService } from '@services/users.service';

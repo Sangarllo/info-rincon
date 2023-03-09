@@ -2,7 +2,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { Observable, Subscription } from 'rxjs';
 
 import { environment } from '@environments/environment';

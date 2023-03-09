@@ -4,7 +4,7 @@ import { environment } from '@environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from '@shared/material/material.module';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 
 import { EventItemDialogComponent } from './event-item-dialog.component';
 

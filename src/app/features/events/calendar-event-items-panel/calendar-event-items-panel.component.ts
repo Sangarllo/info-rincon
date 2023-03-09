@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 
 import { Subscription } from 'rxjs';
 import { CalendarEvent } from 'angular-calendar';
