@@ -4,20 +4,45 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      // "@app/*": ["./src/app/*"],
-      "@assets/*": ["src/assets/*"],
-      "@base/*": ["src/base/*"],
-      "@pages/*": ["./src/app/pages/*"],
-      "@features/*": ["./src/app/features/*"],
-      "@resolvers/*": ["./src/app/core/resolvers/*"],
-      "@services/*": ["./src/app/core/services/*"],
-      "@models/*": ["src/app/core/models/*"],
-      "@interceptors/*": ["src/app/core/interceptors/*"],
-      "@auth/*": ["src/app/core/auth/*"],
-      "@guards/*": ["src/app/core/guards/*"],
-      "@pipes/*": ["src/app/core/pipes/*"],
-      "@shared/*": ["./src/app/shared/*"],
-      "@environments/*": ["./src/environments/*"],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@base/*": [
+        "src/base/*"
+      ],
+      "@pages/*": [
+        "./src/app/pages/*"
+      ],
+      "@features/*": [
+        "./src/app/features/*"
+      ],
+      "@resolvers/*": [
+        "./src/app/core/resolvers/*"
+      ],
+      "@services/*": [
+        "./src/app/core/services/*"
+      ],
+      "@models/*": [
+        "src/app/core/models/*"
+      ],
+      "@interceptors/*": [
+        "src/app/core/interceptors/*"
+      ],
+      "@auth/*": [
+        "src/app/core/auth/*"
+      ],
+      "@guards/*": [
+        "src/app/core/guards/*"
+      ],
+      "@pipes/*": [
+        "src/app/core/pipes/*"
+      ],
+      "@shared/*": [
+        "./src/app/shared/*"
+      ],
+      "@environments/*": [
+        "./src/environments/*"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -27,12 +52,13 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "skipLibCheck": true,
-    "target": "es2020",
+    "target": "ES2022",
     "module": "es2020",
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false
