@@ -28,7 +28,7 @@ body {
     height: 100%;
     mat-toolbar {
         a {
-            color: $color1;
+            color: $color2;
             border-bottom: 1px dotted $color2;
             text-decoration: none;
         }
@@ -147,9 +147,11 @@ td.mat-cell,
     }
     button.btn-1 {
         background-color: $color1;
+        color: $color2;
     }
     button.btn-2 {
         background-color: $color2;
+        color: $color1;
     }
     button.btn-extra {
         background-color: $colorExtra;
@@ -239,6 +241,7 @@ button:not(.mat-button-disabled) {
 .mat-menu-content {
     width: 260px;
     overflow: hidden !important;
+    background-color: $color2;
 }
 
 .mat-badge-content {

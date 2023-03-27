@@ -1,4 +1,15 @@
 @import './variables';
+
+div#cdk-overlay-0,
+div#cdk-overlay-1,
+div#cdk-overlay-2,
+div#cdk-overlay-3 {
+    border: 1px solid $color1;
+    background-color: $color2;
+    padding: 5px;
+    border-radius: 20px;
+}
+
 .dialog__header {
     span.mat-dialog-title {
         font-size: larger;
