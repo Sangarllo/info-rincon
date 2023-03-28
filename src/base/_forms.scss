@@ -9,13 +9,47 @@ Styles for Forms
     width: 100%;
 }
 
+.mat-form-field-label-wrapper {
+    position: initial !important;
+}
+
+.mat-form-field-label {
+    // display: none !important;
+    font-size: x-small !important;
+    color: $color1;
+    top: -20px;
+    // text-align: right;
+}
+
 .mat-form-field-flex {
-    height: 60px;
+    height: 80px;
+}
+
+.mat-form-field-infix {
+    margin-top: 24px;
+    input,
+    mat-select, 
+    .mat-select {
+        margin: 10px;
+    }
 }
 
 .mat-slide-toggle {
     margin: 20px;
     font-size: large;
+}
+
+.mat-form-field-hint-wrapper {
+    margin-top: -25px;
+    z-index: 1;
+    position: fixed;
+    width: 100%;
+}
+
+mat-hint {
+    color: $colorHelp;
+    font-size: smaller;
+    margin-top: 0px;
 }
 
 mat-card.item-edit {
@@ -31,8 +65,8 @@ mat-card.item-edit {
         background-color: white;
         color: black;
         fieldset {
-            padding: 20px;
-            margin-bottom: 30px;
+            // padding: 20px;
+            // margin-bottom: 30px;
             color: black;
             &.form-info-fields {
                 border: 1px solid #0C0033;

@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.4] - After fiestas-2022
+
+- `arch` Update Angular Core from 14 to 15.
+- `arch` Update Angular CDK + Material from 14 to 15.
+- `style` Fix Styles after Angular Material 15.
+
 ## [2.0.3] - After fiestas-2022
 
 ### Add
