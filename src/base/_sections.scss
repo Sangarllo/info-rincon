@@ -129,4 +129,10 @@ body {
             }
         }
     }
+    .mat-dialog-container,
+    .mat-select-panel-wrap {
+        border: 1px solid $color1;
+        background-color: white;
+        border-radius: 5px;
+    }
 }
