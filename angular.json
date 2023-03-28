@@ -142,8 +142,7 @@
             "functionsRuntimeOptions": {
               "memory": "1GB",
               "timeoutSeconds": 540
-            },
-            "ssr": false
+            }
           }
         },
         "server": {
@@ -170,39 +169,6 @@
               "sourceMap": false,
               "extractLicenses": true,
               "vendorChunk": false
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
-          "configurations": {
-            "development": {
-              "browserTarget": "info-rincon:build:development",
-              "serverTarget": "info-rincon:server:development"
-            },
-            "production": {
-              "browserTarget": "info-rincon:build:production",
-              "serverTarget": "info-rincon:server:production"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "prerender": {
-          "builder": "@nguniversal/builders:prerender",
-          "options": {
-            "routes": [
-              "/"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "info-rincon:build:production",
-              "serverTarget": "info-rincon:server:production"
-            },
-            "development": {
-              "browserTarget": "info-rincon:build:development",
-              "serverTarget": "info-rincon:server:development"
             }
           },
           "defaultConfiguration": "production"
