@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Remove temporally angular universal.
 - Remove ngx-seo, event-resolver, and share options facebook and twitter.
+- Remove eslint and dependencies.
 
 
 ## [2.0.3] - After fiestas-2022
