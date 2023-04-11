@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `arch` Update Angular CDK + Material from 14 to 15.
 - `style` Fix Styles after Angular Material 15.
 
+
+### Fix
+
+- `style` Add style for tab-active.
+
 ### Delete
 
 - Remove temporally angular universal.

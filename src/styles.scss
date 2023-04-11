@@ -75,6 +75,12 @@ body {
     }
 }
 
+.mat-tab-label-active {
+    background-color: $color2;
+    border: 2px solid $color1;
+    border-radius: 25px;
+}
+
 @media screen and (max-width: $maxMobileWidth) {
     .share-button {
         width: 40px;
