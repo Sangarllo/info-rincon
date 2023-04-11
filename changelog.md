@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.4] - After fiestas-2022
+## [2.0.4] - Angular 15 and version to display
 
 ### Update
 
@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Delete
 
 - Remove temporally angular universal.
+- Remove ngx-seo, event-resolver, and share options facebook and twitter.
 
 
 ## [2.0.3] - After fiestas-2022

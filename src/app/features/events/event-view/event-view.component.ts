@@ -139,16 +139,16 @@ export class EventViewComponent implements OnInit, OnDestroy {
     const SHARED_URL = `${baseUrl}${routerUrl}`;
 
     switch ( social ) {
-      case 'twitter':
-        const titleTwitter = `${this.event.name} | Rincón de Soto`;
-        // eslint-disable-next-line max-len
-        window.open('http://twitter.com/share?url='+encodeURIComponent(SHARED_URL)+'&text='+encodeURIComponent(titleTwitter), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
-        break;
+      // case 'twitter':
+      //   const titleTwitter = `${this.event.name} | Rincón de Soto`;
+      //   // eslint-disable-next-line max-len
+      //   window.open('http://twitter.com/share?url='+encodeURIComponent(SHARED_URL)+'&text='+encodeURIComponent(titleTwitter), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+      //   break;
 
-      case 'facebook':
-        // eslint-disable-next-line max-len
-        window.open('http://facebook.com/sharer/sharer.php?u='+encodeURIComponent(SHARED_URL), '', 'left=0,top=0,width=650,height=420,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
-        break;
+      // case 'facebook':
+      //   // eslint-disable-next-line max-len
+      //   window.open('http://facebook.com/sharer/sharer.php?u='+encodeURIComponent(SHARED_URL), '', 'left=0,top=0,width=650,height=420,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+      //   break;
 
       case 'whatsapp':
         const titleWhatsapp = `${this.event.name}`;

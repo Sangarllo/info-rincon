@@ -31,7 +31,6 @@
     "date-fns": "^2.29.3",
     "firebase": "^9.6.11",
     "globalthis": "^1.0.2",
-    "ngx-seo": "^5.3.0",
     "rxfire": "^6.0.3",
     "rxjs": "^7.5.5",
     "sweetalert2": "^11.4.37",

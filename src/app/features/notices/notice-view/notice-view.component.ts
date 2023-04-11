@@ -142,14 +142,14 @@ export class NoticeViewComponent implements OnInit, OnDestroy {
     const SHARED_URL = `${baseUrl}${routerUrl}`;
 
     switch ( social ) {
-      case 'twitter':
-        const title = `${this.notice.name} | Rincón de Soto`;
-        window.open('http://twitter.com/share?url='+encodeURIComponent(SHARED_URL)+'&text='+encodeURIComponent(title), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
-        break;
+      // case 'twitter':
+      //   const title = `${this.notice.name} | Rincón de Soto`;
+      //   window.open('http://twitter.com/share?url='+encodeURIComponent(SHARED_URL)+'&text='+encodeURIComponent(title), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+      //   break;
 
-      case 'facebook':
-        window.open('http://facebook.com/sharer/sharer.php?u='+encodeURIComponent(SHARED_URL), '', 'left=0,top=0,width=650,height=420,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
-        break;
+      // case 'facebook':
+      //   window.open('http://facebook.com/sharer/sharer.php?u='+encodeURIComponent(SHARED_URL), '', 'left=0,top=0,width=650,height=420,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+      //   break;
 
       case 'whatsapp':
         const titleWhatsapp = `${this.notice.name}`;
